@@ -1,1159 +1,163 @@
 <!DOCTYPE html>
-
 <html lang="en" data-theme="light">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" />
-    <title>NSEYIN INCORPORATED</title>
-    <meta name="description" content="Request essential products and services: POS/Data, Phone Accessories, Foodstuff, Hygiene, Clean Water, Logistics, Solar, Laundry & more." />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" />
+  <title>NSEYIN — Where Every Need Meets A Solution</title>
+  <meta name="description" content="NSEYIN is a multifaceted company offering essential products and services locally and abroad: Logistics, Health, Housing, Food Export, Tech, Wellness, Creative & more." />
 
-<!-- External Stylesheets -->
+  <!-- External Stylesheets -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+  <!-- Google Fonts: Syne (Display) + DM Sans (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" />
 
-<!-- Local Stylesheet -->
+  <!-- Local Stylesheet -->
+  <link rel="stylesheet" type="text/css" href="css/styles.css" />
 
-<link rel="stylesheet" type="text/css" href="css/styles.css" />
+  <meta name="theme-color" content="#0B3D2E" />
+</head>
 
-<!-- Google Fonts -->
+<body>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" />
-
-<link rel="manifest" href="manifest.webmanifest" />
-<meta name="theme-color" content="#0078ff" />
-
-  </head>
-
-
-  <body>
   <!-- ===== READING PROGRESS BAR ===== -->
-
   <div id="readingProgressBar"></div>
 
   <!-- ===== TOAST NOTIFICATION ===== -->
-
   <div id="toastNotification" class="toast-notification" role="alert" aria-live="polite">
     <span id="toastMessage"></span>
   </div>
 
+  <div class="app-container text-capitalize sidebar-hidden">
 
-<div class="app-container text-capitalize sidebar-hidden">
-
-
-  <!-- ===== SIDEBAR LEFT ===== -->
-
-  <div class="sidebar-left">
-    <div class="sidebar-header custom-sidebar-gradient">CUDFIRM</div>
-
-
-<!-- Sidebar Tab Filter Search -->
-<div class="sidebar-tab-filter">
-  <input type="text" id="sidebarTabSearch" placeholder="Filter tabs..." autocomplete="off" />
-</div>
-
-<div class="sidebar-tabs">
-  <button class="tab-button whitenho" onclick="openTab(event, 'tab1')" data-tab-name="home">Home</button>
-  <button class="tab-button whitenho" onclick="openTab(event, 'tab2')" data-tab-name="courses">Courses</button>
-  <button class="tab-button whitenho" onclick="openTab(event, 'tab3')" data-tab-name="services">Services</button>
-  <button class="tab-button whitenho" onclick="openTab(event, 'tab4')" data-tab-name="people">People</button>
-  <button class="tab-button whitenho" onclick="openTab(event, 'tab5')" data-tab-name="events">Events</button>
-  <button class="tab-button whitenho" onclick="openTab(event, 'tab6')" data-tab-name="templates">Templates</button>
-  <button class="tab-button whitenho" onclick="openTab(event, 'tab7')" data-tab-name="grants">Grants</button>
-  <button class="tab-button whitenho" onclick="openTab(event, 'tab8')" data-tab-name="blank page">Blank Page</button>
-  <button class="tab-button whitenho" onclick="openTab(event, 'tab9')" data-tab-name="our stars">Our Stars</button>
-  <button class="tab-button whitenho" onclick="openTab(event, 'tab10')" data-tab-name="love notes">Love Notes</button>
-  <button class="tab-button whitenho" onclick="openTab(event, 'tab11')" data-tab-name="local guides">Local Guides</button>
-  <button class="tab-button whitenho" onclick="openTab(event, 'tab12')" data-tab-name="spark">Spark <span class="tab-badge badge-hot">🔥</span></button>
-  <button class="tab-button whitenho" onclick="openTab(event, 'tab13')" data-tab-name="discover">Discover</button>
-  <button class="tab-button whitenho" onclick="openTab(event, 'tab14')" data-tab-name="deals">Deals <span class="tab-badge badge-new">NEW</span></button>
-  <button class="tab-button whitenho" onclick="openTab(event, 'tab15')" data-tab-name="community">Community</button>
-  <button class="tab-button whitenho" onclick="openTab(event, 'tab16')" data-tab-name="submit a tip">Submit A Tip</button>
-  <button class="tab-button whitenho" onclick="openTab(event, 'tab17')" data-tab-name="tab 17">Tab 17</button>
-  <button class="tab-button whitenho" onclick="openTab(event, 'tab18')" data-tab-name="tab 18">Tab 18</button>
-  <button class="tab-button whitenho" onclick="openTab(event, 'tab19')" data-tab-name="tab 19">Tab 19</button>
-  <button class="tab-button whitenho" onclick="openTab(event, 'tab20')" data-tab-name="tab 20">Tab 20</button>
-</div>
-<div class="sidebar-footer custom-sidebar-gradient">© 2025</div>
-
-
-  </div>
-
-  <!-- ===== CONTENT AREA ===== -->
-
-  <div class="content-area">
-
-<!-- Header -->
-
-<div class="content-header top-0 shadow-lg custom-header-gradient custom-z-40">
-
-  <!-- Breadcrumb trail -->
-
-  <div id="breadcrumbTrail" class="breadcrumb-trail"></div>
-
-  <div id="searchContainer" class="search-container">
-    <svg id="searchIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="11" cy="11" r="8"></circle>
-      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-    </svg>
-    <input type="text" id="searchInput" placeholder="Search page..." />
-    <button id="clearSearchBtn" class="clear-search-btn" aria-label="Clear search">&times;</button>
-  </div>
-
-  <!-- Dark Mode Toggle -->
-
-  <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
-    <i class="bi bi-moon-fill" id="darkModeIcon"></i>
-  </button>
-
-  <div class="dropdown mobile-widgets">
-    <button class="btn btn-sm btn-outline-light text-bg-dark dropdown-toggle dropdown-toggle-center" type="button" data-bs-toggle="dropdown">MENU</button>
-    <ul class="dropdown-menu dropdown-menu-end">
-      <li><button class="dropdown-item btn btn-sm" onclick="openTab(event, 'connect-content')">Contact Us</button></li>
-      <li><a class="dropdown-item btn btn-sm" href="services.html">Services</a></li>
-      <li><a class="dropdown-item btn btn-sm" href="about.html">About Us</a></li>
-    </ul>
-  </div>
-</div>
-
-<!-- Main Content -->
-
-<main class="content-main">
-
-  <!-- TAB 1: Home -->
-
-  <section id="tab1" class="tab-content view">
-    <h6 class="sticky-top">
-      <span class="text-bg-primary btn-sm badge" type="button">NSEYIN INC.</span>
-    </h6>
-    <hr class="my-2 w-25" />
-    <div class="content">
-
-
-  <!-- Our Partners -->
-  <div class="card card-section mb-2">
-    <div class="card-header d-flex justify-content-between align-items-center fw-bold">
-      <h2>Partners & Sponsors</h2>
-      <a href="#" class="btn btn-sm btn-success see-all">View All</a>
-    </div>
-    <hr class="mt-2 mb-3" />
-    <div class="card-content row icon-grid row-cols-3 row-cols-sm-5 row-cols-md-6 row-cols-lg-8 row-cols-xl-11 quote0">
-      <div class="grid-item">
-<img src="img/cudfirm001.png" data-link="#" alt="CUDFIRM GROUP" class="img-fluid"/>
-        <span class="text">CUDFIRM</span>
+    <!-- ===== SIDEBAR LEFT ===== -->
+    <div class="sidebar-left">
+      <div class="sidebar-header custom-sidebar-gradient">
+        <span class="sidebar-brand">NSEYIN</span>
       </div>
-
-      <div class="grid-item">
-        <img src="img/kingmaster.png" data-link="#" alt="The King Master" class="img-fluid" />
-        <span class="text">King Master</span>
+      <div class="sidebar-tab-filter">
+        <input type="text" id="sidebarTabSearch" placeholder="Filter tabs..." autocomplete="off" />
       </div>
-      <div class="grid-item">
-        <img src="img/cfi.png" data-link="#" alt="CFi" class="img-fluid" />
-        <span class="text">Item 3</span>
+      <div class="sidebar-tabs" id="sidebarTabsContainer">
+        <!-- Rendered by JS -->
       </div>
-      <div class="grid-item">
-        <img src="img/cfi.png" data-link="#" alt="CFi" class="img-fluid" />
-        <span class="text">Item 1a</span>
-      </div>
-      <div class="grid-item">
-        <img src="img/cfi.png" data-link="#" alt="CFi" class="img-fluid" />
-        <span class="text">Item 2a</span>
-      </div>
-      <div class="grid-item">
-        <img src="img/cfi.png" data-link="#" alt="CFi" class="img-fluid" />
-        <span class="text">Item 3a</span>
-      </div>
+      <div class="sidebar-footer custom-sidebar-gradient">© 2025 NSEYIN</div>
     </div>
-  </div>
 
-  <!-- Trending - Freemium -->
-  <div class="card card-section mb-2">
-    <div class="card-header d-flex justify-content-between align-items-center fw-bold">
-      <h2>Trending BRANDS</h2>
-      <a href="#" class="btn btn-sm btn-primary see-all">View All</a>
-    </div>
-    <hr class="mt-2 mb-3" />
-    <div class="card-content row icon-grid row-cols-3 row-cols-sm-5 row-cols-md-6 row-cols-lg-8 row-cols-xl-11 quote0">
-      <div class="grid-item">
-        <img src="img/cudfirm002.png" data-link="#" alt="CUDFIRM GROUP" class="img-fluid" />
-        <span class="text">CUDFIRM</span>
-      </div>
-      <div class="grid-item">
-        <img src="img/lobah.jpeg" data-link="https://www.instagram.com/lobahvisuals" alt="LOBAH VISUALS" class="img-fluid" />
-        <span class="text">Lobah Visuals</span>
-      </div>
-      <div class="grid-item">
-        <img src="img/elichi.png" data-link="https://www.instagram.com/elichiskitchen" alt="ELICHI" class="img-fluid" />
-        <span class="text">Elichi Catering</span>
-      </div>
-      <div class="grid-item">
-        <img src="img/damkaz.png" data-link="#" alt="DAMKAZ" class="img-fluid" />
-        <span class="text">Damkaz Couture</span>
-      </div>
-      <div class="grid-item">
-        <img src="img/elistiches.png" data-link="#" alt="ELI STITCHES" class="img-fluid" />
-        <span class="text">Eli's Stitches</span>
-      </div>
-      <div class="grid-item">
-        <img src="img/cfi.png" data-link="#" alt="CFi" class="img-fluid" />
-        <span class="text">Item 9</span>
-      </div>
-      <div class="grid-item">
-        <img src="img/cfi.png" data-link="#" alt="CFi" class="img-fluid" />
-        <span class="text">Item 10</span>
-      </div>
-      <div class="grid-item">
-        <img src="img/cfi.png" data-link="#" alt="CFi" class="img-fluid" />
-        <span class="text">Item 11</span>
-      </div>
-      <div class="grid-item">
-        <img src="img/cfi.png" data-link="#" alt="CFi" class="img-fluid" />
-        <span class="text">Item 12</span>
-      </div>
-      <div class="grid-item">
-        <img src="img/cfi.png" data-link="#" alt="CFi" class="img-fluid" />
-        <span class="text">Item 13</span>
-      </div>
-      <div class="grid-item">
-        <img src="img/cfi.png" data-link="#" alt="CFi" class="img-fluid" />
-        <span class="text">Item 14</span>
-      </div>
-      <div class="grid-item">
-        <img src="img/cfi.png" data-link="#" alt="CFi" class="img-fluid" />
-        <span class="text">Item 15</span>
-      </div>
-    </div>
-  </div>
+    <!-- ===== CONTENT AREA ===== -->
+    <div class="content-area">
 
-  <!-- Trending - Paid -->
-  <div class="card card-section">
-    <div class="card-header d-flex justify-content-between align-items-center fw-bold">
-      <h2>Our Services</h2>
-      <a href="#" class="btn btn-sm btn-warning see-all">View All</a>
-    </div>
-    <hr class="mt-2 mb-3" />
-    <div class="card-content row icon-grid row-cols-3 row-cols-sm-5 row-cols-md-6 row-cols-lg-8 row-cols-xl-11 quote0">
-      <div class="grid-item">
-        <img src="img/nseyin.png" data-link="pages/massage.html" alt="Massage & Wellness" class="img-fluid" />
-        <span class="text">Massage & Wellness</span>
-      </div>
-      <div class="grid-item">
-        <img src="img/adire.jpg" data-link="#" alt="TIE-DYE ADIRE" class="img-fluid" />
-        <span class="text">ADIRE</span>
-      </div>
-      <div class="grid-item">
-        <img src="img/hosting.jpg" data-link="#" alt="WEB HOSTING" class="img-fluid" />
-        <span class="text">WEB HOSTING</span>
-      </div>
-      <div class="grid-item">
-        <img src="img/real-auto.jpg" data-link="#" alt="REAL ESTATE & AUTOMOBILE" class="img-fluid" />
-        <span class="text">Estates & Autos</span>
-      </div>
-      <div class="grid-item">
-        <img src="img/shop.jpeg" data-link="#" alt="SHOP WITH US" class="img-fluid" />
-        <span class="text">SHOP</span>
-      </div>
-      <div class="grid-item">
-        <img src="img/creative.jpeg" data-link="#" alt="CREATIVE MINDS" class="img-fluid" />
-        <span class="text">CREATIVE</span>
-      </div>
-      <div class="grid-item">
-        <img src="img/cfi.png" data-link="#" alt="CFi" class="img-fluid" />
-        <span class="text">Item 7</span>
-      </div>
-      <div class="grid-item">
-        <img src="img/cfi.png" data-link="#" alt="CFi" class="img-fluid" />
-        <span class="text">Item 8</span>
-      </div>
-      <div class="grid-item">
-        <img src="img/cfi.png" data-link="#" alt="CFi" class="img-fluid" />
-        <span class="text">Item 9</span>
-      </div>
-    </div>
-  </div>
+      <!-- Header -->
+      <div class="content-header top-0 shadow-lg custom-header-gradient custom-z-40">
+        <div id="breadcrumbTrail" class="breadcrumb-trail"></div>
 
-</div>
-<hr class="my-2" />
-<footer class="footin" id="footin">
-  <div class="icons-social">
-    <article class="list-social" id="sm">
-      <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="icons-social__i fab fa-codepen"></i></a></span>
-      <span class="icons-social__item"><a class="icons-social__link" href="https://instagram.com/cudfirm"><i class="icons-social__i fab fa-instagram"></i></a></span>
-      <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="icons-social__i fab fa-facebook"></i></a></span>
-      <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="icons-social__i fab fa-twitter"></i></a></span>
-      <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="icons-social__i fab fa-linkedin"></i></a></span>
-    </article>
-  </div>
-</footer>
-
-
-  </section>
-
-  <!-- TAB 2: Courses -->
-
-  <section id="tab2" class="tab-content view">
-    <div class="p-2">
-      <h4>Courses</h4>
-      <p class="card card-body alert alert-secondary">
-        Use our interactive courses for project planing, knowledge onboarding, and ladder to stay relevant and valuable in time and seasons
-      </p>
-    </div>
-    <hr />
-    <div class="custom-max-w-4xl mx-auto">
-      <section>
-        <h2 class="fw-bold text-uppercase mb-4 custom-text-sm custom-tracking-widest custom-text-gray-500">Classic Regular</h2>
-        <div id="classic-regular-icons-container" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3"></div>
-      </section>
-      <section class="custom-mt-12">
-        <h2 class="fw-bold text-uppercase mb-4 custom-text-sm custom-tracking-widest custom-text-gray-500">Classic Light</h2>
-        <div id="classic-light-icons-container" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3"></div>
-      </section>
-    </div>
-  </section>
-
-  <!-- TAB 3: Services -->
-
-  <section id="tab3" class="tab-content view">
-    <div class="tab3-search-bar">
-      <div class="search-container-view">
-        <i class="bi bi-search"></i>
-        <input type="text" class="view-search" data-target-list="#serviceList" placeholder="Search Services..." />
-      </div>
-    </div>
-    <div id="serviceList" class="view-content list-container">
-
-
-  <div class="list-item" data-search-text=" Services Withdrawal Deposit VTU Data Airtime Transfer Cash mtn glo airtel 9mobile etisalat POS opay palmpay kuda moniepoint atm remita paystack flutterwave quickteller remitano bitcoin usdt usdc ethereum tron dogecoin litecoin dash paypal payoneer worldremit westernunion moneygram bank credit debit loan investment">
-    <div class="item-icon">POS, Airtime &amp; Data</div>
-    <div class="item-content d-flex justify-content-between align-items-center">
-      <h6>Withdrawal, Deposit, Transfer, VTU, Data &amp; Airtime</h6>
-      <a href="" class="btn btn-success">Request</a>
-    </div>
-    <p>Company &middot; <span class="tag green">#Low Cost</span> <span class="tag gray">#Finance</span></p>
-  </div>
-
-  <div class="list-item" data-search-text="phone chargers cables cord powerbank earpods earpiece screenguard mobile accessories headset bluetooth tripod selfie stick memory card phone case back cover tempered glass phonestand ring holder">
-    <div class="item-icon">Phone Accessories</div>
-    <div class="item-content d-flex justify-content-between align-items-center">
-      <h6>Chargers, Cables/Cords, Power Banks, earpods, Screen guards</h6>
-      <a href="" class="btn btn-success">Request</a>
-    </div>
-    <p>Company &middot; <span class="tag green">#tech</span> <span class="tag orange">#retail</span></p>
-  </div>
-
-  <div class="list-item" data-search-text="Rice beans garri yam oil vegetable meat fish foodstuff snacks drink beverage grocery onion pepper tomato salt sugar bread egg milk potato chicken egusi spaghetti noodle cabbage carrot cucumber lettuce frozen food garlic turkey sausage pork beef ginger snail plantain corn coconut palmwine">
-    <div class="item-icon">Foodstuff Retail</div>
-    <div class="item-content d-flex justify-content-between align-items-center">
-      <h6>Rice beans garri yam oil etc.. - neatly repacked &amp; delivered</h6>
-      <a href="" class="btn btn-success">Request</a>
-    </div>
-    <p>Company &middot; <span class="tag green">#Food</span> <span class="tag gray">#Family</span></p>
-  </div>
-
-  <div class="list-item" data-search-text="Soap detergent bleach disinfectant handwash sanitizer tissue paper toilet roll pad panty liner diaper baby wipes feminine hygiene body spray perfume cologne lotion cream powder deodorant toothpaste toothbrush mouthwash shaving cream razor hair oil hair cream hair gel hairbrush comb sanitary napkin pampars">
-    <div class="item-icon">Hygiene Product</div>
-    <div class="item-content d-flex justify-content-between align-items-center">
-      <h6>Soap, Detergent, Sanitary Pads, Tissues etc -- Retail or Bulk</h6>
-      <a href="" class="btn btn-success">Request</a>
-    </div>
-    <p>Company &middot; <span class="tag green">#Cleaning</span> <span class="tag orange">#FMCG</span></p>
-  </div>
-
-  <div class="list-item" data-search-text="Sachet/Bottled water pure water distribution & branded event water aquafina nestle eva ragolis cway sanco sylco">
-    <div class="item-icon">Clean Water Supply</div>
-    <div class="item-content d-flex justify-content-between align-items-center">
-      <h6>Sachet/Bottled Water Distribution &amp; Branded Event Water</h6>
-      <a href="" class="btn btn-success">Request</a>
-    </div>
-    <p>Company &middot; <span class="tag green">#Events</span> <span class="tag gray">#Hydration</span></p>
-  </div>
-
-  <div class="list-item" data-search-text="Fast Delivery Uber Bolt inDrive Logistics shipment shipping parcel package courier import export clearance custom-duty freight forwarding clearing trucking haulage cargo transportation Overview DHL FedEx UPS GIG Logistics Jumia J&T Express Konga Courier ABC Transport Peace Mass Transit">
-    <div class="item-icon">Logistics &amp; Delivery</div>
-    <div class="item-content d-flex justify-content-between align-items-center">
-      <h6>Fast, Affordable Last-mile Delivery For People &amp; Businesses.</h6>
-      <a href="" class="btn btn-success">Request</a>
-    </div>
-    <p>Company &middot; <span class="tag green">#Import</span> <span class="tag gray">#Export</span> <span class="tag orange">#Courier</span></p>
-  </div>
-
-  <div class="list-item" data-search-text="Solar panel inverter battery installation maintenance repair assessment clean energy renewable energy off-grid on-grid hybrid power solution solar water heater light street light security light solar flood light solar garden light charger generator cooker solar fan tv fridge freezer pump air conditioner inverter battery system kit solar solution">
-    <div class="item-icon">Solar &amp; Inverters</div>
-    <div class="item-content d-flex justify-content-between align-items-center">
-      <h6>Assess, Install &amp; Maintain Clean Power Solutons.</h6>
-      <a href="" class="btn btn-success">Request</a>
-    </div>
-    <p>Company &middot; <span class="tag green">#Energy</span> <span class="tag gray">#Renewable</span></p>
-  </div>
-
-  <div class="list-item" data-search-text="Laundry cleaning drycleaning ironing wash & fold home office commercial cleaning deep carpet upholstery curtain mattress sanitization disinfection pest control">
-    <div class="item-icon">Laundry &amp; Cleaning</div>
-    <div class="item-content d-flex justify-content-between align-items-center">
-      <h6>Doorstep Pickup, Spotless laundry, Home &amp; Office Cleaning.</h6>
-      <a href="" class="btn btn-success">Request</a>
-    </div>
-    <p>Company &middot; <span class="tag green">#Home</span> <span class="tag gray">#Office</span> <span class="tag orange">#Commercial</span></p>
-  </div>
-
-  <div class="list-item" data-search-text="healthcare pharmacy medication delivery telehealth doctor appointment booking online consultation prescription refill over-the-counter otc vitamins supplements wellness products medical supplies first aid equipment chronic disease management mental health support covid-19 testing vaccination health insurance nutrition counseling fitness programs weight management smoking cessation treatment medicine free-test optician gynacologist dentist pediatrician dermatologist general practitioner surgery ambulance emergency">
-    <div class="item-icon">Pharmacy / Health Support</div>
-    <div class="item-content d-flex justify-content-between align-items-center">
-      <h6>Licenced Medication Delivery &amp; Telehealth Bookings.</h6>
-      <a href="" class="btn btn-success">Request</a>
-    </div>
-    <p>Company &middot; <span class="tag green">#Healthcare</span> <span class="tag gray">#Pharmacy</span></p>
-  </div>
-
-  <div class="list-item" data-search-text="Housing Real-Estate Mini-flats co-living room apartment short-let long-let rent buy sell maintainance renovation interior decor furniture moving services relocation rental agency estate agent property management legal documentation inspection self-contain room and parlour duplex">
-    <div class="item-icon">Affordable Housing Links</div>
-    <div class="item-content d-flex justify-content-between align-items-center">
-      <h6>Verified Rentals, Mini-Flats, Co-Living &amp; Maintainance</h6>
-      <a href="" class="btn btn-success">Request</a>
-    </div>
-    <p>Company &middot; <span class="tag green">#Shelter</span> <span class="tag orange">#Real-Estate</span></p>
-  </div>
-
-  <div class="list-item" data-search-text="Food Processing Export garri dried fish cashew tiger nut chin chin plantain chips puff puff meat pie sausage roll chin chin almond oil palm goundnut corn flour starch honey jam jelly marmalade peanut butter">
-    <div class="item-icon">Food Processing &amp; Export</div>
-    <div class="item-content d-flex justify-content-between align-items-center">
-      <h6>Packaged Food (Garri, Dried Fish, Cashew etc) -- B2B/B2C</h6>
-      <a href="" class="btn btn-success">Request</a>
-    </div>
-    <p>Company &middot; <span class="tag green">#Agro</span> <span class="tag gray">#Food</span></p>
-  </div>
-
-  <div class="list-item" data-search-text="massage body massage relaxation therapy stress relief deep tissue swedish sports massage home service doorstep wellness spa happy ending">
-    <div class="item-icon">Massage &amp; Wellness</div>
-    <div class="item-content d-flex justify-content-between align-items-center">
-      <h6>Professional Body Massage — Home, Office &amp; Doorstep Sessions</h6>
-      <a href="" class="btn btn-success">View Offers</a>
-    </div>
-    <p>CUDFIRM &middot; <span class="tag green">#Relaxation</span> <span class="tag gray">#Wellness</span> <span class="tag orange">#Home-Service</span></p>
-  </div>
-
-  <div class="list-item" data-search-text="NIN slip card conversion national identity card NIMC nin number nin card national identification number document identity verification">
-    <div class="item-icon">NIN Slip to Card</div>
-    <div class="item-content d-flex justify-content-between align-items-center">
-      <h6>NIN Slip to Physical ID Card Conversion — Fast &amp; Reliable</h6>
-      <a href="" class="btn btn-success">Request</a>
-    </div>
-    <p>CUDFIRM &middot; <span class="tag green">#Identity</span> <span class="tag gray">#Documentation</span> <span class="tag orange">#Government</span></p>
-  </div>
-
-  <div class="list-item" data-search-text="suggest submit new  services service vacancy">
-    <div class="item-icon">Got A Service?</div>
-    <div class="item-content d-flex justify-content-between align-items-center">
-      <h6>Know A Service That Should Be Listed Here?</h6>
-      <a href="" class="btn btn-primary">Suggest</a>
-    </div>
-    <p>Community &middot; <span class="tag green">#Suggest</span> <span class="tag orange">#Submit</span></p>
-  </div>
-
-</div>
-
-
-  </section>
-
-  <!-- TAB 4: People -->
-
-  <section id="tab4" class="tab-content view">
-    <div class="p-2">
-      <h4>Meet with Minds</h4>
-      <p class="card card-body alert alert-secondary">
-        A filterable list of available minds is coming soon. Track funding opportunities by industry, amount, and deadline.
-      </p>
-    </div>
-    <!-- PEOPLE -->
-    <div class="card">
-      <div class="card-content text-center py-5">
-        <i class="bi bi-tools" style="font-size: 4rem; color: var(--color-primary-new)"></i>
-        <h3 class="fw-bold mt-4">The People's Page Is Under Construction</h3>
-        <p class="col-md-8 fs-5 mx-auto mt-3 text-secondary">
-          We're busy hammering and sawing away to build you an awesome online experience. Please pardon our digital dust!
-          <br /><br />
-          In the meantime, we'd love to hear your ideas. What features and content would you like to see here? Your suggestions are the blueprints for our success..
-        </p>
-        <hr class="my-4" />
-        <p>Thanks for stopping by!</p>
-        <button class="btn btn-primary btn-lg" onclick="openTab(event, 'connect-content')">Let's Talk</button>
-      </div>
-    </div>
-    <!-- /PEOPLE -->
-  </section>
-
-  <!-- TAB 5: Events -->
-
-  <section id="tab5" class="tab-content view">
-    <div class="p-2">
-      <h4>Events</h4>
-      <p class="card card-body alert alert-secondary">
-        Discover upcoming webinars, workshops, and networking events in your industry.
-      </p>
-    </div>
-    <!-- EVENTS -->
-    <div class="card">
-      <div class="card-content text-center py-5">
-        <i class="bi bi-tools" style="font-size: 4rem; color: var(--color-primary-new)"></i>
-        <h3 class="fw-bold mt-4">The Events Page Is Under Construction</h3>
-        <p class="col-md-8 fs-5 mx-auto mt-3 text-secondary">
-          We're busy hammering and sawing away to build you an awesome online experience. Please pardon our digital dust!
-          <br /><br />
-          In the meantime, we'd love to hear your ideas. What features and content would you like to see here? Your suggestions are the blueprints for our success..
-        </p>
-        <hr class="my-4" />
-        <p>Thanks for stopping by!</p>
-        <button class="btn btn-primary btn-lg" onclick="openTab(event, 'connect-content')">Let's Talk</button>
-      </div>
-    </div>
-    <!-- /EVENTS -->
-  </section>
-
-  <!-- TAB 6: Templates -->
-
-  <section id="tab6" class="tab-content view">
-    <div class="p-2">
-      <h4>Templates</h4>
-      <p class="card card-body alert alert-secondary">
-        Get access to professionally designed templates for resumes, proposals, invoices, and more.
-      </p>
-    </div>
-  </section>
-
-  <!-- TAB 7: Grants -->
-
-  <section id="tab7" class="tab-content view">
-    <div class="p-2">
-      <h4>Grants</h4>
-      <p class="card card-body alert alert-secondary">
-        Browse our library of guides and tutorials to learn new skills and grow your business.
-      </p>
-    </div>
-  </section>
-
-  <!-- TAB 8: Blank Page -->
-
-  <section id="tab8" class="tab-content view">
-    <div class="p-2">
-      <h4>Blank Page</h4>
-      <p class="card card-body alert alert-secondary">
-        Content for this page is currently being worked on. <br/>You may likely page for the space. To Upload your own branded items, market, gigs, portfolio and more.
-      </p>
-    </div>
-  </section>
-
-  <!-- TAB 9: Our Stars -->
-
-  <section id="tab9" class="tab-content view">
-    <div class="p-2">
-      <h4>Our Stars</h4>
-      <p class="card card-body alert alert-secondary">
-        Featuring success stories and case studies from members of the Cudfirm community.
-      </p>
-    </div>
-  </section>
-
-  <!-- TAB 10: Love Notes -->
-
-  <section id="tab10" class="tab-content view">
-    <div class="p-2">
-      <h4>Love Notes</h4>
-      <p class="card card-body alert alert-secondary">
-        A "wall of love" showcasing testimonials and positive feedback from our valued users.
-      </p>
-    </div>
-  </section>
-
-  <!-- TAB 11: Local Guides -->
-
-  <section id="tab11" class="tab-content view">
-    <div class="p-2">
-      <h4>Local Guides</h4>
-      <p class="card card-body alert alert-secondary">
-        Explore guides and resources tailored to your local area and community.
-      </p>
-    </div>
-  </section>
-
-  <!-- TAB 12: Spark -->
-
-  <section id="tab12" class="tab-content view">
-    <div class="p-2">
-      <h4>Spark</h4>
-      <p class="card card-body alert alert-secondary">
-        Get inspired with creative sparks, ideas, and motivation for your next project.
-      </p>
-    </div>
-  </section>
-
-  <!-- TAB 13: Discover -->
-
-  <section id="tab13" class="tab-content view">
-    <div class="p-2">
-      <h4>Discover</h4>
-      <p class="card card-body alert alert-secondary">
-        Discover new tools, resources, and people to help you succeed.
-      </p>
-    </div>
-  </section>
-
-  <!-- TAB 14: Deals -->
-
-  <section id="tab14" class="tab-content view">
-    <div class="p-2">
-      <h4>Deals</h4>
-      <p class="card card-body alert alert-secondary">
-        Find exclusive deals and discounts on software, tools, and services.
-      </p>
-    </div>
-  </section>
-
-  <!-- TAB 15: Community -->
-
-  <section id="tab15" class="tab-content view">
-    <div class="view-header">
-      <h1 class="view-title">Community Feed</h1>
-    </div>
-    <div class="view-content">
-      <div class="card">
-        <div class="card-header">
-          <h4>Welcome to the new Cudfirm Hub!</h4>
+        <div id="searchContainer" class="search-container">
+          <svg id="searchIcon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="searchInput" placeholder="Search NSEYIN..." />
+          <button id="clearSearchBtn" class="clear-search-btn" aria-label="Clear search">&times;</button>
         </div>
-        <div class="card-content">
-          <p>We're thrilled to launch our redesigned platform. Explore the new features and let us know what you think in the comments!</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- TAB 16: Submit A Tip -->
-
-  <section id="tab16" class="tab-content view">
-    <div class="p-2">
-      <h4>Submit A Tip</h4>
-      <p class="card card-body alert alert-secondary">
-        Have a news tip, a story idea, or a resource to share? Submit it here.
-      </p>
-    </div>
-  </section>
-
-  <!-- TAB 17 -->
-
-  <section id="tab17" class="tab-content view">
-    <div class="p-2">
-      <h4>Tab 17</h4>
-      <p class="card card-body alert alert-secondary">
-        This is a placeholder for the "Tab 17" tab content. You can add any components you like here, such as text, images, or more complex layouts.
-      </p>
-    </div>
-  </section>
-
-  <!-- TAB 18 -->
-
-  <section id="tab18" class="tab-content view">
-    <div class="p-2">
-      <h4>Tab 18</h4>
-      <p class="card card-body alert alert-secondary">
-        This is a placeholder for the "Tab 18" tab content. You can add any components you like here, such as text, images, or more complex layouts.
-      </p>
-    </div>
-  </section>
-
-  <!-- TAB 19 -->
-
-  <section id="tab19" class="tab-content view">
-    <div class="p-2">
-      <h4>Tab 19</h4>
-      <p class="card card-body alert alert-secondary">
-        This is a placeholder for the "Tab 19" tab content. You can add any components you like here, such as text, images, or more complex layouts.
-      </p>
-    </div>
-  </section>
-
-  <!-- TAB 20 -->
-
-  <section id="tab20" class="tab-content view">
-    <div class="p-2">
-      <h4>Tab 20</h4>
-      <p class="card card-body alert alert-secondary">
-        This is a placeholder for the "Tab 20" tab content. You can add any components you like here, such as text, images, or more complex layouts.
-      </p>
-    </div>
-  </section>
-
-  <!-- BLOG CONTENT -->
-
-  <section id="blog-content" class="view tab-content p-4 p-sm-5">
-    <div class="view-header">
-      <h1 class="view-title">CUDBLOG</h1>
-      <div class="header-actions d-flex flex-wrap justify-content-evenly align-items-baseline">
-        <span class="btn btn-primary"><i class="bi bi-plus-circle-fill"></i> Tech News</span>
-        <span class="btn btn-primary"><i class="bi bi-plus-circle-fill"></i> Events</span>
-        <span class="btn btn-primary"><i class="bi bi-plus-circle-fill"></i> Link</span>
-        <span class="btn btn-primary"><i class="bi bi-plus-circle-fill"></i> Link</span>
-        <span class="btn btn-primary"><i class="bi bi-plus-circle-fill"></i> Link</span>
-        <span class="btn btn-primary"><i class="bi bi-plus-circle-fill"></i> Link</span>
-      </div>
-    </div>
-    <div class="view-content">
-      <div class="grid-container">
-
-
-    <div class="card stat-card">
-      <div class="card-icon stat-icon-courses">
-        <i class="bi bi-mortarboard-fill"></i>
-      </div>
-      <div class="card-content">
-        <h3>12 New Courses</h3>
-        <p>Available this week in tech &amp; design.</p>
-      </div>
-    </div>
-
-    <div class="card stat-card">
-      <div class="card-icon stat-icon-providers">
-        <i class="bi bi-people-fill"></i>
-      </div>
-      <div class="card-content">
-        <h3>2,450</h3>
-        <p>Skill, Products &amp; Service Providers.</p>
-      </div>
-    </div>
-
-    <div class="card stat-card">
-      <div class="card-icon stat-icon-gigs">
-        <i class="bi bi-briefcase-fill"></i>
-      </div>
-      <div class="card-content">
-        <h3>48 Active Gigs</h3>
-        <p>Remote and local opportunities.</p>
-      </div>
-    </div>
-
-    <!-- Live Online Indicator Widget -->
-    <div class="card stat-card live-indicator-card">
-      <div class="card-icon stat-icon-live">
-        <i class="bi bi-broadcast"></i>
-      </div>
-      <div class="card-content">
-        <h3 id="liveUserCount">— Online</h3>
-        <p>People active right now <span class="live-dot"></span></p>
-      </div>
-    </div>
-
-    <div class="card full-width">
-      <div class="card-header">
-        <h2>Quick Actions</h2>
-      </div>
-      <div class="card-content quick-actions">
-        <button class="action-item" onclick="openTab(event, 'tab2')">
-          <i class="bi bi-compass"></i><span>Explore Courses</span>
+        <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <i class="bi bi-moon-fill" id="darkModeIcon"></i>
         </button>
-        <button class="action-item" onclick="openTab(event, 'tab3')">
-          <i class="bi bi-search"></i><span>Find a Gig</span>
-        </button>
-        <button class="action-item" onclick="openTab(event, 'tab15')">
-          <i class="bi bi-chat-dots"></i><span>Join Discussion</span>
-        </button>
-        <button class="action-item" onclick="openTab(event, 'tab6')">
-          <i class="bi bi-download"></i><span>Get Templates</span>
-        </button>
+
+        <div class="dropdown mobile-widgets">
+          <button class="btn btn-sm btn-outline-light text-bg-dark dropdown-toggle dropdown-toggle-center" type="button" data-bs-toggle="dropdown">MENU</button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><button class="dropdown-item btn btn-sm" onclick="openTab(event, 'connect-content')">Contact Us</button></li>
+            <li><button class="dropdown-item btn btn-sm" onclick="openTab(event, 'tab3')">Services</button></li>
+            <li><button class="dropdown-item btn btn-sm" onclick="openTab(event, 'tab2')">Sectors</button></li>
+            <li><button class="dropdown-item btn btn-sm" onclick="openTab(event, 'explore-content')">Explore</button></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Main Content — all sections rendered by JS -->
+      <main class="content-main" id="contentMain"></main>
+
+      <!-- Back to Top -->
+      <button id="backToTopBtn" class="back-to-top" aria-label="Back to top" title="Back to top">
+        <i class="bi bi-arrow-up-short"></i>
+      </button>
+
+    </div>
+
+    <!-- ===== FOOTER NAV ===== -->
+    <nav class="footer-nav" id="footerNav">
+      <!-- Rendered by JS -->
+    </nav>
+
+    <!-- ===== SIDEBAR RIGHT ===== -->
+    <div class="sidebar-right row view">
+      <div class="widget col custom-slate-gradient d-flex flex-column align-items-center justify-content-center gap-1">
+        <span class="live-dot"></span>
+        <strong id="sidebarLiveCount">—</strong>
+        <small style="font-size:10px;color:#fff;letter-spacing:.5px;">Online Now</small>
+      </div>
+      <div class="widget col custom-slate-gradient d-flex flex-column align-items-center justify-content-center gap-1">
+        <i class="bi bi-geo-alt-fill" style="color:#C8922A;font-size:1.1rem;"></i>
+        <small style="font-size:9px;color:#fff;text-align:center;">Lagos,<br>Nigeria</small>
+      </div>
+      <div class="widget col custom-slate-gradient d-flex flex-column align-items-center justify-content-center gap-1">
+        <i class="bi bi-patch-check-fill" style="color:#C8922A;font-size:1.1rem;"></i>
+        <small style="font-size:9px;color:#fff;text-align:center;">Verified<br>Brand</small>
       </div>
     </div>
 
   </div>
-</div>
 
-
-  </section>
-
-  <!-- EXPLORE CONTENT (Portfolio) -->
-
-  <section id="explore-content" class="tab-content view">
-    <div class="explore-search-bar">
-      <div class="explore-search-inner">
-        <div class="position-relative flex-grow-1">
-          <i class="fa fa-search position-absolute text-secondary" style="left: 12px; top: 50%; transform: translateY(-50%)"></i>
-          <input type="text" class="view-search form-control ps-5" data-target-list="#explore-list" placeholder="Search Porfolio..." />
-        </div>
-        <button id="disclaimer-toggle-btn" class="d-lg-none btn btn-light flex-shrink-0">Info</button>
-      </div>
-    </div>
-    <div id="main-content-wrapper" class="row gx-lg-5 p-3 p-sm-4">
-      <div class="col-lg-8 col-xl-9">
-        <div id="service-grid" class="row row-cols-2 row-cols-sm-3 row-cols-lg-3 row-cols-xl-4 g-3 g-md-4"></div>
-      </div>
-      <aside class="d-none d-lg-block col-lg-4 col-xl-3">
-        <div id="disclaimer-content-desktop" class="bg-white p-4 rounded-3 shadow-sm sticky-top" style="top: 80px">
-          <h3 class="h5 fw-bold text-primary border-bottom pb-2 mb-3">Disclaimer!</h3>
-          <div class="disclaimer-text">
-            <p>
-              <strong>PLEASE NOTE:</strong> We are not directly connected to any of the sites without a registered trademark. We are not liable for their change of terms and functions.
-            </p>
-            <p>
-              If you discover a new site that others may benefit from, please let us know and we will add it to the list, after a thorough research.
-            </p>
-            <p>
-              <span class="text-teal-dark-1 fw-semibold">GREEN</span> sites are registered with physical addresses.
-              <span class="text-danger fw-semibold">®</span> sites are registered with physical addresses.
-            </p>
-          </div>
-          <!-- Old service search kept for explore tab compatibility -->
-          <div class="position-relative mt-3">
-            <i class="bi bi-search position-absolute text-secondary" style="left:10px;top:50%;transform:translateY(-50%)"></i>
-            <input type="text" id="serviceSearchInput" placeholder="Search Portfolio..." class="form-control ps-5" />
-            <button id="clearServiceSearchBtn" class="btn-close position-absolute end-0 top-50 translate-middle-y me-2 d-none"></button>
-          </div>
-        </div>
-      </aside>
-    </div>
-  </section>
-
-  <!-- FORUM CONTENT -->
-
-  <section id="forum-content" class="tab-content view p-1 m-0">
-    <div class="stories mt-0 mr-0 mb-2 ml-0 rounded-2">
-      <div class="_story scroll-container d-flex overflow-auto p-0 m-0" style="white-space: nowrap">
-        <div class="s-card0 _myStory sticky-card" id="stcard">
-          <span class="s-name"></span>
-        </div>
-        <div class="s-card">
-          <img src="img/cudfirm.png" alt="CUDFIRM" />
-          <div class="s-name"><span class="badge text-bg-info">CUDFIRM</span></div>
-        </div>
-        <div class="s-card">
-          <img src="img/nseyin.png" alt="NAEYIN" />
-          <div class="s-name"><span class="badge text-bg-info">NSEYIN</span></div>
-        </div>
-        <div class="s-card">
-          <img src="img/adire.jpg" alt="ADIRE" />
-          <div class="s-name"><span class="badge text-bg-info">ADIRE</span></div>
-        </div>
-        <div class="s-card">
-          <img src="img/lobah.jpeg" alt="LOBAH" />
-          <div class="s-name"><span class="badge text-bg-info">LOBAH</span></div>
-        </div>
-        <div class="s-card">
-          <img src="img/cudfirm.png" alt="BRAND 5" />
-          <div class="s-name"><span class="badge text-bg-info">BRAND 5</span></div>
-        </div>
-        <div class="s-card">
-          <img src="img/cudfirm.png" alt="BRAND 6" />
-          <div class="s-name"><span class="badge text-bg-info">BRAND 6</span></div>
-        </div>
-        <div class="s-card">
-          <img src="img/cudfirm.png" alt="BRAND 7" />
-          <div class="s-name"><span class="badge text-bg-info">BRAND 7</span></div>
-        </div>
-        <div class="s-card">
-          <img src="img/cudfirm.png" alt="BRAND 8" />
-          <div class="s-name"><span class="badge text-bg-info">BRAND 8</span></div>
-        </div>
-        <div class="s-card">
-          <img src="img/cudfirm.png" alt="BRAND 9" />
-          <div class="s-name"><span class="badge text-bg-info">BRAND 9</span></div>
-        </div>
-        <div class="s-card">
-          <img src="img/cudfirm.png" alt="BRAND 10" />
-          <div class="s-name"><span class="badge text-bg-info">BRAND 10</span></div>
-        </div>
-        <div class="s-card">
-          <img src="img/cudfirm.png" alt="BRAND 11" />
-          <div class="s-name"><span class="badge text-bg-info">BRAND 11</span></div>
-        </div>
-        <div class="s-card">
-          <img src="img/cudfirm.png" alt="BRAND 12" />
-          <div class="s-name"><span class="badge text-bg-info">BRAND 12</span></div>
-        </div>
-      </div>
-    </div>
-    <hr class="my-2" />
-
-<!-- IMAGE IN THE FORUM TOP -->
-    <div class="bbgpc whitenho contact">
-
-<!-- FORUM HERO BANNER -->
-<div class="forum-hero-banner">
-  <img
-    src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/Velocity%20Blog%20Website%20Template/office-spaces-that-actually-inspire-creativity.jpg"
-    alt="Forum Banner"
-    class="forum-hero-img"
-  />
-  <div class="forum-hero-overlay">
-    <div class="forum-hero-text">
-      <span class="forum-hero-eyebrow">Welcome to the</span>
-      <h2 class="forum-hero-title">CUDFIRM Forum</h2>
-      <p class="forum-hero-sub">Ideas · Discussions · Community</p>
-    </div>
-    <div class="forum-hero-pills">
-      <span class="forum-pill"><i class="bi bi-fire"></i> Trending</span>
-      <span class="forum-pill"><i class="bi bi-people-fill"></i> 2.4K Members</span>
-      <span class="forum-pill"><i class="bi bi-chat-dots-fill"></i> Live Now</span>
-    </div>
-  </div>
-  <div class="forum-hero-shimmer"></div>
-</div>
-<hr class="my-2" />
-
-</div>
-    <hr class="my-2" />
-
-    <div class="row icon-grid row-cols-4 row-cols-sm-7 row-cols-md-9 row-cols-lg-10 whitenho contact bbgpc display-flex justify-content-center align-items-center">
-      <div class="col icon-item">
-        <div class="icon-box"><i class="bi bi-bar-chart"></i></div>
-        <div class="icon-label">Forum 1</div>
-      </div>
-      <div class="col icon-item">
-        <div class="icon-box"><i class="bi bi-bar-chart-fill"></i></div>
-        <div class="icon-label">Forum 2</div>
-      </div>
-      <div class="col icon-item">
-        <div class="icon-box"><i class="bi bi-bar-chart-line"></i></div>
-        <div class="icon-label">Forum 3</div>
-      </div>
-      <div class="col icon-item">
-        <div class="icon-box"><i class="bi bi-bar-chart-line-fill"></i></div>
-        <div class="icon-label">Forum 4</div>
-      </div>
-      <div class="col icon-item">
-        <div class="icon-box"><i class="bi bi-bar-chart-steps"></i></div>
-        <div class="icon-label">Forum 5</div>
-      </div>
-      <div class="col icon-item">
-        <div class="icon-box"><i class="bi bi-basket"></i></div>
-        <div class="icon-label">Forum 6</div>
-      </div>
-      <div class="col icon-item">
-        <div class="icon-box"><i class="bi bi-basket-fill"></i></div>
-        <div class="icon-label">Forum 7</div>
-      </div>
-      <div class="col icon-item">
-        <div class="icon-box"><i class="bi bi-basket2"></i></div>
-        <div class="icon-label">Forum 8</div>
-      </div>
-      <div class="col icon-item">
-        <div class="icon-box"><i class="bi bi-basket2-fill"></i></div>
-        <div class="icon-label">Forum 9</div>
-      </div>
-      <div class="col icon-item">
-        <div class="icon-box"><i class="bi bi-basket3"></i></div>
-        <div class="icon-label">Forum 10</div>
-      </div>
-      <div class="col icon-item">
-        <div class="icon-box"><i class="bi bi-basket3-fill"></i></div>
-        <div class="icon-label">Forum 11</div>
-      </div>
-      <div class="col icon-item">
-        <div class="icon-box"><i class="bi bi-battery"></i></div>
-        <div class="icon-label">Forum 12</div>
-      </div>
-      <div class="col icon-item">
-        <div class="icon-box"><i class="bi bi-123"></i></div>
-        <div class="icon-label">Forum 13</div>
-      </div>
-      <div class="col icon-item">
-        <div class="icon-box"><i class="bi bi-2-circle"></i></div>
-        <div class="icon-label">Forum 14</div>
-      </div>
-      <div class="col icon-item">
-        <div class="icon-box"><i class="bi bi-0-square"></i></div>
-        <div class="icon-label">Forum 15</div>
-      </div>
-    </div>
-    <hr class="my-2" />
-    <footer class="footin" id="footin">
-      <div class="icons-social">
-        <article class="list-social" id="sm">
-          <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="icons-social__i fab fa-codepen"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="icons-social__i fab fa-instagram"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="icons-social__i fab fa-facebook"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="icons-social__i fab fa-twitter"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="icons-social__i fab fa-linkedin"></i></a></span>
-        </article>
-      </div>
-    </footer>
-  </section>
-
-  <!-- CONNECT CONTENT -->
-
-  <section id="connect-content" class="tab-content view p-4 p-sm-5">
-    <h6 class="sticky-top">
-      <span class="badge text-bg-primary">Connect</span>
-    </h6>
-    <hr class="my-2 w-25" />
-    <div class="contact-container">
-      <h4 class="contact-header">How can we make your day?</h4>
-      <p class="contact-subheader text-center">
-        Looking for a specific service, want to share some feedback, or have a brilliant idea? Send it our way and we'll get right on it.
-      </p>
-      <div class="row g-4">
-        <div class="col-12 col-lg-8">
-<form id="contactForm" onsubmit="handleEmailSubmit(event)">
-  <div class="mb-3">
-    <label for="contactName" class="form-label">Your Name</label>
-    <input type="text" class="form-control" id="contactName" name="name" required />
-  </div>
-  <div class="mb-3">
-    <label for="contactInfo" class="form-label">Your Email or Phone Number</label>
-    <input type="text" class="form-control" id="contactInfo" name="contact_info" required />
-  </div>
-  <div class="mb-3">
-    <label for="contactMessage" class="form-label">What do you need?</label>
-    <textarea class="form-control" id="contactMessage" name="message" rows="5" required></textarea>
-  </div>
-<div class="d-flex flex-column gap-2">
-    <div class="d-flex gap-2">
-        <button type="button" class="btn btn-primary w-100" onclick="sendToAdmin()">
-            <i class="bi bi-send-check"></i> Send To Admin
-        </button>
-        <button type="button" class="btn btn-whatsapp w-100" onclick="sendToWhatsAppWithForm()">
-            <i class="bi bi-whatsapp"></i> Send To WhatsApp
-        </button>
-    </div>
-    <button type="button" class="btn btn-info w-100" onclick="sendToEmail()">
-        <i class="bi bi-envelope"></i> Send To Email
-    </button>
-</div>
-</form>
-        </div>
-        <div class="col-12 col-lg-4">
-          <div class="quick-contact-box">
-            <h5>Quick Contact</h5>
-            <p>For immediate assistance.</p>
-            <a href="tel:+2349056317709" class="btn btn-warning w-100"><i class="bi bi-telephone"></i> Call Us Directly</a>
-            <!-- Copy phone number -->
-            <button class="btn btn-outline-secondary w-100 mt-2" onclick="copyToClipboard('+2349056317709', 'Phone number copied!')">
-              <i class="bi bi-clipboard"></i> Copy Number
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <footer class="footin" id="footin">
-      <div class="icons-social">
-        <article class="list-social" id="sm">
-          <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="icons-social__i fab fa-codepen"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="icons-social__i fab fa-instagram"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="icons-social__i fab fa-facebook"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="icons-social__i fab fa-twitter"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="icons-social__i fab fa-linkedin"></i></a></span>
-        </article>
-      </div>
-    </footer>
-  </section>
-
-</main>
-
-<!-- Back to Top Button -->
-
-<button id="backToTopBtn" class="back-to-top" aria-label="Back to top" title="Back to top">
-  <i class="bi bi-arrow-up-short"></i>
-</button>
-
-  </div>
-
-  <!-- ===== FOOTER NAV ===== -->
-
-  <nav class="footer-nav">
-    <div class="nav-item" onclick="openTab(event, 'blog-content')" data-index="0">
-      <i class="bi bi-list"></i>
-      <span class="nav-label">Blog</span>
-    </div>
-    <div class="nav-item" onclick="openTab(event, 'explore-content')" data-index="1">
-      <i class="bi bi-door-open"></i>
-      <span class="nav-label">Explore</span>
-    </div>
-    <div class="nav-item" onclick="openTab(event, 'tab1')" data-index="2">
-      <i class="bi bi-house"></i>
-      <span class="nav-label">Home</span>
-    </div>
-    <div class="nav-item" onclick="openTab(event, 'forum-content')" data-index="3">
-      <i class="bi bi-collection"></i>
-      <span class="nav-label">Forum</span>
-    </div>
-    <div class="nav-item" onclick="openTab(event, 'connect-content')" data-index="4">
-      <i class="bi bi-person-check"></i>
-      <span class="nav-label">Connect</span>
-    </div>
-  </nav>
-
-  <!-- ===== SIDEBAR RIGHT ===== -->
-
-  <div class="sidebar-right row view">
-    <!-- Live Online Count Widget -->
-    <div class="widget col custom-slate-gradient d-flex flex-column align-items-center justify-content-center gap-1">
-      <span class="live-dot"></span>
-      <strong id="sidebarLiveCount">—</strong>
-      <small style="font-size:10px;color:#fff;">Online Now</small>
-    </div>
-    <div class="widget col custom-slate-gradient">Widget 2</div>
-    <div class="widget col custom-slate-gradient">Widget 3</div>
-  </div>
-
-</div>
-
-<!-- ===== CUSTOM MODAL ===== -->
-
-<div id="modal" class="modal-overlay">
-  <div class="modal-content">
-    <button class="modal-close"><i class="bi bi-x-lg"></i></button>
-    <h2 id="modalTitle">Modal Title</h2>
-    <div id="modalBody">
-      <p>This is the modal content.</p>
-    </div>
-  </div>
-</div>
-
-<!-- ===== DISCLAIMER MODAL ===== -->
-
-<div id="disclaimer-modal" class="modal fade" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
+  <!-- ===== CUSTOM MODAL ===== -->
+  <div id="modal" class="modal-overlay">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title h5 fw-bold text-primary">Disclaimer!</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body disclaimer-text">
-        <p>
-          <strong>PLEASE NOTE:</strong> We are not directly connected to any of the sites without a registered trademark. We are not liable for their change of terms and functions.
-        </p>
-        <p>
-          If you discover a new site that others may benefit from, please let us know and we will add it to the list, after a thorough research.
-        </p>
-        <p>
-          <span class="text-teal-dark-1 fw-semibold">GREEN</span> sites are sponsored.
-          <span class="text-danger fw-semibold">®</span> sites are registered with physical addresses.
-        </p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">Close</button>
+      <button class="modal-close"><i class="bi bi-x-lg"></i></button>
+      <h2 id="modalTitle">Notice</h2>
+      <div id="modalBody"><p>Loading...</p></div>
+    </div>
+  </div>
+
+  <!-- ===== DISCLAIMER MODAL ===== -->
+  <div id="disclaimer-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title h5 fw-bold" style="color:var(--n-forest)">Important Notice</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body disclaimer-text">
+          <p><strong>PLEASE NOTE:</strong> NSEYIN is not directly affiliated with any listed third-party sites that do not carry our registered trademark. We are not liable for changes in their terms or functionality.</p>
+          <p>Discovered a service that others could benefit from? Let us know — we'll review and add it to the directory.</p>
+          <p><span class="text-teal-dark-1 fw-semibold" style="color:#1A6B4A">GREEN</span> listings are NSEYIN-sponsored. <span class="text-danger fw-semibold">®</span> listings are registered with verified physical addresses.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">Got It</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- ======= MODAL FUNCTION ====== -->
-
-<div id="imageLightbox" class="lightbox-overlay" onclick="closeLightboxOutside(event)">
+  <!-- ===== LIGHTBOX ===== -->
+  <div id="imageLightbox" class="lightbox-overlay" onclick="closeLightboxOutside(event)">
     <div class="lightbox-content-wrapper">
-        <img class="lightbox-img" id="lightboxImg">
-        <div id="lightboxCaption" class="lightbox-caption"></div>
-        <div class="lightbox-actions">
-            <button class="btn-capsule btn-close-capsule" onclick="closeLightbox()">Close</button>
-            <a id="lightboxEnterBtn" href="#" class="btn-capsule btn-enter-capsule">Enter</a>
-        </div>
+      <img class="lightbox-img" id="lightboxImg" alt="Preview" />
+      <div id="lightboxCaption" class="lightbox-caption"></div>
+      <div class="lightbox-actions">
+        <button class="btn-capsule btn-close-capsule" onclick="closeLightbox()">Close</button>
+        <a id="lightboxEnterBtn" href="#" class="btn-capsule btn-enter-capsule">Enter</a>
+      </div>
     </div>
-</div>
+  </div>
 
-<!-- ===== SCRIPTS ===== -->
+  <!-- ===== SCRIPTS ===== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/script.js" defer></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-<script src="js/script.js" defer></script>
-
-  </body>
+</body>
 </html>
