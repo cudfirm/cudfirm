@@ -1430,6 +1430,9 @@ function initKeyboardShortcuts() {
 // =============================================
 // SWIPE NAVIGATION
 // =============================================
+
+// NEEEEEEEEEEEEEEEW
+
 function initSwipeNavigation() {
   const contentMain = document.querySelector('.content-main');
   if (!contentMain) return;
@@ -1437,6 +1440,8 @@ function initSwipeNavigation() {
 
   function isInsideHScrollable(el, dx) {
     while (el && el !== contentMain) {
+      // Also block swipe if inside the feed's vertical scroll container
+      if (el.id === 'feedMain' || el.id === 'feedSidebarRight') return true;
       const style = window.getComputedStyle(el);
       const overflowX = style.overflowX;
       const canScrollH = (overflowX === 'auto' || overflowX === 'scroll') && el.scrollWidth > el.clientWidth;
@@ -1474,6 +1479,9 @@ function initSwipeNavigation() {
     }
   }, { passive: true });
 }
+
+
+// NEEEEEEEEEEEEEEEW
 
 // =============================================
 // SIDEBAR TAB FILTER
