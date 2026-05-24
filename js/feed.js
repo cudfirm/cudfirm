@@ -1,6 +1,6 @@
 /**
  * ================================================
- *  NSEYIN FEED ENGINE — AI-Powered Dynamic Feed
+ *  CUDFIRM FEED ENGINE — AI-Powered Dynamic Feed
  *  Version: 1.0.0
  *  Integrates with: script.js (replaces buildBlogContent)
  *
@@ -128,7 +128,7 @@ const FeedDataSource = (() => {
     },
     {
       id: 'p003', type: 'rss', category: 'health',
-      title: 'NSEYIN Wellness Guide: Managing Stress in the Entrepreneurial Journey',
+      title: 'CUDFIRM Wellness Guide: Managing Stress in the Entrepreneurial Journey',
       excerpt: 'Mental health is the silent business strategy. Here is what top Nigerian founders are doing differently in 2026.',
       tags: ['MentalHealth', 'Wellness', 'Founders'],
       readTime: '4 min', featured: false,
@@ -184,9 +184,9 @@ const FeedDataSource = (() => {
     },
     {
       id: 'p011', type: 'social', category: 'community',
-      title: 'NSEYIN Community: 2,400 Members and the Story Behind the Growth',
+      title: 'CUDFIRM Community: 2,400 Members and the Story Behind the Growth',
       excerpt: 'How a WhatsApp group became West Africa\'s most active business-support community in under three years.',
-      tags: ['Community', 'NSEYIN', 'Growth'],
+      tags: ['Community', 'CUDFIRM', 'Growth'],
       readTime: '4 min', featured: false,
     },
     {
@@ -198,7 +198,7 @@ const FeedDataSource = (() => {
     },
     {
       id: 'p013', type: 'api', category: 'business',
-      title: 'The NSEYIN Grants Directory: 28 Open Opportunities for 2026',
+      title: 'The CUDFIRM Grants Directory: 28 Open Opportunities for 2026',
       excerpt: 'Government, private sector, and diaspora-backed grants open right now for Nigerian entrepreneurs.',
       tags: ['Grants', 'Funding', 'SMEs'],
       readTime: '5 min', featured: false,
@@ -233,7 +233,7 @@ const FeedDataSource = (() => {
     const shares    = Math.floor(Math.random() * 150) + 5;
     const sourceMap = {
       rss: 'RSS Feed', api: 'API Content',
-      manual: 'NSEYIN Editorial', social: 'Social Embed',
+      manual: 'CUDFIRM Editorial', social: 'Social Embed',
     };
 
     return {
@@ -418,18 +418,18 @@ const FeedStore = (() => {
 
   /* Persist bookmarks across sessions */
   try {
-    const saved = localStorage.getItem('nseyin_feed_bookmarks');
+    const saved = localStorage.getItem('cudfirm_feed_bookmarks');
     if (saved) state.bookmarks = new Set(JSON.parse(saved));
-    const savedLikes = localStorage.getItem('nseyin_feed_likes');
+    const savedLikes = localStorage.getItem('cudfirm_feed_likes');
     if (savedLikes) state.likes = new Map(JSON.parse(savedLikes));
   } catch(_) {}
 
   function _saveBookmarks() {
-    try { localStorage.setItem('nseyin_feed_bookmarks', JSON.stringify([...state.bookmarks])); } catch(_) {}
+    try { localStorage.setItem('cudfirm_feed_bookmarks', JSON.stringify([...state.bookmarks])); } catch(_) {}
   }
 
   function _saveLikes() {
-    try { localStorage.setItem('nseyin_feed_likes', JSON.stringify([...state.likes])); } catch(_) {}
+    try { localStorage.setItem('cudfirm_feed_likes', JSON.stringify([...state.likes])); } catch(_) {}
   }
 
   return {
@@ -838,7 +838,7 @@ const FeedController = (() => {
     return `
       <!-- ─── Feed Top Bar ─── -->
       <div class="feed-topbar">
-        <span class="feed-topbar-brand">NSEYIN Feed</span>
+        <span class="feed-topbar-brand">CUDFIRM Feed</span>
         <div class="feed-topbar-divider"></div>
         <div class="feed-category-tabs" id="feedCategoryTabs">
           ${catTabs}
@@ -1067,7 +1067,7 @@ const FeedController = (() => {
       const shareBtn = e.target.closest('[data-action="share"]');
       if (shareBtn) {
         e.stopPropagation();
-        const title = shareBtn.dataset.title || 'NSEYIN Article';
+        const title = shareBtn.dataset.title || 'CUDFIRM Article';
         if (navigator.share) {
           navigator.share({ title, url: window.location.href }).catch(() => {});
         } else {

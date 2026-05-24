@@ -1,6 +1,6 @@
 /**
  * ================================================
- *  NSEYIN — MASTER SCRIPT
+ *  CUDFIRM — MASTER SCRIPT
  *  Multifaceted Company — Local & International
  *  All tab content rendered dynamically for speed
  * ================================================
@@ -174,16 +174,16 @@ function buildTab1() {
   const partners = [
     { img: 'img/cudfirm001.png', link: 'https://cudfirm.netlify.app', name: 'CUDFIRM', alt: 'CUDFIRM GROUP' },
     { img: 'img/kingmaster.png', link: '#', name: 'King Master', alt: 'The King Master' },
-    { img: 'https://placehold.co/80x80/0B3D2E/C8922A?text=NS', link: '#', name: 'NSEYIN Tech', alt: 'NSEYIN Tech' },
-    { img: 'https://placehold.co/80x80/1A6B4A/fff?text=NX', link: '#', name: 'NSEYIN Xport', alt: 'NSEYIN Export' },
-    { img: 'https://placehold.co/80x80/C8922A/fff?text=NH', link: '#', name: 'NSEYIN Health', alt: 'NSEYIN Health' },
-    { img: 'https://placehold.co/80x80/4D9E7A/fff?text=NL', link: '#', name: 'NSEYIN Logistics', alt: 'NSEYIN Logistics' },
-    { img: 'https://placehold.co/80x80/E8B84B/0B3D2E?text=NE', link: '#', name: 'NSEYIN Energy', alt: 'NSEYIN Energy' },
+    { img: 'https://placehold.co/80x80/0B3D2E/C8922A?text=NS', link: '#', name: 'CUDFIRM Tech', alt: 'CUDFIRM Tech' },
+    { img: 'https://placehold.co/80x80/1A6B4A/fff?text=NX', link: '#', name: 'CUDFIRM Xport', alt: 'CUDFIRM Export' },
+    { img: 'https://placehold.co/80x80/C8922A/fff?text=NH', link: '#', name: 'CUDFIRM Health', alt: 'CUDFIRM Health' },
+    { img: 'https://placehold.co/80x80/4D9E7A/fff?text=NL', link: '#', name: 'CUDFIRM Logistics', alt: 'CUDFIRM Logistics' },
+    { img: 'https://placehold.co/80x80/E8B84B/0B3D2E?text=NE', link: '#', name: 'CUDFIRM Energy', alt: 'CUDFIRM Energy' },
     { img: 'https://placehold.co/80x80/3A4035/fff?text=+', link: 'connect-content', name: 'Join Us', alt: 'Become a Partner' },
   ];
 
   const brands = [
-    { img: 'https://placehold.co/80x80/5f9ea0/ffffff?text=BLOG', link: '#', name: 'NSEYIN Blog', alt: 'NSEYIN Blog' },
+    { img: 'https://placehold.co/80x80/5f9ea0/ffffff?text=BLOG', link: '#', name: 'CUDFIRM Blog', alt: 'CUDFIRM Blog' },
     { img: 'img/lobah.jpeg', link: 'https://www.instagram.com/lobahvisuals', name: 'Lobah Visuals', alt: 'LOBAH VISUALS' },
     { img: 'img/elichi.png', link: 'https://www.instagram.com/elichiskitchen', name: 'Elichi Catering', alt: 'ELICHI' },
     { img: 'img/damkaz.png', link: '#', name: 'Damkaz Couture', alt: 'DAMKAZ' },
@@ -197,11 +197,11 @@ function buildTab1() {
   ];
 
   const services = [
-    { img: 'img/nseyin.png', link: 'massage.html', name: 'Massage & Wellness', alt: 'Massage & Wellness' },
+    { img: 'img/cudfirm.png', link: 'massage.html', name: 'Massage & Wellness', alt: 'Massage & Wellness' },
     { img: 'img/adire.jpg', link: '#', name: 'Adire Textiles', alt: 'ADIRE' },
     { img: 'img/hosting.jpg', link: '#', name: 'Web Hosting', alt: 'WEB HOSTING' },
     { img: 'img/real-auto.jpg', link: '#', name: 'Estates & Autos', alt: 'REAL ESTATE & AUTOMOBILE' },
-    { img: 'img/shop.jpeg', link: '#', name: 'NSEYIN Shop', alt: 'SHOP' },
+    { img: 'img/shop.jpeg', link: '#', name: 'CUDFIRM Shop', alt: 'SHOP' },
     { img: 'img/creative.jpeg', link: '#', name: 'Creative Studio', alt: 'CREATIVE' },
     { img: 'https://placehold.co/80x80/0B3D2E/C8922A?text=FD', link: '#', name: 'Food Delivery', alt: 'Food Delivery' },
     { img: 'https://placehold.co/80x80/C8922A/fff?text=LG', link: '#', name: 'Logistics', alt: 'Logistics' },
@@ -222,7 +222,7 @@ function buildTab1() {
   <section id="tab1" class="tab-content view">
     <div class="home-hero">
       <span class="hero-eyebrow">Welcome to</span>
-      <h1 class="hero-title">NSEYIN</h1>
+      <h1 class="hero-title">CUDFIRM</h1>
       <p class="hero-sub">Where every need meets a solution — locally and internationally. We connect people, services, and opportunities.</p>
       <div class="hero-cta-row">
         <button class="btn-hero-primary" onclick="openTab(event,'tab3')">Explore Services</button>
@@ -232,7 +232,7 @@ function buildTab1() {
 
     <div class="p-3">
       <h6 class="sticky-top d-flex align-items-center gap-2 py-2">
-        <span class="badge text-bg-primary">NSEYIN GROUP</span>
+        <span class="badge text-bg-primary">CUDFIRM GROUP</span>
         <span style="font-size:0.72rem;color:var(--n-muted);font-weight:400;">Multifaceted. Global. Reliable.</span>
       </h6>
       <hr class="my-2 w-25" />
@@ -276,7 +276,7 @@ function buildTab1() {
       <div class="icons-social">
         <article class="list-social">
           <span class="icons-social__item"><a class="icons-social__link" href="#" aria-label="CodePen"><i class="fab fa-codepen"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="https://instagram.com/nseyin" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://instagram.com/cudfirm" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a></span>
           <span class="icons-social__item"><a class="icons-social__link" href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a></span>
           <span class="icons-social__item"><a class="icons-social__link" href="#" aria-label="Twitter/X"><i class="fab fa-twitter"></i></a></span>
           <span class="icons-social__item"><a class="icons-social__link" href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a></span>
@@ -368,7 +368,7 @@ function buildTab3() {
         <h6>${item.desc}</h6>
         <a href="#" class="btn btn-sm ${item.isSpecial ? 'btn-primary' : 'btn-success'} flex-shrink-0" onclick="${item.isSpecial ? "openTab(event,'connect-content')" : "openTab(event,'connect-content')"}" style="font-size:0.72rem;padding:0.3rem 0.65rem;">${item.isSpecial ? 'Suggest' : 'Request'}</a>
       </div>
-      <p class="mb-0" style="font-size:0.72rem;">NSEYIN &middot; ${item.tags.map(t => `<span class="tag ${t.startsWith('#H') ? 'green' : t.startsWith('#T') || t.startsWith('#D') ? 'gray' : 'orange'}">${t}</span>`).join('')}</p>
+      <p class="mb-0" style="font-size:0.72rem;">CUDFIRM &middot; ${item.tags.map(t => `<span class="tag ${t.startsWith('#H') ? 'green' : t.startsWith('#T') || t.startsWith('#D') ? 'gray' : 'orange'}">${t}</span>`).join('')}</p>
     </div>`
   ).join('');
 
@@ -419,7 +419,7 @@ function buildTab5() {
     </p>
     <div class="row g-3">
       ${[
-        { title:'NSEYIN Networking Night', date:'Jun 15, 2025', loc:'Lagos, Nigeria', color:'#0B3D2E', tag:'In-Person' },
+        { title:'CUDFIRM Networking Night', date:'Jun 15, 2025', loc:'Lagos, Nigeria', color:'#0B3D2E', tag:'In-Person' },
         { title:'Export Business Masterclass', date:'Jun 28, 2025', loc:'Zoom — Online', color:'#C8922A', tag:'Virtual' },
         { title:'Agro-Tech Summit 2025', date:'Jul 10, 2025', loc:'Abuja, Nigeria', color:'#1A6B4A', tag:'Hybrid' },
         { title:'Diaspora Connect Forum', date:'Aug 2, 2025', loc:'London, UK', color:'#4D9E7A', tag:'In-Person' },
@@ -458,7 +458,7 @@ function buildTab6() {
   <section id="tab6" class="tab-content view p-3">
     <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Templates</span></h6>
     <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
-      Access professionally designed templates for resumes, proposals, invoices, contracts, and more — free for NSEYIN members.
+      Access professionally designed templates for resumes, proposals, invoices, contracts, and more — free for CUDFIRM members.
     </p>
     <div class="row g-3 stagger-children">
       ${templates.map(t => `
@@ -516,15 +516,15 @@ function buildTab7() {
 }
 
 function buildTab8() {
-  return buildUnderConstruction('tab8','Showcase','A premium space to upload your branded items, portfolio, gigs, and market your business directly to NSEYIN\u2019s growing audience.','Showcase');
+  return buildUnderConstruction('tab8','Showcase','A premium space to upload your branded items, portfolio, gigs, and market your business directly to CUDFIRM\u2019s growing audience.','Showcase');
 }
 
 function buildTab9() {
   const stars = [
-    { name:'Adaeze Okonkwo', role:'Export Entrepreneur', quote:'NSEYIN helped me get my first international food export deal. Life-changing!', color:'#0B3D2E' },
-    { name:'Emeka Nwosu', role:'Solar Installer', quote:'The grant listings on NSEYIN connected me to funding I never knew existed.', color:'#C8922A' },
-    { name:'Fatima Usman', role:'Fashion Designer', quote:'My brand got 3x more visibility after listing on NSEYIN. Absolutely recommend.', color:'#1A6B4A' },
-    { name:'Chukwudi Eze', role:'Tech Founder', quote:'NSEYIN is the missing infrastructure for Nigerian entrepreneurs. Period.', color:'#4D9E7A' },
+    { name:'Adaeze Okonkwo', role:'Export Entrepreneur', quote:'CUDFIRM helped me get my first international food export deal. Life-changing!', color:'#0B3D2E' },
+    { name:'Emeka Nwosu', role:'Solar Installer', quote:'The grant listings on CUDFIRM connected me to funding I never knew existed.', color:'#C8922A' },
+    { name:'Fatima Usman', role:'Fashion Designer', quote:'My brand got 3x more visibility after listing on CUDFIRM. Absolutely recommend.', color:'#1A6B4A' },
+    { name:'Chukwudi Eze', role:'Tech Founder', quote:'CUDFIRM is the missing infrastructure for Nigerian entrepreneurs. Period.', color:'#4D9E7A' },
   ];
   return `
   <section id="tab9" class="tab-content view p-3">
@@ -552,12 +552,12 @@ function buildTab9() {
 
 function buildTab10() {
   const notes = [
-    { text:'The NSEYIN team handled our logistics like pros. Quick, reliable, no drama.', by:'Amara, Kano', stars:5 },
+    { text:'The CUDFIRM team handled our logistics like pros. Quick, reliable, no drama.', by:'Amara, Kano', stars:5 },
     { text:'Got my NIN card converted in less than 2 days. Thought it would take weeks. Impressed!', by:'Oluwaseun, Lagos', stars:5 },
     { text:'Clean water delivery was on time, affordable, and the guys were courteous. 10/10.', by:'Mrs. Adeyemi, Ibadan', stars:5 },
     { text:'The web hosting package was exactly what my small business needed. No hidden charges.', by:'Daniel, Enugu', stars:4 },
     { text:'Massage service at my house? I didn\'t believe it until it happened. Absolutely amazing.', by:'Chisom, Abuja', stars:5 },
-    { text:'NSEYIN truly cares about their customers. I felt heard and valued every step of the way.', by:'Grace, Rivers', stars:5 },
+    { text:'CUDFIRM truly cares about their customers. I felt heard and valued every step of the way.', by:'Grace, Rivers', stars:5 },
   ];
   const stars = (n) => Array(5).fill(0).map((_,i) => `<i class="bi bi-star-fill" style="color:${i<n?'#C8922A':'#ccc'};font-size:0.7rem;"></i>`).join('');
   return `
@@ -587,8 +587,8 @@ function buildTab11() {
   const guides = [
     { city:'Lagos', icon:'bi-buildings', tips:['Use Uber/Bolt for safe rides in VI & Lekki','Best suya spots close at 10pm — go early','Pay with transfer everywhere — cash is rare in malls'] },
     { city:'Abuja', icon:'bi-bank', tips:['Wuse 2 & Maitama have the best restaurants','Traffic peaks between 7–9am on Airport Road','Garki market is cheapest for bulk buys'] },
-    { city:'London', icon:'bi-airplane', tips:['Peckham is the hub for Nigerian goods & food','Register for HMRC Self-Assessment if self-employed','NSEYIN can help ship goods back home affordably'] },
-    { city:'Houston, USA', icon:'bi-globe-americas', tips:['Alief area has the largest Nigerian community','International supermarkets stock Naija goods','Contact NSEYIN for business setup guidance'] },
+    { city:'London', icon:'bi-airplane', tips:['Peckham is the hub for Nigerian goods & food','Register for HMRC Self-Assessment if self-employed','CUDFIRM can help ship goods back home affordably'] },
+    { city:'Houston, USA', icon:'bi-globe-americas', tips:['Alief area has the largest Nigerian community','International supermarkets stock Naija goods','Contact CUDFIRM for business setup guidance'] },
   ];
   return `
   <section id="tab11" class="tab-content view p-3">
@@ -667,7 +667,7 @@ function buildTab14() {
   <section id="tab14" class="tab-content view p-3">
     <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Deals ✨</span></h6>
     <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
-      Exclusive deals and discounts available only to NSEYIN community members. Act fast — these expire!
+      Exclusive deals and discounts available only to CUDFIRM community members. Act fast — these expire!
     </p>
     <div class="row g-3 stagger-children">
       ${deals.map(d => `
@@ -699,7 +699,7 @@ function buildTab15() {
     <div class="card mb-3">
       <div class="card-header"><h3><i class="bi bi-megaphone me-1" style="color:var(--n-gold)"></i>Latest Announcement</h3></div>
       <div class="card-content">
-        <p style="font-size:0.88rem;">Welcome to the new NSEYIN platform! We've completely redesigned our community hub. Explore the new features, connect with fellow members, and let us know your thoughts in the feedback section.</p>
+        <p style="font-size:0.88rem;">Welcome to the new CUDFIRM platform! We've completely redesigned our community hub. Explore the new features, connect with fellow members, and let us know your thoughts in the feedback section.</p>
         <span class="tag green">#Launch</span><span class="tag orange">#NewFeature</span>
       </div>
     </div>
@@ -707,7 +707,7 @@ function buildTab15() {
       <div class="card-content under-construction">
         <i class="bi bi-chat-heart"></i>
         <h3>Community Discussions — Coming Soon</h3>
-        <p>Join threads, share ideas, ask questions, and connect with over 2,400 members of the NSEYIN community.</p>
+        <p>Join threads, share ideas, ask questions, and connect with over 2,400 members of the CUDFIRM community.</p>
         <button class="btn btn-primary mt-2" onclick="openTab(event,'connect-content')">Get Notified at Launch</button>
       </div>
     </div>
@@ -742,7 +742,7 @@ function buildTab16() {
 }
 
 function buildTab17() {
-  return buildUnderConstruction('tab17','Investment','Discover vetted investment opportunities, partnerships, and co-founder matches across NSEYIN&apos;s network of businesses and ventures.','Investment');
+  return buildUnderConstruction('tab17','Investment','Discover vetted investment opportunities, partnerships, and co-founder matches across CUDFIRM&apos;s network of businesses and ventures.','Investment');
 }
 
 function buildTab18() {
@@ -750,11 +750,11 @@ function buildTab18() {
 }
 
 function buildTab19() {
-  return buildUnderConstruction('tab19','Media & Press','NSEYIN press releases, brand kit, media coverage, and publication-ready assets for journalists and content creators.','Media');
+  return buildUnderConstruction('tab19','Media & Press','CUDFIRM press releases, brand kit, media coverage, and publication-ready assets for journalists and content creators.','Media');
 }
 
 function buildTab20() {
-  return buildUnderConstruction('tab20','All Partners','The full directory of NSEYIN&apos;s verified partners, sponsors, and affiliated brands across Nigeria and the diaspora.','Partners');
+  return buildUnderConstruction('tab20','All Partners','The full directory of CUDFIRM&apos;s verified partners, sponsors, and affiliated brands across Nigeria and the diaspora.','Partners');
 }
 
 // ─────────────────────────────────────────────
@@ -764,7 +764,7 @@ function buildBlogContent() {
   return `
   <section id="blog-content" class="view tab-content p-3">
     <div class="view-header px-0">
-      <h1 class="view-title">NSEYIN Blog</h1>
+      <h1 class="view-title">CUDFIRM Blog</h1>
       <div class="header-actions">
         <span class="btn btn-sm btn-primary"><i class="bi bi-newspaper me-1"></i>Business</span>
         <span class="btn btn-sm btn-primary"><i class="bi bi-cpu me-1"></i>Tech</span>
@@ -805,7 +805,7 @@ function buildBlogContent() {
       <div class="icons-social">
         <article class="list-social">
           <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-codepen"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="https://instagram.com/nseyin" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://instagram.com/cudfirm" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a></span>
           <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-facebook"></i></a></span>
           <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-twitter"></i></a></span>
           <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-linkedin"></i></a></span>
@@ -835,9 +835,9 @@ function buildExploreContent() {
         <div id="disclaimer-content-desktop" class="p-4 rounded-3 sticky-top" style="top:70px;">
           <h3 class="h5 fw-bold border-bottom pb-2 mb-3" style="color:var(--n-forest);">Important Notice</h3>
           <div class="disclaimer-text">
-            <p style="font-size:0.8rem;">NSEYIN is not directly affiliated with third-party sites without our registered trademark. We are not liable for changes to their terms or functions.</p>
+            <p style="font-size:0.8rem;">CUDFIRM is not directly affiliated with third-party sites without our registered trademark. We are not liable for changes to their terms or functions.</p>
             <p style="font-size:0.8rem;">Discovered a useful service? Let us know — we'll research and add it.</p>
-            <p style="font-size:0.8rem;"><span style="color:var(--n-jade);font-weight:700;">GREEN</span> listings are NSEYIN-sponsored. <span style="color:#dc3545;font-weight:700;">®</span> are registered with verified addresses.</p>
+            <p style="font-size:0.8rem;"><span style="color:var(--n-jade);font-weight:700;">GREEN</span> listings are CUDFIRM-sponsored. <span style="color:#dc3545;font-weight:700;">®</span> are registered with verified addresses.</p>
           </div>
           <div class="position-relative mt-3">
             <i class="bi bi-search position-absolute text-secondary" style="left:10px;top:50%;transform:translateY(-50%);font-size:0.8rem;"></i>
@@ -853,7 +853,7 @@ function buildExploreContent() {
 // FORUM CONTENT
 // ─────────────────────────────────────────────
 function buildForumContent() {
-  const brands = ['NSEYIN','CUDFIRM','Adire','Lobah','Elichi','AgriLink','TechKraft','WaterCycle','SolarSpark','WoodCraft','EduHub','FoodLink'];
+  const brands = ['CUDFIRM','CUDFIRM','Adire','Lobah','Elichi','AgriLink','TechKraft','WaterCycle','SolarSpark','WoodCraft','EduHub','FoodLink'];
   const brandCards = brands.map((b, i) => `
     <div class="s-card">
       <img src="https://placehold.co/80x80/${['0B3D2E','C8922A','1A6B4A','4D9E7A','E8B84B','8B4513','191970','5f9ea0','A52A2A','2F4F4F','8B008B','3A4035'][i % 12]}/fff?text=${b[0]}" alt="${b}" onerror="this.src='https://placehold.co/80x80/0B3D2E/C8922A?text=N'" />
@@ -888,11 +888,11 @@ function buildForumContent() {
     <hr class="my-2" />
     <div class="bbgpc whitenho contact px-2">
       <div class="forum-hero-banner">
-        <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/Velocity%20Blog%20Website%20Template/office-spaces-that-actually-inspire-creativity.jpg" alt="NSEYIN Forum Banner" class="forum-hero-img" loading="lazy" />
+        <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/Velocity%20Blog%20Website%20Template/office-spaces-that-actually-inspire-creativity.jpg" alt="CUDFIRM Forum Banner" class="forum-hero-img" loading="lazy" />
         <div class="forum-hero-overlay">
           <div class="forum-hero-text">
             <span class="forum-hero-eyebrow">Welcome to the</span>
-            <h2 class="forum-hero-title">NSEYIN Forum</h2>
+            <h2 class="forum-hero-title">CUDFIRM Forum</h2>
             <p class="forum-hero-sub">Ideas · Discussions · Community</p>
           </div>
           <div class="forum-hero-pills">
@@ -918,7 +918,7 @@ function buildForumContent() {
       <div class="icons-social">
         <article class="list-social">
           <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-codepen"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="https://instagram.com/nseyin" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://instagram.com/cudfirm" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a></span>
           <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-facebook"></i></a></span>
           <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-twitter"></i></a></span>
           <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-linkedin"></i></a></span>
@@ -981,7 +981,7 @@ function buildConnectContent() {
             </button>
             <hr style="border-color:rgba(255,255,255,0.2);margin:1rem 0;" />
             <div style="font-size:0.75rem;opacity:0.8;text-align:center;">
-              <i class="bi bi-envelope me-1"></i>info@nseyin.com<br />
+              <i class="bi bi-envelope me-1"></i>info@cudfirm.com<br />
               <i class="bi bi-geo-alt me-1 mt-1 d-inline-block"></i>Lagos, Nigeria
             </div>
           </div>
@@ -992,7 +992,7 @@ function buildConnectContent() {
       <div class="icons-social">
         <article class="list-social">
           <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-codepen"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="https://instagram.com/nseyin" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://instagram.com/cudfirm" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a></span>
           <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-facebook"></i></a></span>
           <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-twitter"></i></a></span>
           <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-linkedin"></i></a></span>
@@ -1061,7 +1061,7 @@ function openTab(event, tabId) {
   const idx = ALL_TAB_IDS.indexOf(tabId);
   if (idx !== -1) currentTabIndex = idx;
 
-  try { localStorage.setItem('nseyin_last_tab', tabId); } catch(e) {}
+  try { localStorage.setItem('cudfirm_last_tab', tabId); } catch(e) {}
 
   updateBreadcrumb(tabId);
 
@@ -1155,16 +1155,16 @@ function sendToWhatsAppWithForm() {
   if (!validateForm()) return;
   const { name, contactInfo, message } = getFormValues();
   const yourNumber = '+2348028699824';
-  const text = `Hello NSEYIN,\n\nName: ${name}\nContact: ${contactInfo}\n\nMessage:\n${message}`;
+  const text = `Hello CUDFIRM,\n\nName: ${name}\nContact: ${contactInfo}\n\nMessage:\n${message}`;
   window.open(`https://wa.me/${yourNumber}?text=${encodeURIComponent(text)}`, '_blank');
 }
 
 function sendToEmail() {
   if (!validateForm()) return;
   const { name, contactInfo, message } = getFormValues();
-  const subject = encodeURIComponent('New Message — NSEYIN');
+  const subject = encodeURIComponent('New Message — CUDFIRM');
   const body = encodeURIComponent(`Name: ${name}\nContact Info: ${contactInfo}\n\nMessage:\n${message}`);
-  window.location.href = `mailto:info@nseyin.com?subject=${subject}&body=${body}`;
+  window.location.href = `mailto:info@cudfirm.com?subject=${subject}&body=${body}`;
 }
 
 function submitTip() {
@@ -1282,7 +1282,7 @@ function initDarkMode() {
   const icon = document.getElementById('darkModeIcon');
   const html = document.documentElement;
   try {
-    if (localStorage.getItem('nseyin_theme') === 'dark') {
+    if (localStorage.getItem('cudfirm_theme') === 'dark') {
       html.setAttribute('data-theme', 'dark');
       if (icon) icon.className = 'bi bi-sun-fill';
     }
@@ -1292,7 +1292,7 @@ function initDarkMode() {
     const isDark = html.getAttribute('data-theme') === 'dark';
     html.setAttribute('data-theme', isDark ? 'light' : 'dark');
     if (icon) icon.className = isDark ? 'bi bi-moon-fill' : 'bi bi-sun-fill';
-    try { localStorage.setItem('nseyin_theme', isDark ? 'light' : 'dark'); } catch(e) {}
+    try { localStorage.setItem('cudfirm_theme', isDark ? 'light' : 'dark'); } catch(e) {}
     showToast(isDark ? 'Light mode ☀️' : 'Night mode 🌙');
   });
 }
@@ -1512,7 +1512,7 @@ function initServiceFinder() {
     { title:'WELLNESS HUB',    isRegistered: true,  description:'Massage, spa, body wellness, stress relief, deep tissue therapy — home, office & doorstep sessions.',                             image:'https://placehold.co/400x200/4D9E7A/ffffff?text=Wellness+Hub' },
     { title:'SOLAR SOLUTIONS', isRegistered: false, description:'Solar panel installation, inverter setup, battery backup, rural electrification, and green energy consultations.',                 image:'https://placehold.co/400x200/E8B84B/0B3D2E?text=Solar+Solutions' },
     { title:'DIGITAL STUDIO',  isRegistered: false, description:'Web design, hosting, domain setup, SEO, social media management, and digital brand building for SMEs.',                           image:'https://placehold.co/400x200/191970/ffffff?text=Digital+Studio' },
-    { title:'NSEYIN LOGISTICS',isRegistered: true,  description:'Same-day delivery, state-to-state haulage, international shipping, and courier services across Nigeria and abroad.',              image:'https://placehold.co/400x200/3A4035/ffffff?text=Logistics' },
+    { title:'CUDFIRM LOGISTICS',isRegistered: true,  description:'Same-day delivery, state-to-state haulage, international shipping, and courier services across Nigeria and abroad.',              image:'https://placehold.co/400x200/3A4035/ffffff?text=Logistics' },
     { title:'HOUSING LINKS',   isRegistered: false, description:'Verified rentals, mini-flats, co-living, short-let, long-let, property management, and maintenance services.',                   image:'https://placehold.co/400x200/8B4513/ffffff?text=Housing+Links' },
   ];
 
@@ -1541,7 +1541,7 @@ function initServiceFinder() {
       col.innerHTML = `
         <div class="card service-card h-100">
           <div class="position-relative">
-            <img src="${item.image}" alt="${item.title}" class="card-img-top" loading="lazy" onerror="this.src='https://placehold.co/400x200/0B3D2E/C8922A?text=NSEYIN'" />
+            <img src="${item.image}" alt="${item.title}" class="card-img-top" loading="lazy" onerror="this.src='https://placehold.co/400x200/0B3D2E/C8922A?text=CUDFIRM'" />
             ${badge}
           </div>
           <div class="card-body p-2">
@@ -1636,7 +1636,7 @@ let deferredPrompt = null;
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
   deferredPrompt = e;
-  showToast('Add NSEYIN to your home screen for the best experience 📲', 5000);
+  showToast('Add CUDFIRM to your home screen for the best experience 📲', 5000);
 });
 
 // =============================================
@@ -1663,7 +1663,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // STEP 5: Restore last visited tab
   try {
-    const saved = localStorage.getItem('nseyin_last_tab');
+    const saved = localStorage.getItem('cudfirm_last_tab');
     if (saved && saved !== 'tab1' && document.getElementById(saved)) {
       setTimeout(() => openTab(null, saved), 60);
     }
@@ -1736,10 +1736,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // STEP 11: First-visit hint
   try {
-    if (!localStorage.getItem('nseyin_hint_shown')) {
+    if (!localStorage.getItem('cudfirm_hint_shown')) {
       setTimeout(() => {
         showToast('Tip: Press ? for keyboard shortcuts ⌨️', 4500);
-        localStorage.setItem('nseyin_hint_shown', '1');
+        localStorage.setItem('cudfirm_hint_shown', '1');
       }, 3500);
     }
   } catch(e) {}

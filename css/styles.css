@@ -1,6 +1,6 @@
 /*
   ================================================
-  NSEYIN — MASTER STYLESHEET
+  CUDFIRM — MASTER STYLESHEET
   Afro-Modern Luxury Design System
   Forest Green · Warm Gold · Cream
   Fonts: Syne (Display) + DM Sans (Body)
@@ -8,10 +8,10 @@
 */
 
 /* ============================================
-   CSS CUSTOM PROPERTIES — NSEYIN PALETTE
+   CSS CUSTOM PROPERTIES — CUDFIRM PALETTE
    ============================================ */
 :root {
-  /* ── Core NSEYIN Palette ── */
+  /* ── Core CUDFIRM Palette ── */
   --n-forest:        #0B3D2E;   /* deep forest green — primary */
   --n-jade:          #1A6B4A;   /* jade — secondary */
   --n-sage:          #4D9E7A;   /* sage — lighter accent */
