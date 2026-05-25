@@ -179,7 +179,7 @@ function buildTab1() {
     { img: 'https://placehold.co/80x80/C8922A/fff?text=NH', link: '#', name: 'CUDFIRM Health', alt: 'CUDFIRM Health' },
     { img: 'https://placehold.co/80x80/4D9E7A/fff?text=NL', link: '#', name: 'CUDFIRM Logistics', alt: 'CUDFIRM Logistics' },
     { img: 'https://placehold.co/80x80/E8B84B/0B3D2E?text=NE', link: '#', name: 'CUDFIRM Energy', alt: 'CUDFIRM Energy' },
-    { img: 'https://placehold.co/80x80/3A4035/fff?text=+', link: 'connect-content', name: 'Join Us', alt: 'Become a Partner' },
+    { img: 'https://placehold.co/200x250/3A4035/fff?text=+', link: 'connect-content', name: 'Join Us', alt: 'Become a Partner' },
   ];
 
   const brands = [
@@ -198,22 +198,22 @@ function buildTab1() {
 
   const services = [
     { img: 'img/cudfirm.png', link: 'massage.html', name: 'Massage & Wellness', alt: 'Massage & Wellness' },
-    { img: 'img/adire.jpg', link: '#', name: 'Adire Textiles', alt: 'ADIRE' },
+    { img: 'img/Welcome.webp', link: '#', name: 'Adire Textiles', alt: 'ADIRE' },
     { img: 'img/hosting.jpg', link: '#', name: 'Web Hosting', alt: 'WEB HOSTING' },
     { img: 'img/real-auto.jpg', link: '#', name: 'Estates & Autos', alt: 'REAL ESTATE & AUTOMOBILE' },
     { img: 'img/shop.jpeg', link: '#', name: 'CUDFIRM Shop', alt: 'SHOP' },
-    { img: 'img/creative.jpeg', link: '#', name: 'Creative Studio', alt: 'CREATIVE' },
+    { img: 'img/ads3.webp', link: '#', name: 'Store House', alt: 'STORE' },
     { img: 'https://placehold.co/80x80/0B3D2E/C8922A?text=FD', link: '#', name: 'Food Delivery', alt: 'Food Delivery' },
     { img: 'https://placehold.co/80x80/C8922A/fff?text=LG', link: '#', name: 'Logistics', alt: 'Logistics' },
     { img: 'https://placehold.co/80x80/4D9E7A/fff?text=HX', link: '#', name: 'Health Express', alt: 'Health Express' },
     { img: 'https://placehold.co/80x80/E8B84B/0B3D2E?text=SP', link: '#', name: 'Solar Power', alt: 'Solar Power' },
     { img: 'https://placehold.co/80x80/1A6B4A/fff?text=ED', link: '#', name: 'Edu Hub', alt: 'Edu Hub' },
-    { img: 'https://placehold.co/80x80/5f9ea0/fff?text=+', link: '#', name: 'More Soon', alt: 'Coming Soon' },
+    { img: 'img/ads3.PNG', link: '#', name: 'More Soon', alt: 'Coming Soon' },
   ];
 
   const gridItems = (items) => items.map(p =>
     `<div class="col grid-item" onclick="openLightbox('${p.img}','${p.name}','${p.link}')">
-      <img src="${p.img}" data-link="${p.link}" alt="${p.alt}" class="img-fluid" loading="lazy" onerror="this.src='https://placehold.co/80x80/0B3D2E/C8922A?text=N'" />
+      <img src="${p.img}" data-link="${p.link}" alt="${p.alt}" class="img-fluid" loading="lazy" onerror="this.src='https://placehold.co/600x800/0B3D2E/C8922A?text=N'" />
       <span class="text">${p.name}</span>
     </div>`
   ).join('');
