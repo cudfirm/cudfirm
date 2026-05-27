@@ -211,12 +211,16 @@ function buildTab1() {
     { img: 'img/ads3.PNG', link: '#', name: 'More Soon', alt: 'Coming Soon' },
   ];
 
-  const gridItems = (items) => items.map(p =>
-    `<div class="col grid-item" onclick="openLightbox('${p.img}','${p.name}','${p.link}')">
-      <img src="${p.img}" data-link="${p.link}" alt="${p.alt}" class="img-fluid" loading="lazy" onerror="this.src='https://placehold.co/600x800/0B3D2E/C8922A?text=N'" />
+  const gridItems = (items) => items.map(p => {
+    // Escape values for safe HTML attribute usage
+    const safeImg = p.img.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    const safeName = p.name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    const safeLink = p.link.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    return `<div class="col grid-item" data-img="${safeImg}" data-name="${safeName}" data-link="${safeLink}">
+      <img src="${p.img}" alt="${p.alt}" class="img-fluid" loading="lazy" onerror="this.src='https://placehold.co/600x800/0B3D2E/C8922A?text=N'" />
       <span class="text">${p.name}</span>
-    </div>`
-  ).join('');
+    </div>`;
+  }).join('');
 
   return `
   <section id="tab1" class="tab-content view">
@@ -1597,9 +1601,15 @@ function initServiceFinder() {
 function openLightbox(src, caption, link) {
   const lb = document.getElementById('imageLightbox');
   if (!lb) return;
-  document.getElementById('lightboxImg').src = src;
-  document.getElementById('lightboxCaption').textContent = caption;
+  const lbImg = document.getElementById('lightboxImg');
+  const lbCaption = document.getElementById('lightboxCaption');
   const enterBtn = document.getElementById('lightboxEnterBtn');
+  
+  // Set content
+  lbImg.src = src;
+  lbCaption.textContent = caption;
+  
+  // Handle enter button visibility
   const hasRealLink = link && link !== '#' && link.trim() !== '';
   if (hasRealLink) {
     enterBtn.href = link;
@@ -1609,20 +1619,23 @@ function openLightbox(src, caption, link) {
     enterBtn.href = '#';
     enterBtn.style.display = 'none';
   }
+  
+  // Show lightbox with simple CSS transition (no GSAP for performance)
   lb.style.display = 'flex';
-  if (typeof gsap !== 'undefined') {
-    gsap.fromTo('.lightbox-content-wrapper', { scale: 0.75, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.38, ease: 'back.out(1.4)' });
-  }
+  lb.offsetHeight; // Force reflow
+  lb.classList.add('lightbox-visible');
 }
 
 function closeLightbox() {
   const lb = document.getElementById('imageLightbox');
   if (!lb) return;
-  if (typeof gsap !== 'undefined') {
-    gsap.to('.lightbox-content-wrapper', { scale: 0.75, opacity: 0, duration: 0.2, onComplete: () => lb.style.display = 'none' });
-  } else {
-    lb.style.display = 'none';
-  }
+  lb.classList.remove('lightbox-visible');
+  // Wait for CSS transition to complete before hiding
+  setTimeout(() => {
+    if (!lb.classList.contains('lightbox-visible')) {
+      lb.style.display = 'none';
+    }
+  }, 250);
 }
 
 function closeLightboxOutside(e) {
@@ -1718,10 +1731,17 @@ document.addEventListener('DOMContentLoaded', function () {
     modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
   }
 
-  // STEP 9: Lightbox on Home images
+  // STEP 9: Lightbox on Home grid items (delegated event for reliability)
   document.addEventListener('click', e => {
-    const img = e.target.closest('#tab1 .grid-item img');
-    if (img) openLightbox(img.src, img.alt || 'View Item', img.getAttribute('data-link') || '#');
+    const gridItem = e.target.closest('.grid-item[data-img]');
+    if (gridItem) {
+      e.preventDefault();
+      e.stopPropagation();
+      const img = gridItem.getAttribute('data-img');
+      const name = gridItem.getAttribute('data-name');
+      const link = gridItem.getAttribute('data-link');
+      openLightbox(img, name, link);
+    }
   });
 
   // STEP 10: All feature inits
