@@ -1599,8 +1599,13 @@ function initServiceFinder() {
 // LIGHTBOX
 // =============================================
 function openLightbox(src, caption, link) {
+  console.log('[v0] openLightbox called with:', { src, caption, link });
   const lb = document.getElementById('imageLightbox');
-  if (!lb) return;
+  console.log('[v0] Lightbox element found:', lb);
+  if (!lb) {
+    console.log('[v0] ERROR: Lightbox element not found!');
+    return;
+  }
   const lbImg = document.getElementById('lightboxImg');
   const lbCaption = document.getElementById('lightboxCaption');
   const enterBtn = document.getElementById('lightboxEnterBtn');
@@ -1733,13 +1738,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // STEP 9: Lightbox on Home grid items (delegated event for reliability)
   document.addEventListener('click', e => {
+    console.log('[v0] Click detected on:', e.target, 'Tag:', e.target.tagName);
     const gridItem = e.target.closest('.grid-item[data-img]');
+    console.log('[v0] Grid item found:', gridItem);
     if (gridItem) {
       e.preventDefault();
       e.stopPropagation();
       const img = gridItem.getAttribute('data-img');
       const name = gridItem.getAttribute('data-name');
       const link = gridItem.getAttribute('data-link');
+      console.log('[v0] Opening lightbox with:', { img, name, link });
       openLightbox(img, name, link);
     }
   });
