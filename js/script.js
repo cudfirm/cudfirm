@@ -172,42 +172,42 @@ function buildAllSections() {
 // ─────────────────────────────────────────────
 function buildTab1() {
   const partners = [
-    { img: 'img/cudfirm001.png', link: 'https://cudfirm.netlify.app', name: 'CUDFIRM', alt: 'CUDFIRM GROUP' },
-    { img: 'img/kingmaster.png', link: '#', name: 'King Master', alt: 'The King Master' },
-    { img: 'https://placehold.co/80x80/0B3D2E/C8922A?text=NS', link: '#', name: 'CUDFIRM Tech', alt: 'CUDFIRM Tech' },
-    { img: 'https://placehold.co/80x80/1A6B4A/fff?text=NX', link: '#', name: 'CUDFIRM Xport', alt: 'CUDFIRM Export' },
-    { img: 'https://placehold.co/80x80/C8922A/fff?text=NH', link: '#', name: 'CUDFIRM Health', alt: 'CUDFIRM Health' },
-    { img: 'https://placehold.co/80x80/4D9E7A/fff?text=NL', link: '#', name: 'CUDFIRM Logistics', alt: 'CUDFIRM Logistics' },
-    { img: 'https://placehold.co/80x80/E8B84B/0B3D2E?text=NE', link: '#', name: 'CUDFIRM Energy', alt: 'CUDFIRM Energy' },
+    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=CUDFIRM', link: 'https://cudfirm.netlify.app', name: 'CUDFIRM', alt: 'CUDFIRM GROUP' },
+    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=THE KING MASTER', link: '#', name: 'King Master', alt: 'The King Master' },
+    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=NS', link: '#', name: 'CUDFIRM Tech', alt: 'CUDFIRM Tech' },
+    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=NX', link: '#', name: 'CUDFIRM Xport', alt: 'CUDFIRM Export' },
+    { img: 'https://placehold.co/200x250/C8922A/fff?text=NH', link: '#', name: 'CUDFIRM Health', alt: 'CUDFIRM Health' },
+    { img: 'https://placehold.co/200x250/4D9E7A/fff?text=NL', link: '#', name: 'CUDFIRM Logistics', alt: 'CUDFIRM Logistics' },
+    { img: 'https://placehold.co/200x250/E8B84B/0B3D2E?text=NE', link: '#', name: 'CUDFIRM Energy', alt: 'CUDFIRM Energy' },
     { img: 'https://placehold.co/200x250/3A4035/fff?text=+', link: 'connect-content', name: 'Join Us', alt: 'Become a Partner' },
   ];
 
   const brands = [
-    { img: 'https://placehold.co/80x80/5f9ea0/ffffff?text=BLOG', link: '#', name: 'CUDFIRM Blog', alt: 'CUDFIRM Blog' },
-    { img: 'img/lobah.jpeg', link: 'https://www.instagram.com/lobahvisuals', name: 'Lobah Visuals', alt: 'LOBAH VISUALS' },
-    { img: 'img/elichi.png', link: 'https://www.instagram.com/elichiskitchen', name: 'Elichi Catering', alt: 'ELICHI' },
-    { img: 'img/damkaz.png', link: '#', name: 'Damkaz Couture', alt: 'DAMKAZ' },
-    { img: 'img/elistiches.png', link: '#', name: "Eli's Stitches", alt: 'ELI STITCHES' },
-    { img: 'https://placehold.co/80x80/C8922A/fff?text=AG', link: '#', name: 'AgriLink', alt: 'AgriLink' },
-    { img: 'https://placehold.co/80x80/0B3D2E/C8922A?text=TK', link: '#', name: 'TechKraft', alt: 'TechKraft' },
-    { img: 'https://placehold.co/80x80/1A6B4A/fff?text=WC', link: '#', name: 'WaterCycle', alt: 'WaterCycle' },
-    { img: 'https://placehold.co/80x80/8B4513/fff?text=WD', link: '#', name: 'WoodCraft', alt: 'WoodCraft' },
-    { img: 'https://placehold.co/80x80/4B0082/fff?text=SS', link: '#', name: 'Solar Spark', alt: 'Solar Spark' },
-    { img: 'https://placehold.co/80x80/191970/fff?text=+', link: '#', name: 'Vacant', alt: 'Vacant Slot' },
+    { img: 'https://placehold.co/200x250/5f9ea0/ffffff?text=BLOG', link: '#', name: 'CUDFIRM Blog', alt: 'CUDFIRM Blog' },
+    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=LOBAH VISUALS', link: 'https://www.instagram.com/lobahvisuals', name: 'Lobah Visuals', alt: 'LOBAH VISUALS' },
+    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=ELICHI', link: 'https://www.instagram.com/elichiskitchen', name: 'Elichi Catering', alt: 'ELICHI' },
+    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=DAMKAZ', link: '#', name: 'Damkaz Couture', alt: 'DAMKAZ' },
+    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=ELISTITCHES', link: '#', name: "Eli's Stitches", alt: 'ELI STITCHES' },
+    { img: 'https://placehold.co/200x250/C8922A/fff?text=AG', link: '#', name: 'AgriLink', alt: 'AgriLink' },
+    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=TK', link: '#', name: 'TechKraft', alt: 'TechKraft' },
+    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=WC', link: '#', name: 'WaterCycle', alt: 'WaterCycle' },
+    { img: 'https://placehold.co/200x250/8B4513/fff?text=WD', link: '#', name: 'WoodCraft', alt: 'WoodCraft' },
+    { img: 'https://placehold.co/200x250/4B0082/fff?text=SS', link: '#', name: 'Solar Spark', alt: 'Solar Spark' },
+    { img: 'https://placehold.co/200x250/191970/fff?text=+', link: '#', name: 'Vacant', alt: 'Vacant Slot' },
   ];
 
   const services = [
-    { img: 'img/cudfirm.png', link: 'massage.html', name: 'Massage & Wellness', alt: 'Massage & Wellness' },
-    { img: 'img/Welcome.webp', link: '#', name: 'Adire Textiles', alt: 'ADIRE' },
-    { img: 'img/hosting.jpg', link: '#', name: 'Web Hosting', alt: 'WEB HOSTING' },
-    { img: 'img/real-auto.jpg', link: '#', name: 'Estates & Autos', alt: 'REAL ESTATE & AUTOMOBILE' },
-    { img: 'img/shop.jpeg', link: '#', name: 'CUDFIRM Shop', alt: 'SHOP' },
+    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=CF', link: 'massage.html', name: 'Massage & Wellness', alt: 'Massage & Wellness' },
+    { img: 'img/welcome.webp', link: '#', name: 'Adire Textiles', alt: 'ADIRE' },
+    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=WEB HOSTING', link: '#', name: 'Web Hosting', alt: 'WEB HOSTING' },
+    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=RA', link: '#', name: 'Estates & Autos', alt: 'REAL ESTATE & AUTOMOBILE' },
+    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=SHOP', link: '#', name: 'CUDFIRM Shop', alt: 'SHOP' },
     { img: 'img/ads3.webp', link: '#', name: 'Store House', alt: 'STORE' },
-    { img: 'https://placehold.co/80x80/0B3D2E/C8922A?text=FD', link: '#', name: 'Food Delivery', alt: 'Food Delivery' },
-    { img: 'https://placehold.co/80x80/C8922A/fff?text=LG', link: '#', name: 'Logistics', alt: 'Logistics' },
-    { img: 'https://placehold.co/80x80/4D9E7A/fff?text=HX', link: '#', name: 'Health Express', alt: 'Health Express' },
-    { img: 'https://placehold.co/80x80/E8B84B/0B3D2E?text=SP', link: '#', name: 'Solar Power', alt: 'Solar Power' },
-    { img: 'https://placehold.co/80x80/1A6B4A/fff?text=ED', link: '#', name: 'Edu Hub', alt: 'Edu Hub' },
+    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=FD', link: '#', name: 'Food Delivery', alt: 'Food Delivery' },
+    { img: 'https://placehold.co/200x250/C8922A/fff?text=LG', link: '#', name: 'Logistics', alt: 'Logistics' },
+    { img: 'https://placehold.co/200x250/4D9E7A/fff?text=HX', link: '#', name: 'Health Express', alt: 'Health Express' },
+    { img: 'https://placehold.co/200x250/E8B84B/0B3D2E?text=SP', link: '#', name: 'Solar Power', alt: 'Solar Power' },
+    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=ED', link: '#', name: 'Edu Hub', alt: 'Edu Hub' },
     { img: 'img/ads3.PNG', link: '#', name: 'More Soon', alt: 'Coming Soon' },
   ];
 
@@ -1079,6 +1079,7 @@ function openTab(event, tabId) {
 // =============================================
 // GSAP ANIMATION
 // =============================================
+
 function animateView(viewElement) {
   if (typeof gsap === 'undefined') return;
   // Only animate the view container itself — never child cards/items.
