@@ -16,10 +16,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" />
 
-  <!-- Local Stylesheet -->
+  <!-- Site Stylesheets -->
   <link rel="stylesheet" type="text/css" href="css/styles.css" />
-<link rel="stylesheet" type="text/css" href="css/feed.css" />
+  <link rel="stylesheet" type="text/css" href="css/feed.css" />
 
+  <!--
+    ╔══════════════════════════════════════════════════╗
+    ║  CUDFIRM MODAL SYSTEM v2                         ║
+    ║  Load AFTER site styles so it wins specificity   ║
+    ╚══════════════════════════════════════════════════╝
+  -->
+  <link rel="stylesheet" type="text/css" href="css/modals.css" />
 
   <meta name="theme-color" content="#0B3D2E" />
 </head>
@@ -29,8 +36,20 @@
   <!-- ===== READING PROGRESS BAR ===== -->
   <div id="readingProgressBar"></div>
 
-  <!-- ===== TOAST NOTIFICATION ===== -->
-  <div id="toastNotification" class="toast-notification" role="alert" aria-live="polite">
+  <!-- ═══════════════════════════════════════════════════════════
+       TOAST NOTIFICATION
+       • Same ID as before  (#toastNotification / #toastMessage)
+       • script4.js's showToast() still works unchanged
+       • cudfirm-modals.js overrides showToast() for reliability
+  ════════════════════════════════════════════════════════════ -->
+  <div
+    id="toastNotification"
+    class="toast-notification"
+    role="alert"
+    aria-live="polite"
+    aria-atomic="true"
+    aria-hidden="true"
+  >
     <span id="toastMessage"></span>
   </div>
 
@@ -58,25 +77,30 @@
         <div id="breadcrumbTrail" class="breadcrumb-trail"></div>
 
         <div id="searchContainer" class="search-container">
-          <svg id="searchIcon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <svg id="searchIcon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2.2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
-          <input type="text" id="searchInput" placeholder="Search CUDFIRM..." />
+          <input type="text" id="searchInput" placeholder="Search CUDFIRM..."
+                 autocomplete="off" aria-label="Search CUDFIRM" />
           <button id="clearSearchBtn" class="clear-search-btn" aria-label="Clear search">&times;</button>
         </div>
 
-        <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <button id="darkModeToggle" class="dark-mode-toggle"
+                aria-label="Toggle dark mode" title="Toggle dark mode">
           <i class="bi bi-moon-fill" id="darkModeIcon"></i>
         </button>
 
         <div class="dropdown mobile-widgets">
-          <button class="btn btn-sm btn-outline-light text-bg-dark dropdown-toggle dropdown-toggle-center" type="button" data-bs-toggle="dropdown">MENU</button>
+          <button class="btn btn-sm btn-outline-light text-bg-dark dropdown-toggle dropdown-toggle-center"
+                  type="button" data-bs-toggle="dropdown" aria-expanded="false">MENU</button>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><button class="dropdown-item btn btn-sm" onclick="openTab(event, 'connect-content')">Contact Us</button></li>
-            <li><button class="dropdown-item btn btn-sm" onclick="openTab(event, 'tab3')">Services</button></li>
-            <li><button class="dropdown-item btn btn-sm" onclick="openTab(event, 'tab2')">Sectors</button></li>
-            <li><button class="dropdown-item btn btn-sm" onclick="openTab(event, 'explore-content')">Explore</button></li>
+            <li><button class="dropdown-item btn btn-sm" onclick="openTab(event,'connect-content')">Contact Us</button></li>
+            <li><button class="dropdown-item btn btn-sm" onclick="openTab(event,'tab3')">Services</button></li>
+            <li><button class="dropdown-item btn btn-sm" onclick="openTab(event,'tab2')">Sectors</button></li>
+            <li><button class="dropdown-item btn btn-sm" onclick="openTab(event,'explore-content')">Explore</button></li>
           </ul>
         </div>
       </div>
@@ -89,79 +113,211 @@
         <i class="bi bi-arrow-up-short"></i>
       </button>
 
-    </div>
+    </div><!-- /.content-area -->
 
     <!-- ===== FOOTER NAV ===== -->
-    <nav class="footer-nav" id="footerNav">
+    <nav class="footer-nav" id="footerNav" aria-label="Primary navigation">
       <!-- Rendered by JS -->
     </nav>
 
     <!-- ===== SIDEBAR RIGHT ===== -->
-    <div class="sidebar-right row view">
+    <div class="sidebar-right row view" aria-hidden="true">
       <div class="widget col custom-slate-gradient d-flex flex-column align-items-center justify-content-center gap-1">
         <span class="live-dot"></span>
         <strong id="sidebarLiveCount">—</strong>
         <small style="font-size:10px;color:#fff;letter-spacing:.5px;">Online Now</small>
       </div>
       <div class="widget col custom-slate-gradient d-flex flex-column align-items-center justify-content-center gap-1">
-        <i class="bi bi-geo-alt-fill" style="color:#C8922A;font-size:1.1rem;"></i>
+        <i class="bi bi-geo-alt-fill" style="color:#C8922A;font-size:1.1rem;" aria-hidden="true"></i>
         <small style="font-size:9px;color:#fff;text-align:center;">Lagos,<br>Nigeria</small>
       </div>
       <div class="widget col custom-slate-gradient d-flex flex-column align-items-center justify-content-center gap-1">
-        <i class="bi bi-patch-check-fill" style="color:#C8922A;font-size:1.1rem;"></i>
+        <i class="bi bi-patch-check-fill" style="color:#C8922A;font-size:1.1rem;" aria-hidden="true"></i>
         <small style="font-size:9px;color:#fff;text-align:center;">Verified<br>Brand</small>
       </div>
     </div>
 
-  </div>
+  </div><!-- /.app-container -->
 
-  <!-- ===== CUSTOM MODAL ===== -->
-  <div id="modal" class="modal-overlay">
-    <div class="modal-content">
-      <button class="modal-close"><i class="bi bi-x-lg"></i></button>
-      <h2 id="modalTitle">Notice</h2>
-      <div id="modalBody"><p>Loading...</p></div>
-    </div>
-  </div>
 
-  <!-- ===== DISCLAIMER MODAL ===== -->
-  <div id="disclaimer-modal" class="modal fade" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
+  <!-- ═══════════════════════════════════════════════════════════
+       CUSTOM MODAL  (#modal)
+       ─────────────────────────────────────────────────────────
+       Used by: keyboard shortcut (?), contact form validation,
+       and any openModal(title, html) call throughout the site.
+
+       Class .cud-overlay controls visibility (not Bootstrap).
+       IDs are kept identical so script4.js never needs editing.
+  ════════════════════════════════════════════════════════════ -->
+  <div
+    id="modal"
+    class="cud-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle"
+    aria-hidden="true"
+  >
+    <div class="cud-box">
+
+      <!-- Header -->
+      <div class="cud-head">
+        <h2 id="modalTitle" class="cud-title">Notice</h2>
+        <button
+          class="cud-x"
+          aria-label="Close"
+          title="Close"
+        ><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+      </div>
+
+      <!-- Body — filled by openModal(title, html) -->
+      <div class="cud-body" id="modalBody"></div>
+
+    </div><!-- /.cud-box -->
+  </div><!-- /#modal -->
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       DISCLAIMER MODAL  (#disclaimer-modal)
+       ─────────────────────────────────────────────────────────
+       script4.js initialises this with Bootstrap's Modal.
+       Bootstrap handles show / hide via .modal.fade classes.
+       cudfirm-modals.css overrides the visual styling only.
+       cudfirm-modals.js adds a delegated safety-net listener.
+  ════════════════════════════════════════════════════════════ -->
+  <div
+    id="disclaimer-modal"
+    class="modal fade"
+    tabindex="-1"
+    aria-labelledby="disclaimerModalLabel"
+    aria-hidden="true"
+    data-bs-backdrop="static"
+    data-bs-keyboard="true"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
+
         <div class="modal-header">
-          <h5 class="modal-title h5 fw-bold" style="color:var(--n-forest)">Important Notice</h5>
+          <h5 class="modal-title h5 fw-bold" id="disclaimerModalLabel">Important Notice</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body disclaimer-text">
-          <p><strong>PLEASE NOTE:</strong> CUDFIRM is not directly affiliated with any listed third-party sites that do not carry our registered trademark. We are not liable for changes in their terms or functionality.</p>
-          <p>Discovered a service that others could benefit from? Let us know — we'll review and add it to the directory.</p>
-          <p><span class="text-teal-dark-1 fw-semibold" style="color:#1A6B4A">GREEN</span> listings are CUDFIRM-sponsored. <span class="text-danger fw-semibold">®</span> listings are registered with verified physical addresses.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">Got It</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- ===== LIGHTBOX ===== -->
-  <div id="imageLightbox" class="lightbox-overlay" onclick="closeLightboxOutside(event)">
-    <div class="lightbox-content-wrapper">
-     <img class="lightbox-img" id="lightboxImg" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Preview" />
-      <div id="lightboxCaption" class="lightbox-caption"></div>
-      <div class="lightbox-actions">
-        <button class="btn-capsule btn-close-capsule" onclick="closeLightbox()">Close</button>
-        <a id="lightboxEnterBtn" href="#" class="btn-capsule btn-enter-capsule">Enter</a>
+        <div class="modal-body disclaimer-text">
+          <p>
+            <strong>PLEASE NOTE:</strong> CUDFIRM is not directly affiliated with any listed
+            third-party sites that do not carry our registered trademark. We are not liable
+            for changes in their terms or functionality.
+          </p>
+          <p>
+            Discovered a service that others could benefit from? Let us know — we'll review
+            and add it to the directory.
+          </p>
+          <p>
+            <span class="text-teal-dark-1 fw-semibold" style="color:#1A6B4A;">GREEN</span>
+            listings are CUDFIRM-sponsored.&nbsp;
+            <span class="text-danger fw-semibold">®</span>
+            listings are registered with verified physical addresses.
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary w-100"
+                  data-bs-dismiss="modal">Got It</button>
+        </div>
+
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /#disclaimer-modal -->
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       LIGHTBOX  (#imageLightbox)
+       ─────────────────────────────────────────────────────────
+       Triggered by: grid items with [data-img] attribute.
+       IDs on img, caption, and enter-btn are unchanged so
+       script4.js's delegated click handler keeps working.
+
+       • .cud-lb           — outer wrapper (visibility toggle)
+       • .cud-lb-bg        — full-screen backdrop (click-to-close)
+       • .cud-lb-inner     — content box above backdrop
+       • #lightboxImg      — the image (ID kept for script4.js)
+       • #lightboxCaption  — name label  (ID kept)
+       • #lightboxEnterBtn — "Enter" link (ID kept)
+  ════════════════════════════════════════════════════════════ -->
+  <div
+    id="imageLightbox"
+    class="cud-lb"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Image preview"
+    aria-hidden="true"
+  >
+    <!-- Backdrop — clicking it closes the lightbox -->
+    <div class="cud-lb-bg" id="cud-lb-bg" aria-hidden="true"></div>
+
+    <!-- Content (sits above backdrop via z-index:1) -->
+    <div class="cud-lb-inner">
+
+      <!-- Corner close button -->
+      <button
+        class="cud-lb-x"
+        id="cud-lb-x"
+        aria-label="Close preview"
+        title="Close"
+      ><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+
+      <!-- Preview image -->
+      <img
+        class="cud-lb-img"
+        id="lightboxImg"
+        src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+        alt="Preview"
+        draggable="false"
+      />
+
+      <!-- Caption -->
+      <div class="cud-lb-caption" id="lightboxCaption"></div>
+
+      <!-- Action buttons -->
+      <div class="cud-lb-actions">
+        <button
+          class="cud-btn cud-btn-ghost"
+          id="cud-lb-close"
+          aria-label="Close preview"
+        >Close</button>
+
+        <a
+          class="cud-btn cud-btn-primary"
+          id="lightboxEnterBtn"
+          href="#"
+          style="display:none;"
+          aria-label="Visit page"
+        >Enter &rarr;</a>
       </div>
-    </div>
-  </div>
+
+    </div><!-- /.cud-lb-inner -->
+  </div><!-- /#imageLightbox -->
+
 
   <!-- ===== SCRIPTS ===== -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="js/script.js" defer></script>
-  <script src="js/feed.js" defer></script>
 
+  <!-- GSAP — kept for any other site animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <!-- Bootstrap JS — needed for dropdown menus, disclaimer modal, etc. -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Site scripts (defer = execute after parse, before DOMContentLoaded) -->
+  <script src="js/script.js" defer></script>
+  <script src="js/feed.js"    defer></script>
+
+  <!--
+    ╔══════════════════════════════════════════════════════════════╗
+    ║  MODAL SYSTEM v2 — MUST load LAST with defer                 ║
+    ║  Deferred scripts execute in order, so this runs after       ║
+    ║  script4.js, overriding openModal / openLightbox / showToast ║
+    ╚══════════════════════════════════════════════════════════════╝
+  -->
+  <script src="js/modals.js" defer></script>
 
 </body>
 </html>
