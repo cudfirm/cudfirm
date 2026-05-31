@@ -1,0 +1,536 @@
+/*
+ * ================================================
+ *  CUDFIRM — MODAL SYSTEM v2
+ *  Custom Modal · Disclaimer · Lightbox · Toast
+ *  No animations · Touch-ready · Full dark mode
+ *  Drop-in replacement — same IDs as original
+ * ================================================
+ */
+
+/* ================================================================
+   SHARED OVERLAY BASE
+   Both #modal and #disclaimer-modal use .cud-overlay
+   ================================================================ */
+.cud-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  /* Backdrop */
+  background: rgba(11, 61, 46, 0.72);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  /* Hidden by default — toggled via .cud-open */
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  overscroll-behavior: contain;
+}
+
+.cud-overlay.cud-open {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+[data-theme="dark"] .cud-overlay {
+  background: rgba(6, 14, 8, 0.82);
+}
+
+/* ================================================================
+   MODAL BOX (shared by both modals)
+   ================================================================ */
+.cud-box {
+  background: var(--dm-card-bg, #FAFAF8);
+  border: 1px solid var(--dm-border, #D4CEC4);
+  border-radius: 18px;
+  width: 100%;
+  max-width: 460px;
+  max-height: 88dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(11, 61, 46, 0.30), 0 4px 16px rgba(11, 61, 46, 0.12);
+}
+
+[data-theme="dark"] .cud-box {
+  background: #0C1A0F;
+  border-color: rgba(46, 102, 64, 0.45);
+  box-shadow: 0 24px 64px rgba(6, 14, 8, 0.7), 0 4px 16px rgba(6, 14, 8, 0.5);
+}
+
+/* ── Header ────────────────────────────────────────────────────── */
+.cud-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem 0.875rem;
+  border-bottom: 1px solid var(--dm-border, #D4CEC4);
+  flex-shrink: 0;
+}
+
+[data-theme="dark"] .cud-head {
+  border-bottom-color: rgba(46, 102, 64, 0.45);
+}
+
+.cud-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--n-forest, #0B3D2E);
+  margin: 0;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+
+[data-theme="dark"] .cud-title {
+  color: var(--night-text, #D4EAD8);
+}
+
+/* ── Close button ──────────────────────────────────────────────── */
+.cud-x {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(11, 61, 46, 0.07);
+  border: 1px solid var(--dm-border, #D4CEC4);
+  border-radius: 8px;
+  color: var(--n-muted, #7A8A72);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.cud-x:hover,
+.cud-x:focus-visible {
+  background: rgba(220, 50, 50, 0.10);
+  border-color: rgba(220, 50, 50, 0.30);
+  color: #dc3545;
+  outline: none;
+}
+
+[data-theme="dark"] .cud-x {
+  background: rgba(46, 102, 64, 0.14);
+  border-color: rgba(46, 102, 64, 0.45);
+  color: var(--night-muted, #7FA882);
+}
+
+[data-theme="dark"] .cud-x:hover {
+  background: rgba(200, 50, 50, 0.22);
+  color: #ff8888;
+}
+
+/* ── Body ──────────────────────────────────────────────────────── */
+.cud-body {
+  padding: 1rem 1.25rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  flex: 1 1 auto;
+  /* Thin custom scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--n-mist, #A8C5B8) transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.72;
+  color: var(--dm-text, #3A4035);
+}
+
+.cud-body::-webkit-scrollbar { width: 4px; }
+.cud-body::-webkit-scrollbar-thumb { background: var(--n-mist, #A8C5B8); border-radius: 4px; }
+
+[data-theme="dark"] .cud-body {
+  color: var(--night-text, #D4EAD8);
+  scrollbar-color: rgba(46, 102, 64, 0.4) transparent;
+}
+
+.cud-body p            { margin-bottom: 0.7rem; }
+.cud-body p:last-child { margin-bottom: 0; }
+.cud-body ul           { padding-left: 1.25rem; margin-bottom: 0.5rem; }
+.cud-body li           { margin-bottom: 0.3rem; }
+.cud-body strong       { color: var(--n-charcoal, #1C2218); font-weight: 600; }
+[data-theme="dark"] .cud-body strong { color: var(--night-text, #D4EAD8); }
+
+/* ── Footer ────────────────────────────────────────────────────── */
+.cud-foot {
+  padding: 0.875rem 1.25rem;
+  border-top: 1px solid var(--dm-border, #D4CEC4);
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+[data-theme="dark"] .cud-foot {
+  border-top-color: rgba(46, 102, 64, 0.45);
+}
+
+/* ================================================================
+   SHARED BUTTON SYSTEM
+   ================================================================ */
+.cud-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 24px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.82rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 38px;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* Primary — forest-to-gold gradient */
+.cud-btn-primary {
+  background: linear-gradient(135deg, var(--n-jade, #1A6B4A) 0%, var(--n-gold, #C8922A) 100%);
+  color: #fff !important;
+  border-color: transparent;
+  box-shadow: 0 4px 14px rgba(11, 61, 46, 0.28);
+}
+
+.cud-btn-primary:hover {
+  box-shadow: 0 6px 20px rgba(11, 61, 46, 0.38);
+}
+
+[data-theme="dark"] .cud-btn-primary {
+  background: linear-gradient(135deg, var(--night-glow, #2E6640) 0%, var(--night-gold, #D4A84E) 100%);
+  box-shadow: 0 4px 14px rgba(6, 14, 8, 0.5);
+}
+
+/* Secondary — outlined */
+.cud-btn-secondary {
+  background: var(--dm-card-bg, #FAFAF8);
+  color: var(--dm-text, #3A4035);
+  border-color: var(--dm-border, #D4CEC4);
+}
+
+.cud-btn-secondary:hover {
+  background: var(--n-cream, #F5F0E6);
+}
+
+[data-theme="dark"] .cud-btn-secondary {
+  background: rgba(46, 102, 64, 0.14);
+  color: var(--night-text, #D4EAD8);
+  border-color: rgba(46, 102, 64, 0.45);
+}
+
+[data-theme="dark"] .cud-btn-secondary:hover {
+  background: rgba(46, 102, 64, 0.28);
+}
+
+/* Ghost — for dark overlays (lightbox) */
+.cud-btn-ghost {
+  background: rgba(255, 255, 255, 0.10);
+  color: rgba(255, 255, 255, 0.88);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.cud-btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.20);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+/* Disclaimer text colours */
+.cud-green  { color: var(--n-jade, #1A6B4A); font-weight: 600; }
+.cud-danger { color: #dc3545; font-weight: 600; }
+[data-theme="dark"] .cud-green { color: var(--night-glow, #2E6640); }
+
+/* ================================================================
+   LIGHTBOX  (#imageLightbox)
+   ================================================================ */
+.cud-lb {
+  position: fixed;
+  inset: 0;
+  z-index: 9100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  /* Hidden by default */
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  overscroll-behavior: contain;
+}
+
+.cud-lb.cud-open {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Full-bleed backdrop — separate element so backdrop click is reliable */
+.cud-lb-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 14, 8, 0.93);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Content wrapper sits above backdrop via z-index */
+.cud-lb-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.875rem;
+  max-width: min(500px, 96vw);
+  width: 100%;
+}
+
+/* X close — top-right corner of inner box */
+.cud-lb-x {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.cud-lb-x:hover {
+  background: rgba(220, 50, 50, 0.52);
+  border-color: rgba(220, 50, 50, 0.65);
+}
+
+.cud-lb-img {
+  max-width: 100%;
+  max-height: 62vh;
+  width: auto;
+  height: auto;
+  border-radius: 14px;
+  object-fit: contain;
+  display: block;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
+  border: 2px solid rgba(200, 146, 42, 0.35);
+  background: rgba(0, 0, 0, 0.2);   /* placeholder colour while loading */
+}
+
+.cud-lb-caption {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+  text-align: center;
+  letter-spacing: 0.03em;
+  min-height: 1.25em;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.cud-lb-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ================================================================
+   TOAST  (#toastNotification)
+   Replaces the original .toast-notification styles entirely
+   ================================================================ */
+#toastNotification,
+.toast-notification {
+  position: fixed;
+  bottom: 74px;                         /* just above footer nav */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9200;
+  background: var(--dm-toast-bg, #0B3D2E);
+  color: var(--dm-toast-color, #fff);
+  padding: 0.6rem 1.3rem;
+  border-radius: 24px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  box-shadow: 0 8px 28px rgba(11, 61, 46, 0.30);
+  border: 1px solid rgba(200, 146, 42, 0.28);
+  max-width: min(360px, 92vw);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+  /* Hidden state */
+  visibility: hidden;
+  opacity: 0;
+}
+
+#toastNotification.show,
+.toast-notification.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+[data-theme="dark"] #toastNotification,
+[data-theme="dark"] .toast-notification {
+  background: var(--dm-toast-bg, #1A3D22);
+  color: var(--dm-toast-color, #D4EAD8);
+  border-color: rgba(46, 102, 64, 0.5);
+  box-shadow: 0 8px 28px rgba(6, 14, 8, 0.6);
+}
+
+/* ================================================================
+   DISCLAIMER — Bootstrap override
+   Keeps Bootstrap's mechanism but styles it to CUDFIRM brand
+   ================================================================ */
+#disclaimer-modal .modal-content {
+  background: var(--dm-card-bg, #FAFAF8) !important;
+  border: 1px solid var(--dm-border, #D4CEC4) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 24px 64px rgba(11, 61, 46, 0.28) !important;
+  overflow: hidden;
+}
+
+[data-theme="dark"] #disclaimer-modal .modal-content {
+  background: #0C1A0F !important;
+  border-color: rgba(46, 102, 64, 0.45) !important;
+  box-shadow: 0 24px 64px rgba(6, 14, 8, 0.7) !important;
+}
+
+#disclaimer-modal .modal-header {
+  background: transparent !important;
+  border-bottom: 1px solid var(--dm-border, #D4CEC4) !important;
+  padding: 1rem 1.25rem 0.875rem !important;
+}
+
+[data-theme="dark"] #disclaimer-modal .modal-header {
+  border-bottom-color: rgba(46, 102, 64, 0.45) !important;
+}
+
+#disclaimer-modal .modal-title {
+  font-family: 'Syne', sans-serif !important;
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+  color: var(--n-forest, #0B3D2E) !important;
+  letter-spacing: -0.01em !important;
+}
+
+[data-theme="dark"] #disclaimer-modal .modal-title {
+  color: var(--night-text, #D4EAD8) !important;
+}
+
+#disclaimer-modal .modal-body {
+  padding: 1rem 1.25rem !important;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--dm-text, #3A4035);
+}
+
+[data-theme="dark"] #disclaimer-modal .modal-body {
+  color: var(--night-text, #D4EAD8);
+}
+
+#disclaimer-modal .modal-footer {
+  background: transparent !important;
+  border-top: 1px solid var(--dm-border, #D4CEC4) !important;
+  padding: 0.875rem 1.25rem !important;
+}
+
+[data-theme="dark"] #disclaimer-modal .modal-footer {
+  border-top-color: rgba(46, 102, 64, 0.45) !important;
+}
+
+#disclaimer-modal .modal-footer .btn-secondary {
+  background: var(--n-forest, #0B3D2E) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 24px !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 0.82rem !important;
+  padding: 0.5rem 1.5rem !important;
+}
+
+#disclaimer-modal .modal-footer .btn-secondary:hover {
+  background: var(--n-jade, #1A6B4A) !important;
+}
+
+[data-theme="dark"] #disclaimer-modal .modal-footer .btn-secondary {
+  background: var(--night-glow, #2E6640) !important;
+}
+
+/* Disclaimer text accent colours */
+#disclaimer-modal .text-teal-dark-1 { color: var(--n-jade, #1A6B4A) !important; }
+[data-theme="dark"] #disclaimer-modal .text-teal-dark-1 { color: var(--night-glow, #2E6640) !important; }
+
+/* Bootstrap backdrop tint */
+.modal-backdrop {
+  background-color: rgba(11, 61, 46, 0.6) !important;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media (max-width: 480px) {
+  .cud-box {
+    max-width: 100%;
+    border-radius: 14px;
+  }
+
+  .cud-head {
+    padding: 0.875rem 1rem 0.75rem;
+  }
+
+  .cud-body {
+    padding: 0.875rem 1rem;
+    font-size: 0.84rem;
+  }
+
+  .cud-foot {
+    padding: 0.75rem 1rem;
+  }
+
+  .cud-lb-img  { max-height: 52vh; }
+  .cud-lb-x    { top: -10px; right: -10px; width: 32px; height: 32px; font-size: 1rem; }
+  .cud-lb-inner { gap: 0.65rem; }
+}
+
+@media (max-width: 360px) {
+  .cud-lb-inner { max-width: 100%; }
+}
+
+/* ================================================================
+   FOCUS TRAP — keyboard accessibility
+   ================================================================ */
+.cud-overlay:focus-visible,
+.cud-lb:focus-visible { outline: none; }
