@@ -279,11 +279,11 @@ function buildTab1() {
     <footer class="footin">
       <div class="icons-social">
         <article class="list-social">
-          <span class="icons-social__item"><a class="icons-social__link" href="#" aria-label="CodePen"><i class="fab fa-codepen"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://codepen.io/cudfirm-group" aria-label="CodePen"><i class="fab fa-codepen"></i></a></span>
           <span class="icons-social__item"><a class="icons-social__link" href="https://instagram.com/cudfirm" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="#" aria-label="Twitter/X"><i class="fab fa-twitter"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://fb.me/cudfirm" aria-label="Facebook"><i class="fab fa-facebook"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://x.com/cudfirm" aria-label="Twitter/X"><i class="fab fa-twitter"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://linkedin.com/in/cudfirm" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a></span>
         </article>
       </div>
     </footer>
@@ -808,11 +808,11 @@ function buildBlogContent() {
     <footer class="footin mt-3">
       <div class="icons-social">
         <article class="list-social">
-          <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-codepen"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://codepen.io/cudfirm-group"><i class="fab fa-codepen"></i></a></span>
           <span class="icons-social__item"><a class="icons-social__link" href="https://instagram.com/cudfirm" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-facebook"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-twitter"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-linkedin"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://fb.me/cudfirm"><i class="fab fa-facebook"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://x.com/cudfirm"><i class="fab fa-twitter"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://linkedin.com/in/cudfirm"><i class="fab fa-linkedin"></i></a></span>
         </article>
       </div>
     </footer>
@@ -921,11 +921,11 @@ function buildForumContent() {
     <footer class="footin">
       <div class="icons-social">
         <article class="list-social">
-          <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-codepen"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://codepen.io/cudfirm-group"><i class="fab fa-codepen"></i></a></span>
           <span class="icons-social__item"><a class="icons-social__link" href="https://instagram.com/cudfirm" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-facebook"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-twitter"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-linkedin"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="fb.me/cudfirm"><i class="fab fa-facebook"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://x.com/cudfirm"><i class="fab fa-twitter"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://linkedin.com/in/cudfirm"><i class="fab fa-linkedin"></i></a></span>
         </article>
       </div>
     </footer>
@@ -995,11 +995,11 @@ function buildConnectContent() {
     <footer class="footin mt-4">
       <div class="icons-social">
         <article class="list-social">
-          <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-codepen"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://codepen.io/cudfirm-group"><i class="fab fa-codepen"></i></a></span>
           <span class="icons-social__item"><a class="icons-social__link" href="https://instagram.com/cudfirm" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-facebook"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-twitter"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="#"><i class="fab fa-linkedin"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://fb.me/cudfirm"><i class="fab fa-facebook"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://x.com/cudfirm"><i class="fab fa-twitter"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://linkedin.com/in/cudfirm"><i class="fab fa-linkedin"></i></a></span>
         </article>
       </div>
     </footer>
@@ -1555,9 +1555,9 @@ function initServiceFinder() {
           </div>
           <div class="card-footer">
             <div class="d-flex gap-2" style="font-size:0.78rem;">
-              <a href="#" class="text-secondary" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-              <a href="#" class="text-secondary" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-              <a href="#" class="text-secondary" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="https://fb.me/cudfirm" class="text-secondary" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://instagram.com/@cudfirm" class="text-secondary" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="https://x.com/cudfirm" class="text-secondary" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
             </div>
             <a href="#" class="fw-semibold small text-decoration-none" style="color:var(--n-jade);" onclick="openTab(event,'connect-content')">Enquire →</a>
           </div>
