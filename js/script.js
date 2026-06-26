@@ -164,12 +164,12 @@ function buildAllSections() {
 }
 
 // ─────────────────────────────────────────────
-// TAB 1: HOME
+// TAB 1: HOME (Updated for clarity & conversion)
 // ─────────────────────────────────────────────
 function buildTab1() {
   const portfolio = [
     { img: 'https://placehold.co/200x250/1A6B4A/fff?text=CUDFIRM', link: 'https://cudfirm.netlify.app', name: 'CUDFIRM Group', alt: 'CUDFIRM' },
-    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=BARBER', link: '#', name: 'Barber Shop Site', alt: 'Barber' },
+    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=BARBER', link: '#', name: 'Barber Shop', alt: 'Barber' },
     { img: 'https://placehold.co/200x250/C8922A/fff?text=FASHION', link: '#', name: 'Fashion Designer', alt: 'Fashion' },
     { img: 'https://placehold.co/200x250/1A6B4A/fff?text=FOOD', link: '#', name: 'Food Vendor', alt: 'Food Vendor' },
     { img: 'https://placehold.co/200x250/4D9E7A/fff?text=COACH', link: '#', name: 'Life Coach', alt: 'Coach' },
@@ -203,11 +203,11 @@ function buildTab1() {
   <section id="tab1" class="tab-content view">
     <div class="home-hero">
       <span class="hero-eyebrow">Lagos-Based Web Studio</span>
-      <h1 class="hero-title">CUDFIRM</h1>
-      <p class="hero-sub">We build professional websites for small businesses, creatives, and service providers across Nigeria — fast, affordable, and mobile-ready.</p>
+      <h1 class="hero-title">Professional Websites That Grow Your Business</h1>
+      <p class="hero-sub">We design fast, modern, and mobile-friendly websites for businesses, professionals, and growing brands. Ready to get online? Let's talk.</p>
       <div class="hero-cta-row">
-        <button class="btn-hero-primary" onclick="openTab(event,'tab4')">View Portfolio</button>
-        <button class="btn-hero-secondary" onclick="openTab(event,'connect-content')">Get A Quote</button>
+        <button class="btn-hero-primary" onclick="openTab(event,'tab4')">View Our Portfolio</button>
+        <button class="btn-hero-secondary" onclick="openTab(event,'connect-content')">Get a Free Consultation</button>
       </div>
     </div>
 
@@ -218,29 +218,7 @@ function buildTab1() {
       </h6>
       <hr class="my-2 w-25" />
 
-      <!-- Portfolio Highlights -->
-      <div class="card card-section mb-3">
-        <div class="card-header">
-          <h3><i class="bi bi-laptop me-1" style="color:var(--n-gold)"></i>Recent Work</h3>
-          <button class="btn btn-sm btn-success see-all" onclick="openTab(event,'tab4')">View All</button>
-        </div>
-        <div class="card-content row icon-grid row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-7 row-cols-xl-9 quote0">
-          ${gridItems(portfolio)}
-        </div>
-      </div>
-
-      <!-- Services -->
-      <div class="card card-section mb-3">
-        <div class="card-header">
-          <h3><i class="bi bi-briefcase me-1" style="color:var(--n-gold)"></i>What We Build</h3>
-          <button class="btn btn-sm btn-primary see-all" onclick="openTab(event,'tab3')">View All</button>
-        </div>
-        <div class="card-content row icon-grid row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-7 row-cols-xl-9 quote0">
-          ${gridItems(services)}
-        </div>
-      </div>
-
-      <!-- Why Us Quick Stats -->
+      <!-- Why CUDFIRM (Trust Signals) -->
       <div class="card card-section mb-3">
         <div class="card-header">
           <h3><i class="bi bi-patch-check me-1" style="color:var(--n-gold)"></i>Why Choose CUDFIRM</h3>
@@ -261,6 +239,28 @@ function buildTab1() {
                 </div>
               </div>`).join('')}
           </div>
+        </div>
+      </div>
+
+      <!-- Portfolio Highlights -->
+      <div class="card card-section mb-3">
+        <div class="card-header">
+          <h3><i class="bi bi-laptop me-1" style="color:var(--n-gold)"></i>Recent Work</h3>
+          <button class="btn btn-sm btn-success see-all" onclick="openTab(event,'tab4')">View All</button>
+        </div>
+        <div class="card-content row icon-grid row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-7 row-cols-xl-9 quote0">
+          ${gridItems(portfolio)}
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div class="card card-section mb-3">
+        <div class="card-header">
+          <h3><i class="bi bi-briefcase me-1" style="color:var(--n-gold)"></i>What We Build</h3>
+          <button class="btn btn-sm btn-primary see-all" onclick="openTab(event,'tab3')">View All</button>
+        </div>
+        <div class="card-content row icon-grid row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-7 row-cols-xl-9 quote0">
+          ${gridItems(services)}
         </div>
       </div>
     </div>
@@ -324,7 +324,7 @@ function buildTab2() {
 }
 
 // ─────────────────────────────────────────────
-// TAB 3: SERVICES
+// TAB 3: SERVICES (Updated with clear pricing & value)
 // ─────────────────────────────────────────────
 function buildTab3() {
   const items = [
@@ -385,7 +385,7 @@ function buildUnderConstruction(tabId, title, desc, badge) {
 }
 
 // ─────────────────────────────────────────────
-// TAB 4: PORTFOLIO
+// TAB 4: PORTFOLIO (Improved showcase)
 // ─────────────────────────────────────────────
 function buildTab4() {
   const projects = [
@@ -423,7 +423,7 @@ function buildTab4() {
 }
 
 // ─────────────────────────────────────────────
-// TAB 5: OUR PROCESS
+// TAB 5: OUR PROCESS (Clear, client-focused)
 // ─────────────────────────────────────────────
 function buildTab5() {
   const steps = [
@@ -810,7 +810,7 @@ function buildTab16() {
 }
 
 // ─────────────────────────────────────────────
-// TAB 17: WHY CUDFIRM (was Investment)
+// TAB 17: WHY CUDFIRM (was Investment) - Now more client-focused
 // ─────────────────────────────────────────────
 function buildTab17() {
   const reasons = [
