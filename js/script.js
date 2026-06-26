@@ -82,9 +82,9 @@ function renderSidebarTabs() {
   }).join('');
 }
 
-// =============================================
+// =========================================
 // 2. RENDER FOOTER NAV
-// =============================================
+// =========================================
 function renderFooterNav() {
   const nav = document.getElementById('footerNav');
   if (!nav) return;
@@ -172,7 +172,7 @@ function buildAllSections() {
 // ─────────────────────────────────────────────
 function buildTab1() {
   const partners = [
-    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=CUDFIRM', link: 'https://cudfirm.netlify.app', name: 'CUDFIRM', alt: 'CUDFIRM GROUP' },
+    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=CUDFIRM', link: 'https://cudfirm.netlify.app', name: 'CUDFIRM', alt: 'CUDFIRM' },
     { img: 'https://placehold.co/200x250/1A6B4A/fff?text=THE KING MASTER', link: '#', name: 'King Master', alt: 'The King Master' },
     { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=NS', link: '#', name: 'CUDFIRM Tech', alt: 'CUDFIRM Tech' },
     { img: 'https://placehold.co/200x250/1A6B4A/fff?text=NX', link: '#', name: 'CUDFIRM Xport', alt: 'CUDFIRM Export' },
@@ -236,7 +236,7 @@ function buildTab1() {
 
     <div class="p-3">
       <h6 class="sticky-top d-flex align-items-center gap-2 py-2">
-        <span class="badge text-bg-primary">CUDFIRM GROUP</span>
+        <span class="badge text-bg-primary">CUDFIRM</span>
         <span style="font-size:0.72rem;color:var(--n-muted);font-weight:400;">Multifaceted. Global. Reliable.</span>
       </h6>
       <hr class="my-2 w-25" />
