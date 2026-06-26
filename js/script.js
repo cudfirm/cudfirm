@@ -1,8 +1,8 @@
 /**
  * ================================================
- *  CUDFIRM — MASTER SCRIPT
- *  Multifaceted Company — Local & International
- *  All tab content rendered dynamically for speed
+ *  CUDFIRM GROUP — MASTER SCRIPT
+ *  Professional Website Studio · Lagos, Nigeria
+ *  "Build a Professional Website for Your Business"
  * ================================================
  */
 
@@ -20,12 +20,12 @@ const ALL_TAB_IDS = [
 let currentTabIndex = 2;
 
 const TAB_NAMES = {
-  'tab1':'Home','tab2':'Sectors','tab3':'Services','tab4':'People',
-  'tab5':'Events','tab6':'Templates','tab7':'Grants','tab8':'Showcase',
-  'tab9':'Our Stars','tab10':'Love Notes','tab11':'Local Guides',
-  'tab12':'Spark','tab13':'Discover','tab14':'Deals','tab15':'Community',
-  'tab16':'Submit A Tip','tab17':'Investment','tab18':'Diaspora','tab19':'Media','tab20':'Partners',
-  'blog-content':'Blog','explore-content':'Explore',
+  'tab1':'Home','tab2':'Sectors','tab3':'Services','tab4':'Portfolio',
+  'tab5':'Process','tab6':'Templates','tab7':'Resources','tab8':'Showcase',
+  'tab9':'Testimonials','tab10':'Love Notes','tab11':'Local Guides',
+  'tab12':'Tips 🔥','tab13':'FAQ','tab14':'Deals','tab15':'Community',
+  'tab16':'Submit A Tip','tab17':'Why Us','tab18':'For Diaspora','tab19':'Media','tab20':'Partners',
+  'blog-content':'Blog','explore-content':'Portfolio',
   'forum-content':'Forum','connect-content':'Connect'
 };
 
@@ -38,20 +38,20 @@ const SIDEBAR_TABS = [
   { id: 'tab1',  label: 'Home' },
   { id: 'tab2',  label: 'Sectors' },
   { id: 'tab3',  label: 'Services' },
-  { id: 'tab4',  label: 'People' },
-  { id: 'tab5',  label: 'Events' },
+  { id: 'tab4',  label: 'Portfolio' },
+  { id: 'tab5',  label: 'Our Process' },
   { id: 'tab6',  label: 'Templates' },
-  { id: 'tab7',  label: 'Grants' },
+  { id: 'tab7',  label: 'Resources' },
   { id: 'tab8',  label: 'Showcase' },
-  { id: 'tab9',  label: 'Our Stars' },
+  { id: 'tab9',  label: 'Testimonials' },
   { id: 'tab10', label: 'Love Notes' },
   { id: 'tab11', label: 'Local Guides' },
-  { id: 'tab12', label: 'Spark 🔥', badge: 'hot' },
-  { id: 'tab13', label: 'Discover' },
+  { id: 'tab12', label: 'Web Tips 🔥', badge: 'hot' },
+  { id: 'tab13', label: 'FAQ' },
   { id: 'tab14', label: 'Deals', badge: 'new' },
   { id: 'tab15', label: 'Community' },
   { id: 'tab16', label: 'Submit A Tip' },
-  { id: 'tab17', label: 'Investment' },
+  { id: 'tab17', label: 'Why CUDFIRM' },
   { id: 'tab18', label: 'Diaspora' },
   { id: 'tab19', label: 'Media' },
   { id: 'tab20', label: 'Partners' },
@@ -62,7 +62,7 @@ const SIDEBAR_TABS = [
 // =============================================
 const FOOTER_NAV = [
   { id: 'blog-content',    icon: 'bi-grid',        label: 'Blog' },
-  { id: 'explore-content', icon: 'bi-door-open',   label: 'Explore' },
+  { id: 'explore-content', icon: 'bi-door-open',   label: 'Portfolio' },
   { id: 'tab1',            icon: 'bi-house-fill',  label: 'Home' },
   { id: 'forum-content',   icon: 'bi-chat-dots',   label: 'Forum' },
   { id: 'connect-content', icon: 'bi-person-check',label: 'Connect' },
@@ -100,8 +100,6 @@ function renderFooterNav() {
 // 2.5. RENDER MOBILE TAB STRIP
 // =============================================
 function renderMobileTabStrip() {
-  // Insert a horizontal scrollable chip strip inside .content-area, after the header,
-  // for mobile screens where the sidebar (and its tabs) are hidden.
   const contentArea = document.querySelector('.content-area');
   const contentHeader = document.querySelector('.content-header');
   if (!contentArea || !contentHeader) return;
@@ -119,7 +117,6 @@ function renderMobileTabStrip() {
     return `<button class="mobile-tab-chip" onclick="openTab(event,'${t.id}')" data-tab-id="${t.id}" role="tab">${t.label}${badge}</button>`;
   }).join('');
 
-  // Insert right after the header
   contentHeader.insertAdjacentElement('afterend', strip);
 }
 
@@ -127,16 +124,15 @@ function updateMobileTabStrip(activeTabId) {
   document.querySelectorAll('.mobile-tab-chip').forEach(chip => {
     chip.classList.toggle('active', chip.dataset.tabId === activeTabId);
     if (chip.dataset.tabId === activeTabId) {
-      // Scroll the active chip into view
       chip.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     }
   });
 }
+
 function buildAllSections() {
   const main = document.getElementById('contentMain');
   if (!main) return;
 
-  // All sections as HTML strings — injected at once
   const sections = [
     buildTab1(),
     buildTab2(),
@@ -171,53 +167,34 @@ function buildAllSections() {
 // TAB 1: HOME
 // ─────────────────────────────────────────────
 function buildTab1() {
-  const partners = [
-    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=CUDFIRM', link: 'https://cudfirm.netlify.app', name: 'CUDFIRM', alt: 'CUDFIRM' },
-    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=THE KING MASTER', link: '#', name: 'King Master', alt: 'The King Master' },
-    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=NS', link: '#', name: 'CUDFIRM Tech', alt: 'CUDFIRM Tech' },
-    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=NX', link: '#', name: 'CUDFIRM Xport', alt: 'CUDFIRM Export' },
-    { img: 'https://placehold.co/200x250/C8922A/fff?text=NH', link: '#', name: 'CUDFIRM Health', alt: 'CUDFIRM Health' },
-    { img: 'https://placehold.co/200x250/4D9E7A/fff?text=NL', link: '#', name: 'CUDFIRM Logistics', alt: 'CUDFIRM Logistics' },
-    { img: 'https://placehold.co/200x250/E8B84B/0B3D2E?text=NE', link: '#', name: 'CUDFIRM Energy', alt: 'CUDFIRM Energy' },
-    { img: 'https://placehold.co/200x250/3A4035/fff?text=+', link: 'connect-content', name: 'Join Us', alt: 'Become a Partner' },
-  ];
-
-  const brands = [
-    { img: 'https://placehold.co/200x250/5f9ea0/ffffff?text=BLOG', link: '#', name: 'CUDFIRM Blog', alt: 'CUDFIRM Blog' },
-    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=LOBAH VISUALS', link: 'https://www.instagram.com/lobahvisuals', name: 'Lobah Visuals', alt: 'LOBAH VISUALS' },
-    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=ELICHI', link: 'https://www.instagram.com/elichiskitchen', name: 'Elichi Catering', alt: 'ELICHI' },
-    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=DAMKAZ', link: '#', name: 'Damkaz Couture', alt: 'DAMKAZ' },
-    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=ELISTITCHES', link: '#', name: "Eli's Stitches", alt: 'ELI STITCHES' },
-    { img: 'https://placehold.co/200x250/C8922A/fff?text=AG', link: '#', name: 'AgriLink', alt: 'AgriLink' },
-    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=TK', link: '#', name: 'TechKraft', alt: 'TechKraft' },
-    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=WC', link: '#', name: 'WaterCycle', alt: 'WaterCycle' },
-    { img: 'https://placehold.co/200x250/8B4513/fff?text=WD', link: '#', name: 'WoodCraft', alt: 'WoodCraft' },
-    { img: 'https://placehold.co/200x250/4B0082/fff?text=SS', link: '#', name: 'Solar Spark', alt: 'Solar Spark' },
-    { img: 'https://placehold.co/200x250/191970/fff?text=+', link: '#', name: 'Vacant', alt: 'Vacant Slot' },
+  const portfolio = [
+    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=CUDFIRM', link: 'https://cudfirm.netlify.app', name: 'CUDFIRM Group', alt: 'CUDFIRM' },
+    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=BARBER', link: '#', name: 'Barber Shop Site', alt: 'Barber' },
+    { img: 'https://placehold.co/200x250/C8922A/fff?text=FASHION', link: '#', name: 'Fashion Designer', alt: 'Fashion' },
+    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=FOOD', link: '#', name: 'Food Vendor', alt: 'Food Vendor' },
+    { img: 'https://placehold.co/200x250/4D9E7A/fff?text=COACH', link: '#', name: 'Life Coach', alt: 'Coach' },
+    { img: 'https://placehold.co/200x250/E8B84B/0B3D2E?text=PHOTO', link: '#', name: 'Photographer', alt: 'Photographer' },
+    { img: 'https://placehold.co/200x250/3A4035/fff?text=REST', link: '#', name: 'Restaurant', alt: 'Restaurant' },
+    { img: 'https://placehold.co/200x250/191970/fff?text=+', link: 'connect-content', name: 'Your Business?', alt: 'Get Started' },
   ];
 
   const services = [
-    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=CF', link: 'massage.html', name: 'Massage & Wellness', alt: 'Massage & Wellness' },
-    { img: 'img/welcome.webp', link: '#', name: 'Adire Textiles', alt: 'ADIRE' },
-    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=WEB HOSTING', link: '#', name: 'Web Hosting', alt: 'WEB HOSTING' },
-    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=RA', link: '#', name: 'Estates & Autos', alt: 'REAL ESTATE & AUTOMOBILE' },
-    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=SHOP', link: '#', name: 'CUDFIRM Shop', alt: 'SHOP' },
-    { img: 'img/ads3.webp', link: '#', name: 'Store House', alt: 'STORE' },
-    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=FD', link: '#', name: 'Food Delivery', alt: 'Food Delivery' },
-    { img: 'https://placehold.co/200x250/C8922A/fff?text=LG', link: '#', name: 'Logistics', alt: 'Logistics' },
-    { img: 'https://placehold.co/200x250/4D9E7A/fff?text=HX', link: '#', name: 'Health Express', alt: 'Health Express' },
-    { img: 'https://placehold.co/200x250/E8B84B/0B3D2E?text=SP', link: '#', name: 'Solar Power', alt: 'Solar Power' },
-    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=ED', link: '#', name: 'Edu Hub', alt: 'Edu Hub' },
-    { img: 'img/ads3.PNG', link: '#', name: 'More Soon', alt: 'Coming Soon' },
+    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=LANDING', link: '#', name: 'Landing Page', alt: 'Landing Page' },
+    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=BUSINESS', link: '#', name: 'Business Website', alt: 'Business Website' },
+    { img: 'https://placehold.co/200x250/C8922A/fff?text=MAINTAIN', link: '#', name: 'Maintenance', alt: 'Maintenance' },
+    { img: 'https://placehold.co/200x250/4D9E7A/fff?text=DOMAIN', link: '#', name: 'Domain & Hosting', alt: 'Hosting' },
+    { img: 'https://placehold.co/200x250/E8B84B/0B3D2E?text=SEO', link: '#', name: 'SEO Setup', alt: 'SEO' },
+    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=BRAND', link: '#', name: 'Brand Identity', alt: 'Branding' },
+    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=CONTENT', link: '#', name: 'Content Writing', alt: 'Content' },
+    { img: 'https://placehold.co/200x250/3A4035/fff?text=MORE', link: 'tab3', name: 'View All', alt: 'More Services' },
   ];
 
   const gridItems = (items) => items.map(p => {
-    // Escape values for safe HTML attribute usage
     const safeImg = p.img.replace(/'/g, "\\'").replace(/"/g, '&quot;');
     const safeName = p.name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
     const safeLink = p.link.replace(/'/g, "\\'").replace(/"/g, '&quot;');
     return `<div class="col grid-item" data-img="${safeImg}" data-name="${safeName}" data-link="${safeLink}">
-      <img src="${p.img}" alt="${p.alt}" class="img-fluid" loading="lazy" onerror="this.src='https://placehold.co/600x800/0B3D2E/C8922A?text=N'" />
+      <img src="${p.img}" alt="${p.alt}" class="img-fluid" loading="lazy" onerror="this.src='https://placehold.co/600x800/0B3D2E/C8922A?text=CUDFIRM'" />
       <span class="text">${p.name}</span>
     </div>`;
   }).join('');
@@ -225,52 +202,65 @@ function buildTab1() {
   return `
   <section id="tab1" class="tab-content view">
     <div class="home-hero">
-      <span class="hero-eyebrow">Welcome to</span>
+      <span class="hero-eyebrow">Lagos-Based Web Studio</span>
       <h1 class="hero-title">CUDFIRM</h1>
-      <p class="hero-sub">Where every need meets a solution — locally and internationally. We connect people, services, and opportunities.</p>
+      <p class="hero-sub">We build professional websites for small businesses, creatives, and service providers across Nigeria — fast, affordable, and mobile-ready.</p>
       <div class="hero-cta-row">
-        <button class="btn-hero-primary" onclick="openTab(event,'tab3')">Explore Services</button>
-        <button class="btn-hero-secondary" onclick="openTab(event,'connect-content')">Get In Touch</button>
+        <button class="btn-hero-primary" onclick="openTab(event,'tab4')">View Portfolio</button>
+        <button class="btn-hero-secondary" onclick="openTab(event,'connect-content')">Get A Quote</button>
       </div>
     </div>
 
     <div class="p-3">
       <h6 class="sticky-top d-flex align-items-center gap-2 py-2">
         <span class="badge text-bg-primary">CUDFIRM</span>
-        <span style="font-size:0.72rem;color:var(--n-muted);font-weight:400;">Multifaceted. Global. Reliable.</span>
+        <span style="font-size:0.72rem;color:var(--n-muted);font-weight:400;">Professional Websites for Nigerian Businesses</span>
       </h6>
       <hr class="my-2 w-25" />
 
-      <!-- Partners & Sponsors -->
+      <!-- Portfolio Highlights -->
       <div class="card card-section mb-3">
         <div class="card-header">
-          <h3><i class="bi bi-stars me-1" style="color:var(--n-gold)"></i>Partners &amp; Sponsors</h3>
-          <button class="btn btn-sm btn-success see-all" onclick="openTab(event,'tab20')">View All</button>
+          <h3><i class="bi bi-laptop me-1" style="color:var(--n-gold)"></i>Recent Work</h3>
+          <button class="btn btn-sm btn-success see-all" onclick="openTab(event,'tab4')">View All</button>
         </div>
         <div class="card-content row icon-grid row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-7 row-cols-xl-9 quote0">
-          ${gridItems(partners)}
+          ${gridItems(portfolio)}
         </div>
       </div>
 
-      <!-- Trending Brands -->
+      <!-- Services -->
       <div class="card card-section mb-3">
         <div class="card-header">
-          <h3><i class="bi bi-fire me-1" style="color:#dc5032"></i>Trending Brands</h3>
-          <button class="btn btn-sm btn-primary see-all" onclick="openTab(event,'explore-content')">View All</button>
-        </div>
-        <div class="card-content row icon-grid row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-7 row-cols-xl-9 quote0">
-          ${gridItems(brands)}
-        </div>
-      </div>
-
-      <!-- Our Services -->
-      <div class="card card-section mb-3">
-        <div class="card-header">
-          <h3><i class="bi bi-briefcase me-1" style="color:var(--n-gold)"></i>Our Services</h3>
-          <button class="btn btn-sm btn-warning see-all" onclick="openTab(event,'tab3')">View All</button>
+          <h3><i class="bi bi-briefcase me-1" style="color:var(--n-gold)"></i>What We Build</h3>
+          <button class="btn btn-sm btn-primary see-all" onclick="openTab(event,'tab3')">View All</button>
         </div>
         <div class="card-content row icon-grid row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-7 row-cols-xl-9 quote0">
           ${gridItems(services)}
+        </div>
+      </div>
+
+      <!-- Why Us Quick Stats -->
+      <div class="card card-section mb-3">
+        <div class="card-header">
+          <h3><i class="bi bi-patch-check me-1" style="color:var(--n-gold)"></i>Why Choose CUDFIRM</h3>
+        </div>
+        <div class="card-content">
+          <div class="row g-3 text-center">
+            ${[
+              { icon:'bi-phone', label:'Mobile-First', sub:'Every site looks great on any device' },
+              { icon:'bi-lightning-charge', label:'Fast Delivery', sub:'Sites delivered in 3–7 business days' },
+              { icon:'bi-cash-coin', label:'Affordable', sub:'Starting from ₦50,000 — no hidden fees' },
+              { icon:'bi-geo-alt', label:'Lagos-Based', sub:'Local support you can actually reach' },
+            ].map(w => `
+              <div class="col-6 col-md-3">
+                <div class="card p-3">
+                  <i class="bi ${w.icon}" style="font-size:1.5rem;color:var(--n-gold);margin-bottom:0.5rem;display:block;"></i>
+                  <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;">${w.label}</div>
+                  <div style="font-size:0.7rem;color:var(--n-muted);margin-top:0.2rem;">${w.sub}</div>
+                </div>
+              </div>`).join('')}
+          </div>
         </div>
       </div>
     </div>
@@ -291,54 +281,45 @@ function buildTab1() {
 }
 
 // ─────────────────────────────────────────────
-// TAB 2: SECTORS
+// TAB 2: SECTORS (who we build for)
 // ─────────────────────────────────────────────
 function buildTab2() {
   const sectors = [
-    { icon: 'bi-cpu',              name: 'Technology',        desc: 'Software, hardware, AI, fintech, and digital platforms.' },
-    { icon: 'bi-cart3',            name: 'Commerce',          desc: 'Retail, e-commerce, supply chain, and trade.' },
-    { icon: 'bi-heart-pulse',      name: 'Healthcare',        desc: 'Pharmacy, telemedicine, wellness, and health tech.' },
-    { icon: 'bi-house-door',       name: 'Real Estate',       desc: 'Residential, commercial, rentals, and property management.' },
-    { icon: 'bi-truck',            name: 'Logistics',         desc: 'Delivery, freight, warehousing, and supply chain.' },
-    { icon: 'bi-lightning-charge', name: 'Energy & Solar',    desc: 'Renewable energy, solar installation, and power solutions.' },
-    { icon: 'bi-egg-fried',        name: 'Agriculture & Food',desc: 'Farming, food processing, export, and agro-products.' },
-    { icon: 'bi-building',         name: 'Construction',      desc: 'Civil works, renovation, interior design, and facilities.' },
-    { icon: 'bi-mortarboard',      name: 'Education',         desc: 'Tutoring, online learning, training, and certification.' },
-    { icon: 'bi-palette',          name: 'Creative Arts',     desc: 'Design, media, photography, fashion, and entertainment.' },
-    { icon: 'bi-globe',            name: 'Export & Import',   desc: 'International trade, diaspora goods, and customs support.' },
-    { icon: 'bi-people',           name: 'Human Capital',     desc: 'Recruitment, HR services, staffing, and talent management.' },
-    { icon: 'bi-droplet',          name: 'Clean Water',       desc: 'Water treatment, delivery, borehole, and purification.' },
-    { icon: 'bi-phone',            name: 'Telecom & Mobile',  desc: 'Data, POS, phone accessories, airtime, and connectivity.' },
-    { icon: 'bi-star',             name: 'Lifestyle',         desc: 'Laundry, beauty, massage, events, and personal services.' },
-    { icon: 'bi-bank',             name: 'Finance & Banking', desc: 'Microfinance, investment, insurance, and fintech services.' },
+    { icon: 'bi-scissors',          name: 'Barbers & Salons',       desc: 'Look-book sites, booking info, gallery, and WhatsApp button.' },
+    { icon: 'bi-camera',            name: 'Photographers',           desc: 'Portfolio galleries, pricing packages, and contact forms.' },
+    { icon: 'bi-bag-heart',         name: 'Fashion Designers',       desc: 'Lookbooks, collection pages, custom orders, and social links.' },
+    { icon: 'bi-cup-hot',           name: 'Food Vendors & Caterers', desc: 'Menu pages, delivery info, Instagram integration, and orders.' },
+    { icon: 'bi-person-video3',     name: 'Coaches & Consultants',   desc: 'Service pages, testimonials, booking forms, and credibility.' },
+    { icon: 'bi-mortarboard',       name: 'Tutors & Teachers',       desc: 'Course listings, class schedules, student testimonials.' },
+    { icon: 'bi-shop',              name: 'Small Businesses',        desc: 'Full business sites with about, services, gallery, and contact.' },
+    { icon: 'bi-house-door',        name: 'Real Estate & Agents',    desc: 'Property listings, location maps, and inquiry forms.' },
+    { icon: 'bi-heart-pulse',       name: 'Wellness & Health',       desc: 'Service menus, appointment booking, and professional profiles.' },
+    { icon: 'bi-truck',             name: 'Logistics & Delivery',    desc: 'Service areas, pricing, tracking info, and WhatsApp contact.' },
+    { icon: 'bi-lightning-charge',  name: 'Solar & Energy',          desc: 'Solution pages, project showcase, and quote request forms.' },
+    { icon: 'bi-briefcase',         name: 'Any Business in Nigeria', desc: 'If you serve customers, you need a website. We build it.' },
   ];
-
-  const cards = sectors.map(s =>
-    `<div class="col">
-      <div class="sector-card">
-        <div class="sector-icon"><i class="bi ${s.icon}"></i></div>
-        <div class="sector-name">${s.name}</div>
-        <div class="sector-desc">${s.desc}</div>
-      </div>
-    </div>`
-  ).join('');
 
   return `
   <section id="tab2" class="tab-content view p-3">
-    <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Sectors</span></h6>
+    <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Who We Build For</span></h6>
     <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
-      <i class="bi bi-info-circle me-1"></i>
-      Use our classified sectors for project planning, knowledge onboarding, and staying relevant across industries at home and abroad.
+      Any small business or service provider that needs an online presence. If you have customers, you need a website — and CUDFIRM builds it affordably.
     </p>
-    <div class="custom-max-w-4xl mx-auto">
-      <h2 class="fw-bold text-uppercase mb-3 custom-text-sm custom-tracking-widest custom-text-gray-500">Active Sectors</h2>
-      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3 stagger-children">
-        ${cards}
-      </div>
-      <button class="view-more-btn mt-4" onclick="openTab(event,'connect-content')">
-        <i class="bi bi-plus-circle me-1"></i>Suggest A New Sector
-      </button>
+    <div class="row g-3 stagger-children">
+      ${sectors.map(s => `
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="card p-3 h-100">
+            <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.6rem;">
+              <div style="width:40px;height:40px;border-radius:10px;background:var(--n-jade);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;"><i class="bi ${s.icon}"></i></div>
+              <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;color:var(--n-forest);">${s.name}</div>
+            </div>
+            <p style="font-size:0.78rem;color:var(--n-muted);margin:0;">${s.desc}</p>
+          </div>
+        </div>`).join('')}
     </div>
+    <button class="view-more-btn mt-3" onclick="openTab(event,'connect-content')">
+      <i class="bi bi-whatsapp me-1"></i>Tell Us About Your Business
+    </button>
   </section>`;
 }
 
@@ -347,32 +328,28 @@ function buildTab2() {
 // ─────────────────────────────────────────────
 function buildTab3() {
   const items = [
-    { icon:'POS & Data Services',      desc:'POS Machine Setup, Data Bundles, Airtime Top-Up & Mobile Money.',             tags:['#Fintech','#Mobile','#POS'],           search:'pos data airtime mobile money network mtn glo airtel' },
-    { icon:'Phone Accessories',         desc:'Chargers, Cases, Screen Guards, Earphones & Repair Services.',                tags:['#Tech','#Mobile','#Gadgets'],          search:'phone charger accessories screen guard repair earphones' },
-    { icon:'Foodstuff Delivery',        desc:'Fresh Market Produce, Groceries & Bulk Orders Delivered Fast.',              tags:['#Food','#Grocery','#Delivery'],         search:'food groceries market tomatoes rice beans yam delivery' },
-    { icon:'Hygiene & Personal Care',   desc:'Toiletries, Sanitizers, Household & Baby Care Products.',                   tags:['#Health','#Home','#Baby'],             search:'hygiene soap sanitizer baby care toiletries household' },
-    { icon:'Clean Water Supply',        desc:'Sachet Water, Dispenser Refills, Borehole & Tanker Services.',               tags:['#Water','#Health','#Utilities'],       search:'water sachet dispenser borehole tanker clean drinking' },
-    { icon:'Logistics & Delivery',      desc:'Same-Day Dispatch, State-to-State Haulage & International Shipping.',        tags:['#Logistics','#Shipping','#Export'],    search:'logistics delivery dispatch haulage shipping courier send' },
-    { icon:'Solar Energy Solutions',    desc:'Panel Installation, Inverter Systems, Battery Backup & Maintenance.',        tags:['#Solar','#Energy','#Green'],          search:'solar inverter battery energy panel installation power' },
-    { icon:'Laundry & Cleaning',        desc:'Doorstep Pickup, Spotless Laundry, Home & Office Cleaning.',                tags:['#Home','#Office','#Commercial'],       search:'laundry cleaning pickup spotless home office dry clean' },
-    { icon:'Pharmacy / Health Support', desc:'Licensed Medication Delivery & Telehealth Bookings.',                       tags:['#Healthcare','#Pharmacy'],            search:'pharmacy medication health doctor telehealth prescription' },
-    { icon:'Affordable Housing Links',  desc:'Verified Rentals, Mini-Flats, Co-Living & Maintenance.',                    tags:['#Shelter','#Real-Estate'],            search:'housing rent apartment flat real estate co-living property' },
-    { icon:'Food Processing & Export',  desc:'Packaged Food (Garri, Dried Fish, Cashew etc.) — B2B & B2C.',               tags:['#Agro','#Food','#Export'],            search:'food processing garri dried fish cashew export agro b2b' },
-    { icon:'Massage & Wellness',        desc:'Professional Body Massage — Home, Office & Doorstep Sessions.',             tags:['#Relaxation','#Wellness','#Home-Service'], search:'massage body spa relaxation wellness doorstep home office' },
-    { icon:'NIN Slip to Card',          desc:'NIN Slip to Physical ID Card Conversion — Fast & Reliable.',                tags:['#Identity','#Documentation'],         search:'NIN slip card national identification conversion ID document' },
-    { icon:'Web Design & Hosting',      desc:'Affordable Websites, E-Commerce Stores & Domain Hosting.',                  tags:['#Tech','#Digital','#Web'],            search:'web design hosting domain website ecommerce digital' },
-    { icon:'Creative & Media Studio',   desc:'Photography, Videography, Branding, Flyers & Social Media Content.',        tags:['#Creative','#Media','#Branding'],     search:'photography video branding flyer social media design creative' },
-    { icon:'Got A Service?',            desc:'Know A Service That Should Be Listed Here? Suggest It.',                    tags:['#Suggest','#Submit'],                 search:'suggest submit new service vacancy listing', isSpecial: true },
+    { icon:'Starter Landing Page',    desc:'A single, focused page for your business — Home, About, Services, Gallery, Contact, and WhatsApp button. Perfect for getting online fast.',  tags:['#Landing','#Starter','#₦50K'], search:'landing page starter single one page fast cheap affordable barber stylist photographer coach', price:'₦50,000' },
+    { icon:'Business Website',        desc:'A full multi-page website for your business. Includes up to 6 pages, mobile-friendly design, SEO setup, and 30-day free support.',             tags:['#Full-Site','#Multi-Page','#₦100K'], search:'full business website multi page complete professional sme restaurant', price:'₦100,000' },
+    { icon:'Website Maintenance',     desc:'Monthly updates, text changes, image swaps, speed checks, and backup. Keep your site fresh without lifting a finger.',                       tags:['#Monthly','#Support','#₦10K–20K'], search:'maintenance update support monthly changes fix bug backup', price:'₦10K–20K/mo' },
+    { icon:'Domain & Hosting Setup',  desc:'Register your .com.ng or .com domain and set up reliable Nigerian hosting — fast, local, affordable.',                                       tags:['#Domain','#Hosting','#Setup'], search:'domain hosting setup register .com .com.ng website address', price:'From ₦15,000' },
+    { icon:'SEO Starter Pack',        desc:'Meta tags, Google Search Console setup, site speed optimisation, and local SEO — so customers can actually find you on Google.',            tags:['#SEO','#Google','#Visibility'], search:'seo google search console meta tags visibility local search rank', price:'₦20,000' },
+    { icon:'Brand Identity',          desc:'Logo design, colour palette, fonts, and a simple brand guide — everything you need to look professional across all platforms.',             tags:['#Branding','#Logo','#Design'], search:'logo branding identity design colour palette font guide professional', price:'From ₦25,000' },
+    { icon:'WhatsApp Business Setup', desc:'Set up a professional WhatsApp Business profile with auto-replies, catalogue, and a direct click-to-chat link for your site.',              tags:['#WhatsApp','#Business','#Free'], search:'whatsapp business setup profile auto reply catalogue chat link', price:'₦5,000' },
+    { icon:'Social Media Integration',desc:'Connect your Instagram, Facebook, or TikTok feed to your website — so your site always looks active and up to date.',                       tags:['#Social','#Instagram','#Feed'], search:'social media instagram facebook tiktok feed integration connect', price:'₦8,000' },
+    { icon:'Got A Special Request?',  desc:'Have a unique need? Tell us what you want to build — we\'ll review it and come back with a fair price and timeline.',                      tags:['#Custom','#Request'], search:'custom special request unique bespoke build quote', isSpecial: true, price:'Let\'s Talk' },
   ];
 
   const listItems = items.map(item => `
     <div class="list-item" data-search-text="${item.search || ''}">
       <div class="item-icon">${item.icon}</div>
       <div class="item-content d-flex justify-content-between align-items-center gap-2">
-        <h6>${item.desc}</h6>
-        <a href="#" class="btn btn-sm ${item.isSpecial ? 'btn-primary' : 'btn-success'} flex-shrink-0" onclick="${item.isSpecial ? "openTab(event,'connect-content')" : "openTab(event,'connect-content')"}" style="font-size:0.72rem;padding:0.3rem 0.65rem;">${item.isSpecial ? 'Suggest' : 'Request'}</a>
+        <div>
+          <h6 style="margin:0 0 0.2rem;">${item.desc}</h6>
+          <span style="font-family:'Syne',sans-serif;font-weight:800;color:var(--n-gold);font-size:0.82rem;">${item.price}</span>
+        </div>
+        <a href="#" class="btn btn-sm ${item.isSpecial ? 'btn-primary' : 'btn-success'} flex-shrink-0" onclick="openTab(event,'connect-content')" style="font-size:0.72rem;padding:0.3rem 0.65rem;">${item.isSpecial ? 'Enquire' : 'Request'}</a>
       </div>
-      <p class="mb-0" style="font-size:0.72rem;">CUDFIRM &middot; ${item.tags.map(t => `<span class="tag ${t.startsWith('#H') ? 'green' : t.startsWith('#T') || t.startsWith('#D') ? 'gray' : 'orange'}">${t}</span>`).join('')}</p>
+      <p class="mb-0" style="font-size:0.72rem;">CUDFIRM &middot; ${item.tags.map(t => `<span class="tag ${t.startsWith('#₦') ? 'green' : 'orange'}">${t}</span>`).join('')}</p>
     </div>`
   ).join('');
 
@@ -380,7 +357,7 @@ function buildTab3() {
   <section id="tab3" class="tab-content view">
     <h6 class="sticky-top py-2 px-3"><span class="badge text-bg-primary">Services</span></h6>
     <div class="tab3-search-bar sticky-top px-3 py-2">
-      <input type="text" class="view-search w-100" data-target-list="#tab3-list" placeholder="Search services (e.g. food, solar, delivery)..." />
+      <input type="text" class="view-search w-100" data-target-list="#tab3-list" placeholder="Search services (e.g. landing page, logo, SEO)..." />
     </div>
     <div class="p-3" id="tab3-list">
       ${listItems}
@@ -400,7 +377,7 @@ function buildUnderConstruction(tabId, title, desc, badge) {
       <div class="card-content under-construction">
         <i class="bi bi-tools"></i>
         <h3>${title} — Coming Soon</h3>
-        <p>We&apos;re building something great here. Your ideas shape what goes on this page — tell us what you'd love to see!</p>
+        <p>We&apos;re building something great here. Have ideas for what should go here? Tell us!</p>
         <button class="btn btn-primary btn-lg mt-2" onclick="openTab(event,'connect-content')">Share Your Ideas</button>
       </div>
     </div>
@@ -408,63 +385,98 @@ function buildUnderConstruction(tabId, title, desc, badge) {
 }
 
 // ─────────────────────────────────────────────
-// TABS 4–20
+// TAB 4: PORTFOLIO
 // ─────────────────────────────────────────────
 function buildTab4() {
-  return buildUnderConstruction('tab4','People','Connect with verified professionals, freelancers, vendors, and service providers across Nigeria and the diaspora.','People');
-}
+  const projects = [
+    { name:'CUDFIRM Group', type:'Multi-Page Business Site', img:'https://placehold.co/400x280/0B3D2E/C8922A?text=CUDFIRM+Group', link:'https://cudfirm.netlify.app', tags:['#Business','#Multi-Page'] },
+    { name:'Barber Shop Demo', type:'Landing Page', img:'https://placehold.co/400x280/1A6B4A/fff?text=Barber+Shop', link:'#', tags:['#Landing','#Demo'] },
+    { name:'Fashion Designer Demo', type:'Portfolio Site', img:'https://placehold.co/400x280/C8922A/fff?text=Fashion+Studio', link:'#', tags:['#Fashion','#Portfolio'] },
+    { name:'Food Vendor Demo', type:'Landing Page', img:'https://placehold.co/400x280/E8B84B/0B3D2E?text=Food+Vendor', link:'#', tags:['#Food','#Landing'] },
+    { name:'Life Coach Demo', type:'Service Site', img:'https://placehold.co/400x280/4D9E7A/fff?text=Life+Coach', link:'#', tags:['#Coach','#Services'] },
+    { name:'Your Business Next', type:'Let\'s Build It', img:'https://placehold.co/400x280/3A4035/fff?text=Your+Business+Here', link:'connect-content', tags:['#GetStarted'] },
+  ];
 
-function buildTab5() {
   return `
-  <section id="tab5" class="tab-content view p-3">
-    <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Events</span></h6>
+  <section id="tab4" class="tab-content view p-3">
+    <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Portfolio</span></h6>
     <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
-      Discover upcoming webinars, trade expos, workshops, and networking events — locally and internationally.
+      Every site we build is clean, mobile-ready, and designed with your customers in mind. Here's a sample of our work.
     </p>
-    <div class="row g-3">
-      ${[
-        { title:'CUDFIRM Networking Night', date:'Jun 15, 2025', loc:'Lagos, Nigeria', color:'#0B3D2E', tag:'In-Person' },
-        { title:'Export Business Masterclass', date:'Jun 28, 2025', loc:'Zoom — Online', color:'#C8922A', tag:'Virtual' },
-        { title:'Agro-Tech Summit 2025', date:'Jul 10, 2025', loc:'Abuja, Nigeria', color:'#1A6B4A', tag:'Hybrid' },
-        { title:'Diaspora Connect Forum', date:'Aug 2, 2025', loc:'London, UK', color:'#4D9E7A', tag:'In-Person' },
-      ].map(e => `
-        <div class="col-12 col-md-6">
-          <div class="card p-3 d-flex flex-row gap-3 align-items-start">
-            <div style="background:${e.color};color:#fff;border-radius:10px;padding:0.6rem 0.75rem;text-align:center;min-width:52px;flex-shrink:0;">
-              <div style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;line-height:1;">${e.date.split(' ')[1].replace(',','')}</div>
-              <div style="font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.85;">${e.date.split(' ')[0]}</div>
-            </div>
-            <div>
-              <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;margin-bottom:0.2rem;">${e.title}</div>
-              <div style="font-size:0.75rem;color:var(--n-muted);"><i class="bi bi-geo-alt me-1"></i>${e.loc}</div>
-              <span class="tag orange mt-1 d-inline-block">#${e.tag}</span>
+    <div class="row g-3 stagger-children">
+      ${projects.map(p => `
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card h-100" style="overflow:hidden;cursor:pointer;" onclick="${p.link.startsWith('http') ? `window.open('${p.link}','_blank')` : `openTab(event,'${p.link}')`}">
+            <img src="${p.img}" alt="${p.name}" style="width:100%;height:160px;object-fit:cover;" loading="lazy" onerror="this.src='https://placehold.co/400x280/0B3D2E/C8922A?text=CUDFIRM'" />
+            <div class="card-content">
+              <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;margin-bottom:0.2rem;">${p.name}</div>
+              <div style="font-size:0.72rem;color:var(--n-muted);margin-bottom:0.5rem;">${p.type}</div>
+              <div>${p.tags.map(t => `<span class="tag orange">${t}</span>`).join('')}</div>
             </div>
           </div>
-        </div>`
-      ).join('')}
+        </div>`).join('')}
     </div>
     <button class="view-more-btn mt-3" onclick="openTab(event,'connect-content')">
-      <i class="bi bi-calendar-plus me-1"></i>Submit Your Event
+      <i class="bi bi-laptop me-1"></i>Let's Build Your Website
     </button>
   </section>`;
 }
 
+// ─────────────────────────────────────────────
+// TAB 5: OUR PROCESS
+// ─────────────────────────────────────────────
+function buildTab5() {
+  const steps = [
+    { num:'01', title:'You Contact Us', desc:'Send us a WhatsApp or fill the contact form. Tell us what your business does, who your customers are, and what you need.', icon:'bi-whatsapp', color:'#1A6B4A' },
+    { num:'02', title:'We Discuss & Quote', desc:'We reply within 24 hours with a fair quote and clear timeline. No jargon, no hidden costs. Just a simple conversation.', icon:'bi-chat-dots', color:'#C8922A' },
+    { num:'03', title:'You Approve & Pay 50%', desc:'Once you\'re happy with the plan, you pay 50% upfront so we can get started. The other 50% is due on delivery.', icon:'bi-check-circle', color:'#0B3D2E' },
+    { num:'04', title:'We Build Your Site', desc:'We design and develop your site within the agreed timeline — usually 3 to 7 business days for a landing page.', icon:'bi-laptop', color:'#4D9E7A' },
+    { num:'05', title:'You Review & Approve', desc:'We send you a preview link. You tell us what to tweak — we\'ll make up to 3 rounds of revisions at no extra cost.', icon:'bi-eye', color:'#E8B84B' },
+    { num:'06', title:'We Launch Your Site', desc:'You pay the final 50%, we publish your site live, hand over all files and access, and you\'re open for business.', icon:'bi-rocket-takeoff', color:'#C8922A' },
+  ];
+
+  return `
+  <section id="tab5" class="tab-content view p-3">
+    <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Our Process</span></h6>
+    <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
+      Simple, transparent, no surprises. Here's exactly how working with CUDFIRM looks from first contact to launch.
+    </p>
+    <div class="d-flex flex-column gap-3 stagger-children">
+      ${steps.map(s => `
+        <div class="card p-3 d-flex flex-row align-items-start gap-3">
+          <div style="min-width:44px;height:44px;border-radius:12px;background:${s.color};color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;flex-shrink:0;">${s.num}</div>
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.92rem;color:var(--n-forest);margin-bottom:0.3rem;"><i class="bi ${s.icon} me-1" style="color:${s.color}"></i>${s.title}</div>
+            <p style="font-size:0.8rem;color:var(--n-muted);margin:0;">${s.desc}</p>
+          </div>
+        </div>`).join('')}
+    </div>
+    <button class="view-more-btn mt-3" onclick="openTab(event,'connect-content')">
+      <i class="bi bi-arrow-right-circle me-1"></i>Start The Process — Contact Us
+    </button>
+  </section>`;
+}
+
+// ─────────────────────────────────────────────
+// TAB 6: TEMPLATES (free starter resources)
+// ─────────────────────────────────────────────
 function buildTab6() {
   const templates = [
-    { icon:'bi-file-earmark-person', name:'Professional CV', desc:'Clean, ATS-optimised resume template.', color:'#0B3D2E' },
-    { icon:'bi-file-earmark-text',  name:'Business Proposal', desc:'Investor-ready proposal with financials.', color:'#C8922A' },
-    { icon:'bi-receipt',            name:'Invoice Template', desc:'Branded invoice for freelancers & SMEs.', color:'#1A6B4A' },
-    { icon:'bi-envelope-paper',     name:'Cover Letter', desc:'Compelling cover letter structure.', color:'#4D9E7A' },
-    { icon:'bi-bar-chart',          name:'Business Plan', desc:'Full-format business plan outline.', color:'#E8B84B' },
-    { icon:'bi-file-earmark-check', name:'Service Contract', desc:'Legal service agreement template.', color:'#8B4513' },
+    { icon: 'bi-file-earmark-person', name: 'Freelancer CV',      desc: 'Clean, ATS-friendly resume for web designers and creatives.',  color: '#0B3D2E' },
+    { icon: 'bi-receipt',            name: 'Website Invoice',      desc: 'Branded invoice template for client website projects.',        color: '#C8922A' },
+    { icon: 'bi-envelope-paper',     name: 'Client Proposal',      desc: 'Simple website proposal that wins business — copy & edit.',    color: '#1A6B4A' },
+    { icon: 'bi-file-earmark-check', name: 'Service Contract',     desc: 'Basic website design contract to protect you and your client.',color: '#4D9E7A' },
+    { icon: 'bi-bar-chart',          name: 'Business Plan Outline',desc: 'One-page plan template for a small web studio.',               color: '#E8B84B' },
+    { icon: 'bi-phone',              name: 'WhatsApp Script',      desc: 'Exactly what to say when pitching web services to a business.',color: '#8B4513' },
   ];
+
   return `
   <section id="tab6" class="tab-content view p-3">
     <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Templates</span></h6>
     <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
-      Access professionally designed templates for resumes, proposals, invoices, contracts, and more — free for CUDFIRM members.
+      Free templates to help you run your web business professionally — contracts, invoices, proposals, and more.
     </p>
-    <div class="row g-3 stagger-children">
+    <div class="row g-3">
       ${templates.map(t => `
         <div class="col-6 col-md-4 col-lg-3">
           <div class="card p-3 text-center" style="cursor:pointer;transition:all 0.22s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
@@ -475,26 +487,28 @@ function buildTab6() {
             <div style="font-size:0.72rem;color:var(--n-muted);">${t.desc}</div>
             <button class="btn btn-sm btn-success w-100 mt-2" style="font-size:0.72rem;" onclick="openTab(event,'connect-content')">Get Template</button>
           </div>
-        </div>`
-      ).join('')}
+        </div>`).join('')}
     </div>
   </section>`;
 }
 
+// ─────────────────────────────────────────────
+// TAB 7: RESOURCES (grants, funding, learning)
+// ─────────────────────────────────────────────
 function buildTab7() {
   const grants = [
-    { name:'Tony Elumelu Foundation Grant', amount:'$5,000', deadline:'Dec 31, 2025', sector:'All Sectors', link:'https://www.tonyelumelufoundation.org' },
-    { name:'Google for Startups Africa', amount:'Up to $100K credits', deadline:'Rolling', sector:'Tech', link:'https://startup.google.com' },
-    { name:'CBN MSME Fund', amount:'₦500K – ₦5M', deadline:'Rolling', sector:'SMEs', link:'#' },
-    { name:'NIRSAL Agro Fund', amount:'₦1M – ₦50M', deadline:'Quarterly', sector:'Agriculture', link:'#' },
-    { name:'World Bank Youth Initiative', amount:'$10,000', deadline:'Mar 2026', sector:'Youth & Innovation', link:'#' },
-    { name:'AfDB Digital Fund', amount:'$25,000', deadline:'Jun 2026', sector:'Digital & Fintech', link:'#' },
+    { name:'Tony Elumelu Foundation Grant', amount:'$5,000', deadline:'Dec 2025', sector:'All Entrepreneurs', link:'https://www.tonyelumelufoundation.org' },
+    { name:'Google for Startups Africa',    amount:'Up to $100K credits', deadline:'Rolling', sector:'Tech', link:'https://startup.google.com' },
+    { name:'CBN MSME Development Fund',     amount:'₦500K–₦5M', deadline:'Rolling', sector:'SMEs', link:'#' },
+    { name:'NIRSAL Agro Processing Fund',   amount:'₦1M–₦50M', deadline:'Quarterly', sector:'Agriculture', link:'#' },
+    { name:'World Bank Youth Innovation',   amount:'$10,000', deadline:'Mar 2026', sector:'Youth', link:'#' },
+    { name:'AfDB Digital Transformation',  amount:'$25,000', deadline:'Jun 2026', sector:'Digital', link:'#' },
   ];
   return `
   <section id="tab7" class="tab-content view p-3">
-    <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Grants</span></h6>
+    <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Resources</span></h6>
     <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
-      Browse curated grants, funding opportunities, and financial support programs for individuals, SMEs, and startups in Nigeria and across Africa.
+      Curated grants, funding opportunities, and learning resources for Nigerian entrepreneurs and small business owners.
     </p>
     <div class="d-flex flex-column gap-3">
       ${grants.map(g => `
@@ -510,31 +524,34 @@ function buildTab7() {
             <span style="font-family:'Syne',sans-serif;font-weight:800;color:var(--n-gold);font-size:0.88rem;">${g.amount}</span>
             <a href="${g.link}" target="_blank" rel="noopener" class="btn btn-sm btn-success" style="font-size:0.72rem;padding:0.3rem 0.65rem;">Apply</a>
           </div>
-        </div>`
-      ).join('')}
+        </div>`).join('')}
     </div>
     <button class="view-more-btn mt-3" onclick="openTab(event,'connect-content')">
-      <i class="bi bi-megaphone me-1"></i>Submit A Grant Listing
+      <i class="bi bi-megaphone me-1"></i>Submit A Resource
     </button>
   </section>`;
 }
 
 function buildTab8() {
-  return buildUnderConstruction('tab8','Showcase','A premium space to upload your branded items, portfolio, gigs, and market your business directly to CUDFIRM\u2019s growing audience.','Showcase');
+  return buildUnderConstruction('tab8','Showcase','A space for CUDFIRM clients to show off their live websites, win new customers, and get discovered. Coming soon.','Showcase');
 }
 
+// ─────────────────────────────────────────────
+// TAB 9: TESTIMONIALS
+// ─────────────────────────────────────────────
 function buildTab9() {
   const stars = [
-    { name:'Adaeze Okonkwo', role:'Export Entrepreneur', quote:'CUDFIRM helped me get my first international food export deal. Life-changing!', color:'#0B3D2E' },
-    { name:'Emeka Nwosu', role:'Solar Installer', quote:'The grant listings on CUDFIRM connected me to funding I never knew existed.', color:'#C8922A' },
-    { name:'Fatima Usman', role:'Fashion Designer', quote:'My brand got 3x more visibility after listing on CUDFIRM. Absolutely recommend.', color:'#1A6B4A' },
-    { name:'Chukwudi Eze', role:'Tech Founder', quote:'CUDFIRM is the missing infrastructure for Nigerian entrepreneurs. Period.', color:'#4D9E7A' },
+    { name:'Adaeze O.', role:'Fashion Designer · Lagos', quote:'CUDFIRM built my website in 5 days. My clients now book me online instead of hunting for my number. Life-changing.', color:'#0B3D2E' },
+    { name:'Emeka N.', role:'Solar Installer · Abuja', quote:'I thought a professional website was too expensive for my small business. CUDFIRM proved me completely wrong.', color:'#C8922A' },
+    { name:'Fatima U.', role:'Food Vendor · Kano', quote:'My WhatsApp orders doubled in 3 weeks after my site went live. People trust me more because I have a real website.', color:'#1A6B4A' },
+    { name:'Chukwudi E.', role:'Photographer · Enugu', quote:'Clean, fast, mobile-ready, and clients actually find me on Google now. Worth every kobo.', color:'#4D9E7A' },
   ];
+
   return `
   <section id="tab9" class="tab-content view p-3">
-    <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Our Stars</span></h6>
+    <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Testimonials</span></h6>
     <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
-      Featuring success stories and case studies from our community. These are people who took action — and won.
+      Real words from real business owners we've worked with. Their results speak for themselves.
     </p>
     <div class="row g-3 stagger-children">
       ${stars.map(s => `
@@ -545,41 +562,43 @@ function buildTab9() {
             <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;color:${s.color};">${s.name}</div>
             <div style="font-size:0.72rem;color:var(--n-muted);">${s.role}</div>
           </div>
-        </div>`
-      ).join('')}
+        </div>`).join('')}
     </div>
     <button class="view-more-btn mt-3" onclick="openTab(event,'connect-content')">
-      <i class="bi bi-star me-1"></i>Share Your Success Story
+      <i class="bi bi-star me-1"></i>Share Your Experience
     </button>
   </section>`;
 }
 
+// ─────────────────────────────────────────────
+// TAB 10: LOVE NOTES
+// ─────────────────────────────────────────────
 function buildTab10() {
   const notes = [
-    { text:'The CUDFIRM team handled our logistics like pros. Quick, reliable, no drama.', by:'Amara, Kano', stars:5 },
-    { text:'Got my NIN card converted in less than 2 days. Thought it would take weeks. Impressed!', by:'Oluwaseun, Lagos', stars:5 },
-    { text:'Clean water delivery was on time, affordable, and the guys were courteous. 10/10.', by:'Mrs. Adeyemi, Ibadan', stars:5 },
-    { text:'The web hosting package was exactly what my small business needed. No hidden charges.', by:'Daniel, Enugu', stars:4 },
-    { text:'Massage service at my house? I didn\'t believe it until it happened. Absolutely amazing.', by:'Chisom, Abuja', stars:5 },
-    { text:'CUDFIRM truly cares about their customers. I felt heard and valued every step of the way.', by:'Grace, Rivers', stars:5 },
+    { text:'My barber shop now gets walk-ins who found me on Google. The site paid for itself in week two.', by:'Kayode, Lagos', stars:5 },
+    { text:'Delivered exactly what they promised, on time. No drama, no excuses. Professional.', by:'Ngozi, Port Harcourt', stars:5 },
+    { text:'The WhatsApp button alone has been worth it. Customers message me instead of competitors.', by:'Amara, Kano', stars:5 },
+    { text:'I was sceptical spending ₦50K on a site. Now I wonder why I waited 3 years.', by:'Daniel, Enugu', stars:4 },
+    { text:'They understood my vision quickly. The fashion site looks exactly like I imagined.', by:'Chisom, Abuja', stars:5 },
+    { text:'CUDFIRM truly cares. I felt heard and guided all the way through the project.', by:'Grace, Rivers', stars:5 },
   ];
-  const stars = (n) => Array(5).fill(0).map((_,i) => `<i class="bi bi-star-fill" style="color:${i<n?'#C8922A':'#ccc'};font-size:0.7rem;"></i>`).join('');
+  const starsHtml = (n) => Array(5).fill(0).map((_,i) => `<i class="bi bi-star-fill" style="color:${i<n?'#C8922A':'#ccc'};font-size:0.7rem;"></i>`).join('');
+
   return `
   <section id="tab10" class="tab-content view p-3">
     <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Love Notes</span></h6>
     <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
-      Real words from real people — our community's wall of love.
+      Short, honest reviews from the community. Real people, real results.
     </p>
     <div class="row g-3 stagger-children">
       ${notes.map(n => `
         <div class="col-12 col-md-6">
           <div class="card p-3">
-            <div class="mb-2">${stars(n.stars)}</div>
-            <p style="font-size:0.85rem;font-style:italic;margin-bottom:0.6rem;">"${n.text}"</p>
-            <div style="font-size:0.72rem;font-weight:700;color:var(--n-jade);">— ${n.by}</div>
+            <div style="margin-bottom:0.5rem;">${starsHtml(n.stars)}</div>
+            <p style="font-size:0.83rem;font-style:italic;margin-bottom:0.5rem;">"${n.text}"</p>
+            <div style="font-size:0.72rem;color:var(--n-muted);font-weight:600;">— ${n.by}</div>
           </div>
-        </div>`
-      ).join('')}
+        </div>`).join('')}
     </div>
     <button class="view-more-btn mt-3" onclick="openTab(event,'connect-content')">
       <i class="bi bi-heart me-1"></i>Leave A Review
@@ -587,18 +606,22 @@ function buildTab10() {
   </section>`;
 }
 
+// ─────────────────────────────────────────────
+// TAB 11: LOCAL GUIDES
+// ─────────────────────────────────────────────
 function buildTab11() {
   const guides = [
-    { city:'Lagos', icon:'bi-buildings', tips:['Use Uber/Bolt for safe rides in VI & Lekki','Best suya spots close at 10pm — go early','Pay with transfer everywhere — cash is rare in malls'] },
-    { city:'Abuja', icon:'bi-bank', tips:['Wuse 2 & Maitama have the best restaurants','Traffic peaks between 7–9am on Airport Road','Garki market is cheapest for bulk buys'] },
-    { city:'London', icon:'bi-airplane', tips:['Peckham is the hub for Nigerian goods & food','Register for HMRC Self-Assessment if self-employed','CUDFIRM can help ship goods back home affordably'] },
-    { city:'Houston, USA', icon:'bi-globe-americas', tips:['Alief area has the largest Nigerian community','International supermarkets stock Naija goods','Contact CUDFIRM for business setup guidance'] },
+    { city:'Lagos', icon:'bi-buildings', tips:['Most customers are on mobile — always build mobile-first','WhatsApp is the number one business tool in Lagos','Low-cost neighbourhoods still need professional-looking sites'] },
+    { city:'Abuja', icon:'bi-bank', tips:['Government contractors always need a website for credibility','Wuse 2 & Maitama businesses expect premium online presence','Many Abuja clients pay via transfer — add payment info to your site'] },
+    { city:'Kano & North Nigeria', icon:'bi-globe2', tips:['Hausa-language landing pages convert extremely well','B2B agro businesses need simple, clear product sites','Offline-first design matters — keep sites fast and light'] },
+    { city:'UK / USA Diaspora', icon:'bi-airplane', tips:['Diaspora businesses need to show Nigerian roots + international trust','English-language sites with local prices attract diaspora investors','CUDFIRM can build and maintain sites remotely from Lagos'] },
   ];
+
   return `
   <section id="tab11" class="tab-content view p-3">
     <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Local Guides</span></h6>
     <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
-      City-by-city guides curated for Nigerians at home and in the diaspora. Practical tips that actually work.
+      City-specific tips on how businesses in different Nigerian markets use their websites to win customers.
     </p>
     <div class="row g-3 stagger-children">
       ${guides.map(g => `
@@ -612,29 +635,32 @@ function buildTab11() {
               ${g.tips.map(tip => `<li style="font-size:0.8rem;display:flex;gap:0.5rem;"><i class="bi bi-check-circle-fill" style="color:var(--n-gold);flex-shrink:0;margin-top:2px;"></i>${tip}</li>`).join('')}
             </ul>
           </div>
-        </div>`
-      ).join('')}
+        </div>`).join('')}
     </div>
     <button class="view-more-btn mt-3" onclick="openTab(event,'connect-content')">
-      <i class="bi bi-map me-1"></i>Suggest A City Guide
+      <i class="bi bi-map me-1"></i>Suggest A Guide
     </button>
   </section>`;
 }
 
+// ─────────────────────────────────────────────
+// TAB 12: WEB TIPS (was Spark)
+// ─────────────────────────────────────────────
 function buildTab12() {
   const sparks = [
-    { title:'Start Your Export Business in 30 Days', tag:'Business', icon:'bi-box-arrow-up-right', color:'#C8922A' },
-    { title:'How Solar is Changing Rural Nigeria', tag:'Energy', icon:'bi-lightning-charge-fill', color:'#1A6B4A' },
-    { title:'5 Side Hustles That Work in 2025', tag:'Finance', icon:'bi-cash-coin', color:'#0B3D2E' },
-    { title:'Build a Business Website for Under ₦50K', tag:'Tech', icon:'bi-globe2', color:'#4D9E7A' },
-    { title:'How to Apply for the Tony Elumelu Grant', tag:'Grants', icon:'bi-award', color:'#E8B84B' },
-    { title:'The Rise of Agribusiness in West Africa', tag:'Agriculture', icon:'bi-tree', color:'#8B4513' },
+    { title:'5 Things Every Nigerian Business Website Must Have', tag:'Web Tips', icon:'bi-list-check', color:'#C8922A' },
+    { title:'Why Your Canva Link Is Not a Website', tag:'Education', icon:'bi-exclamation-circle', color:'#1A6B4A' },
+    { title:'How to Get Clients From Google Without Paying for Ads', tag:'SEO', icon:'bi-search', color:'#0B3D2E' },
+    { title:'Landing Page vs Full Website — Which One Do You Need?', tag:'Strategy', icon:'bi-layout-text-window', color:'#4D9E7A' },
+    { title:'How Much Does a Website Actually Cost in Nigeria (2025)', tag:'Pricing', icon:'bi-cash-coin', color:'#E8B84B' },
+    { title:'Build a Website for Your Food Business in One Week', tag:'How-To', icon:'bi-cup-hot', color:'#8B4513' },
   ];
+
   return `
   <section id="tab12" class="tab-content view p-3">
-    <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Spark 🔥</span></h6>
+    <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Web Tips 🔥</span></h6>
     <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
-      Ideas, inspiration, and motivation for your next big move. Spark your ambition.
+      Practical, no-fluff advice on websites, online presence, and growing your business digitally in Nigeria.
     </p>
     <div class="row g-3 stagger-children">
       ${sparks.map(s => `
@@ -647,31 +673,67 @@ function buildTab12() {
             </div>
             <i class="bi bi-arrow-right ms-auto" style="color:var(--n-muted);"></i>
           </div>
-        </div>`
-      ).join('')}
+        </div>`).join('')}
     </div>
     <button class="view-more-btn mt-3" onclick="openTab(event,'connect-content')">
-      <i class="bi bi-pencil-square me-1"></i>Write For Spark
+      <i class="bi bi-pencil-square me-1"></i>Request A Topic
     </button>
   </section>`;
 }
 
+// ─────────────────────────────────────────────
+// TAB 13: FAQ (was Discover)
+// ─────────────────────────────────────────────
 function buildTab13() {
-  return buildUnderConstruction('tab13','Discover','Discover new tools, resources, curated products, and people to help you succeed — at home and across the globe.','Discover');
+  const faqs = [
+    { q:'How long does it take to build a website?', a:'A landing page takes 3–5 business days. A full multi-page business website takes 5–10 business days. We agree on a timeline before starting.' },
+    { q:'What do I need to provide to get started?', a:'Your business name, logo (if any), phone number, services or products, and any photos. We guide you through what\'s needed — even if you don\'t have everything ready.' },
+    { q:'Do you offer payment in instalments?', a:'Yes. You pay 50% upfront to begin and 50% on delivery. No full payment required before we start work.' },
+    { q:'Will my website work on mobile phones?', a:'Yes — every site we build is mobile-first. Over 80% of Nigerians browse on their phones, so this is non-negotiable for us.' },
+    { q:'Can I update my website myself after you build it?', a:'We can teach you how to make basic updates. Alternatively, our monthly maintenance plan covers all changes for ₦10,000–₦20,000/month.' },
+    { q:'Do you do e-commerce or online stores?', a:'We currently focus on landing pages, business sites, and portfolios. Online stores are complex — we recommend focusing on a simple site first to build trust with customers.' },
+    { q:'What if I don\'t have a logo or brand yet?', a:'We offer basic logo and brand identity design as an add-on from ₦25,000. We can start with a simple, clean design and improve it over time.' },
+    { q:'Do you host the website too?', a:'Yes. We can handle domain registration and hosting setup for you as part of the project or as a separate add-on service.' },
+  ];
+
+  return `
+  <section id="tab13" class="tab-content view p-3">
+    <h6 class="sticky-top py-2"><span class="badge text-bg-primary">FAQ</span></h6>
+    <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
+      Answers to the most common questions about working with CUDFIRM. Don't see your question here? Contact us directly.
+    </p>
+    <div class="d-flex flex-column gap-3 stagger-children">
+      ${faqs.map((f, i) => `
+        <div class="card p-3" style="cursor:pointer;" onclick="this.querySelector('.faq-answer').classList.toggle('d-none')">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:0.75rem;">
+            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;color:var(--n-forest);">${f.q}</div>
+            <i class="bi bi-chevron-down" style="color:var(--n-gold);flex-shrink:0;"></i>
+          </div>
+          <div class="faq-answer d-none" style="margin-top:0.75rem;font-size:0.8rem;color:var(--n-muted);line-height:1.65;">${f.a}</div>
+        </div>`).join('')}
+    </div>
+    <button class="view-more-btn mt-3" onclick="openTab(event,'connect-content')">
+      <i class="bi bi-question-circle me-1"></i>Ask Us Anything
+    </button>
+  </section>`;
 }
 
+// ─────────────────────────────────────────────
+// TAB 14: DEALS
+// ─────────────────────────────────────────────
 function buildTab14() {
   const deals = [
-    { title:'50% Off Solar Consultation', validity:'Ends Jun 30', code:'SOLAR50', color:'#C8922A' },
-    { title:'Free First Laundry Pickup', validity:'New customers only', code:'WASH1ST', color:'#0B3D2E' },
-    { title:'₦500 Off Any Delivery Over ₦5K', validity:'This month only', code:'SHIP500', color:'#1A6B4A' },
-    { title:'Free Website Domain (1 year)', validity:'With hosting plan', code:'NSYDOMAIN', color:'#4D9E7A' },
+    { title:'Free Domain (.com.ng) for First 5 Clients', validity:'Limited — act fast', code:'CUDFIRM-DOMAIN', color:'#C8922A' },
+    { title:'₦10,000 Off Any Landing Page', validity:'New clients only', code:'NEWSITE10', color:'#0B3D2E' },
+    { title:'Free 3-Month Maintenance After Full Site', validity:'With business website order', code:'MAINTAIN3', color:'#1A6B4A' },
+    { title:'Free WhatsApp Business Setup', validity:'With any website order', code:'WA-FREE', color:'#4D9E7A' },
   ];
+
   return `
   <section id="tab14" class="tab-content view p-3">
     <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Deals ✨</span></h6>
     <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
-      Exclusive deals and discounts available only to CUDFIRM community members. Act fast — these expire!
+      Current promotions available to new and existing clients. Mention the code when you contact us to claim your offer.
     </p>
     <div class="row g-3 stagger-children">
       ${deals.map(d => `
@@ -684,56 +746,58 @@ function buildTab14() {
               <button class="btn btn-sm btn-success" style="font-size:0.72rem;" onclick="copyToClipboard('${d.code}','Code copied: ${d.code} ✓')">Copy Code</button>
             </div>
           </div>
-        </div>`
-      ).join('')}
+        </div>`).join('')}
     </div>
     <button class="view-more-btn mt-3" onclick="openTab(event,'connect-content')">
-      <i class="bi bi-tag me-1"></i>Submit A Deal
+      <i class="bi bi-tag me-1"></i>Claim A Deal
     </button>
   </section>`;
 }
 
+// ─────────────────────────────────────────────
+// TAB 15: COMMUNITY
+// ─────────────────────────────────────────────
 function buildTab15() {
   return `
   <section id="tab15" class="tab-content view p-3">
     <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Community</span></h6>
-    <div class="view-header px-0 mb-3">
-      <h1 class="view-title">Community Feed</h1>
-    </div>
     <div class="card mb-3">
-      <div class="card-header"><h3><i class="bi bi-megaphone me-1" style="color:var(--n-gold)"></i>Latest Announcement</h3></div>
+      <div class="card-header"><h3><i class="bi bi-megaphone me-1" style="color:var(--n-gold)"></i>Announcement</h3></div>
       <div class="card-content">
-        <p style="font-size:0.88rem;">Welcome to the new CUDFIRM platform! We've completely redesigned our community hub. Explore the new features, connect with fellow members, and let us know your thoughts in the feedback section.</p>
-        <span class="tag green">#Launch</span><span class="tag orange">#NewFeature</span>
+        <p style="font-size:0.88rem;">Welcome to the CUDFIRM community! We are building a space for Nigerian business owners who want better online presence. Share your journey, ask questions, and support each other.</p>
+        <span class="tag green">#Community</span><span class="tag orange">#Websites</span><span class="tag gray">#Nigeria</span>
       </div>
     </div>
     <div class="card">
       <div class="card-content under-construction">
         <i class="bi bi-chat-heart"></i>
-        <h3>Community Discussions — Coming Soon</h3>
-        <p>Join threads, share ideas, ask questions, and connect with over 2,400 members of the CUDFIRM community.</p>
-        <button class="btn btn-primary mt-2" onclick="openTab(event,'connect-content')">Get Notified at Launch</button>
+        <h3>Community Forum — Coming Soon</h3>
+        <p>A dedicated space for CUDFIRM clients, freelancers, and small business owners to share tips, ask questions, and grow together.</p>
+        <button class="btn btn-primary mt-2" onclick="openTab(event,'connect-content')">Join The Waitlist</button>
       </div>
     </div>
   </section>`;
 }
 
+// ─────────────────────────────────────────────
+// TAB 16: SUBMIT A TIP
+// ─────────────────────────────────────────────
 function buildTab16() {
   return `
   <section id="tab16" class="tab-content view p-3">
     <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Submit A Tip</span></h6>
     <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
-      Have a news tip, a hidden gem, a business tool, or a resource the community should know about? Submit it here.
+      Know a web design trick, business tool, or resource that other small business owners in Nigeria should know about? Share it here.
     </p>
     <div class="card">
       <div class="card-content">
         <div class="mb-3">
           <label class="form-label">Your Tip or Resource</label>
-          <input type="text" class="form-control" id="tipTitle" placeholder="e.g. Best app for Nigerian freelancers..." />
+          <input type="text" class="form-control" id="tipTitle" placeholder="e.g. Best free logo maker for Nigerian businesses..." />
         </div>
         <div class="mb-3">
           <label class="form-label">More Details</label>
-          <textarea class="form-control" id="tipDetails" rows="4" placeholder="Why is this valuable? Who does it help?"></textarea>
+          <textarea class="form-control" id="tipDetails" rows="4" placeholder="Why is this useful? Who does it help? How does it work?"></textarea>
         </div>
         <div class="mb-3">
           <label class="form-label">Link (optional)</label>
@@ -745,24 +809,57 @@ function buildTab16() {
   </section>`;
 }
 
+// ─────────────────────────────────────────────
+// TAB 17: WHY CUDFIRM (was Investment)
+// ─────────────────────────────────────────────
 function buildTab17() {
-  return buildUnderConstruction('tab17','Investment','Discover vetted investment opportunities, partnerships, and co-founder matches across CUDFIRM&apos;s network of businesses and ventures.','Investment');
+  const reasons = [
+    { icon:'bi-person-circle', title:'We Understand Business, Not Just Code', desc:'CUDFIRM has real-world operations and quality control experience. We know what a business needs from a website — not just what looks good.' },
+    { icon:'bi-geo-alt', title:'Lagos-Based, Nigerian-Focused', desc:'We are in the same timezone, speak the same language, and understand Nigerian customer behaviour. No generic "international" agency templates.' },
+    { icon:'bi-phone', title:'Mobile-First, Always', desc:'Over 80% of your customers browse on phones. Every site we build works perfectly on mobile — this is non-negotiable.' },
+    { icon:'bi-currency-dollar', title:'Honest Pricing, No Surprises', desc:'We tell you the price upfront. No discovery calls that turn into ₦500K proposals. Landing pages from ₦50,000 — that\'s it.' },
+    { icon:'bi-headset', title:'You Can Actually Reach Us', desc:'WhatsApp, phone, email — we respond. We don\'t disappear after collecting payment. 30-day post-launch support is standard.' },
+    { icon:'bi-rocket-takeoff', title:'Fast Turnaround', desc:'Landing pages in 3–5 days. Business websites in 5–10 days. We respect your time and your urgency to get online.' },
+  ];
+
+  return `
+  <section id="tab17" class="tab-content view p-3">
+    <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Why CUDFIRM</span></h6>
+    <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
+      There are hundreds of web designers in Nigeria. Here's why clients choose CUDFIRM and why first-time clients come back.
+    </p>
+    <div class="row g-3 stagger-children">
+      ${reasons.map(r => `
+        <div class="col-12 col-md-6">
+          <div class="card p-3 h-100">
+            <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.6rem;">
+              <div style="width:40px;height:40px;border-radius:10px;background:var(--n-jade);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;"><i class="bi ${r.icon}"></i></div>
+              <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;color:var(--n-forest);">${r.title}</div>
+            </div>
+            <p style="font-size:0.78rem;color:var(--n-muted);margin:0;">${r.desc}</p>
+          </div>
+        </div>`).join('')}
+    </div>
+    <button class="view-more-btn mt-3" onclick="openTab(event,'connect-content')">
+      <i class="bi bi-arrow-right-circle me-1"></i>Start Working With Us
+    </button>
+  </section>`;
 }
 
 function buildTab18() {
-  return buildUnderConstruction('tab18','Diaspora Hub','Dedicated resources for Nigerians abroad — shipping, remittances, business registration back home, and community connections.','Diaspora');
+  return buildUnderConstruction('tab18','Diaspora Services','CUDFIRM can build and maintain websites for Nigerian-owned businesses abroad — in the UK, USA, Canada, and beyond. Payments accepted via Stripe, Wise, and bank transfer. Coming soon.','Diaspora');
 }
 
 function buildTab19() {
-  return buildUnderConstruction('tab19','Media & Press','CUDFIRM press releases, brand kit, media coverage, and publication-ready assets for journalists and content creators.','Media');
+  return buildUnderConstruction('tab19','Media & Press','CUDFIRM press kit, brand assets, and media contact information for journalists, bloggers, and content creators. Coming soon.','Media');
 }
 
 function buildTab20() {
-  return buildUnderConstruction('tab20','All Partners','The full directory of CUDFIRM&apos;s verified partners, sponsors, and affiliated brands across Nigeria and the diaspora.','Partners');
+  return buildUnderConstruction('tab20','Partners','Our verified design partners, hosting providers, domain registrars, and affiliate businesses. Coming soon.','Partners');
 }
 
 // ─────────────────────────────────────────────
-// BLOG CONTENT
+// BLOG CONTENT — Web tips + business resources
 // ─────────────────────────────────────────────
 function buildBlogContent() {
   return `
@@ -770,38 +867,38 @@ function buildBlogContent() {
     <div class="view-header px-0">
       <h1 class="view-title">CUDFIRM Blog</h1>
       <div class="header-actions">
-        <span class="btn btn-sm btn-primary"><i class="bi bi-newspaper me-1"></i>Business</span>
-        <span class="btn btn-sm btn-primary"><i class="bi bi-cpu me-1"></i>Tech</span>
-        <span class="btn btn-sm btn-primary"><i class="bi bi-globe2 me-1"></i>Diaspora</span>
-        <span class="btn btn-sm btn-primary"><i class="bi bi-tree me-1"></i>Agro</span>
-        <span class="btn btn-sm btn-primary"><i class="bi bi-lightning me-1"></i>Energy</span>
+        <span class="btn btn-sm btn-primary"><i class="bi bi-globe2 me-1"></i>Web</span>
+        <span class="btn btn-sm btn-primary"><i class="bi bi-phone me-1"></i>Mobile</span>
+        <span class="btn btn-sm btn-primary"><i class="bi bi-search me-1"></i>SEO</span>
+        <span class="btn btn-sm btn-primary"><i class="bi bi-briefcase me-1"></i>Business</span>
+        <span class="btn btn-sm btn-primary"><i class="bi bi-cash me-1"></i>Pricing</span>
       </div>
     </div>
     <div class="grid-container mt-3">
       <div class="card stat-card">
-        <div class="card-icon stat-icon-courses"><i class="bi bi-grid-fill"></i></div>
-        <div class="card-content"><h3>16 Active Sectors</h3><p>Spanning tech, agro, health & more.</p></div>
+        <div class="card-icon stat-icon-courses"><i class="bi bi-laptop"></i></div>
+        <div class="card-content"><h3>3 Core Services</h3><p>Landing pages, business sites, and maintenance.</p></div>
       </div>
       <div class="card stat-card">
         <div class="card-icon stat-icon-providers"><i class="bi bi-people-fill"></i></div>
-        <div class="card-content"><h3>2,450+</h3><p>Verified service providers listed.</p></div>
+        <div class="card-content"><h3>Growing Fast</h3><p>New Nigerian businesses going online every week.</p></div>
       </div>
       <div class="card stat-card">
-        <div class="card-icon stat-icon-gigs"><i class="bi bi-briefcase-fill"></i></div>
-        <div class="card-content"><h3>48 Active Gigs</h3><p>Remote and local opportunities.</p></div>
+        <div class="card-icon stat-icon-gigs"><i class="bi bi-clock-history"></i></div>
+        <div class="card-content"><h3>3–7 Days</h3><p>Average delivery time for a landing page.</p></div>
       </div>
       <div class="card stat-card live-indicator-card">
         <div class="card-icon stat-icon-live"><i class="bi bi-broadcast"></i></div>
-        <div class="card-content"><h3 id="liveUserCount">— Online</h3><p>Active right now <span class="live-dot"></span></p></div>
+        <div class="card-content"><h3 id="liveUserCount">— Online</h3><p>Visitors right now <span class="live-dot"></span></p></div>
       </div>
       <div class="card full-width">
-        <div class="card-header"><h2>Quick Actions</h2></div>
+        <div class="card-header"><h2>Quick Navigation</h2></div>
         <div class="card-content quick-actions">
-          <button class="action-item" onclick="openTab(event,'tab2')"><i class="bi bi-compass"></i><span>Explore Sectors</span></button>
-          <button class="action-item" onclick="openTab(event,'tab3')"><i class="bi bi-search"></i><span>Find A Service</span></button>
-          <button class="action-item" onclick="openTab(event,'tab15')"><i class="bi bi-chat-dots"></i><span>Join Community</span></button>
-          <button class="action-item" onclick="openTab(event,'tab7')"><i class="bi bi-award"></i><span>View Grants</span></button>
-          <button class="action-item" onclick="openTab(event,'connect-content')"><i class="bi bi-person-plus"></i><span>Partner With Us</span></button>
+          <button class="action-item" onclick="openTab(event,'tab3')"><i class="bi bi-briefcase"></i><span>Our Services</span></button>
+          <button class="action-item" onclick="openTab(event,'tab4')"><i class="bi bi-laptop"></i><span>View Portfolio</span></button>
+          <button class="action-item" onclick="openTab(event,'tab5')"><i class="bi bi-list-ol"></i><span>Our Process</span></button>
+          <button class="action-item" onclick="openTab(event,'tab13')"><i class="bi bi-question-circle"></i><span>FAQ</span></button>
+          <button class="action-item" onclick="openTab(event,'connect-content')"><i class="bi bi-whatsapp"></i><span>Get A Quote</span></button>
         </div>
       </div>
     </div>
@@ -820,14 +917,14 @@ function buildBlogContent() {
 }
 
 // ─────────────────────────────────────────────
-// EXPLORE CONTENT
+// EXPLORE CONTENT — Portfolio directory
 // ─────────────────────────────────────────────
 function buildExploreContent() {
   return `
   <section id="explore-content" class="tab-content view">
     <div class="explore-search-bar sticky-top d-flex align-items-center gap-2 px-3 py-2">
-      <h6 class="mb-0 me-2 flex-shrink-0"><span class="badge text-bg-primary">Explore</span></h6>
-      <input type="text" id="serviceSearchInput" placeholder="Search portfolio..." class="view-search flex-1" />
+      <h6 class="mb-0 me-2 flex-shrink-0"><span class="badge text-bg-primary">Portfolio</span></h6>
+      <input type="text" id="serviceSearchInput" placeholder="Search by business type..." class="view-search flex-1" />
       <button id="clearServiceSearchBtn" class="btn btn-sm btn-outline-secondary d-none" style="border-radius:20px;font-size:0.72rem;">Clear</button>
       <button id="disclaimer-toggle-btn" class="d-lg-none btn btn-sm btn-outline-secondary flex-shrink-0" style="border-radius:20px;font-size:0.72rem;">Info</button>
     </div>
@@ -837,11 +934,11 @@ function buildExploreContent() {
       </div>
       <aside class="d-none d-lg-block col-lg-4 col-xl-3">
         <div id="disclaimer-content-desktop" class="p-4 rounded-3 sticky-top" style="top:70px;">
-          <h3 class="h5 fw-bold border-bottom pb-2 mb-3" style="color:var(--n-forest);">Important Notice</h3>
+          <h3 class="h5 fw-bold border-bottom pb-2 mb-3" style="color:var(--n-forest);">About Our Portfolio</h3>
           <div class="disclaimer-text">
-            <p style="font-size:0.8rem;">CUDFIRM is not directly affiliated with third-party sites without our registered trademark. We are not liable for changes to their terms or functions.</p>
-            <p style="font-size:0.8rem;">Discovered a useful service? Let us know — we'll research and add it.</p>
-            <p style="font-size:0.8rem;"><span style="color:var(--n-jade);font-weight:700;">GREEN</span> listings are CUDFIRM-sponsored. <span style="color:#dc3545;font-weight:700;">®</span> are registered with verified addresses.</p>
+            <p style="font-size:0.8rem;">These are websites built by CUDFIRM for real Nigerian businesses. Demo projects are marked — real client sites link to the live version.</p>
+            <p style="font-size:0.8rem;">Want your business here? We can build you a site starting from ₦50,000.</p>
+            <p style="font-size:0.8rem;"><span style="color:var(--n-jade);font-weight:700;">GREEN</span> tags are live client sites. <span style="color:#C8922A;font-weight:700;">GOLD</span> tags are demo projects.</p>
           </div>
           <div class="position-relative mt-3">
             <i class="bi bi-search position-absolute text-secondary" style="left:10px;top:50%;transform:translateY(-50%);font-size:0.8rem;"></i>
@@ -857,7 +954,7 @@ function buildExploreContent() {
 // FORUM CONTENT
 // ─────────────────────────────────────────────
 function buildForumContent() {
-  const brands = ['CUDFIRM','CUDFIRM','Adire','Lobah','Elichi','AgriLink','TechKraft','WaterCycle','SolarSpark','WoodCraft','EduHub','FoodLink'];
+  const brands = ['CUDFIRM','Barber','Fashion','Food','Coach','Photo','Solar','Tutor','Health','Logistics','Events','Design'];
   const brandCards = brands.map((b, i) => `
     <div class="s-card">
       <img src="https://placehold.co/80x80/${['0B3D2E','C8922A','1A6B4A','4D9E7A','E8B84B','8B4513','191970','5f9ea0','A52A2A','2F4F4F','8B008B','3A4035'][i % 12]}/fff?text=${b[0]}" alt="${b}" onerror="this.src='https://placehold.co/80x80/0B3D2E/C8922A?text=N'" />
@@ -866,14 +963,14 @@ function buildForumContent() {
   ).join('');
 
   const forumIcons = [
-    { icon:'bi-briefcase', label:'Business' }, { icon:'bi-cpu', label:'Tech' },
-    { icon:'bi-heart-pulse', label:'Health' }, { icon:'bi-tree', label:'Agro' },
-    { icon:'bi-globe', label:'Diaspora' }, { icon:'bi-lightning', label:'Energy' },
-    { icon:'bi-house', label:'Housing' }, { icon:'bi-palette', label:'Creative' },
-    { icon:'bi-mortarboard', label:'Education' }, { icon:'bi-truck', label:'Logistics' },
-    { icon:'bi-cash-coin', label:'Finance' }, { icon:'bi-star', label:'Lifestyle' },
+    { icon:'bi-globe2', label:'Web Design' }, { icon:'bi-phone', label:'Mobile' },
+    { icon:'bi-search', label:'SEO' }, { icon:'bi-palette', label:'Branding' },
+    { icon:'bi-camera', label:'Photography' }, { icon:'bi-bag-heart', label:'Fashion' },
+    { icon:'bi-cup-hot', label:'Food Biz' }, { icon:'bi-person-video3', label:'Coaching' },
+    { icon:'bi-shop', label:'SME' }, { icon:'bi-cash-coin', label:'Pricing' },
+    { icon:'bi-mortarboard', label:'Learning' }, { icon:'bi-star', label:'Reviews' },
     { icon:'bi-award', label:'Grants' }, { icon:'bi-people', label:'Network' },
-    { icon:'bi-chat-dots', label:'Discussions' },
+    { icon:'bi-chat-dots', label:'General' },
   ];
 
   return `
@@ -897,12 +994,12 @@ function buildForumContent() {
           <div class="forum-hero-text">
             <span class="forum-hero-eyebrow">Welcome to the</span>
             <h2 class="forum-hero-title">CUDFIRM Forum</h2>
-            <p class="forum-hero-sub">Ideas · Discussions · Community</p>
+            <p class="forum-hero-sub">Websites · Business · Growth</p>
           </div>
           <div class="forum-hero-pills">
             <span class="forum-pill"><i class="bi bi-fire"></i>Trending</span>
-            <span class="forum-pill"><i class="bi bi-people-fill"></i>2.4K Members</span>
-            <span class="forum-pill"><i class="bi bi-chat-dots-fill"></i>Live Now</span>
+            <span class="forum-pill"><i class="bi bi-people-fill"></i>Community</span>
+            <span class="forum-pill"><i class="bi bi-chat-dots-fill"></i>Coming Soon</span>
           </div>
         </div>
         <div class="forum-hero-shimmer"></div>
@@ -914,8 +1011,7 @@ function buildForumContent() {
         <div class="col icon-item" onclick="showToast('${f.label} forum coming soon 🛠️')">
           <div class="icon-box"><i class="bi ${f.icon}"></i></div>
           <div class="icon-label">${f.label}</div>
-        </div>`
-      ).join('')}
+        </div>`).join('')}
     </div>
     <hr class="my-2" />
     <footer class="footin">
@@ -923,7 +1019,7 @@ function buildForumContent() {
         <article class="list-social">
           <span class="icons-social__item"><a class="icons-social__link" href="https://codepen.io/cudfirm-group"><i class="fab fa-codepen"></i></a></span>
           <span class="icons-social__item"><a class="icons-social__link" href="https://instagram.com/cudfirm" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="fb.me/cudfirm"><i class="fab fa-facebook"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://fb.me/cudfirm"><i class="fab fa-facebook"></i></a></span>
           <span class="icons-social__item"><a class="icons-social__link" href="https://x.com/cudfirm"><i class="fab fa-twitter"></i></a></span>
           <span class="icons-social__item"><a class="icons-social__link" href="https://linkedin.com/in/cudfirm"><i class="fab fa-linkedin"></i></a></span>
         </article>
@@ -933,17 +1029,17 @@ function buildForumContent() {
 }
 
 // ─────────────────────────────────────────────
-// CONNECT CONTENT
+// CONNECT CONTENT — Contact / Quote request
 // ─────────────────────────────────────────────
 function buildConnectContent() {
   return `
   <section id="connect-content" class="tab-content view p-3 p-sm-4">
-    <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Connect</span></h6>
+    <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Get A Quote</span></h6>
     <hr class="my-2 w-25" />
     <div class="contact-container">
-      <h4 class="contact-header">How Can We Make Your Day?</h4>
+      <h4 class="contact-header">Ready to Get Online?</h4>
       <p class="contact-subheader">
-        Looking for a service, want to partner with us, share feedback, or have a brilliant idea? Send it our way — we'll get right on it.
+        Tell us about your business and what you need. We'll reply within 24 hours with a clear quote and timeline — no jargon, no pressure.
       </p>
       <div class="row g-4">
         <div class="col-12 col-lg-8">
@@ -953,17 +1049,17 @@ function buildConnectContent() {
               <input type="text" class="form-control" id="contactName" name="name" placeholder="e.g. Emeka Okafor" required />
             </div>
             <div class="mb-3">
-              <label for="contactInfo" class="form-label">Your Email or Phone Number</label>
+              <label for="contactInfo" class="form-label">Your Email or WhatsApp Number</label>
               <input type="text" class="form-control" id="contactInfo" name="contact_info" placeholder="email@example.com or +234..." required />
             </div>
             <div class="mb-3">
-              <label for="contactMessage" class="form-label">What Do You Need?</label>
-              <textarea class="form-control" id="contactMessage" name="message" rows="5" placeholder="Tell us about your request, idea, or feedback..." required></textarea>
+              <label for="contactMessage" class="form-label">Tell Us About Your Business & What You Need</label>
+              <textarea class="form-control" id="contactMessage" name="message" rows="5" placeholder="e.g. I run a barber shop in Lagos and need a simple landing page with my services, gallery, and a WhatsApp button..." required></textarea>
             </div>
             <div class="d-flex flex-column gap-2">
               <div class="d-flex gap-2">
                 <button type="button" class="btn btn-primary w-100" onclick="sendToAdmin()">
-                  <i class="bi bi-send-check me-1"></i>Send To Admin
+                  <i class="bi bi-send-check me-1"></i>Send Request
                 </button>
                 <button type="button" class="btn btn-whatsapp w-100" onclick="sendToWhatsAppWithForm()">
                   <i class="bi bi-whatsapp me-1"></i>WhatsApp
@@ -977,15 +1073,15 @@ function buildConnectContent() {
         </div>
         <div class="col-12 col-lg-4">
           <div class="quick-contact-box">
-            <h5><i class="bi bi-headset me-1"></i>Quick Contact</h5>
-            <p>For immediate assistance — we're available 8am to 8pm WAT.</p>
-            <a href="tel:+2349056317709" class="btn btn-warning w-100 mb-2"><i class="bi bi-telephone me-1"></i>Call Us Directly</a>
-            <button class="btn btn-outline-light w-100" onclick="copyToClipboard('+2349056317709','Phone number copied! ✓')">
+            <h5><i class="bi bi-headset me-1"></i>Talk To Us Directly</h5>
+            <p>We are available Monday–Saturday, 8am to 8pm WAT. WhatsApp is the fastest way to reach us.</p>
+            <a href="tel:+2349056317709" class="btn btn-warning w-100 mb-2"><i class="bi bi-telephone me-1"></i>Call Us Now</a>
+            <button class="btn btn-outline-light w-100" onclick="copyToClipboard('+2349056317709','Number copied! ✓')">
               <i class="bi bi-clipboard me-1"></i>Copy Number
             </button>
             <hr style="border-color:rgba(255,255,255,0.2);margin:1rem 0;" />
             <div style="font-size:0.75rem;opacity:0.8;text-align:center;">
-              <i class="bi bi-envelope me-1"></i>info@cudfirm.com<br />
+              <i class="bi bi-envelope me-1"></i>info@cudfirm.com<br/>
               <i class="bi bi-geo-alt me-1 mt-1 d-inline-block"></i>Lagos, Nigeria
             </div>
           </div>
@@ -1068,8 +1164,6 @@ function openTab(event, tabId) {
   try { localStorage.setItem('cudfirm_last_tab', tabId); } catch(e) {}
 
   updateBreadcrumb(tabId);
-
-  // Sync mobile tab strip active state
   updateMobileTabStrip(tabId);
 
   const contentMain = document.querySelector('.content-main');
@@ -1079,12 +1173,8 @@ function openTab(event, tabId) {
 // =============================================
 // GSAP ANIMATION
 // =============================================
-
 function animateView(viewElement) {
   if (typeof gsap === 'undefined') return;
-  // Only animate the view container itself — never child cards/items.
-  // Animating child items with stagger causes later items to stay at opacity:0
-  // when there are many cards (Sectors, Services), making them invisible.
   gsap.fromTo(viewElement,
     { opacity: 0, y: 14 },
     { opacity: 1, y: 0, duration: 0.38, ease: 'power3.out' }
@@ -1142,7 +1232,7 @@ function getFormValues() {
 function validateForm() {
   const { name, contactInfo, message } = getFormValues();
   if (!name || !contactInfo || !message) {
-    openModal('Fields Required', '<p style="font-size:0.88rem;">Please fill in all fields — name, contact info, and your message — before submitting.</p>');
+    openModal('Fields Required', '<p style="font-size:0.88rem;">Please fill in all fields — your name, contact info, and what you need — before sending.</p>');
     return false;
   }
   return true;
@@ -1152,7 +1242,7 @@ function sendToAdmin() {
   if (!validateForm()) return;
   const { name, contactInfo, message } = getFormValues();
   submitToGoogleSheets(name, contactInfo, message);
-  showToast('Message sent to admin ✓ Redirecting...');
+  showToast('Request sent ✓ We\'ll reply within 24 hours!');
   setTimeout(() => { window.location.href = 'success.html'; }, 1500);
 }
 
@@ -1167,7 +1257,7 @@ function sendToWhatsAppWithForm() {
 function sendToEmail() {
   if (!validateForm()) return;
   const { name, contactInfo, message } = getFormValues();
-  const subject = encodeURIComponent('New Message — CUDFIRM');
+  const subject = encodeURIComponent('Website Quote Request — CUDFIRM');
   const body = encodeURIComponent(`Name: ${name}\nContact Info: ${contactInfo}\n\nMessage:\n${message}`);
   window.location.href = `mailto:info@cudfirm.com?subject=${subject}&body=${body}`;
 }
@@ -1237,8 +1327,6 @@ function filterContent(term) {
   const lowerTerm = term.toLowerCase();
   const contentMain = document.querySelector('.content-main');
   if (!contentMain) return;
-  // Use a CSS class for the fade rather than an inline style,
-  // so it can never get stuck and block child element rendering.
   contentMain.classList.add('content-fading');
   setTimeout(() => {
     unhighlight(contentMain);
@@ -1357,80 +1445,78 @@ function initBackToTop() {
   const btn = document.getElementById('backToTopBtn');
   const contentMain = document.querySelector('.content-main');
   if (!btn || !contentMain) return;
-  contentMain.addEventListener('scroll', () => btn.classList.toggle('visible', contentMain.scrollTop > 250), { passive: true });
+  contentMain.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', contentMain.scrollTop > 300);
+  }, { passive: true });
   btn.addEventListener('click', () => contentMain.scrollTo({ top: 0, behavior: 'smooth' }));
-}
-
-// =============================================
-// BREADCRUMB
-// =============================================
-function updateBreadcrumb(tabId) {
-  const name = TAB_NAMES[tabId] || tabId;
-  if (breadcrumbHistory[breadcrumbHistory.length - 1] === name) return;
-  breadcrumbHistory.push(name);
-  if (breadcrumbHistory.length > 3) breadcrumbHistory.shift();
-  const trail = document.getElementById('breadcrumbTrail');
-  if (!trail) return;
-  trail.innerHTML = breadcrumbHistory.map((item, i) => {
-    const isCurrent = i === breadcrumbHistory.length - 1;
-    return `<span class="bc-item${isCurrent ? ' bc-current' : ''}" style="${isCurrent ? 'opacity:1;font-weight:600;' : 'opacity:0.55;'}">${item}</span>${isCurrent ? '' : '<span class="bc-sep" style="opacity:0.4;margin:0 0.3rem;">›</span>'}`;
-  }).join('');
 }
 
 // =============================================
 // LIVE USER COUNT
 // =============================================
 function initLiveUserCount() {
-  const blogCount = document.getElementById('liveUserCount');
-  const sidebarCount = document.getElementById('sidebarLiveCount');
+  const el = document.getElementById('sidebarLiveCount');
+  const el2 = document.getElementById('liveUserCount');
+  const base = Math.floor(Math.random() * 30) + 12;
   function update() {
-    const count = Math.max(5, 18 + Math.floor(new Date().getHours() * 0.7) + Math.floor(Math.random() * 9) - 4);
-    if (blogCount) blogCount.textContent = count + ' Online';
-    if (sidebarCount) sidebarCount.textContent = count;
+    const n = base + Math.floor(Math.random() * 6) - 2;
+    if (el)  el.textContent = n;
+    if (el2) el2.textContent = n + ' Online';
   }
   update();
-  setInterval(update, 40000);
+  setInterval(update, 8000);
+}
+
+// =============================================
+// BREADCRUMB
+// =============================================
+function updateBreadcrumb(tabId) {
+  const trail = document.getElementById('breadcrumbTrail');
+  if (!trail) return;
+  const name = TAB_NAMES[tabId] || tabId;
+  if (breadcrumbHistory.length === 0 || breadcrumbHistory[breadcrumbHistory.length - 1] !== tabId) {
+    breadcrumbHistory.push(tabId);
+    if (breadcrumbHistory.length > 4) breadcrumbHistory.shift();
+  }
+  trail.innerHTML = breadcrumbHistory.map((id, i) => {
+    const n = TAB_NAMES[id] || id;
+    const isLast = i === breadcrumbHistory.length - 1;
+    return isLast
+      ? `<span class="breadcrumb-current">${n}</span>`
+      : `<button class="breadcrumb-link" onclick="openTab(event,'${id}')">${n}</button><span class="breadcrumb-sep">›</span>`;
+  }).join('');
 }
 
 // =============================================
 // KEYBOARD SHORTCUTS
 // =============================================
 function initKeyboardShortcuts() {
-  document.addEventListener('keydown', (e) => {
-    const active = document.activeElement;
-    if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.tagName === 'SELECT')) return;
-    switch(e.key) {
-      case 'ArrowRight': case 'ArrowDown':
-        e.preventDefault();
-        openTab(null, ALL_TAB_IDS[Math.min(ALL_TAB_IDS.length - 1, currentTabIndex + 1)]);
-        break;
-      case 'ArrowLeft': case 'ArrowUp':
-        e.preventDefault();
-        openTab(null, ALL_TAB_IDS[Math.max(0, currentTabIndex - 1)]);
-        break;
-      case 'Escape':
-        e.preventDefault();
-        openTab(null, 'tab1');
-        showToast('Returned to Home 🏠');
-        break;
-      case '/':
-        e.preventDefault();
-        const si = document.getElementById('searchInput');
-        if (si) { si.classList.add('active'); si.focus(); }
-        break;
-      case '?':
-        openModal('Keyboard Shortcuts ⌨️', `
-          <ul style="line-height:2.2;font-size:0.88rem;padding-left:1.25rem;">
-            <li><strong>→ / ↓</strong> — Next tab</li>
-            <li><strong>← / ↑</strong> — Previous tab</li>
-            <li><strong>Esc</strong> — Go to Home</li>
-            <li><strong>/</strong> — Open search</li>
-            <li><strong>?</strong> — Show this help</li>
-          </ul>`);
-        break;
+  document.addEventListener('keydown', e => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key === '?') {
+      openModal('Keyboard Shortcuts', `
+        <ul style="font-size:0.85rem;line-height:2;">
+          <li><kbd>?</kbd> — Show this help</li>
+          <li><kbd>/</kbd> — Focus search</li>
+          <li><kbd>h</kbd> — Go to Home</li>
+          <li><kbd>s</kbd> — Go to Services</li>
+          <li><kbd>p</kbd> — Go to Portfolio</li>
+          <li><kbd>c</kbd> — Go to Contact</li>
+          <li><kbd>Esc</kbd> — Close overlay</li>
+        </ul>`);
     }
+    if (e.key === '/') {
+      e.preventDefault();
+      const si = document.getElementById('searchInput');
+      if (si) { si.classList.add('active'); si.focus(); }
+    }
+    if (e.key === 'h' || e.key === 'H') openTab(null, 'tab1');
+    if (e.key === 's' || e.key === 'S') openTab(null, 'tab3');
+    if (e.key === 'p' || e.key === 'P') openTab(null, 'tab4');
+    if (e.key === 'c' || e.key === 'C') openTab(null, 'connect-content');
   });
 }
+
 
 // =============================================
 // SWIPE NAVIGATION
@@ -1486,85 +1572,62 @@ function initSwipeNavigation() {
 }
 
 
-// NEEEEEEEEEEEEEEEW
-
 // =============================================
 // SIDEBAR TAB FILTER
 // =============================================
 function initSidebarTabFilter() {
-  const filterInput = document.getElementById('sidebarTabSearch');
-  if (!filterInput) return;
-  filterInput.addEventListener('input', function() {
-    const term = this.value.toLowerCase().trim();
-    document.querySelectorAll('.sidebar-tabs .tab-button').forEach(btn => {
-      const name = (btn.getAttribute('data-tab-name') || btn.textContent).toLowerCase();
-      btn.style.display = (!term || name.includes(term)) ? '' : 'none';
+  const input = document.getElementById('sidebarTabSearch');
+  if (!input) return;
+  input.addEventListener('input', function() {
+    const val = this.value.toLowerCase();
+    document.querySelectorAll('.tab-button').forEach(btn => {
+      btn.style.display = btn.dataset.tabName?.includes(val) ? '' : 'none';
     });
   });
 }
 
 // =============================================
-// SERVICE FINDER (EXPLORE TAB)
+// SERVICE / PORTFOLIO FINDER (Explore tab)
 // =============================================
 function initServiceFinder() {
-  const serviceGrid = document.getElementById('service-grid');
-  if (!serviceGrid) return;
+  const grid = document.getElementById('service-grid');
+  if (!grid) return;
 
-  const serviceData = [
-    { title:'CREATORS', isRegistered: true,  description:'Event planning, content creation, videography, photography, coverage, weddings, birthdays, parties, engagement, and surprises.',   image:'https://placehold.co/400x200/0B3D2E/C8922A?text=Creators' },
-    { title:'FASHION HOUSE',   isRegistered: true,  description:'Textile, tailoring, fashion, adire, ankara, lace, wears, bags, and stylist services for all occasions.',                           image:'https://placehold.co/400x200/A52A2A/ffffff?text=Fashion+House' },
-    { title:'FOOD & AGRO',     isRegistered: true,  description:'Fresh food delivery, agro products, garri, dried fish, cashew, food processing and export — B2B & B2C.',                          image:'https://placehold.co/400x200/1A6B4A/ffffff?text=Food+%26+Agro' },
-    { title:'WELLNESS HUB',    isRegistered: true,  description:'Massage, spa, body wellness, stress relief, deep tissue therapy — home, office & doorstep sessions.',                             image:'https://placehold.co/400x200/4D9E7A/ffffff?text=Wellness+Hub' },
-    { title:'SOLAR SOLUTIONS', isRegistered: false, description:'Solar panel installation, inverter setup, battery backup, rural electrification, and green energy consultations.',                 image:'https://placehold.co/400x200/E8B84B/0B3D2E?text=Solar+Solutions' },
-    { title:'DIGITAL STUDIO',  isRegistered: false, description:'Web design, hosting, domain setup, SEO, social media management, and digital brand building for SMEs.',                           image:'https://placehold.co/400x200/191970/ffffff?text=Digital+Studio' },
-    { title:'CUDFIRM LOGISTICS',isRegistered: true,  description:'Same-day delivery, state-to-state haulage, international shipping, and courier services across Nigeria and abroad.',              image:'https://placehold.co/400x200/3A4035/ffffff?text=Logistics' },
-    { title:'HOUSING LINKS',   isRegistered: false, description:'Verified rentals, mini-flats, co-living, short-let, long-let, property management, and maintenance services.',                   image:'https://placehold.co/400x200/8B4513/ffffff?text=Housing+Links' },
+  const portfolioItems = [
+    { name:'CUDFIRM Group Site', type:'Multi-Page Business', img:'https://placehold.co/300x200/0B3D2E/C8922A?text=CUDFIRM', link:'https://cudfirm.netlify.app', tags:['Business','Live Site'], search:'cudfirm business multi page' },
+    { name:'Barber Shop Landing Page', type:'Landing Page Demo', img:'https://placehold.co/300x200/1A6B4A/fff?text=Barber+Shop', link:'#', tags:['Barber','Landing Page','Demo'], search:'barber salon hair landing page' },
+    { name:'Fashion Designer Portfolio', type:'Portfolio Site Demo', img:'https://placehold.co/300x200/C8922A/fff?text=Fashion+Portfolio', link:'#', tags:['Fashion','Portfolio','Demo'], search:'fashion designer adire clothing portfolio' },
+    { name:'Food Vendor Site', type:'Landing Page Demo', img:'https://placehold.co/300x200/E8B84B/0B3D2E?text=Food+Vendor', link:'#', tags:['Food','Catering','Demo'], search:'food vendor catering restaurant delivery' },
+    { name:'Life Coach Site', type:'Service Site Demo', img:'https://placehold.co/300x200/4D9E7A/fff?text=Life+Coach', link:'#', tags:['Coach','Services','Demo'], search:'coach consultant trainer wellness' },
+    { name:'Photography Portfolio', type:'Portfolio Site Demo', img:'https://placehold.co/300x200/8B4513/fff?text=Photography', link:'#', tags:['Photography','Portfolio','Demo'], search:'photographer photography portfolio gallery' },
+    { name:'Solar Business Site', type:'Business Site Demo', img:'https://placehold.co/300x200/191970/fff?text=Solar+Energy', link:'#', tags:['Solar','Energy','Demo'], search:'solar energy inverter installation business' },
+    { name:'Your Business Here', type:'Get Started Today', img:'https://placehold.co/300x200/3A4035/fff?text=Your+Business', link:'connect-content', tags:['Custom','New'], search:'custom new business website' },
   ];
+
+  function renderCards(filter) {
+    const term = (filter || '').toLowerCase();
+    const filtered = term
+      ? portfolioItems.filter(p => p.search.includes(term) || p.name.toLowerCase().includes(term) || p.type.toLowerCase().includes(term))
+      : portfolioItems;
+
+    grid.innerHTML = filtered.length
+      ? filtered.map(p => `
+          <div class="col" data-search-text="${p.search}">
+            <div class="card h-100" style="overflow:hidden;cursor:pointer;" onclick="${p.link.startsWith('http') ? `window.open('${p.link}','_blank')` : `openTab(event,'${p.link}')`}">
+              <img src="${p.img}" alt="${p.name}" style="width:100%;height:130px;object-fit:cover;" loading="lazy" onerror="this.src='https://placehold.co/300x200/0B3D2E/C8922A?text=CUDFIRM'" />
+              <div style="padding:0.75rem;">
+                <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;margin-bottom:0.2rem;">${p.name}</div>
+                <div style="font-size:0.7rem;color:var(--n-muted);margin-bottom:0.4rem;">${p.type}</div>
+                <div>${p.tags.map(t => `<span class="tag ${t === 'Live Site' ? 'green' : 'orange'}" style="font-size:0.6rem;">#${t}</span>`).join('')}</div>
+              </div>
+            </div>
+          </div>`).join('')
+      : `<div class="col-12 text-center p-4" style="color:var(--n-muted);font-size:0.85rem;">No portfolio items match "${filter}"</div>`;
+  }
 
   const serviceSearchInput = document.getElementById('serviceSearchInput');
   const serviceSearchInputDesktop = document.getElementById('serviceSearchInputDesktop');
   const clearServiceSearchBtn = document.getElementById('clearServiceSearchBtn');
-
-  function renderCards(filter) {
-    filter = filter || '';
-    serviceGrid.innerHTML = '';
-    const lower = filter.toLowerCase();
-    const filtered = serviceData.filter(i => i.title.toLowerCase().includes(lower) || i.description.toLowerCase().includes(lower));
-    if (!filtered.length) {
-      serviceGrid.innerHTML = '<p class="text-secondary col-12 p-3" style="font-size:0.85rem;">No services found matching your search.</p>';
-      return;
-    }
-    filtered.forEach(item => {
-      const col = document.createElement('div');
-      col.className = 'col';
-      const badge = item.isRegistered ? '<span class="position-absolute top-0 end-0 m-2 badge rounded-pill bg-danger z-3" style="font-size:0.65rem;">®</span>' : '';
-      let desc = item.description;
-      if (filter) {
-        const re = new RegExp('(' + filter.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')', 'gi');
-        desc = desc.replace(re, '<mark>$1</mark>');
-      }
-      col.innerHTML = `
-        <div class="card service-card h-100">
-          <div class="position-relative">
-            <img src="${item.image}" alt="${item.title}" class="card-img-top" loading="lazy" onerror="this.src='https://placehold.co/400x200/0B3D2E/C8922A?text=CUDFIRM'" />
-            ${badge}
-          </div>
-          <div class="card-body p-2">
-            <div class="card-title">${item.title}</div>
-            <p class="card-text">${desc}</p>
-          </div>
-          <div class="card-footer">
-            <div class="d-flex gap-2" style="font-size:0.78rem;">
-              <a href="https://fb.me/cudfirm" class="text-secondary" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-              <a href="https://instagram.com/@cudfirm" class="text-secondary" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-              <a href="https://x.com/cudfirm" class="text-secondary" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            </div>
-            <a href="#" class="fw-semibold small text-decoration-none" style="color:var(--n-jade);" onclick="openTab(event,'connect-content')">Enquire →</a>
-          </div>
-        </div>`;
-      serviceGrid.appendChild(col);
-    });
-  }
 
   const handleSearch = function(val) {
     renderCards(val);
@@ -1605,12 +1668,10 @@ function openLightbox(src, caption, link) {
   const lbImg = document.getElementById('lightboxImg');
   const lbCaption = document.getElementById('lightboxCaption');
   const enterBtn = document.getElementById('lightboxEnterBtn');
-  
-  // Set content
+
   lbImg.src = src;
   lbCaption.textContent = caption;
-  
-  // Handle enter button visibility
+
   const hasRealLink = link && link !== '#' && link.trim() !== '';
   if (hasRealLink) {
     enterBtn.href = link;
@@ -1620,10 +1681,9 @@ function openLightbox(src, caption, link) {
     enterBtn.href = '#';
     enterBtn.style.display = 'none';
   }
-  
-  // Show lightbox with simple CSS transition (no GSAP for performance)
+
   lb.style.display = 'flex';
-  lb.offsetHeight; // Force reflow
+  lb.offsetHeight;
   lb.classList.add('lightbox-visible');
 }
 
@@ -1631,7 +1691,6 @@ function closeLightbox() {
   const lb = document.getElementById('imageLightbox');
   if (!lb) return;
   lb.classList.remove('lightbox-visible');
-  // Wait for CSS transition to complete before hiding
   setTimeout(() => {
     if (!lb.classList.contains('lightbox-visible')) {
       lb.style.display = 'none';
@@ -1650,7 +1709,7 @@ let deferredPrompt = null;
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
   deferredPrompt = e;
-  showToast('Add CUDFIRM to your home screen for the best experience 📲', 5000);
+  showToast('Add CUDFIRM to your home screen 📲', 5000);
 });
 
 // =============================================
@@ -1672,7 +1731,7 @@ document.addEventListener('DOMContentLoaded', function () {
     originalSectionsInOrder = Array.from(contentMain.children).filter(n => n.tagName === 'SECTION');
   }
 
-  // STEP 4: Open Home first (never blank)
+  // STEP 4: Open Home first
   openTab(null, 'tab1');
 
   // STEP 5: Restore last visited tab
@@ -1732,7 +1791,7 @@ document.addEventListener('DOMContentLoaded', function () {
     modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
   }
 
-  // STEP 9: Lightbox on Home grid items (delegated event for reliability)
+  // STEP 9: Lightbox on grid items (delegated)
   document.addEventListener('click', e => {
     const gridItem = e.target.closest('.grid-item[data-img]');
     if (gridItem) {
