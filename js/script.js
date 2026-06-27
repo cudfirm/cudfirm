@@ -13,20 +13,16 @@ let originalSectionsInOrder = [];
 let activeTabIdBeforeSearch = null;
 
 const ALL_TAB_IDS = [
-  'blog-content','explore-content','tab1','forum-content','connect-content',
-  'tab2','tab3','tab4','tab5','tab6','tab7','tab8','tab9','tab10',
-  'tab11','tab12','tab13','tab14','tab15','tab16','tab17','tab18','tab19','tab20'
+  'tab1','tab2','tab3','tab4','tab5','tab9','tab13','tab17','tab20',
+  'explore-content','connect-content'
 ];
 let currentTabIndex = 2;
 
 const TAB_NAMES = {
-  'tab1':'Home','tab2':'Sectors','tab3':'Services','tab4':'Portfolio',
-  'tab5':'Process','tab6':'Templates','tab7':'Resources','tab8':'Showcase',
-  'tab9':'Testimonials','tab10':'Love Notes','tab11':'Local Guides',
-  'tab12':'Tips 🔥','tab13':'FAQ','tab14':'Deals','tab15':'Community',
-  'tab16':'Submit A Tip','tab17':'Why Us','tab18':'For Diaspora','tab19':'Media','tab20':'Partners',
-  'blog-content':'Blog','explore-content':'Portfolio',
-  'forum-content':'Forum','connect-content':'Connect'
+  'tab1':'Home','tab2':'Who We Help','tab3':'Services','tab4':'Portfolio',
+  'tab5':'Our Process','tab9':'Testimonials','tab13':'FAQ',
+  'tab17':'Why CUDFIRM','tab20':'About Us',
+  'explore-content':'Portfolio','connect-content':'Get A Quote'
 };
 
 let breadcrumbHistory = [];
@@ -35,37 +31,27 @@ let breadcrumbHistory = [];
 // SIDEBAR TABS DATA
 // =============================================
 const SIDEBAR_TABS = [
-  { id: 'tab1',  label: 'Home' },
-  { id: 'tab2',  label: 'Sectors' },
-  { id: 'tab3',  label: 'Services' },
-  { id: 'tab4',  label: 'Portfolio' },
-  { id: 'tab5',  label: 'Our Process' },
-  { id: 'tab6',  label: 'Templates' },
-  { id: 'tab7',  label: 'Resources' },
-  { id: 'tab8',  label: 'Showcase' },
-  { id: 'tab9',  label: 'Testimonials' },
-  { id: 'tab10', label: 'Love Notes' },
-  { id: 'tab11', label: 'Local Guides' },
-  { id: 'tab12', label: 'Web Tips 🔥', badge: 'hot' },
-  { id: 'tab13', label: 'FAQ' },
-  { id: 'tab14', label: 'Deals', badge: 'new' },
-  { id: 'tab15', label: 'Community' },
-  { id: 'tab16', label: 'Submit A Tip' },
-  { id: 'tab17', label: 'Why CUDFIRM' },
-  { id: 'tab18', label: 'Diaspora' },
-  { id: 'tab19', label: 'Media' },
-  { id: 'tab20', label: 'Partners' },
+  { id: 'tab1',            label: 'Home' },
+  { id: 'tab3',            label: 'Services' },
+  { id: 'tab4',            label: 'Portfolio' },
+  { id: 'tab2',            label: 'Who We Help' },
+  { id: 'tab5',            label: 'Our Process' },
+  { id: 'tab17',           label: 'Why CUDFIRM' },
+  { id: 'tab9',            label: 'Testimonials' },
+  { id: 'tab13',           label: 'FAQ' },
+  { id: 'tab20',           label: 'About Us' },
+  { id: 'connect-content', label: 'Get A Quote', badge: 'hot' },
 ];
 
 // =============================================
 // FOOTER NAV DATA
 // =============================================
 const FOOTER_NAV = [
-  { id: 'blog-content',    icon: 'bi-grid',        label: 'Blog' },
-  { id: 'explore-content', icon: 'bi-door-open',   label: 'Portfolio' },
-  { id: 'tab1',            icon: 'bi-house-fill',  label: 'Home' },
-  { id: 'forum-content',   icon: 'bi-chat-dots',   label: 'Forum' },
-  { id: 'connect-content', icon: 'bi-person-check',label: 'Connect' },
+  { id: 'tab1',            icon: 'bi-house-fill',    label: 'Home' },
+  { id: 'tab3',            icon: 'bi-briefcase',     label: 'Services' },
+  { id: 'tab4',            icon: 'bi-laptop',        label: 'Portfolio' },
+  { id: 'tab20',           icon: 'bi-info-circle',   label: 'About' },
+  { id: 'connect-content', icon: 'bi-chat-dots',     label: 'Contact' },
 ];
 
 // =============================================
@@ -139,24 +125,11 @@ function buildAllSections() {
     buildTab3(),
     buildTab4(),
     buildTab5(),
-    buildTab6(),
-    buildTab7(),
-    buildTab8(),
     buildTab9(),
-    buildTab10(),
-    buildTab11(),
-    buildTab12(),
     buildTab13(),
-    buildTab14(),
-    buildTab15(),
-    buildTab16(),
     buildTab17(),
-    buildTab18(),
-    buildTab19(),
     buildTab20(),
-    buildBlogContent(),
     buildExploreContent(),
-    buildForumContent(),
     buildConnectContent(),
   ];
 
@@ -846,75 +819,114 @@ function buildTab17() {
   </section>`;
 }
 
-function buildTab18() {
-  return buildUnderConstruction('tab18','Diaspora Services','CUDFIRM can build and maintain websites for Nigerian-owned businesses abroad — in the UK, USA, Canada, and beyond. Payments accepted via Stripe, Wise, and bank transfer. Coming soon.','Diaspora');
-}
-
-function buildTab19() {
-  return buildUnderConstruction('tab19','Media & Press','CUDFIRM press kit, brand assets, and media contact information for journalists, bloggers, and content creators. Coming soon.','Media');
-}
-
+// ─────────────────────────────────────────────
+// TAB 20: ABOUT US (Client-first positioning)
+// ─────────────────────────────────────────────
 function buildTab20() {
-  return buildUnderConstruction('tab20','Partners','Our verified design partners, hosting providers, domain registrars, and affiliate businesses. Coming soon.','Partners');
-}
+  const values = [
+    { icon:'bi-people', title:'Client Success First', desc:'Every website we build is measured by one thing: does it help your business get more customers? That is our only metric.' },
+    { icon:'bi-geo-alt', title:'Built for Nigeria', desc:'We understand the Nigerian market — mobile-first customers, WhatsApp culture, local trust signals, and local payment habits.' },
+    { icon:'bi-eye', title:'Radical Transparency', desc:'You know the price before we start. You know the timeline. You know what you get. No surprises, ever.' },
+    { icon:'bi-shield-check', title:'Quality Without Compromise', desc:'Fast, secure, mobile-friendly, and built with clean code. Every site we deliver is one we are proud to put our name on.' },
+  ];
 
-// ─────────────────────────────────────────────
-// BLOG CONTENT — Web tips + business resources
-// ─────────────────────────────────────────────
-function buildBlogContent() {
   return `
-  <section id="blog-content" class="view tab-content p-3">
-    <div class="view-header px-0">
-      <h1 class="view-title">CUDFIRM Blog</h1>
-      <div class="header-actions">
-        <span class="btn btn-sm btn-primary"><i class="bi bi-globe2 me-1"></i>Web</span>
-        <span class="btn btn-sm btn-primary"><i class="bi bi-phone me-1"></i>Mobile</span>
-        <span class="btn btn-sm btn-primary"><i class="bi bi-search me-1"></i>SEO</span>
-        <span class="btn btn-sm btn-primary"><i class="bi bi-briefcase me-1"></i>Business</span>
-        <span class="btn btn-sm btn-primary"><i class="bi bi-cash me-1"></i>Pricing</span>
+  <section id="tab20" class="tab-content view p-3">
+    <h6 class="sticky-top py-2"><span class="badge text-bg-primary">About CUDFIRM</span></h6>
+
+    <!-- Mission statement -->
+    <div class="card card-section mb-3" style="border-left:4px solid var(--n-gold);">
+      <div class="card-content">
+        <p style="font-size:1rem;font-family:'Syne',sans-serif;font-weight:700;color:var(--n-forest);margin-bottom:0.75rem;line-height:1.55;">
+          Every business in Nigeria deserves a professional online presence — not just the big ones.
+        </p>
+        <p style="font-size:0.85rem;color:var(--n-muted);line-height:1.7;margin:0;">
+          Too many talented people — barbers, photographers, food vendors, coaches, tailors — are losing customers to competitors simply because they don't have a website. CUDFIRM exists to change that.
+        </p>
       </div>
     </div>
-    <div class="grid-container mt-3">
-      <div class="card stat-card">
-        <div class="card-icon stat-icon-courses"><i class="bi bi-laptop"></i></div>
-        <div class="card-content"><h3>3 Core Services</h3><p>Landing pages, business sites, and maintenance.</p></div>
+
+    <!-- Story -->
+    <div class="card card-section mb-3">
+      <div class="card-header">
+        <h3><i class="bi bi-flag me-1" style="color:var(--n-gold)"></i>Our Story</h3>
       </div>
-      <div class="card stat-card">
-        <div class="card-icon stat-icon-providers"><i class="bi bi-people-fill"></i></div>
-        <div class="card-content"><h3>Growing Fast</h3><p>New Nigerian businesses going online every week.</p></div>
+      <div class="card-content">
+        <p style="font-size:0.85rem;color:var(--n-muted);line-height:1.75;margin-bottom:0.75rem;">
+          CUDFIRM started in Lagos with a simple observation: small Nigerian businesses were spending time and money on social media pages and Canva flyers, but without a proper website, they had no real online presence they owned or controlled.
+        </p>
+        <p style="font-size:0.85rem;color:var(--n-muted);line-height:1.75;margin-bottom:0.75rem;">
+          We set out to build professional websites that are fast, beautiful, and genuinely useful — designed specifically for how Nigerian customers search, browse, and buy.
+        </p>
+        <p style="font-size:0.85rem;color:var(--n-muted);line-height:1.75;margin:0;">
+          Today, CUDFIRM is a focused web design studio. One clear mission. One service. Done properly.
+        </p>
       </div>
-      <div class="card stat-card">
-        <div class="card-icon stat-icon-gigs"><i class="bi bi-clock-history"></i></div>
-        <div class="card-content"><h3>3–7 Days</h3><p>Average delivery time for a landing page.</p></div>
+    </div>
+
+    <!-- Values -->
+    <div class="card card-section mb-3">
+      <div class="card-header">
+        <h3><i class="bi bi-stars me-1" style="color:var(--n-gold)"></i>What We Stand For</h3>
       </div>
-      <div class="card stat-card live-indicator-card">
-        <div class="card-icon stat-icon-live"><i class="bi bi-broadcast"></i></div>
-        <div class="card-content"><h3 id="liveUserCount">— Online</h3><p>Visitors right now <span class="live-dot"></span></p></div>
-      </div>
-      <div class="card full-width">
-        <div class="card-header"><h2>Quick Navigation</h2></div>
-        <div class="card-content quick-actions">
-          <button class="action-item" onclick="openTab(event,'tab3')"><i class="bi bi-briefcase"></i><span>Our Services</span></button>
-          <button class="action-item" onclick="openTab(event,'tab4')"><i class="bi bi-laptop"></i><span>View Portfolio</span></button>
-          <button class="action-item" onclick="openTab(event,'tab5')"><i class="bi bi-list-ol"></i><span>Our Process</span></button>
-          <button class="action-item" onclick="openTab(event,'tab13')"><i class="bi bi-question-circle"></i><span>FAQ</span></button>
-          <button class="action-item" onclick="openTab(event,'connect-content')"><i class="bi bi-whatsapp"></i><span>Get A Quote</span></button>
+      <div class="card-content">
+        <div class="row g-3">
+          ${values.map(v => `
+            <div class="col-12 col-md-6">
+              <div class="card p-3 h-100">
+                <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.6rem;">
+                  <div style="width:40px;height:40px;border-radius:10px;background:var(--n-jade);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;"><i class="bi ${v.icon}"></i></div>
+                  <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;color:var(--n-forest);">${v.title}</div>
+                </div>
+                <p style="font-size:0.78rem;color:var(--n-muted);margin:0;">${v.desc}</p>
+              </div>
+            </div>`).join('')}
         </div>
       </div>
     </div>
-    <footer class="footin mt-3">
+
+    <!-- Quick facts -->
+    <div class="card card-section mb-3">
+      <div class="card-header">
+        <h3><i class="bi bi-info-circle me-1" style="color:var(--n-gold)"></i>Quick Facts</h3>
+      </div>
+      <div class="card-content">
+        <div class="row g-3 text-center">
+          ${[
+            { label:'Based In', value:'Lagos, Nigeria' },
+            { label:'Delivery', value:'3–10 Business Days' },
+            { label:'Starting Price', value:'₦50,000' },
+            { label:'Support Hours', value:'Mon–Sat, 8am–8pm WAT' },
+          ].map(f => `
+            <div class="col-6 col-md-3">
+              <div class="card p-3">
+                <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:0.95rem;color:var(--n-forest);margin-bottom:0.2rem;">${f.value}</div>
+                <div style="font-size:0.7rem;color:var(--n-muted);">${f.label}</div>
+              </div>
+            </div>`).join('')}
+        </div>
+      </div>
+    </div>
+
+    <button class="view-more-btn" onclick="openTab(event,'connect-content')">
+      <i class="bi bi-arrow-right-circle me-1"></i>Work With Us
+    </button>
+
+    <footer class="footin mt-4">
       <div class="icons-social">
         <article class="list-social">
-          <span class="icons-social__item"><a class="icons-social__link" href="https://codepen.io/cudfirm-group"><i class="fab fa-codepen"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="https://instagram.com/cudfirm" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="https://fb.me/cudfirm"><i class="fab fa-facebook"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="https://x.com/cudfirm"><i class="fab fa-twitter"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="https://linkedin.com/in/cudfirm"><i class="fab fa-linkedin"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://codepen.io/cudfirm-group" aria-label="CodePen"><i class="fab fa-codepen"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://instagram.com/cudfirm" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://fb.me/cudfirm" aria-label="Facebook"><i class="fab fa-facebook"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://x.com/cudfirm" aria-label="X / Twitter"><i class="fab fa-twitter"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://linkedin.com/in/cudfirm" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a></span>
         </article>
       </div>
     </footer>
   </section>`;
 }
+
+
 
 // ─────────────────────────────────────────────
 // EXPLORE CONTENT — Portfolio directory
@@ -951,7 +963,7 @@ function buildExploreContent() {
 }
 
 // ─────────────────────────────────────────────
-// FORUM CONTENT
+// FORUM CONTENT — kept for reference but no longer rendered
 // ─────────────────────────────────────────────
 function buildForumContent() {
   const brands = ['CUDFIRM','Barber','Fashion','Food','Coach','Photo','Solar','Tutor','Health','Logistics','Events','Design'];
