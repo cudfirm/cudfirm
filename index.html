@@ -1,25 +1,40 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en-NG" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" />
-  <title>CUDFIRM — Professional Web Design Studio | Lagos, Nigeria</title>
-  <meta name="description" content="CUDFIRM is a professional web design studio in Lagos, Nigeria. We build fast, modern, and mobile-friendly websites for small businesses, startups, and growing brands. Starting from ₦50,000." />
+  <title>CUDFIRM — Professional Web Design Studio in Lagos, Nigeria</title>
+  <meta name="description" content="CUDFIRM is a professional web design studio in Lagos, Nigeria. We build fast, beautiful, and mobile-ready websites for small businesses, startups, and professionals. Landing pages from ₦50,000. Delivered in 3–7 business days." />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://cudfirm.netlify.app" />
+
+  <!-- Robots -->
+  <meta name="robots" content="index, follow" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="CUDFIRM — Professional Web Design Studio" />
-  <meta property="og:description" content="We build professional websites that help Nigerian businesses grow. Landing pages, business websites, and redesigns. Based in Lagos." />
+  <meta property="og:title" content="CUDFIRM — Professional Web Design Studio in Lagos, Nigeria" />
+  <meta property="og:description" content="We build fast, beautiful websites for Nigerian businesses and professionals. Landing pages, business sites, and redesigns. Starting from ₦50,000. Based in Lagos." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://cudfirm.netlify.app" />
+  <meta property="og:image" content="https://cudfirm.netlify.app/img/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="en_NG" />
+  <meta property="og:site_name" content="CUDFIRM" />
 
-  <!-- Twitter -->
+  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="CUDFIRM — Professional Web Design Studio" />
-  <meta name="twitter:description" content="We build professional websites that help Nigerian businesses grow. Starting from ₦50,000." />
+  <meta name="twitter:site" content="@cudfirm" />
+  <meta name="twitter:title" content="CUDFIRM — Professional Web Design Studio in Lagos" />
+  <meta name="twitter:description" content="We build professional websites for Nigerian businesses. Starting from ₦50,000. Fast turnaround. Mobile-ready. WhatsApp-integrated." />
+  <meta name="twitter:image" content="https://cudfirm.netlify.app/img/og-image.png" />
 
   <!-- SEO -->
-  <meta name="keywords" content="web design Nigeria, website design Lagos, landing page Nigeria, affordable website design, professional website Lagos, small business website Nigeria, CUDFIRM" />
+  <meta name="keywords" content="web design Nigeria, website design Lagos, landing page Nigeria, affordable website design, professional website Lagos, small business website Nigeria, web designer Lagos, CUDFIRM" />
   <meta name="author" content="CUDFIRM" />
+  <meta name="geo.region" content="NG-LA" />
+  <meta name="geo.placename" content="Lagos, Nigeria" />
 
   <!-- Schema.org structured data -->
   <script type="application/ld+json">
@@ -27,17 +42,27 @@
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "name": "CUDFIRM",
-    "description": "Professional web design studio in Lagos, Nigeria. We build websites for small businesses, startups, and growing brands.",
+    "description": "CUDFIRM is a professional web design studio in Lagos, Nigeria. We build fast, modern, mobile-ready websites for small businesses, startups, and professionals.",
     "url": "https://cudfirm.netlify.app",
     "telephone": "+2349056317709",
     "email": "info@cudfirm.com",
+    "priceRange": "₦₦",
+    "openingHours": "Mo-Sa 08:00-20:00",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Lagos",
+      "addressRegion": "Lagos State",
       "addressCountry": "NG"
     },
-    "areaServed": "Nigeria",
-    "serviceType": "Web Design"
+    "areaServed": ["Nigeria", "Lagos", "Abuja", "Port Harcourt"],
+    "serviceType": ["Web Design", "Landing Page Design", "Business Website Development", "SEO Setup", "Website Maintenance"],
+    "knowsAbout": ["Web Design", "Mobile-First Design", "SEO", "WordPress", "Landing Pages"],
+    "sameAs": [
+      "https://instagram.com/cudfirm",
+      "https://fb.me/cudfirm",
+      "https://x.com/cudfirm",
+      "https://linkedin.com/in/cudfirm"
+    ]
   }
   </script>
 
@@ -67,6 +92,9 @@
 </head>
 
 <body>
+
+  <!-- Skip to content (keyboard accessibility) -->
+  <a class="skip-to-content" href="#contentMain">Skip to main content</a>
 
   <!-- ===== READING PROGRESS BAR ===== -->
   <div id="readingProgressBar"></div>
@@ -142,7 +170,7 @@
       </div>
 
       <!-- Main Content — all sections rendered by JS -->
-      <main class="content-main" id="contentMain"></main>
+      <main class="content-main" id="contentMain" role="main" aria-label="Main content"></main>
 
       <!-- Back to Top -->
       <button id="backToTopBtn" class="back-to-top" aria-label="Back to top" title="Back to top">
