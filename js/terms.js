@@ -1,5 +1,5 @@
 /**
- * CUDFIRM Terms & Conditions — notebook.js
+ * CUDFIRM Terms & Conditions — terms.js
  *
  * ALL content lives here. HTML is just a shell.
  * Three globals for HTML onclick hooks: navigateForward, navigateBack, navigateTo
@@ -9,132 +9,166 @@
   'use strict';
 
   /* ══════════════════════════════════════════════════
-     PAGE DATA — edit content / placeholder labels here
+     PAGE DATA — 10 Terms & Conditions Sections
+     Cover (0) + Intro (1) + Sections 02-11 + Back Cover = 13 pages
      ══════════════════════════════════════════════════ */
   var PAGES = [
+
+    /* 0 — COVER */
     {
       id: 'cover', type: 'cover',
       title: 'CUDFIRM GROUP', subtitle: 'Terms &amp; Conditions',
-      meta: ['v2.0 — 2025', 'Lagos, Nigeria']
+      meta: ['v2.0.1 — 2025', 'Lagos, Nigeria']
     },
+
+    /* 1 — INTRO */
     {
       id: 'a', type: 'intro',
       section: '01', tocLabel: 'Introduction'
     },
+
+    /* 2 — SECTION 01: ABOUT US & AGREEMENT */
     {
       id: 'b', type: 'content',
-      section: '02', tocLabel: 'Website &amp; Services',
-      heading: 'WEBSITE &amp; SERVICES',
-      placeholder: 'Services Visual',
+      section: '02', tocLabel: 'About Us &amp; Agreement',
+      heading: 'ABOUT US &amp; AGREEMENT',
       body: [
-        'We are CUDFIRM Inc., doing business as CUDFIRM (“CUDFIRM ,” “we,” “us,” or “our”), a company registered in Lagos State, Nigeria. We operate the website <strong>http://cudfirm.ga</strong> (the “Website”) through which we provide you our services, (collectively, the “Services” which include the provision and use of the Website).',
-
-'You can contact us by phone at (+234) 9056-3177-09, by email at cudfirm@yahoo.com, or by post to CUDFIRM Inc., 7 CUDFIRM ROAD, APAPA, LAGOS - 110011.',
-
- 'These Terms of Use constitute a legally binding agreement made between you, whether personally or on behalf of an entity (“you”) and concerning your access to and use of the Website and the Services. You agree that by accessing the Services, you have read, understood, and agree to be bound by all of these Terms of Use. IF YOU DO NOT AGREE WITH ALL OF THESE TERMS OF USE, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SERVICES AND YOU MUST DISCONTINUE USE IMMEDIATELY.',
-
- 'Supplemental terms and conditions or documents that may be posted on the Website from time to time are hereby expressly incorporated herein by reference. We reserve the right, in Cudfirm sole discretion, to make changes or modifications to these Terms of Use from time to time. We will alert you about any changes by updating the “Last updated” date of these Terms of Use, and you waive any right to receive specific notice of each such change. It is your responsibility to periodically review these Terms of Use to stay informed as each time you access the Services, you will be subject to, and will be deemed to have been made aware of and to have accepted, the then applicable Terms of Use.',
-
-'The Services are intended for users of all ages. In as much as the user can read and understand the terms of use and keep to it standards. If this is changed by means of introducing content, not usable by such user, they will be notified.',
-
-        'Contact us by phone at <strong>(+234) 9056-3177-09</strong>, by email at <strong>cudfirm@yahoo.com</strong>, or by post to CUDFIRM Inc., 7 CUDFIRM Road, Apapa, Lagos — 110011.',
-
-        'These Terms of Use constitute a legally binding agreement between you and CUDFIRM concerning your access to and use of the Website and Services. <strong>By accessing the Services, you confirm you have read, understood, and agree to be bound by all of these Terms.</strong> IF YOU DO NOT AGREE, DISCONTINUE USE IMMEDIATELY.',
-
-        'We reserve the right to modify these Terms at any time. We will alert you by updating the "Last Updated" date. It is your responsibility to review these Terms periodically.',
-
-        'The Services are intended for users of all ages who can read and understand these Terms. Users will be notified of any age-appropriate content changes.'
+        'We are <strong>CUDFIRM Inc.</strong>, doing business as CUDFIRM ("we," "us," or "our"), a company registered in Lagos State, Nigeria. We operate the website <strong>cudfirm.netlify.app</strong> and all related services (collectively, the "Services").',
+        'You can reach us at:<br><strong>Phone:</strong> +234 905 631 7709 &nbsp;&bull;&nbsp; <strong>Email:</strong> cudfirm@gmail.com<br><strong>Post:</strong> CUDFIRM Inc., 7 CUDFIRM Road, Apapa, Lagos — 110011.',
+        'These Terms constitute a legally binding agreement between you and CUDFIRM covering your access to and use of our Website and Services. <strong>By accessing the Services, you confirm you have read, understood, and agreed to be bound by these Terms.</strong>',
+        '<strong>If you do not agree with any part of these Terms, stop using the Services immediately.</strong>',
+        'We may update these Terms at any time. Changes take effect when posted, identified by an updated "Last Updated" date. It is your responsibility to check periodically. Continued use of the Services means you accept the updated Terms.',
+        'Our Services are open to users of all ages who can read and understand these Terms. If age-restricted content is ever introduced, affected users will be notified in advance.'
       ]
     },
+
+    /* 3 — SECTION 02: OUR WEBSITE & SERVICES */
     {
       id: 'c', type: 'content',
-      section: '03', tocLabel: 'The Flash',
-      heading: 'The Flash',
-      placeholder: 'The Flash Poster',
+      section: '03', tocLabel: 'Our Services',
+      heading: 'OUR WEBSITE &amp; SERVICES',
       body: [
-        'Barry Allen is a Central City police forensic scientist whose life is upended by a mysterious lightning strike that killed his mother and framed his father. A particle accelerator accident leaves him comatose for nine months.',
-
-        'Emerging with superhuman speed, Barry learns he is one of many affected — most using their powers for evil. Determined to make a difference, he dedicates his life to fighting such threats as <em>The Flash</em>.'
+        'CUDFIRM is a multifaceted company offering a wide range of products and services locally and internationally, including Logistics, Health, Housing, Food Export, Technology, Wellness, Creative services, and more.',
+        'The Services include access to our online platform, service directories, and any tools or features made available through the Website. <strong>GREEN listings</strong> on our platform are CUDFIRM-sponsored. <strong>&#174; listings</strong> are registered with verified physical addresses. Other listed services are independent and not directly vetted or affiliated with CUDFIRM.',
+        'Please note: CUDFIRM is not directly affiliated with any listed third-party sites that do not carry our registered trademark. We are not liable for changes to their terms or functionality.',
+        'We reserve the right to add, modify, or remove any feature, service, or listing from the platform at any time. Additional features will be introduced progressively and users will be informed accordingly.'
       ]
     },
+
+    /* 4 — SECTION 03: USER REPRESENTATIONS & REGISTRATION */
     {
       id: 'd', type: 'content',
-      section: '04', tocLabel: 'Arrow',
-      heading: 'Arrow',
-      placeholder: 'Arrow Poster',
+      section: '04', tocLabel: 'User Representations',
+      heading: 'USER REPRESENTATIONS &amp; REGISTRATION',
       body: [
-        'Oliver Queen and his father are lost at sea when their luxury yacht sinks. His father dies, but Oliver survives five years on an uncharted island — learning to fight, to survive, and uncovering his father\'s corruption.',
-        'He returns changed: hooded, bow in hand, hunting down those who have corrupted his city.'
+        'By using the Services, you confirm and warrant that: (1) all information you provide is true, accurate, and complete; (2) you will keep your information up to date; (3) you have the legal capacity to agree to these Terms; (4) you will not access the Services through bots, scripts, or non-human automated means; (5) you will not use the Services for any illegal or unauthorised purpose; and (6) your use will comply with all applicable laws.',
+        'If you provide false or misleading information, we reserve the right to suspend or permanently terminate your account and refuse all future use of the Services.',
+        '<strong>Account Registration:</strong> Some features require you to register. You agree to keep your password confidential and accept full responsibility for all activity under your account. We reserve the right to remove or change any username deemed inappropriate, offensive, or objectionable.',
+        '<strong>Account Security:</strong> Notify us immediately if you suspect unauthorised access to your account. CUDFIRM is not liable for losses resulting from your failure to safeguard your credentials.'
       ]
     },
+
+    /* 5 — SECTION 04: PROHIBITED ACTIVITIES */
     {
       id: 'e', type: 'content',
-      section: '05', tocLabel: 'Legends of Tomorrow',
-      heading: 'Legends of Tomorrow',
-      placeholder: 'Legends Poster',
+      section: '05', tocLabel: 'Prohibited Activities',
+      heading: 'PROHIBITED ACTIVITIES',
       body: [
-        'When heroes alone are not enough, the world needs legends. Rip Hunter time-travels to assemble a desperate team of heroes and villains to confront an immortal threat.',
-        'Not only is the planet at stake — but the timeline itself. Can this ragtag group defeat a threat unlike anything they have ever known?'
+        'You may use the Services only for their intended purpose. Commercial use is permitted only where explicitly approved by CUDFIRM in writing.',
+        '<strong>The following are strictly prohibited:</strong><br>&bull; Scraping, harvesting, or collecting data or user information without written permission.<br>&bull; Sending unsolicited messages or creating accounts by automated or false means.<br>&bull; Bypassing, disabling, or interfering with any security feature of the Services.<br>&bull; Framing or deep-linking to the Services without authorisation.',
+        '&bull; Impersonating another user, person, or entity.<br>&bull; Uploading or transmitting viruses, malware, spyware, or any harmful code.<br>&bull; Using the Services to harass, abuse, threaten, or harm any person — including CUDFIRM staff.<br>&bull; Reproducing, copying, or adapting the Website design, code, or content without authorisation.',
+        '&bull; Reverse-engineering or decompiling any part of the Services.<br>&bull; Using the Services to compete with CUDFIRM or for any commercial purpose beyond the licence granted herein.<br>&bull; Using the Services in any manner that violates applicable Nigerian or international law.',
+        'Violations may result in immediate account suspension, permanent banning, and/or legal action including civil and criminal proceedings.'
       ]
     },
+
+    /* 6 — SECTION 05: INTELLECTUAL PROPERTY RIGHTS */
     {
       id: 'f', type: 'content',
-      section: '06', tocLabel: 'Cloak &amp; Dagger',
-      heading: 'Cloak &amp; Dagger',
-      placeholder: 'Cloak &amp; Dagger Poster',
+      section: '06', tocLabel: 'Intellectual Property',
+      heading: 'INTELLECTUAL PROPERTY RIGHTS',
       body: [
-        'Tandy Bowen and Tyrone Johnson — two teenagers from different backgrounds — acquire superpowers while forming a romantic relationship.',
-        'Their abilities work best in tandem, but their deepening feelings make their already complicated world even more challenging.'
+        'All content on the Website — including graphics, interfaces, software, text, photographs, logos, trademarks, audio, and video — is owned by CUDFIRM Inc. or its licensors and is protected by Nigerian and international copyright law. These Terms do not transfer any intellectual property rights to you.',
+        '<strong>Your Licence:</strong> Subject to compliance with these Terms, we grant you a limited, non-exclusive, non-transferable licence to access and use the Services for your personal or internal business purposes. Where you have purchased a CUDFIRM product or project, your specific licence rights are defined in that purchase agreement.',
+        '<strong>Content You Submit:</strong> Any feedback, ideas, or suggestions you share with us ("Feedback") are non-confidential. By submitting Feedback, you grant CUDFIRM a perpetual, irrevocable, royalty-free licence to use it in any way, without obligation to credit or compensate you.',
+        'You must not remove, alter, or obscure any copyright, trademark, or proprietary notice from any part of the Website or its content.'
       ]
     },
+
+    /* 7 — SECTION 06: THIRD-PARTY WEBSITES & CONTENT */
     {
       id: 'g', type: 'content',
-      section: '07', tocLabel: 'Agents of S.H.I.E.L.D',
-      heading: 'Agents of S.H.I.E.L.D',
-      placeholder: 'Agents Poster',
+      section: '07', tocLabel: 'Third-Party Content',
+      heading: 'THIRD-PARTY WEBSITES &amp; CONTENT',
       body: [
-        'After the Battle of New York, Phil Coulson assembles an elite covert team within the Strategic Homeland Intervention, Enforcement and Logistics Division.',
-        'As the world grows rapidly more dangerous and supervillains rise, these agents are ready to protect it.'
+        'The Services may include links or references to third-party websites and content ("Third-Party Content"). We do not investigate, monitor, or verify the accuracy, reliability, or appropriateness of Third-Party Content. Linking to a third-party site does not imply our endorsement or approval.',
+        'If you choose to leave our Services and visit a third-party site, you do so entirely at your own risk. These Terms no longer apply once you leave our platform. We strongly recommend reviewing the terms and privacy policies of any third-party site.',
+        'Any transactions made through third-party sites are solely between you and that third party. CUDFIRM accepts no responsibility for such transactions, and you agree to hold us harmless from any resulting loss or harm.',
+        'You should review the applicable terms, privacy, and data practices of any website or application you access through links on our platform.'
       ]
     },
+
+    /* 8 — SECTION 07: SERVICES MANAGEMENT & MODIFICATIONS */
     {
       id: 'h', type: 'content',
-      section: '08', tocLabel: 'Van Helsing',
-      heading: 'Van Helsing',
-      placeholder: 'Van Helsing Poster',
+      section: '08', tocLabel: 'Services Management',
+      heading: 'SERVICES MANAGEMENT &amp; MODIFICATIONS',
       body: [
-        'Vanessa Helsing — daughter of legendary vampire hunter Abraham Van Helsing — is resurrected five years in the future to find vampires have seized the world.',
-        'Possessing a unique power over them, she is humanity\'s last hope to reclaim what has been lost.'
+        '<strong>Management:</strong> We reserve the right (but not the obligation) to: (1) monitor the Services for Terms violations; (2) take legal action against violators including reporting them to authorities; (3) restrict, limit, or disable access to any content or account; (4) remove content that is excessive or harmful; and (5) manage the Services in any way needed to protect our rights and ensure proper functioning.',
+        '<strong>Modifications:</strong> We may change, update, suspend, or discontinue any part of the Services at any time — to comply with new laws, update our offerings, or if CUDFIRM changes its business model. We will not be liable to you or any third party for such changes.',
+        '<strong>Interruptions:</strong> We cannot guarantee that the Services will always be available. Maintenance, hardware/software issues, or unforeseen events may cause downtime. We will endeavour to give advance notice of planned interruptions. CUDFIRM accepts no liability for any loss or inconvenience caused by downtime.',
+        '<strong>Corrections:</strong> The Services may occasionally contain typographical errors or inaccuracies. We reserve the right to correct these at any time without prior notice.'
       ]
     },
+
+    /* 9 — SECTION 08: PRIVACY & USER DATA */
     {
       id: 'i', type: 'content',
-      section: '09', tocLabel: 'The Walking Dead',
-      heading: 'The Walking Dead',
-      placeholder: 'Walking Dead Poster',
+      section: '09', tocLabel: 'Privacy &amp; Data',
+      heading: 'PRIVACY &amp; USER DATA',
       body: [
-        'Sheriff Deputy Rick Grimes wakes from a coma into a zombie apocalypse. He sets out to find his family and becomes leader of a survivor group.',
-        'This show is about survival, its risks, and the brutal cost of enduring.'
+        'We take data privacy and security seriously. Please read our full <strong>Privacy Notice</strong> to understand how we collect, use, and protect your personal information. By using the Services, you confirm you have reviewed and understood our Privacy Notice.',
+        '<strong>Data Location:</strong> The Services are hosted in Nigeria. If you access the Services from outside Nigeria, you acknowledge that your data will be transferred to and processed in Nigeria, subject to Nigerian law.',
+        '<strong>Your Data:</strong> We maintain data you transmit to the Services to help manage performance and your user experience. While we perform routine backups, <strong>you are solely responsible for all data you transmit</strong> and for maintaining independent backups of your own data.',
+        'CUDFIRM accepts no liability for loss or corruption of your data. By using the Services, you waive any claim against us arising from data loss or corruption.'
       ]
     },
+
+    /* 10 — SECTION 09: DISCLAIMER & LIMITATIONS */
     {
       id: 'j', type: 'content',
-      section: '10', tocLabel: 'Doctor Who',
-      heading: 'Doctor Who',
-      placeholder: 'Doctor Who Poster',
+      section: '10', tocLabel: 'Disclaimer',
+      heading: 'DISCLAIMER &amp; LIMITATIONS',
       body: [
-        'The Doctor — a Time Lord from Gallifrey — travels through time and space in the T.A.R.D.I.S. (Time and Relative Dimension In Space) with numerous companions.',
-        'The Doctor periodically regenerates into a new form, a device that has kept the series running since William Hartnell\'s departure in 1966.'
+        '<strong>As-Is Basis:</strong> THE SERVICES ARE PROVIDED "AS-IS" AND "AS-AVAILABLE." YOUR USE IS AT YOUR SOLE RISK. TO THE FULLEST EXTENT PERMITTED BY LAW, CUDFIRM DISCLAIMS ALL WARRANTIES — EXPRESS OR IMPLIED — INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.',
+        '<strong>No Liability:</strong> CUDFIRM WILL NOT BE LIABLE FOR: (1) ERRORS OR INACCURACIES IN CONTENT; (2) PERSONAL INJURY OR PROPERTY DAMAGE FROM USE OF THE SERVICES; (3) UNAUTHORISED ACCESS TO OUR SERVERS OR YOUR PERSONAL/FINANCIAL DATA; (4) SERVICE INTERRUPTIONS OR TRANSMISSION FAILURES; (5) VIRUSES OR MALICIOUS CODE TRANSMITTED THROUGH THE SERVICES BY THIRD PARTIES.',
+        '<strong>Third-Party Products:</strong> We do not warrant, endorse, or assume responsibility for any product or service advertised by a third party. Exercise caution and your own judgement in any third-party transaction.',
+        '<strong>Force Majeure:</strong> CUDFIRM will not be in breach of these Terms for any delay or failure caused by events beyond our reasonable control — including acts of God, pandemics, war, government actions, infrastructure failures, or civil disorder.'
       ]
     },
+
+    /* 11 — SECTION 10: TERMINATION & GENERAL PROVISIONS */
+    {
+      id: 'k', type: 'content',
+      section: '11', tocLabel: 'Termination &amp; General',
+      heading: 'TERMINATION &amp; GENERAL PROVISIONS',
+      body: [
+        '<strong>Duration & Termination:</strong> These Terms remain in effect for as long as you use the Services. We may deny access, suspend, or terminate your account at any time — without notice — if we reasonably believe you have breached these Terms or any applicable law.',
+        '<strong>After Termination:</strong> If your account is terminated, you are prohibited from creating a new account using your own name, a fake name, or a third party\'s name. We reserve the right to pursue civil, criminal, or injunctive legal action.',
+        '<strong>Entire Agreement:</strong> These Terms, together with any policies posted on the Services, constitute the entire agreement between you and CUDFIRM. You confirm you have not relied on any prior oral or written statement to enter into this agreement.',
+        '<strong>Other Provisions:</strong> Our failure to enforce any right is not a waiver of that right. If any provision is found unenforceable, the remaining Terms stay valid. You and CUDFIRM are independent parties — no partnership, employment, or agency relationship is created. We may assign our rights at any time. Notices from us are deemed received 24 hours after emailing you. Notices to us at <strong>cudfirm@gmail.com</strong> are deemed received 72 hours after sending.'
+      ]
+    },
+
+    /* 12 — BACK COVER (Contact Us) */
     {
       id: 'backCover', type: 'back',
-      section: '12', tocLabel: 'Closing',
-      quote: 'Life moves so fast, and we\'re so distracted, that sometimes we just need to slow down, feel, think — and just be.'
+      section: '12', tocLabel: 'Contact Us',
+      quote: 'Questions about these Terms? Reach us at cudfirm@gmail.com or call +234 905 631 7709. CUDFIRM Inc., 7 CUDFIRM Road, Apapa, Lagos — 110011, Nigeria.'
     }
   ];
 
-  var TOTAL = PAGES.length; // 12
+  var TOTAL = PAGES.length; // 13
 
   /* ══════════════════════════════════════════════════
      Z-INDEX HELPERS
@@ -152,6 +186,10 @@
 
     var nbHTML  = '';
     var tocHTML = '';
+
+    /* Update sidebar page count */
+    var pgCount = document.getElementById('pgCount');
+    if (pgCount) pgCount.textContent = TOTAL;
 
     PAGES.forEach(function (pg, i) {
       var z = unturnedZ(i);
@@ -188,14 +226,21 @@
           '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>' +
           '</div>';
 
-      /* ── Intro ── */
+      /* ── Intro page ── */
       } else if (pg.type === 'intro') {
         nbHTML +=
           '<div id="' + pg.id + '" class="page" style="z-index:' + z + '" ' +
           'role="region" aria-label="Page ' + i + ': Introduction">' +
           '<div class="page-inner">' +
           '<p class="page-eyebrow" aria-hidden="true">' + pg.section + ' — Introduction</p>' +
-          '<div class="prop-of">Property of HiCUD</div>' +
+          '<div class="intro-block">' +
+          '<p class="intro-label">LAST UPDATED</p>' +
+          '<p class="intro-date">January 1, 2025</p>' +
+          '<p class="intro-body">These Terms of Use govern your access to and use of CUDFIRM\'s website and services. By using our platform, you agree to be bound by these Terms. Please read them carefully.</p>' +
+          '<p class="intro-body">This document contains <strong>10 sections</strong>. Use the sidebar contents or the arrows below to navigate.</p>' +
+          '<div class="intro-divider"></div>' +
+          '<p class="intro-notice"><strong>CUDFIRM Inc.</strong><br>Lagos, Nigeria<br>cudfirm@gmail.com</p>' +
+          '</div>' +
           '</div>' +
           arrowPair() +
           '</div>';
@@ -205,15 +250,10 @@
         var bodyHTML = pg.body.map(function(t){ return '<p>'+t+'</p>'; }).join('');
         nbHTML +=
           '<div id="' + pg.id + '" class="page" style="z-index:' + z + '" ' +
-          'role="region" aria-label="Page ' + i + ': ' + stripTags(pg.heading) + '">' +
+          'role="region" aria-label="Section ' + pg.section + ': ' + stripTags(pg.heading) + '">' +
           '<div class="page-inner">' +
-          '<p class="page-eyebrow" aria-hidden="true">' + pg.section + ' — ' + stripTags(pg.heading) + '</p>' +
-          '<div class="img-ph" contenteditable="true" ' +
-            'aria-label="Image placeholder — replace with your image. Current label: ' + stripTags(pg.placeholder) + '" ' +
-            'title="Click to edit placeholder label">' +
-            pg.placeholder +
-          '</div>' +
-          '<p class="movie-title">' + pg.heading + '</p>' +
+          '<p class="page-eyebrow" aria-hidden="true">SECTION ' + pg.section + ' — ' + stripTags(pg.heading) + '</p>' +
+          '<p class="section-heading">' + pg.heading + '</p>' +
           bodyHTML +
           '</div>' +
           arrowPair() +
@@ -223,9 +263,9 @@
       } else if (pg.type === 'back') {
         nbHTML +=
           '<div id="' + pg.id + '" class="page back-cover" style="z-index:' + z + '" ' +
-          'role="region" aria-label="Closing page">' +
+          'role="region" aria-label="Closing page — Contact Us">' +
           '<div id="secretPaper" role="button" tabindex="0" ' +
-          'aria-label="Reveal or hide closing message" aria-expanded="false">' +
+          'aria-label="Reveal contact details" aria-expanded="false">' +
           '<q>' + pg.quote + '</q>' +
           '</div>' +
           '<div id="hideout" aria-hidden="true"></div>' +
@@ -350,7 +390,7 @@
   function pad(n) { return String(n).padStart(2, '0'); }
 
   /* ══════════════════════════════════════════════════
-     SECRET PAPER
+     SECRET PAPER (back cover contact reveal)
      ══════════════════════════════════════════════════ */
   var secretVisible = false;
   function secretPage() {
@@ -370,7 +410,7 @@
   }
 
   /* ══════════════════════════════════════════════════
-     CLOSE BOOK BUTTON  → snap all pages back to cover
+     CLOSE BOOK BUTTON → snap all pages back to cover
      ══════════════════════════════════════════════════ */
   function bindCloseBook() {
     ['closeBookBtn', 'mobHomeBtn'].forEach(function (id) {
@@ -381,7 +421,6 @@
 
   /* ══════════════════════════════════════════════════
      MOBILE SIDEBAR
-     Accessible: aria-expanded, focus management, Escape
      ══════════════════════════════════════════════════ */
   function openSidebar() {
     var sb  = el('sidebar');

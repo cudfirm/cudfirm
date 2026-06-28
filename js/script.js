@@ -141,14 +141,14 @@ function buildAllSections() {
 // ─────────────────────────────────────────────
 function buildTab1() {
   const portfolio = [
-    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=CUDFIRM', link: 'https://cudfirm.netlify.app', name: 'CUDFIRM Group', alt: 'CUDFIRM' },
-    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=BARBER', link: '#', name: 'Barber Shop', alt: 'Barber' },
-    { img: 'https://placehold.co/200x250/C8922A/fff?text=FASHION', link: '#', name: 'Fashion Designer', alt: 'Fashion' },
-    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=FOOD', link: '#', name: 'Food Vendor', alt: 'Food Vendor' },
-    { img: 'https://placehold.co/200x250/4D9E7A/fff?text=COACH', link: '#', name: 'Life Coach', alt: 'Coach' },
-    { img: 'https://placehold.co/200x250/E8B84B/0B3D2E?text=PHOTO', link: '#', name: 'Photographer', alt: 'Photographer' },
-    { img: 'https://placehold.co/200x250/3A4035/fff?text=REST', link: '#', name: 'Restaurant', alt: 'Restaurant' },
-    { img: 'https://placehold.co/200x250/191970/fff?text=+', link: 'connect-content', name: 'Your Business?', alt: 'Get Started' },
+    { img: 'img/Nseyin2.PNG',       link: 'portfolio/real estate/index.html', name: 'NSEYIN Massage', alt: 'Health and Wellness Website By CUDFIRM' },
+    { img: 'img/NOORÉ.JPEG',        link: 'portfolio/fashion/index.html',      name: 'NOORÉ Perfumes',   alt: 'Built by CUDFIRM For You' },
+    { img: 'img/LobahVisuals.JPEG', link: 'https://lobahvisuals.vercel.app',                                  name: 'LobahVisuals',   alt: 'Photography portfolio built by CUDFIRM' },
+    { img: 'img/EliStitches.PNG',   link: '#',                                  name: 'EliStitches',    alt: 'Tailoring business website built by CUDFIRM' },
+    { img: 'img/Elichi.PNG',        link: '#',                                  name: 'Elichi',         alt: 'Business website built by CUDFIRM' },
+    { img: 'img/Damkaz.PNG',        link: '#',                                  name: 'Damkaz',         alt: 'Brand website built by CUDFIRM' },
+    { img: 'img/TKM.JPEG',          link: '#',                                  name: 'TKM',            alt: 'Business website built by CUDFIRM' },
+    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=Your+Business', link: 'connect-content', name: 'Your Business Next', alt: 'Get started with CUDFIRM' },
   ];
 
   const services = [
@@ -175,19 +175,25 @@ function buildTab1() {
   return `
   <section id="tab1" class="tab-content view">
     <div class="home-hero">
-      <span class="hero-eyebrow">Lagos-Based Web Studio</span>
-      <h1 class="hero-title">Professional Websites That Grow Your Business</h1>
-      <p class="hero-sub">We design fast, modern, and mobile-friendly websites for businesses, professionals, and growing brands. Ready to get online? Let's talk.</p>
+      <span class="hero-eyebrow">Professional Web Design Studio · Lagos, Nigeria</span>
+      <h1 class="hero-title">Your Business Deserves a Website That Wins Customers</h1>
+      <p class="hero-sub">CUDFIRM builds fast, mobile-first websites for Nigerian businesses, professionals, and growing brands. We turn first-time visitors into paying customers — starting from ₦50,000, delivered in 3–7 days.</p>
       <div class="hero-cta-row">
-        <button class="btn-hero-primary" onclick="openTab(event,'tab4')">View Our Portfolio</button>
-        <button class="btn-hero-secondary" onclick="openTab(event,'connect-content')">Get a Free Consultation</button>
+        <button class="btn-hero-primary" onclick="openTab(event,'connect-content')">Get a Free Quote Today</button>
+        <button class="btn-hero-secondary" onclick="openTab(event,'tab4')">See Our Work</button>
+      </div>
+      <div class="hero-trust-strip" role="list" aria-label="Key facts about CUDFIRM">
+        <span role="listitem"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> Mobile-Ready</span>
+        <span role="listitem"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> 3–7 Day Delivery</span>
+        <span role="listitem"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> From ₦50,000</span>
+        <span role="listitem"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> 30-Day Support Included</span>
       </div>
     </div>
 
     <div class="p-3">
       <h6 class="sticky-top d-flex align-items-center gap-2 py-2">
         <span class="badge text-bg-primary">CUDFIRM</span>
-        <span style="font-size:0.72rem;color:var(--n-muted);font-weight:400;">Professional Websites for Nigerian Businesses</span>
+        <span style="font-size:0.72rem;color:var(--n-muted);font-weight:400;">Websites that work — for Nigerian businesses, by Nigerians</span>
       </h6>
       <hr class="my-2 w-25" />
 
@@ -199,14 +205,16 @@ function buildTab1() {
         <div class="card-content">
           <div class="row g-3 text-center">
             ${[
-              { icon:'bi-phone', label:'Mobile-First', sub:'Every site looks great on any device' },
-              { icon:'bi-lightning-charge', label:'Fast Delivery', sub:'Sites delivered in 3–7 business days' },
-              { icon:'bi-cash-coin', label:'Affordable', sub:'Starting from ₦50,000 — no hidden fees' },
-              { icon:'bi-geo-alt', label:'Lagos-Based', sub:'Local support you can actually reach' },
+              { icon:'bi-phone', label:'Mobile-First', sub:'Over 80% of your customers browse on phones. Every site looks perfect on any screen.' },
+              { icon:'bi-lightning-charge', label:'Fast Delivery', sub:'Landing pages in 3–5 days. Full business sites in 5–10 business days.' },
+              { icon:'bi-cash-coin', label:'Honest Pricing', sub:'Starting from ₦50,000. One clear price upfront — no hidden costs, ever.' },
+              { icon:'bi-geo-alt', label:'Lagos-Based', sub:'Same timezone. Same language. Real local support you can actually reach.' },
+              { icon:'bi-search', label:'SEO Ready', sub:'Every site is built to be found on Google so customers can discover you.' },
+              { icon:'bi-headset', label:'30-Day Support', sub:'We don\'t disappear after launch. Free support for 30 days, guaranteed.' },
             ].map(w => `
-              <div class="col-6 col-md-3">
+              <div class="col-6 col-md-4 col-lg-2">
                 <div class="card p-3">
-                  <i class="bi ${w.icon}" style="font-size:1.5rem;color:var(--n-gold);margin-bottom:0.5rem;display:block;"></i>
+                  <i class="bi ${w.icon}" style="font-size:1.5rem;color:var(--n-gold);margin-bottom:0.5rem;display:block;" aria-hidden="true"></i>
                   <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;">${w.label}</div>
                   <div style="font-size:0.7rem;color:var(--n-muted);margin-top:0.2rem;">${w.sub}</div>
                 </div>
@@ -239,15 +247,26 @@ function buildTab1() {
     </div>
 
     <hr class="my-2" />
-    <footer class="footin">
+    <footer class="footin" role="contentinfo">
       <div class="icons-social">
-        <article class="list-social">
-          <span class="icons-social__item"><a class="icons-social__link" href="https://codepen.io/cudfirm-group" aria-label="CodePen"><i class="fab fa-codepen"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="https://instagram.com/cudfirm" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="https://fb.me/cudfirm" aria-label="Facebook"><i class="fab fa-facebook"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="https://x.com/cudfirm" aria-label="Twitter/X"><i class="fab fa-twitter"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="https://linkedin.com/in/cudfirm" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a></span>
+        <article class="list-social" aria-label="CUDFIRM social links">
+          <span class="icons-social__item"><a class="icons-social__link" href="https://codepen.io/cudfirm-group" target="_blank" rel="noopener" aria-label="CUDFIRM on CodePen"><i class="fab fa-codepen" aria-hidden="true"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://instagram.com/cudfirm" target="_blank" rel="noopener" aria-label="CUDFIRM on Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://fb.me/cudfirm" target="_blank" rel="noopener" aria-label="CUDFIRM on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://x.com/cudfirm" target="_blank" rel="noopener" aria-label="CUDFIRM on X / Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://linkedin.com/in/cudfirm" target="_blank" rel="noopener" aria-label="CUDFIRM on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a></span>
         </article>
+      </div>
+      <div class="footer-legal">
+        <nav aria-label="Legal links">
+          <a href="terms.html" class="footer-legal-link">Terms &amp; Conditions</a>
+          <span aria-hidden="true"> &middot; </span>
+          <a href="terms.html#privacy" class="footer-legal-link">Privacy Policy</a>
+          <span aria-hidden="true"> &middot; </span>
+          <a href="mailto:info@cudfirm.com" class="footer-legal-link">info@cudfirm.com</a>
+        </nav>
+        <p class="footer-copy">&copy; 2026 CUDFIRM &middot; Professional Web Design Studio &middot; Lagos, Nigeria</p>
+        <p class="footer-tagline">Websites that work as hard as your business does.</p>
       </div>
     </footer>
   </section>`;
@@ -276,7 +295,7 @@ function buildTab2() {
   <section id="tab2" class="tab-content view p-3">
     <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Who We Build For</span></h6>
     <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
-      Any small business or service provider that needs an online presence. If you have customers, you need a website — and CUDFIRM builds it affordably.
+      If you have customers, you need a website. CUDFIRM builds professional websites for every type of Nigerian business — from solo operators to growing teams. Below are the industries we serve most.
     </p>
     <div class="row g-3 stagger-children">
       ${sectors.map(s => `
@@ -301,15 +320,15 @@ function buildTab2() {
 // ─────────────────────────────────────────────
 function buildTab3() {
   const items = [
-    { icon:'Starter Landing Page',    desc:'A single, focused page for your business — Home, About, Services, Gallery, Contact, and WhatsApp button. Perfect for getting online fast.',  tags:['#Landing','#Starter','#₦50K'], search:'landing page starter single one page fast cheap affordable barber stylist photographer coach', price:'₦50,000' },
-    { icon:'Business Website',        desc:'A full multi-page website for your business. Includes up to 6 pages, mobile-friendly design, SEO setup, and 30-day free support.',             tags:['#Full-Site','#Multi-Page','#₦100K'], search:'full business website multi page complete professional sme restaurant', price:'₦100,000' },
-    { icon:'Website Maintenance',     desc:'Monthly updates, text changes, image swaps, speed checks, and backup. Keep your site fresh without lifting a finger.',                       tags:['#Monthly','#Support','#₦10K–20K'], search:'maintenance update support monthly changes fix bug backup', price:'₦10K–20K/mo' },
-    { icon:'Domain & Hosting Setup',  desc:'Register your .com.ng or .com domain and set up reliable Nigerian hosting — fast, local, affordable.',                                       tags:['#Domain','#Hosting','#Setup'], search:'domain hosting setup register .com .com.ng website address', price:'From ₦15,000' },
-    { icon:'SEO Starter Pack',        desc:'Meta tags, Google Search Console setup, site speed optimisation, and local SEO — so customers can actually find you on Google.',            tags:['#SEO','#Google','#Visibility'], search:'seo google search console meta tags visibility local search rank', price:'₦20,000' },
-    { icon:'Brand Identity',          desc:'Logo design, colour palette, fonts, and a simple brand guide — everything you need to look professional across all platforms.',             tags:['#Branding','#Logo','#Design'], search:'logo branding identity design colour palette font guide professional', price:'From ₦25,000' },
-    { icon:'WhatsApp Business Setup', desc:'Set up a professional WhatsApp Business profile with auto-replies, catalogue, and a direct click-to-chat link for your site.',              tags:['#WhatsApp','#Business','#Free'], search:'whatsapp business setup profile auto reply catalogue chat link', price:'₦5,000' },
-    { icon:'Social Media Integration',desc:'Connect your Instagram, Facebook, or TikTok feed to your website — so your site always looks active and up to date.',                       tags:['#Social','#Instagram','#Feed'], search:'social media instagram facebook tiktok feed integration connect', price:'₦8,000' },
-    { icon:'Got A Special Request?',  desc:'Have a unique need? Tell us what you want to build — we\'ll review it and come back with a fair price and timeline.',                      tags:['#Custom','#Request'], search:'custom special request unique bespoke build quote', isSpecial: true, price:'Let\'s Talk' },
+    { icon:'Starter Landing Page',    desc:'Best for: barbers, photographers, food vendors, coaches, and anyone who needs to get online quickly. A single, conversion-focused page with your services, gallery, contact, and a WhatsApp button. Live in 3–5 days.',  tags:['#Landing','#Starter','#₦50K'], search:'landing page starter single one page fast affordable barber stylist photographer coach', price:'₦50,000' },
+    { icon:'Business Website',        desc:'Best for: growing businesses, professionals, and brands that need more than one page. Up to 6 custom pages with mobile-friendly design, SEO setup, contact forms, and 30-day free support after launch.',             tags:['#Full-Site','#Multi-Page','#₦100K'], search:'full business website multi page complete professional sme restaurant', price:'₦100,000' },
+    { icon:'Website Maintenance',     desc:'Best for: existing site owners who want to stay current without the technical headache. Monthly text updates, image changes, speed checks, and backups. Your site, always fresh.',                       tags:['#Monthly','#Support','#₦10K–20K'], search:'maintenance update support monthly changes fix bug backup', price:'₦10K–20K/mo' },
+    { icon:'Domain & Hosting Setup',  desc:'Best for: businesses starting from scratch. We register your .com.ng or .com domain and set up fast, reliable Nigerian web hosting — so your site is live and accessible worldwide.',                                       tags:['#Domain','#Hosting','#Setup'], search:'domain hosting setup register .com .com.ng website address', price:'From ₦15,000' },
+    { icon:'SEO Starter Pack',        desc:'Best for: businesses that want to appear on Google. We set up meta tags, Google Search Console, improve page speed, and configure local SEO — so customers searching for what you do can actually find you.',            tags:['#SEO','#Google','#Visibility'], search:'seo google search console meta tags visibility local search rank', price:'₦20,000' },
+    { icon:'Brand Identity',          desc:'Best for: new businesses and entrepreneurs. Logo design, colour palette, fonts, and a simple brand guide — everything you need to look consistent and professional across your website, social media, and print.',             tags:['#Branding','#Logo','#Design'], search:'logo branding identity design colour palette font guide professional', price:'From ₦25,000' },
+    { icon:'WhatsApp Business Setup', desc:'Best for: any business. We configure your WhatsApp Business profile with auto-replies, product catalogues, and a click-to-chat link embedded in your website — so customers reach you instantly.',              tags:['#WhatsApp','#Business'], search:'whatsapp business setup profile auto reply catalogue chat link', price:'₦5,000' },
+    { icon:'Social Media Integration',desc:'Best for: businesses that are active on Instagram, Facebook, or TikTok. We connect your social feed to your website so it always looks fresh and active — without any extra work from you.',                       tags:['#Social','#Instagram','#Feed'], search:'social media instagram facebook tiktok feed integration connect', price:'₦8,000' },
+    { icon:'Got A Special Request?',  desc:'Need something outside the standard list? Tell us what you want to build. We will review it and come back with a fair quote and clear timeline — no vague estimates.',                      tags:['#Custom','#Request'], search:'custom special request unique bespoke build quote', isSpecial: true, price:'Let\'s Talk' },
   ];
 
   const listItems = items.map(item => `
@@ -358,39 +377,115 @@ function buildUnderConstruction(tabId, title, desc, badge) {
 }
 
 // ─────────────────────────────────────────────
-// TAB 4: PORTFOLIO (Improved showcase)
+// TAB 4: PORTFOLIO (Real projects showcase)
 // ─────────────────────────────────────────────
 function buildTab4() {
   const projects = [
-    { name:'CUDFIRM Group', type:'Multi-Page Business Site', img:'https://placehold.co/400x280/0B3D2E/C8922A?text=CUDFIRM+Group', link:'https://cudfirm.netlify.app', tags:['#Business','#Multi-Page'] },
-    { name:'Barber Shop Demo', type:'Landing Page', img:'https://placehold.co/400x280/1A6B4A/fff?text=Barber+Shop', link:'#', tags:['#Landing','#Demo'] },
-    { name:'Fashion Designer Demo', type:'Portfolio Site', img:'https://placehold.co/400x280/C8922A/fff?text=Fashion+Studio', link:'#', tags:['#Fashion','#Portfolio'] },
-    { name:'Food Vendor Demo', type:'Landing Page', img:'https://placehold.co/400x280/E8B84B/0B3D2E?text=Food+Vendor', link:'#', tags:['#Food','#Landing'] },
-    { name:'Life Coach Demo', type:'Service Site', img:'https://placehold.co/400x280/4D9E7A/fff?text=Life+Coach', link:'#', tags:['#Coach','#Services'] },
-    { name:'Your Business Next', type:'Let\'s Build It', img:'https://placehold.co/400x280/3A4035/fff?text=Your+Business+Here', link:'connect-content', tags:['#GetStarted'] },
+    {
+      name: 'Elysian Estates',
+      industry: 'Real Estate',
+      type: 'Property Listing Website',
+      img: 'img/Nseyin2.PNG',
+      link: 'portfolio/real estate/index.html',
+      problem: 'Agents losing leads to competitors with better online presence.',
+      solution: 'Premium multi-page property site with listings, gallery, and inquiry form.',
+      tags: ['#RealEstate', '#Live'],
+      live: true,
+    },
+    {
+      name: 'Hands of Fia',
+      industry: 'Fashion & Design',
+      type: 'Designer Portfolio Site',
+      img: 'img/NOORÉ.JPEG',
+      link: 'portfolio/fashion/index.html',
+      problem: 'Collections buried on Instagram with no professional showcase.',
+      solution: 'Elegant lookbook site with collections, custom orders, and booking.',
+      tags: ['#Fashion', '#Live'],
+      live: true,
+    },
+    {
+      name: 'LobahVisuals',
+      industry: 'Photography',
+      type: 'Photography Portfolio',
+      img: 'img/LobahVisuals.JPEG',
+      link: '#',
+      problem: 'Talented photographer with no dedicated portfolio for client bookings.',
+      solution: 'Full-screen gallery portfolio with packages, pricing, and WhatsApp CTA.',
+      tags: ['#Photography', '#Portfolio'],
+      live: true,
+    },
+    {
+      name: 'EliStitches',
+      industry: 'Fashion & Tailoring',
+      type: 'Tailoring Business Site',
+      img: 'img/EliStitches.PNG',
+      link: '#',
+      problem: 'Customers couldn\'t find the tailor or understand their services online.',
+      solution: 'Clean business site with services, gallery, measurement guide, and WhatsApp.',
+      tags: ['#Tailoring', '#Business'],
+      live: true,
+    },
+    {
+      name: 'Elichi',
+      industry: 'Retail & E-commerce',
+      type: 'Product Landing Page',
+      img: 'img/Elichi.PNG',
+      link: '#',
+      problem: 'Brand needed a direct sales page separate from social media.',
+      solution: 'Conversion-focused landing page with product showcase and order CTA.',
+      tags: ['#Retail', '#Landing'],
+      live: true,
+    },
+    {
+      name: 'AutoLux',
+      industry: 'Automobile',
+      type: 'Car Dealership Website',
+      img: 'https://placehold.co/400x280/0B3D2E/C8922A?text=AutoLux',
+      link: 'portfolio/automobile/index.html',
+      problem: 'Dealership had no digital presence to showcase its inventory.',
+      solution: 'Premium dealership site with car listings, specs, and test-drive booking.',
+      tags: ['#Automobile', '#Demo'],
+      live: false,
+    },
+    {
+      name: 'Your Business Here',
+      industry: 'Any Industry',
+      type: 'Get Started Today',
+      img: 'https://placehold.co/400x280/3A4035/C8922A?text=Your+Business+%E2%86%92',
+      link: 'connect-content',
+      problem: 'You\'re losing customers to competitors who have a website.',
+      solution: 'A professional website built specifically for your business and customers.',
+      tags: ['#GetStarted'],
+      live: false,
+    },
   ];
 
   return `
-  <section id="tab4" class="tab-content view p-3">
-    <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Portfolio</span></h6>
+  <section id="tab4" class="tab-content view p-3" aria-labelledby="portfolio-heading">
+    <h6 class="sticky-top py-2"><span class="badge text-bg-primary" id="portfolio-heading">Our Portfolio</span></h6>
     <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
-      Every site we build is clean, mobile-ready, and designed with your customers in mind. Here's a sample of our work.
+      Real websites built for real businesses. Every site is mobile-ready, SEO-optimised, and designed to convert visitors into customers. <span style="color:#1A6B4A;font-weight:600;">GREEN</span> tags are live client sites.
     </p>
     <div class="row g-3 stagger-children">
       ${projects.map(p => `
         <div class="col-12 col-md-6 col-lg-4">
-          <div class="card h-100" style="overflow:hidden;cursor:pointer;" onclick="${p.link.startsWith('http') ? `window.open('${p.link}','_blank')` : `openTab(event,'${p.link}')`}">
-            <img src="${p.img}" alt="${p.name}" style="width:100%;height:160px;object-fit:cover;" loading="lazy" onerror="this.src='https://placehold.co/400x280/0B3D2E/C8922A?text=CUDFIRM'" />
+          <div class="card h-100" style="overflow:hidden;cursor:pointer;" onclick="${p.link.startsWith('http') || p.link.includes('/') && !p.link.includes('#') ? `window.open('${p.link}','_blank')` : p.link === '#' ? '' : `openTab(event,'${p.link}')`}" role="article" aria-label="${p.name} — ${p.industry} project">
+            <div style="position:relative;">
+              <img src="${p.img}" alt="Screenshot of ${p.name} website built by CUDFIRM" style="width:100%;height:180px;object-fit:cover;" loading="lazy" onerror="this.src='https://placehold.co/400x280/0B3D2E/C8922A?text=CUDFIRM'" />
+              <div style="position:absolute;top:8px;right:8px;"><span class="tag ${p.live ? 'green' : 'orange'}" style="font-size:0.62rem;padding:0.2rem 0.5rem;">${p.live ? '● Live' : '● Demo'}</span></div>
+            </div>
             <div class="card-content">
-              <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;margin-bottom:0.2rem;">${p.name}</div>
-              <div style="font-size:0.72rem;color:var(--n-muted);margin-bottom:0.5rem;">${p.type}</div>
-              <div>${p.tags.map(t => `<span class="tag orange">${t}</span>`).join('')}</div>
+              <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;margin-bottom:0.1rem;">${p.name}</div>
+              <div style="font-size:0.72rem;color:var(--n-gold);font-weight:600;margin-bottom:0.4rem;">${p.industry} · ${p.type}</div>
+              <div style="font-size:0.75rem;color:var(--n-muted);margin-bottom:0.5rem;line-height:1.5;"><strong style="color:var(--text-color);">Problem:</strong> ${p.problem}</div>
+              <div style="font-size:0.75rem;color:var(--n-muted);margin-bottom:0.6rem;line-height:1.5;"><strong style="color:var(--text-color);">Solution:</strong> ${p.solution}</div>
+              <div>${p.tags.map(t => `<span class="tag ${t === '#Live' ? 'green' : t === '#GetStarted' ? 'green' : 'orange'}">${t}</span>`).join('')}</div>
             </div>
           </div>
         </div>`).join('')}
     </div>
-    <button class="view-more-btn mt-3" onclick="openTab(event,'connect-content')">
-      <i class="bi bi-laptop me-1"></i>Let's Build Your Website
+    <button class="view-more-btn mt-3" onclick="openTab(event,'connect-content')" aria-label="Get a quote to build your website">
+      <i class="bi bi-rocket-takeoff me-1" aria-hidden="true"></i>Start Your Project — Get a Free Quote
     </button>
   </section>`;
 }
@@ -412,7 +507,7 @@ function buildTab5() {
   <section id="tab5" class="tab-content view p-3">
     <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Our Process</span></h6>
     <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
-      Simple, transparent, no surprises. Here's exactly how working with CUDFIRM looks from first contact to launch.
+      Six clear steps from first contact to launch day. No guesswork, no hidden steps, no surprises. Here is exactly what working with CUDFIRM looks like.
     </p>
     <div class="d-flex flex-column gap-3 stagger-children">
       ${steps.map(s => `
@@ -513,6 +608,8 @@ function buildTab8() {
 // TAB 9: TESTIMONIALS
 // ─────────────────────────────────────────────
 function buildTab9() {
+  // NOTE: These are illustrative placeholder testimonials.
+  // They will be replaced with verified client reviews as CUDFIRM grows.
   const stars = [
     { name:'Adaeze O.', role:'Fashion Designer · Lagos', quote:'CUDFIRM built my website in 5 days. My clients now book me online instead of hunting for my number. Life-changing.', color:'#0B3D2E' },
     { name:'Emeka N.', role:'Solar Installer · Abuja', quote:'I thought a professional website was too expensive for my small business. CUDFIRM proved me completely wrong.', color:'#C8922A' },
@@ -523,29 +620,32 @@ function buildTab9() {
   return `
   <section id="tab9" class="tab-content view p-3">
     <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Testimonials</span></h6>
-    <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
-      Real words from real business owners we've worked with. Their results speak for themselves.
-    </p>
-    <div class="row g-3 stagger-children">
+
+    <div class="testimonial-placeholder-notice" role="note" aria-label="Testimonials notice">
+      <i class="bi bi-info-circle-fill" aria-hidden="true"></i>
+      <div>
+        <strong>Testimonials coming soon.</strong> The cards below show the kind of results CUDFIRM clients experience. Real verified reviews will be displayed here as our portfolio grows.
+        <button class="btn-inline-link" onclick="openTab(event,'connect-content')">Become one of our first clients &rarr;</button>
+      </div>
+    </div>
+
+    <div class="row g-3 stagger-children mt-1">
       ${stars.map(s => `
         <div class="col-12 col-md-6">
-          <div class="card p-4">
+          <div class="card p-4 testimonial-placeholder-card">
+            <div class="testimonial-placeholder-badge" aria-label="Illustrative example">Illustrative</div>
             <div style="width:44px;height:44px;border-radius:50%;background:${s.color};color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:0.75rem;">${s.name[0]}</div>
-            <p style="font-size:0.85rem;font-style:italic;color:var(--text-color);margin-bottom:0.75rem;">"${s.quote}"</p>
+            <p style="font-size:0.85rem;font-style:italic;color:var(--text-color);margin-bottom:0.75rem;">"<em>${s.quote}</em>"</p>
             <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;color:${s.color};">${s.name}</div>
             <div style="font-size:0.72rem;color:var(--n-muted);">${s.role}</div>
           </div>
         </div>`).join('')}
     </div>
     <button class="view-more-btn mt-3" onclick="openTab(event,'connect-content')">
-      <i class="bi bi-star me-1"></i>Share Your Experience
+      <i class="bi bi-star me-1"></i>Work With Us — Be Our Next Success Story
     </button>
   </section>`;
 }
-
-// ─────────────────────────────────────────────
-// TAB 10: LOVE NOTES
-// ─────────────────────────────────────────────
 function buildTab10() {
   const notes = [
     { text:'My barber shop now gets walk-ins who found me on Google. The site paid for itself in week two.', by:'Kayode, Lagos', stars:5 },
@@ -667,6 +767,8 @@ function buildTab13() {
     { q:'Do you do e-commerce or online stores?', a:'We currently focus on landing pages, business sites, and portfolios. Online stores are complex — we recommend focusing on a simple site first to build trust with customers.' },
     { q:'What if I don\'t have a logo or brand yet?', a:'We offer basic logo and brand identity design as an add-on from ₦25,000. We can start with a simple, clean design and improve it over time.' },
     { q:'Do you host the website too?', a:'Yes. We can handle domain registration and hosting setup for you as part of the project or as a separate add-on service.' },
+    { q:'Where are you based and can you work with clients outside Lagos?', a:'CUDFIRM is based in Lagos, Nigeria. We work with clients all over Nigeria — Abuja, Port Harcourt, Kano, Enugu, and beyond. Everything is done remotely via WhatsApp, email, and video calls, so location is never a barrier.' },
+    { q:'How do I get started?', a:'Simple. Go to the "Get A Quote" section, fill in your name, contact details, and tell us about your business. We will respond within 24 hours with a clear quote and next steps. You can also reach us directly on WhatsApp if you prefer a conversation first.' },
   ];
 
   return `
@@ -799,7 +901,7 @@ function buildTab17() {
   <section id="tab17" class="tab-content view p-3">
     <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Why CUDFIRM</span></h6>
     <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
-      There are hundreds of web designers in Nigeria. Here's why clients choose CUDFIRM and why first-time clients come back.
+      There are hundreds of web designers in Nigeria. Here is exactly what makes CUDFIRM different — and why the businesses we build for keep coming back.
     </p>
     <div class="row g-3 stagger-children">
       ${reasons.map(r => `
@@ -838,10 +940,10 @@ function buildTab20() {
     <div class="card card-section mb-3" style="border-left:4px solid var(--n-gold);">
       <div class="card-content">
         <p style="font-size:1rem;font-family:'Syne',sans-serif;font-weight:700;color:var(--n-forest);margin-bottom:0.75rem;line-height:1.55;">
-          Every business in Nigeria deserves a professional online presence — not just the big ones.
+          Every Nigerian business deserves a professional website — not just the corporations.
         </p>
         <p style="font-size:0.85rem;color:var(--n-muted);line-height:1.7;margin:0;">
-          Too many talented people — barbers, photographers, food vendors, coaches, tailors — are losing customers to competitors simply because they don't have a website. CUDFIRM exists to change that.
+          Too many talented people — barbers, photographers, food vendors, coaches, and tailors — are losing customers to competitors simply because they don't have a proper website. A Canva flyer or Instagram page is not a website. CUDFIRM exists to change that, one business at a time.
         </p>
       </div>
     </div>
@@ -912,15 +1014,26 @@ function buildTab20() {
       <i class="bi bi-arrow-right-circle me-1"></i>Work With Us
     </button>
 
-    <footer class="footin mt-4">
+    <footer class="footin mt-4" role="contentinfo">
       <div class="icons-social">
-        <article class="list-social">
-          <span class="icons-social__item"><a class="icons-social__link" href="https://codepen.io/cudfirm-group" aria-label="CodePen"><i class="fab fa-codepen"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="https://instagram.com/cudfirm" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="https://fb.me/cudfirm" aria-label="Facebook"><i class="fab fa-facebook"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="https://x.com/cudfirm" aria-label="X / Twitter"><i class="fab fa-twitter"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="https://linkedin.com/in/cudfirm" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a></span>
+        <article class="list-social" aria-label="CUDFIRM social links">
+          <span class="icons-social__item"><a class="icons-social__link" href="https://codepen.io/cudfirm-group" target="_blank" rel="noopener" aria-label="CUDFIRM on CodePen"><i class="fab fa-codepen" aria-hidden="true"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://instagram.com/cudfirm" target="_blank" rel="noopener" aria-label="CUDFIRM on Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://fb.me/cudfirm" target="_blank" rel="noopener" aria-label="CUDFIRM on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://x.com/cudfirm" target="_blank" rel="noopener" aria-label="CUDFIRM on X / Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://linkedin.com/in/cudfirm" target="_blank" rel="noopener" aria-label="CUDFIRM on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a></span>
         </article>
+      </div>
+      <div class="footer-legal">
+        <nav aria-label="Legal links">
+          <a href="terms.html" class="footer-legal-link">Terms &amp; Conditions</a>
+          <span aria-hidden="true"> &middot; </span>
+          <a href="terms.html#privacy" class="footer-legal-link">Privacy Policy</a>
+          <span aria-hidden="true"> &middot; </span>
+          <a href="mailto:info@cudfirm.com" class="footer-legal-link">info@cudfirm.com</a>
+        </nav>
+        <p class="footer-copy">&copy; 2026 CUDFIRM &middot; Professional Web Design Studio &middot; Lagos, Nigeria</p>
+        <p class="footer-tagline">Websites that work as hard as your business does.</p>
       </div>
     </footer>
   </section>`;
@@ -1049,10 +1162,15 @@ function buildConnectContent() {
     <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Get A Quote</span></h6>
     <hr class="my-2 w-25" />
     <div class="contact-container">
-      <h4 class="contact-header">Ready to Get Online?</h4>
+      <h4 class="contact-header">Let's Build Your Website</h4>
       <p class="contact-subheader">
-        Tell us about your business and what you need. We'll reply within 24 hours with a clear quote and timeline — no jargon, no pressure.
+        Tell us about your business and what you need. We reply within 24 hours with a clear quote and timeline. No jargon, no commitment, no pressure.
       </p>
+      <div class="contact-trust-row" role="list" aria-label="Contact assurances">
+        <span role="listitem"><i class="bi bi-clock" aria-hidden="true"></i> Reply within 24 hours</span>
+        <span role="listitem"><i class="bi bi-shield-check" aria-hidden="true"></i> No commitment required</span>
+        <span role="listitem"><i class="bi bi-cash-coin" aria-hidden="true"></i> Transparent pricing</span>
+      </div>
       <div class="row g-4">
         <div class="col-12 col-lg-8">
           <form id="contactForm" onsubmit="return false;">
@@ -1069,17 +1187,20 @@ function buildConnectContent() {
               <textarea class="form-control" id="contactMessage" name="message" rows="5" placeholder="e.g. I run a barber shop in Lagos and need a simple landing page with my services, gallery, and a WhatsApp button..." required></textarea>
             </div>
             <div class="d-flex flex-column gap-2">
+              <button type="button" class="btn btn-whatsapp w-100" onclick="sendToWhatsAppWithForm()" style="padding:0.65rem;font-size:0.9rem;">
+                <i class="bi bi-whatsapp me-1"></i>Send via WhatsApp (Fastest)
+              </button>
               <div class="d-flex gap-2">
-                <button type="button" class="btn btn-primary w-100" onclick="sendToAdmin()">
-                  <i class="bi bi-send-check me-1"></i>Send Request
+                <button type="button" class="btn btn-primary w-100" onclick="sendToAdmin()" aria-label="Submit request via web form">
+                  <i class="bi bi-send-check me-1"></i>Submit Request
                 </button>
-                <button type="button" class="btn btn-whatsapp w-100" onclick="sendToWhatsAppWithForm()">
-                  <i class="bi bi-whatsapp me-1"></i>WhatsApp
+                <button type="button" class="btn btn-outline-secondary w-100" onclick="sendToEmail()" aria-label="Send request via email">
+                  <i class="bi bi-envelope me-1"></i>Email Us
                 </button>
               </div>
-              <button type="button" class="btn btn-info w-100" onclick="sendToEmail()">
-                <i class="bi bi-envelope me-1"></i>Send Via Email
-              </button>
+              <p style="font-size:0.72rem;color:var(--n-muted);text-align:center;margin:0;">
+                <i class="bi bi-lock-fill me-1" aria-hidden="true"></i>Your details are kept private and never shared.
+              </p>
             </div>
           </form>
         </div>
@@ -1100,15 +1221,26 @@ function buildConnectContent() {
         </div>
       </div>
     </div>
-    <footer class="footin mt-4">
+    <footer class="footin mt-4" role="contentinfo">
       <div class="icons-social">
-        <article class="list-social">
-          <span class="icons-social__item"><a class="icons-social__link" href="https://codepen.io/cudfirm-group"><i class="fab fa-codepen"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="https://instagram.com/cudfirm" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="https://fb.me/cudfirm"><i class="fab fa-facebook"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="https://x.com/cudfirm"><i class="fab fa-twitter"></i></a></span>
-          <span class="icons-social__item"><a class="icons-social__link" href="https://linkedin.com/in/cudfirm"><i class="fab fa-linkedin"></i></a></span>
+        <article class="list-social" aria-label="CUDFIRM social links">
+          <span class="icons-social__item"><a class="icons-social__link" href="https://codepen.io/cudfirm-group" target="_blank" rel="noopener" aria-label="CUDFIRM on CodePen"><i class="fab fa-codepen" aria-hidden="true"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://instagram.com/cudfirm" target="_blank" rel="noopener" aria-label="CUDFIRM on Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://fb.me/cudfirm" target="_blank" rel="noopener" aria-label="CUDFIRM on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://x.com/cudfirm" target="_blank" rel="noopener" aria-label="CUDFIRM on X / Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a></span>
+          <span class="icons-social__item"><a class="icons-social__link" href="https://linkedin.com/in/cudfirm" target="_blank" rel="noopener" aria-label="CUDFIRM on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a></span>
         </article>
+      </div>
+      <div class="footer-legal">
+        <nav aria-label="Legal links">
+          <a href="terms.html" class="footer-legal-link">Terms &amp; Conditions</a>
+          <span aria-hidden="true"> &middot; </span>
+          <a href="terms.html#privacy" class="footer-legal-link">Privacy Policy</a>
+          <span aria-hidden="true"> &middot; </span>
+          <a href="mailto:info@cudfirm.com" class="footer-legal-link">info@cudfirm.com</a>
+        </nav>
+        <p class="footer-copy">&copy; 2026 CUDFIRM &middot; Professional Web Design Studio &middot; Lagos, Nigeria</p>
+        <p class="footer-tagline">Websites that work as hard as your business does.</p>
       </div>
     </footer>
   </section>`;
