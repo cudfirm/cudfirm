@@ -141,14 +141,21 @@ function buildAllSections() {
 // ─────────────────────────────────────────────
 function buildTab1() {
   const portfolio = [
-    { img: 'img/Nseyin2.webp',       link: 'portfolio/real estate/index.html', name: 'NSEYIN Massage', alt: 'Health and Wellness Website By CUDFIRM' },
-    { img: 'img/Noore.webp',        link: 'portfolio/fashion/index.html',      name: 'NOORÉ Perfumes',   alt: 'Built by CUDFIRM For You' },
-    { img: 'img/LobahVisuals.webp', link: 'https://lobahvisuals.vercel.app',                                  name: 'LobahVisuals',   alt: 'Photography portfolio built by CUDFIRM' },
-    { img: 'img/EliStitches.webp',   link: '#',                                  name: 'EliStitches',    alt: 'Tailoring business website built by CUDFIRM' },
-    { img: 'img/Elichi.webp',        link: '#',                                  name: 'Elichi',         alt: 'Business website built by CUDFIRM' },
-    { img: 'img/Damkaz.webp',        link: '#',                                  name: 'Damkaz',         alt: 'Brand website built by CUDFIRM' },
-    { img: 'img/TKM.webp',          link: '#',                                  name: 'TKM',            alt: 'Business website built by CUDFIRM' },
-    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=Your+Business', link: 'connect-content', name: 'Your Business Next', alt: 'Get started with CUDFIRM' },
+    { img: 'img/nseyin.webp',       link: '#',    name: 'NSEYIN Massage', alt: 'Health and Wellness Website By CUDFIRM' },
+
+    { img: 'img/cudfirm.webp',        link: '#',      name: 'Vacant For Now',   alt: 'Built by CUDFIRM For You' },
+
+    { img: 'img/lobahvisuals.webp', link: 'https://lobahvisuals.vercel.app',                                  name: 'Lobah Visuals',   alt: 'Photography Portfolio Built by CUDFIRM' },
+
+    { img: 'img/elistitches.webp',   link: '#',                                  name: 'Eli Stitches',    alt: 'Tailoring Business Website Built by CUDFIRM' },
+
+    { img: 'img/chef.webp',        link: '#',                                  name: 'The Chef',         alt: 'Food Business Website built by CUDFIRM' },
+
+    { img: 'img/damkaz.webp',        link: '#',                                  name: 'Damkaz',         alt: 'Fashion Brand Website Built by CUDFIRM' },
+
+    { img: 'img/kingmaster.webp',          link: '#',                                  name: 'The King Master',            alt: 'Business website built by CUDFIRM' },
+
+    { img: 'https://placehold.co/800x600/0B3D2E/C8922A?text=Your+Business', link: 'connect-content', name: 'Your Business Is Next', alt: 'Get started with CUDFIRM' },
   ];
 
   const services = [
@@ -382,21 +389,21 @@ function buildUnderConstruction(tabId, title, desc, badge) {
 function buildTab4() {
   const projects = [
     {
-      name: 'Elysian Estates',
-      industry: 'Real Estate',
-      type: 'Property Listing Website',
-      img: 'img/Nseyin2.webp',
-      link: 'portfolio/real estate/index.html',
+      name: 'NSEYIN Massage',
+      industry: 'Health and Wellnesa',
+      type: 'Servive Website',
+      img: 'img/nseyin.webp',
+      link: '#',
       problem: 'Agents losing leads to competitors with better online presence.',
       solution: 'Premium multi-page property site with listings, gallery, and inquiry form.',
       tags: ['#RealEstate', '#Live'],
       live: true,
     },
     {
-      name: 'Hands of Fia',
+      name: 'A Blank Page',
       industry: 'Fashion & Design',
       type: 'Designer Portfolio Site',
-      img: 'img/Noore.webp',
+      img: 'img/black.jpg',
       link: 'portfolio/fashion/index.html',
       problem: 'Collections buried on Instagram with no professional showcase.',
       solution: 'Elegant lookbook site with collections, custom orders, and booking.',
@@ -404,21 +411,21 @@ function buildTab4() {
       live: true,
     },
     {
-      name: 'LobahVisuals',
+      name: 'Lobah Visuals',
       industry: 'Photography',
       type: 'Photography Portfolio',
-      img: 'img/LobahVisuals.webp',
+      img: 'img/lobahvisuals.webp',
       link: '#',
-      problem: 'Talented photographer with no dedicated portfolio for client bookings.',
+      problem: 'Talented photographer with no landing page for client bookings.',
       solution: 'Full-screen gallery portfolio with packages, pricing, and WhatsApp CTA.',
       tags: ['#Photography', '#Portfolio'],
       live: true,
     },
     {
-      name: 'EliStitches',
+      name: 'Eli Stitches',
       industry: 'Fashion & Tailoring',
       type: 'Tailoring Business Site',
-      img: 'img/EliStitches.webp',
+      img: 'img/elistitches.webp',
       link: '#',
       problem: 'Customers couldn\'t find the tailor or understand their services online.',
       solution: 'Clean business site with services, gallery, measurement guide, and WhatsApp.',
@@ -426,10 +433,10 @@ function buildTab4() {
       live: true,
     },
     {
-      name: 'Elichi',
+      name: 'The Chef',
       industry: 'Retail & E-commerce',
       type: 'Product Landing Page',
-      img: 'img/Elichi.webp',
+      img: 'img/chef.webp',
       link: '#',
       problem: 'Brand needed a direct sales page separate from social media.',
       solution: 'Conversion-focused landing page with product showcase and order CTA.',
