@@ -142,7 +142,7 @@ function buildAllSections() {
 function buildTab1() {
   const portfolio = [
     { img: 'img/Nseyin2.webp',       link: 'portfolio/real estate/index.html', name: 'NSEYIN Massage', alt: 'Health and Wellness Website By CUDFIRM' },
-    { img: 'img/NOORÉ.webp',        link: 'portfolio/fashion/index.html',      name: 'NOORÉ Perfumes',   alt: 'Built by CUDFIRM For You' },
+    { img: 'img/Noore.webp',        link: 'portfolio/fashion/index.html',      name: 'NOORÉ Perfumes',   alt: 'Built by CUDFIRM For You' },
     { img: 'img/LobahVisuals.webp', link: 'https://lobahvisuals.vercel.app',                                  name: 'LobahVisuals',   alt: 'Photography portfolio built by CUDFIRM' },
     { img: 'img/EliStitches.webp',   link: '#',                                  name: 'EliStitches',    alt: 'Tailoring business website built by CUDFIRM' },
     { img: 'img/Elichi.webp',        link: '#',                                  name: 'Elichi',         alt: 'Business website built by CUDFIRM' },
@@ -396,7 +396,7 @@ function buildTab4() {
       name: 'Hands of Fia',
       industry: 'Fashion & Design',
       type: 'Designer Portfolio Site',
-      img: 'img/NOORÉ.webp',
+      img: 'img/Noore.webp',
       link: 'portfolio/fashion/index.html',
       problem: 'Collections buried on Instagram with no professional showcase.',
       solution: 'Elegant lookbook site with collections, custom orders, and booking.',
@@ -1856,9 +1856,9 @@ window.addEventListener('beforeinstallprompt', e => {
   showToast('Add CUDFIRM to your home screen 📲', 5000);
 });
 
-// ============================================
+// =============================================
 // DOM READY — SINGLE LISTENER
-// ============================================
+// =============================================
 document.addEventListener('DOMContentLoaded', function () {
 
   // STEP 1: Render structural UI
