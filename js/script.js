@@ -1856,9 +1856,9 @@ window.addEventListener('beforeinstallprompt', e => {
   showToast('Add CUDFIRM to your home screen 📲', 5000);
 });
 
-// =============================================
+// ============================================
 // DOM READY — SINGLE LISTENER
-// =============================================
+// ============================================
 document.addEventListener('DOMContentLoaded', function () {
 
   // STEP 1: Render structural UI
