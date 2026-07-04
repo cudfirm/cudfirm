@@ -140,7 +140,7 @@ function buildAllSections() {
 // TAB 1: HOME (Updated for clarity & conversion)
 // ─────────────────────────────────────────────
 function buildTab1() {
-  const portfolio = [
+  const portfolioFallback = [
     { img: 'img/nseyin.webp',       link: '#',    name: 'NSEYIN Massage', alt: 'Health and Wellness Website By CUDFIRM' },
 
     { img: 'img/cudfirm.webp',        link: '#',      name: 'Vacant For Now',   alt: 'Built by CUDFIRM For You' },
@@ -158,7 +158,7 @@ function buildTab1() {
     { img: 'https://placehold.co/800x600/0B3D2E/C8922A?text=Your+Business', link: 'connect-content', name: 'Your Business Is Next', alt: 'Get started with CUDFIRM' },
   ];
 
-  const services = [
+  const servicesFallback = [
     { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=LANDING', link: '#', name: 'Landing Page', alt: 'Landing Page' },
     { img: 'https://placehold.co/200x250/1A6B4A/fff?text=BUSINESS', link: '#', name: 'Business Website', alt: 'Business Website' },
     { img: 'https://placehold.co/200x250/C8922A/fff?text=MAINTAIN', link: '#', name: 'Maintenance', alt: 'Maintenance' },
@@ -168,6 +168,40 @@ function buildTab1() {
     { img: 'https://placehold.co/200x250/1A6B4A/fff?text=CONTENT', link: '#', name: 'Content Writing', alt: 'Content' },
     { img: 'https://placehold.co/200x250/3A4035/fff?text=MORE', link: 'tab3', name: 'View All', alt: 'More Services' },
   ];
+
+  // CMS-aware: use Supabase data when present, otherwise the exact
+  // hardcoded content above (so the page never changes visually if
+  // Supabase is empty/unreachable).
+  const cmsPortfolio = window.CMS && Array.isArray(window.CMS.portfolio)
+    ? window.CMS.portfolio.filter(p => p.featured_home)
+    : null;
+  const portfolio = (cmsPortfolio && cmsPortfolio.length)
+    ? cmsPortfolio.map(p => ({ img: p.image_url, link: p.link || '#', name: p.name, alt: `${p.name} website built by CUDFIRM` }))
+    : portfolioFallback;
+
+  const cmsServices = window.CMS && Array.isArray(window.CMS.services) ? window.CMS.services : null;
+  const services = (cmsServices && cmsServices.length)
+    ? cmsServices.slice(0, 7)
+        .map(s => ({
+          img: `https://placehold.co/200x250/0B3D2E/C8922A?text=${encodeURIComponent(s.name)}`,
+          link: '#', name: s.name, alt: s.name,
+        }))
+        .concat([{ img: 'https://placehold.co/200x250/3A4035/fff?text=MORE', link: 'tab3', name: 'View All', alt: 'More Services' }])
+    : servicesFallback;
+
+  const hero = (window.CMS && window.CMS.hero) ? window.CMS.hero : {
+    eyebrow: 'Professional Web Design Studio · Lagos, Nigeria',
+    title: 'Your Business Deserves a Website That Wins Customers',
+    subtitle: 'CUDFIRM builds fast, mobile-first websites for Nigerian businesses, professionals, and growing brands. We turn first-time visitors into paying customers — starting from ₦50,000, delivered in 3–7 days.',
+    cta_primary_text: 'Get a Free Quote Today', cta_primary_target: 'connect-content',
+    cta_secondary_text: 'See Our Work', cta_secondary_target: 'tab4',
+    trust_items: [
+      { icon: 'bi-check-circle-fill', label: 'Mobile-Ready' },
+      { icon: 'bi-check-circle-fill', label: '3–7 Day Delivery' },
+      { icon: 'bi-check-circle-fill', label: 'From ₦50,000' },
+      { icon: 'bi-check-circle-fill', label: '30-Day Support Included' },
+    ],
+  };
 
   const gridItems = (items) => items.map(p => {
     const safeImg = p.img.replace(/'/g, "\\'").replace(/"/g, '&quot;');
@@ -182,18 +216,15 @@ function buildTab1() {
   return `
   <section id="tab1" class="tab-content view">
     <div class="home-hero">
-      <span class="hero-eyebrow">Professional Web Design Studio · Lagos, Nigeria</span>
-      <h1 class="hero-title">Your Business Deserves a Website That Wins Customers</h1>
-      <p class="hero-sub">CUDFIRM builds fast, mobile-first websites for Nigerian businesses, professionals, and growing brands. We turn first-time visitors into paying customers — starting from ₦50,000, delivered in 3–7 days.</p>
+      <span class="hero-eyebrow">${hero.eyebrow}</span>
+      <h1 class="hero-title">${hero.title}</h1>
+      <p class="hero-sub">${hero.subtitle}</p>
       <div class="hero-cta-row">
-        <button class="btn-hero-primary" onclick="openTab(event,'connect-content')">Get a Free Quote Today</button>
-        <button class="btn-hero-secondary" onclick="openTab(event,'tab4')">See Our Work</button>
+        <button class="btn-hero-primary" onclick="openTab(event,'${hero.cta_primary_target}')">${hero.cta_primary_text}</button>
+        <button class="btn-hero-secondary" onclick="openTab(event,'${hero.cta_secondary_target}')">${hero.cta_secondary_text}</button>
       </div>
       <div class="hero-trust-strip" role="list" aria-label="Key facts about CUDFIRM">
-        <span role="listitem"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> Mobile-Ready</span>
-        <span role="listitem"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> 3–7 Day Delivery</span>
-        <span role="listitem"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> From ₦50,000</span>
-        <span role="listitem"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> 30-Day Support Included</span>
+        ${hero.trust_items.map(t => `<span role="listitem"><i class="bi ${t.icon}" aria-hidden="true"></i> ${t.label}</span>`).join('')}
       </div>
     </div>
 
@@ -326,7 +357,7 @@ function buildTab2() {
 // TAB 3: SERVICES (Updated with clear pricing & value)
 // ─────────────────────────────────────────────
 function buildTab3() {
-  const items = [
+  const itemsFallback = [
     { icon:'Starter Landing Page',    desc:'Best for: barbers, photographers, food vendors, coaches, and anyone who needs to get online quickly. A single, conversion-focused page with your services, gallery, contact, and a WhatsApp button. Live in 3–5 days.',  tags:['#Landing','#Starter','#₦50K'], search:'landing page starter single one page fast affordable barber stylist photographer coach', price:'₦50,000' },
     { icon:'Business Website',        desc:'Best for: growing businesses, professionals, and brands that need more than one page. Up to 6 custom pages with mobile-friendly design, SEO setup, contact forms, and 30-day free support after launch.',             tags:['#Full-Site','#Multi-Page','#₦100K'], search:'full business website multi page complete professional sme restaurant', price:'₦100,000' },
     { icon:'Website Maintenance',     desc:'Best for: existing site owners who want to stay current without the technical headache. Monthly text updates, image changes, speed checks, and backups. Your site, always fresh.',                       tags:['#Monthly','#Support','#₦10K–20K'], search:'maintenance update support monthly changes fix bug backup', price:'₦10K–20K/mo' },
@@ -337,6 +368,14 @@ function buildTab3() {
     { icon:'Social Media Integration',desc:'Best for: businesses that are active on Instagram, Facebook, or TikTok. We connect your social feed to your website so it always looks fresh and active — without any extra work from you.',                       tags:['#Social','#Instagram','#Feed'], search:'social media instagram facebook tiktok feed integration connect', price:'₦8,000' },
     { icon:'Got A Special Request?',  desc:'Need something outside the standard list? Tell us what you want to build. We will review it and come back with a fair quote and clear timeline — no vague estimates.',                      tags:['#Custom','#Request'], search:'custom special request unique bespoke build quote', isSpecial: true, price:'Let\'s Talk' },
   ];
+
+  const cmsServices = window.CMS && Array.isArray(window.CMS.services) ? window.CMS.services : null;
+  const items = (cmsServices && cmsServices.length)
+    ? cmsServices.map(s => ({
+        icon: s.name, desc: s.description, tags: s.tags || [],
+        search: s.search_terms || '', price: s.price, isSpecial: !!s.is_special,
+      }))
+    : itemsFallback;
 
   const listItems = items.map(item => `
     <div class="list-item" data-search-text="${item.search || ''}">
@@ -387,7 +426,7 @@ function buildUnderConstruction(tabId, title, desc, badge) {
 // TAB 4: PORTFOLIO (Real projects showcase)
 // ─────────────────────────────────────────────
 function buildTab4() {
-  const projects = [
+  const projectsFallback = [
     {
       name: 'NSEYIN Massage',
       industry: 'Health and Wellnesa',
@@ -466,6 +505,15 @@ function buildTab4() {
       live: false,
     },
   ];
+
+  const cmsPortfolio = window.CMS && Array.isArray(window.CMS.portfolio) ? window.CMS.portfolio : null;
+  const projects = (cmsPortfolio && cmsPortfolio.length)
+    ? cmsPortfolio.map(p => ({
+        name: p.name, industry: p.industry, type: p.project_type,
+        img: p.image_url, link: p.link || '#', problem: p.problem,
+        solution: p.solution, tags: p.tags || [], live: !!p.is_live,
+      }))
+    : projectsFallback;
 
   return `
   <section id="tab4" class="tab-content view p-3" aria-labelledby="portfolio-heading">
@@ -617,30 +665,38 @@ function buildTab8() {
 function buildTab9() {
   // NOTE: These are illustrative placeholder testimonials.
   // They will be replaced with verified client reviews as CUDFIRM grows.
-  const stars = [
+  const starsFallback = [
     { name:'Adaeze O.', role:'Fashion Designer · Lagos', quote:'CUDFIRM built my website in 5 days. My clients now book me online instead of hunting for my number. Life-changing.', color:'#0B3D2E' },
     { name:'Emeka N.', role:'Solar Installer · Abuja', quote:'I thought a professional website was too expensive for my small business. CUDFIRM proved me completely wrong.', color:'#C8922A' },
     { name:'Fatima U.', role:'Food Vendor · Kano', quote:'My WhatsApp orders doubled in 3 weeks after my site went live. People trust me more because I have a real website.', color:'#1A6B4A' },
     { name:'Chukwudi E.', role:'Photographer · Enugu', quote:'Clean, fast, mobile-ready, and clients actually find me on Google now. Worth every kobo.', color:'#4D9E7A' },
   ];
 
+  const cmsTestimonials = window.CMS && Array.isArray(window.CMS.testimonials) ? window.CMS.testimonials : null;
+  const stars = (cmsTestimonials && cmsTestimonials.length)
+    ? cmsTestimonials.map(t => ({ name: t.name, role: t.role, quote: t.quote, color: t.accent_color || '#0B3D2E', isPlaceholder: !!t.is_placeholder }))
+    : starsFallback.map(s => ({ ...s, isPlaceholder: true }));
+
+  const allPlaceholder = stars.every(s => s.isPlaceholder);
+
   return `
   <section id="tab9" class="tab-content view p-3">
     <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Testimonials</span></h6>
 
+    ${allPlaceholder ? `
     <div class="testimonial-placeholder-notice" role="note" aria-label="Testimonials notice">
       <i class="bi bi-info-circle-fill" aria-hidden="true"></i>
       <div>
         <strong>Testimonials coming soon.</strong> The cards below show the kind of results CUDFIRM clients experience. Real verified reviews will be displayed here as our portfolio grows.
         <button class="btn-inline-link" onclick="openTab(event,'connect-content')">Become one of our first clients &rarr;</button>
       </div>
-    </div>
+    </div>` : ''}
 
     <div class="row g-3 stagger-children mt-1">
       ${stars.map(s => `
         <div class="col-12 col-md-6">
           <div class="card p-4 testimonial-placeholder-card">
-            <div class="testimonial-placeholder-badge" aria-label="Illustrative example">Illustrative</div>
+            ${s.isPlaceholder ? `<div class="testimonial-placeholder-badge" aria-label="Illustrative example">Illustrative</div>` : ''}
             <div style="width:44px;height:44px;border-radius:50%;background:${s.color};color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:0.75rem;">${s.name[0]}</div>
             <p style="font-size:0.85rem;font-style:italic;color:var(--text-color);margin-bottom:0.75rem;">"<em>${s.quote}</em>"</p>
             <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;color:${s.color};">${s.name}</div>
@@ -765,7 +821,7 @@ function buildTab12() {
 // TAB 13: FAQ (was Discover)
 // ─────────────────────────────────────────────
 function buildTab13() {
-  const faqs = [
+  const faqsFallback = [
     { q:'How long does it take to build a website?', a:'A landing page takes 3–5 business days. A full multi-page business website takes 5–10 business days. We agree on a timeline before starting.' },
     { q:'What do I need to provide to get started?', a:'Your business name, logo (if any), phone number, services or products, and any photos. We guide you through what\'s needed — even if you don\'t have everything ready.' },
     { q:'Do you offer payment in instalments?', a:'Yes. You pay 50% upfront to begin and 50% on delivery. No full payment required before we start work.' },
@@ -777,6 +833,11 @@ function buildTab13() {
     { q:'Where are you based and can you work with clients outside Lagos?', a:'CUDFIRM is based in Lagos, Nigeria. We work with clients all over Nigeria — Abuja, Port Harcourt, Kano, Enugu, and beyond. Everything is done remotely via WhatsApp, email, and video calls, so location is never a barrier.' },
     { q:'How do I get started?', a:'Simple. Go to the "Get A Quote" section, fill in your name, contact details, and tell us about your business. We will respond within 24 hours with a clear quote and next steps. You can also reach us directly on WhatsApp if you prefer a conversation first.' },
   ];
+
+  const cmsFaqs = window.CMS && Array.isArray(window.CMS.faq) ? window.CMS.faq : null;
+  const faqs = (cmsFaqs && cmsFaqs.length)
+    ? cmsFaqs.map(f => ({ q: f.question, a: f.answer }))
+    : faqsFallback;
 
   return `
   <section id="tab13" class="tab-content view p-3">
@@ -1866,7 +1927,23 @@ window.addEventListener('beforeinstallprompt', e => {
 // =============================================
 // DOM READY — SINGLE LISTENER
 // =============================================
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
+
+  // Wait for Supabase content (max ~2.5s, see cms-loader.js). If it
+  // times out or any table is empty, window.CMS fields stay null and
+  // every buildTabX() below falls back to its hardcoded defaults —
+  // the site never breaks or blocks on this.
+  await (window.CMSReady || Promise.resolve());
+
+  // If CMS navigation content exists, use it for the sidebar; otherwise
+  // keep the hardcoded SIDEBAR_TABS above untouched.
+  if (window.CMS && Array.isArray(window.CMS.navigation) && window.CMS.navigation.length) {
+    const sidebarRows = window.CMS.navigation.filter(n => n.location === 'sidebar');
+    if (sidebarRows.length) {
+      SIDEBAR_TABS.length = 0;
+      sidebarRows.forEach(n => SIDEBAR_TABS.push({ id: n.tab_id, label: n.label, badge: n.badge || undefined }));
+    }
+  }
 
   // STEP 1: Render structural UI
   renderSidebarTabs();

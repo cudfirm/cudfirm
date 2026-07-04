@@ -365,6 +365,12 @@
    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
    <script src="js/supabase.js"></script>
 
+  <!-- CMS layer: fetches Supabase content into window.CMS before the
+       page is built. script.js awaits window.CMSReady and falls back
+       to its built-in defaults if any table is empty/unreachable. -->
+  <script src="js/cms-api.js" defer></script>
+  <script src="js/cms-loader.js" defer></script>
+
   <!-- Site scripts (defer = execute after parse, before DOMContentLoaded) -->
   <script src="js/script.js" defer></script>
   <script src="js/feed.js"    defer></script>
