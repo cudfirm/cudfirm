@@ -139,6 +139,7 @@ function buildAllSections() {
 // ─────────────────────────────────────────────
 // TAB 1: HOME (Updated for clarity & conversion)
 // ─────────────────────────────────────────────
+// RECENT WORK
 function buildTab1() {
   const portfolioFallback = [
     { img: 'img/nseyin.webp',       link: '#',    name: 'NSEYIN Massage', alt: 'Health and Wellness Website By CUDFIRM' },
@@ -158,6 +159,7 @@ function buildTab1() {
     { img: 'https://placehold.co/800x600/0B3D2E/C8922A?text=Your+Business', link: 'connect-content', name: 'Your Business Is Next', alt: 'Get started with CUDFIRM' },
   ];
 
+  // WHAT WE BUILD
   const servicesFallback = [
     { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=LANDING', link: '#', name: 'Landing Page', alt: 'Landing Page' },
     { img: 'https://placehold.co/200x250/1A6B4A/fff?text=BUSINESS', link: '#', name: 'Business Website', alt: 'Business Website' },
