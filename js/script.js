@@ -431,8 +431,8 @@ function buildTab4() {
   const projectsFallback = [
     {
       name: 'NSEYIN Massage',
-      industry: 'Health and Wellnesa',
-      type: 'Servive Website',
+      industry: 'Health and Wellness',
+      type: 'Service Website',
       img: 'img/nseyin.webp',
       link: '#',
       problem: 'Agents losing leads to competitors with better online presence.',
@@ -521,7 +521,7 @@ function buildTab4() {
   <section id="tab4" class="tab-content view p-3" aria-labelledby="portfolio-heading">
     <h6 class="sticky-top py-2"><span class="badge text-bg-primary" id="portfolio-heading">Our Portfolio</span></h6>
     <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
-      Real websites built for real businesses. Every site is mobile-ready, SEO-optimised, and designed to convert visitors into customers. <span style="color:#1A6B4A;font-weight:600;">GREEN</span> tags are live client sites.
+      Real websites built for real businesses. Every site is mobile-ready, SEO-optimized, and designed to convert visitors into customers. <span style="color:#1A6B4A;font-weight:600;">GREEN</span> tags are live client sites.
     </p>
     <div class="row g-3 stagger-children">
       ${projects.map(p => `
@@ -918,7 +918,7 @@ function buildTab15() {
         <i class="bi bi-chat-heart"></i>
         <h3>Community Forum — Coming Soon</h3>
         <p>A dedicated space for CUDFIRM clients, freelancers, and small business owners to share tips, ask questions, and grow together.</p>
-        <button class="btn btn-primary mt-2" onclick="openTab(event,'connect-content')">Join The Waitlist</button>
+        <button class="btn btn-primary mt-2" onclick="openTab(event,'connect-content')">Join The Wait List</button>
       </div>
     </div>
   </section>`;
