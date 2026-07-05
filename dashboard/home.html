@@ -25,7 +25,7 @@
 <script src="js/dashboard-api.js"></script>
 
 <script>
-  document.addEventListener("dash:authenticated", async () => {
+  DashAuth.onReady(async () => {
     DashLayout.render({ active: "home", title: "Dashboard Home", icon: "bi-house-door" });
     await renderHome();
   });

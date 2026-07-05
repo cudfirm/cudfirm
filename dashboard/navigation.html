@@ -27,7 +27,7 @@
 <script src="js/pages/navigation-page.js"></script>
 
 <script>
-  document.addEventListener("dash:authenticated", () => {
+  DashAuth.onReady(() => {
     DashLayout.render({ active: "navigation", title: "Navigation", icon: "bi-list-ul" });
     CrudEngine.init(NavigationPageConfig);
   });
