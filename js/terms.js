@@ -61,10 +61,10 @@
       section: '04', tocLabel: 'User Representations',
       heading: 'USER REPRESENTATIONS &amp; REGISTRATION',
       body: [
-        'By using the Services, you confirm and warrant that: (1) all information you provide is true, accurate, and complete; (2) you will keep your information up to date; (3) you have the legal capacity to agree to these Terms; (4) you will not access the Services through bots, scripts, or non-human automated means; (5) you will not use the Services for any illegal or unauthorised purpose; and (6) your use will comply with all applicable laws.',
+        'By using the Services, you confirm and warrant that: (1) all information you provide is true, accurate, and complete; (2) you will keep your information up to date; (3) you have the legal capacity to agree to these Terms; (4) you will not access the Services through bots, scripts, or non-human automated means; (5) you will not use the Services for any illegal or unauthorized purpose; and (6) your use will comply with all applicable laws.',
         'If you provide false or misleading information, we reserve the right to suspend or permanently terminate your account and refuse all future use of the Services.',
         '<strong>Account Registration:</strong> Some features require you to register. You agree to keep your password confidential and accept full responsibility for all activity under your account. We reserve the right to remove or change any username deemed inappropriate, offensive, or objectionable.',
-        '<strong>Account Security:</strong> Notify us immediately if you suspect unauthorised access to your account. CUDFIRM is not liable for losses resulting from your failure to safeguard your credentials.'
+        '<strong>Account Security:</strong> Notify us immediately if you suspect unauthorized access to your account. CUDFIRM is not liable for losses resulting from your failure to safeguard your credentials.'
       ]
     },
 
@@ -75,9 +75,9 @@
       heading: 'PROHIBITED ACTIVITIES',
       body: [
         'You may use the Services only for their intended purpose. Commercial use is permitted only where explicitly approved by CUDFIRM in writing.',
-        '<strong>The following are strictly prohibited:</strong><br>&bull; Scraping, harvesting, or collecting data or user information without written permission.<br>&bull; Sending unsolicited messages or creating accounts by automated or false means.<br>&bull; Bypassing, disabling, or interfering with any security feature of the Services.<br>&bull; Framing or deep-linking to the Services without authorisation.',
-        '&bull; Impersonating another user, person, or entity.<br>&bull; Uploading or transmitting viruses, malware, spyware, or any harmful code.<br>&bull; Using the Services to harass, abuse, threaten, or harm any person — including CUDFIRM staff.<br>&bull; Reproducing, copying, or adapting the Website design, code, or content without authorisation.',
-        '&bull; Reverse-engineering or decompiling any part of the Services.<br>&bull; Using the Services to compete with CUDFIRM or for any commercial purpose beyond the licence granted herein.<br>&bull; Using the Services in any manner that violates applicable Nigerian or international law.',
+        '<strong>The following are strictly prohibited:</strong><br>&bull; Scraping, harvesting, or collecting data or user information without written permission.<br>&bull; Sending unsolicited messages or creating accounts by automated or false means.<br>&bull; Bypassing, disabling, or interfering with any security feature of the Services.<br>&bull; Framing or deep-linking to the Services without authorization.',
+        '&bull; Impersonating another user, person, or entity.<br>&bull; Uploading or transmitting viruses, malware, spyware, or any harmful code.<br>&bull; Using the Services to harass, abuse, threaten, or harm any person — including CUDFIRM staff.<br>&bull; Reproducing, copying, or adapting the Website design, code, or content without authorization.',
+        '&bull; Reverse-engineering or decompiling any part of the Services.<br>&bull; Using the Services to compete with CUDFIRM or for any commercial purpose beyond the license granted herein.<br>&bull; Using the Services in any manner that violates applicable Nigerian or international law.',
         'Violations may result in immediate account suspension, permanent banning, and/or legal action including civil and criminal proceedings.'
       ]
     },
@@ -89,8 +89,8 @@
       heading: 'INTELLECTUAL PROPERTY RIGHTS',
       body: [
         'All content on the Website — including graphics, interfaces, software, text, photographs, logos, trademarks, audio, and video — is owned by CUDFIRM Inc. or its licensors and is protected by Nigerian and international copyright law. These Terms do not transfer any intellectual property rights to you.',
-        '<strong>Your Licence:</strong> Subject to compliance with these Terms, we grant you a limited, non-exclusive, non-transferable licence to access and use the Services for your personal or internal business purposes. Where you have purchased a CUDFIRM product or project, your specific licence rights are defined in that purchase agreement.',
-        '<strong>Content You Submit:</strong> Any feedback, ideas, or suggestions you share with us ("Feedback") are non-confidential. By submitting Feedback, you grant CUDFIRM a perpetual, irrevocable, royalty-free licence to use it in any way, without obligation to credit or compensate you.',
+        '<strong>Your License:</strong> Subject to compliance with these Terms, we grant you a limited, non-exclusive, non-transferable license to access and use the Services for your personal or internal business purposes. Where you have purchased a CUDFIRM product or project, your specific license rights are defined in that purchase agreement.',
+        '<strong>Content You Submit:</strong> Any feedback, ideas, or suggestions you share with us ("Feedback") are non-confidential. By submitting Feedback, you grant CUDFIRM a perpetual, irrevocable, royalty-free license to use it in any way, without obligation to credit or compensate you.',
         'You must not remove, alter, or obscure any copyright, trademark, or proprietary notice from any part of the Website or its content.'
       ]
     },
@@ -141,7 +141,7 @@
       heading: 'DISCLAIMER &amp; LIMITATIONS',
       body: [
         '<strong>As-Is Basis:</strong> THE SERVICES ARE PROVIDED "AS-IS" AND "AS-AVAILABLE." YOUR USE IS AT YOUR SOLE RISK. TO THE FULLEST EXTENT PERMITTED BY LAW, CUDFIRM DISCLAIMS ALL WARRANTIES — EXPRESS OR IMPLIED — INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.',
-        '<strong>No Liability:</strong> CUDFIRM WILL NOT BE LIABLE FOR: (1) ERRORS OR INACCURACIES IN CONTENT; (2) PERSONAL INJURY OR PROPERTY DAMAGE FROM USE OF THE SERVICES; (3) UNAUTHORISED ACCESS TO OUR SERVERS OR YOUR PERSONAL/FINANCIAL DATA; (4) SERVICE INTERRUPTIONS OR TRANSMISSION FAILURES; (5) VIRUSES OR MALICIOUS CODE TRANSMITTED THROUGH THE SERVICES BY THIRD PARTIES.',
+        '<strong>No Liability:</strong> CUDFIRM WILL NOT BE LIABLE FOR: (1) ERRORS OR INACCURACIES IN CONTENT; (2) PERSONAL INJURY OR PROPERTY DAMAGE FROM USE OF THE SERVICES; (3) UNAUTHORIZED ACCESS TO OUR SERVERS OR YOUR PERSONAL/FINANCIAL DATA; (4) SERVICE INTERRUPTIONS OR TRANSMISSION FAILURES; (5) VIRUSES OR MALICIOUS CODE TRANSMITTED THROUGH THE SERVICES BY THIRD PARTIES.',
         '<strong>Third-Party Products:</strong> We do not warrant, endorse, or assume responsibility for any product or service advertised by a third party. Exercise caution and your own judgement in any third-party transaction.',
         '<strong>Force Majeure:</strong> CUDFIRM will not be in breach of these Terms for any delay or failure caused by events beyond our reasonable control — including acts of God, pandemics, war, government actions, infrastructure failures, or civil disorder.'
       ]
