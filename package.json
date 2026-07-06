@@ -1,0 +1,30 @@
+{
+  "name": "cudfirm",
+  "version": "1.0.0",
+  "description": "CUDFIRM — Professional Web Design Studio in Lagos, Nigeria",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cudfirm/cudfirm.git"
+  },
+  "keywords": [
+    "web-design",
+    "nigeria",
+    "lagos"
+  ],
+  "author": "CUDFIRM",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cudfirm/cudfirm/issues"
+  },
+  "homepage": "https://github.com/cudfirm/cudfirm#readme",
+  "dependencies": {
+    "@vercel/speed-insights": "^2.0.0"
+  }
+}
