@@ -8,6 +8,7 @@ const TestimonialsPageConfig = {
   singularLabel: "Testimonial",
   hint: "Client quotes shown on the Testimonials tab.",
   orderCol: "sort_order",
+  deleteLabelField: "name",
   columns: [
     { key: "name", label: "Name", primary: true },
     { key: "role", label: "Role" },
@@ -16,9 +17,9 @@ const TestimonialsPageConfig = {
     { key: "is_active", label: "Status", type: "bool", trueLabel: "Active", falseLabel: "Hidden" },
   ],
   fields: [
-    { key: "name", label: "Name", type: "text", required: true, placeholder: "e.g. Adaeze O." },
-    { key: "role", label: "Role", type: "text", placeholder: "e.g. Fashion Designer · Lagos" },
-    { key: "quote", label: "Quote", type: "textarea", required: true, rows: 3 },
+    { key: "name", label: "Name", type: "text", required: true, maxLength: 100, placeholder: "e.g. Adaeze O." },
+    { key: "role", label: "Role", type: "text", maxLength: 120, placeholder: "e.g. Fashion Designer · Lagos" },
+    { key: "quote", label: "Quote", type: "textarea", required: true, rows: 3, maxLength: 500 },
     { key: "accent_color", label: "Accent color", type: "color", default: "#0B3D2E" },
     { key: "is_placeholder", label: "Show \"Illustrative\" badge", type: "checkbox", default: true },
     { key: "is_active", label: "Active (visible on live site)", type: "checkbox", default: true },

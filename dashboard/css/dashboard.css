@@ -595,3 +595,104 @@ a { text-decoration: none; }
   .btn-menu-toggle { display: inline-flex; align-items: center; }
   .dash-content { padding: 20px 16px; }
 }
+
+@media (max-width: 560px) {
+  .dash-table th, .dash-table td { padding: 10px 10px; font-size: 0.82rem; }
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+  .crud-toolbar { flex-direction: column; align-items: stretch; }
+  .crud-toolbar .btn-brand { justify-content: center; }
+}
+
+/* ---------- Skip link (keyboard accessibility) ---------- */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--n-gold);
+  color: var(--n-forest-dark);
+  font-weight: 700;
+  padding: 10px 16px;
+  border-radius: 0 0 8px 0;
+  z-index: 3000;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+/* ---------- Visible focus states ---------- */
+a:focus-visible,
+button:focus-visible,
+.form-control:focus-visible,
+.form-select:focus-visible,
+.form-check-input:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--n-gold);
+  outline-offset: 2px;
+}
+.dash-nav a:focus-visible {
+  outline-offset: -2px;
+}
+.row-actions .btn:focus-visible {
+  outline-offset: 0;
+}
+
+/* ---------- Table horizontal scroll on small screens ---------- */
+.table-responsive-x {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ---------- Skeleton loading ---------- */
+.skeleton-bar {
+  height: 0.95rem;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #ECE9DE 25%, #F5F2E8 37%, #ECE9DE 63%);
+  background-size: 400% 100%;
+  animation: skeleton-shimmer 1.4s ease infinite;
+}
+@keyframes skeleton-shimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+/* ---------- Button state polish ---------- */
+.btn-brand:disabled,
+.btn-gold:disabled,
+.btn-danger:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+.btn-brand.is-loading i {
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.btn, .btn-brand, .btn-gold, .btn-signout, .quick-link-card, .stat-card, .row-actions .btn {
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* ---------- Toast dismiss button ---------- */
+.toast-dismiss {
+  margin-left: auto;
+  border: none;
+  background: transparent;
+  color: var(--n-muted);
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0 2px;
+  flex-shrink: 0;
+}
+.toast-dismiss:hover { color: var(--n-charcoal); }
+.dash-toast { align-items: center; }
+
+/* ---------- Invalid field feedback ---------- */
+.form-control.is-invalid, .form-select.is-invalid {
+  border-color: #C0392B;
+}
+.invalid-feedback {
+  color: #C0392B;
+  font-size: 0.78rem;
+  margin-top: 4px;
+}

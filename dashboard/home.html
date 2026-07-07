@@ -20,6 +20,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../js/supabase.js"></script>
+<script src="js/dash-utils.js"></script>
 <script src="js/auth-guard.js"></script>
 <script src="js/layout.js"></script>
 <script src="js/dashboard-api.js"></script>
@@ -32,18 +33,21 @@
 
   async function renderHome() {
     const root = document.getElementById("page-content");
+    const skeletonCards = Array.from({ length: 5 })
+      .map(() => `<div class="stat-card"><div class="skeleton-bar" style="width:38px;height:38px;border-radius:9px;margin-bottom:12px"></div><div class="skeleton-bar" style="width:50%;height:1.6rem;margin-bottom:8px"></div><div class="skeleton-bar" style="width:70%"></div></div>`)
+      .join("");
     root.innerHTML = `
-      <div class="stat-grid" id="statGrid">
-        <div class="loading-state" style="grid-column:1/-1"><i class="bi bi-arrow-repeat"></i> Loading overview…</div>
+      <div class="stat-grid" id="statGrid" aria-live="polite" aria-busy="true">
+        ${skeletonCards}
       </div>
       <h2 class="h5 mb-3 mt-4">Quick edit</h2>
       <div class="quick-links">
-        <a class="quick-link-card" href="hero.html"><i class="bi bi-flag"></i><span class="qlabel">Hero Section</span><span class="qdesc">Homepage headline & CTAs</span></a>
-        <a class="quick-link-card" href="services.html"><i class="bi bi-grid-3x3-gap"></i><span class="qlabel">Services</span><span class="qdesc">Pricing cards & offerings</span></a>
-        <a class="quick-link-card" href="portfolio.html"><i class="bi bi-briefcase"></i><span class="qlabel">Portfolio</span><span class="qdesc">Client project showcase</span></a>
-        <a class="quick-link-card" href="testimonials.html"><i class="bi bi-chat-quote"></i><span class="qlabel">Testimonials</span><span class="qdesc">Client quotes</span></a>
-        <a class="quick-link-card" href="faq.html"><i class="bi bi-question-circle"></i><span class="qlabel">FAQ</span><span class="qdesc">Common questions</span></a>
-        <a class="quick-link-card" href="navigation.html"><i class="bi bi-list-ul"></i><span class="qlabel">Navigation</span><span class="qdesc">Sidebar & footer tabs</span></a>
+        <a class="quick-link-card" href="hero.html"><i class="bi bi-flag" aria-hidden="true"></i><span class="qlabel">Hero Section</span><span class="qdesc">Homepage headline &amp; CTAs</span></a>
+        <a class="quick-link-card" href="services.html"><i class="bi bi-grid-3x3-gap" aria-hidden="true"></i><span class="qlabel">Services</span><span class="qdesc">Pricing cards &amp; offerings</span></a>
+        <a class="quick-link-card" href="portfolio.html"><i class="bi bi-briefcase" aria-hidden="true"></i><span class="qlabel">Portfolio</span><span class="qdesc">Client project showcase</span></a>
+        <a class="quick-link-card" href="testimonials.html"><i class="bi bi-chat-quote" aria-hidden="true"></i><span class="qlabel">Testimonials</span><span class="qdesc">Client quotes</span></a>
+        <a class="quick-link-card" href="faq.html"><i class="bi bi-question-circle" aria-hidden="true"></i><span class="qlabel">FAQ</span><span class="qdesc">Common questions</span></a>
+        <a class="quick-link-card" href="navigation.html"><i class="bi bi-list-ul" aria-hidden="true"></i><span class="qlabel">Navigation</span><span class="qdesc">Sidebar &amp; footer tabs</span></a>
       </div>
     `;
 
@@ -58,22 +62,23 @@
     const results = await Promise.all(tables.map((t) => AdminApi.count(t.key)));
 
     const grid = document.getElementById("statGrid");
+    grid.setAttribute("aria-busy", "false");
     grid.innerHTML = tables
       .map((t, i) => {
         const { count, error } = results[i];
         return `
           <div class="stat-card">
-            <div class="stat-icon"><i class="bi ${t.icon}"></i></div>
+            <div class="stat-icon"><i class="bi ${t.icon}" aria-hidden="true"></i></div>
             <div class="stat-value">${error ? "—" : count}</div>
-            <div class="stat-label">${t.label}</div>
-            <a href="${t.href}" class="stat-link">Manage <i class="bi bi-arrow-right"></i></a>
+            <div class="stat-label">${esc(t.label)}</div>
+            <a href="${esc(t.href)}" class="stat-link">Manage <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
           </div>`;
       })
       .join("");
 
     const anyError = results.find((r) => r.error);
     if (anyError) {
-      DashToast.error("Some counts failed to load: " + anyError.error.message);
+      DashToast.error(DashError.friendly(anyError.error, "Some counts couldn't be loaded."));
     }
   }
 </script>

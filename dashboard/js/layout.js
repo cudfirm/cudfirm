@@ -38,31 +38,33 @@ const DashLayout = (() => {
 
     const navHtml = NAV_ITEMS.map(
       (item) => `
-        <a href="${item.href}" class="${item.key === active ? "active" : ""}">
-          <i class="bi ${item.icon}"></i> ${item.label}
+        <a href="${esc(item.href)}" class="${item.key === active ? "active" : ""}" ${item.key === active ? 'aria-current="page"' : ""}>
+          <i class="bi ${item.icon}" aria-hidden="true"></i> ${esc(item.label)}
         </a>`
     ).join("");
 
     shell.innerHTML = `
+      <a href="#page-content" class="skip-link">Skip to content</a>
+
       <aside class="dash-sidebar" id="dashSidebar">
         <div class="side-brand">
-          <div class="mark">C</div>
+          <div class="mark" aria-hidden="true">C</div>
           <div>
             <div class="name">CUDFIRM</div>
             <span class="tag">Admin Dashboard</span>
           </div>
         </div>
-        <nav class="dash-nav">
+        <nav class="dash-nav" aria-label="Dashboard sections">
           <div class="nav-section-label">Content</div>
           ${navHtml}
         </nav>
         <div class="side-foot">
           <div class="side-user">
-            <div class="avatar">${initials(email)}</div>
-            <div class="email">${email}</div>
+            <div class="avatar" aria-hidden="true">${esc(initials(email))}</div>
+            <div class="email">${esc(email)}</div>
           </div>
-          <button class="btn-signout" id="signOutBtn">
-            <i class="bi bi-box-arrow-right"></i> Sign out
+          <button class="btn-signout" id="signOutBtn" type="button">
+            <i class="bi bi-box-arrow-right" aria-hidden="true"></i> Sign out
           </button>
         </div>
       </aside>
@@ -70,17 +72,19 @@ const DashLayout = (() => {
       <div class="dash-main">
         <header class="dash-topbar">
           <div class="d-flex align-items-center gap-2">
-            <button class="btn-menu-toggle" id="menuToggle"><i class="bi bi-list"></i></button>
-            <div class="page-title"><i class="bi ${icon || "bi-grid"}"></i> ${title || ""}</div>
+            <button class="btn-menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="dashSidebar">
+              <i class="bi bi-list" aria-hidden="true"></i>
+            </button>
+            <div class="page-title"><i class="bi ${icon || "bi-grid"}" aria-hidden="true"></i> ${esc(title || "")}</div>
           </div>
-          <a href="../index.html" target="_blank" class="view-site">
-            <i class="bi bi-box-arrow-up-right"></i> View live site
+          <a href="../index.html" target="_blank" rel="noopener" class="view-site">
+            <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i> View live site
           </a>
         </header>
-        <main class="dash-content" id="page-content"></main>
+        <main class="dash-content" id="page-content" tabindex="-1"></main>
       </div>
 
-      <div class="dash-toast-stack" id="toastStack"></div>
+      <div class="dash-toast-stack" id="toastStack" role="status" aria-live="polite"></div>
     `;
 
     document.getElementById("signOutBtn").addEventListener("click", async () => {
@@ -91,7 +95,10 @@ const DashLayout = (() => {
     const menuToggle = document.getElementById("menuToggle");
     const sidebar = document.getElementById("dashSidebar");
     if (menuToggle) {
-      menuToggle.addEventListener("click", () => sidebar.classList.toggle("open"));
+      menuToggle.addEventListener("click", () => {
+        const isOpen = sidebar.classList.toggle("open");
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+      });
     }
   }
 
@@ -101,6 +108,10 @@ const DashLayout = (() => {
 /**
  * Small toast helper used across every admin page.
  * DashToast.success('Saved!') / DashToast.error('Could not save')
+ *
+ * Messages are always HTML-escaped before insertion — even though
+ * today's callers pass their own fixed strings, a toast should never
+ * become a place raw text can turn into markup.
  */
 const DashToast = (() => {
   function show(message, type = "success") {
@@ -112,13 +123,18 @@ const DashToast = (() => {
     const el = document.createElement("div");
     el.className = `dash-toast ${type}`;
     const iconClass = type === "error" ? "bi-exclamation-triangle-fill" : "bi-check-circle-fill";
-    el.innerHTML = `<i class="bi ${iconClass}"></i><span>${message}</span>`;
+    el.innerHTML = `
+      <i class="bi ${iconClass}" aria-hidden="true"></i>
+      <span>${esc(message)}</span>
+      <button type="button" class="toast-dismiss" aria-label="Dismiss notification">&times;</button>
+    `;
+    el.querySelector(".toast-dismiss").addEventListener("click", () => el.remove());
     stack.appendChild(el);
     setTimeout(() => {
       el.style.opacity = "0";
       el.style.transition = "opacity 0.3s ease";
       setTimeout(() => el.remove(), 300);
-    }, 3200);
+    }, 4200);
   }
   return {
     success: (msg) => show(msg, "success"),
