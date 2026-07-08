@@ -337,6 +337,23 @@ const CrudEngine = (() => {
           ${field.hint ? `<div class="form-hint" id="hint_${field.key}">${esc(field.hint)}</div>` : ""}
         </div>`;
     }
+    if (field.type === "image") {
+      return `
+        <div class="mb-3">
+          <label class="form-label" id="lbl_${field.key}">${esc(field.label)} ${required}</label>
+          <div id="mount_${field.key}"></div>
+          <div class="invalid-feedback" id="err_${field.key}"></div>
+          ${field.hint ? `<div class="form-hint" id="hint_${field.key}">${esc(field.hint)}</div>` : ""}
+        </div>`;
+    }
+    if (field.type === "richtext") {
+      return `
+        <div class="mb-3">
+          <label class="form-label" id="lbl_${field.key}">${esc(field.label)} ${required}</label>
+          <div id="mount_${field.key}"></div>
+          <div class="invalid-feedback" id="err_${field.key}"></div>
+        </div>`;
+    }
     // text / tags default to text input
     return `
       <div class="mb-3">
@@ -347,6 +364,30 @@ const CrudEngine = (() => {
       </div>`;
   }
 
+  let fieldWidgets = {};
+
+  function mountWidgetFields(row) {
+    fieldWidgets = {};
+    cfg.fields.forEach((field) => {
+      const mountEl = document.getElementById(`mount_${field.key}`);
+      if (!mountEl) return;
+      if (field.type === "image") {
+        fieldWidgets[field.key] = ImageField.mount(mountEl, {
+          value: fieldValueFromRow(field, row),
+          category: field.category || cfg.table,
+          label: field.label,
+          onChange: () => DashUnsaved.set(true),
+        });
+      } else if (field.type === "richtext") {
+        fieldWidgets[field.key] = RichText.mount(mountEl, {
+          value: fieldValueFromRow(field, row),
+          maxLength: field.maxLength,
+          onChange: () => DashUnsaved.set(true),
+        });
+      }
+    });
+  }
+
   function openForm(id) {
     editingId = id;
     const row = id ? rows.find((r) => r.id === id) : null;
@@ -354,6 +395,7 @@ const CrudEngine = (() => {
     const form = document.getElementById("crudForm");
     form.classList.remove("was-validated");
     document.getElementById("crudFormFields").innerHTML = cfg.fields.map((f) => renderField(f, row)).join("");
+    mountWidgetFields(row);
 
     DashUnsaved.set(false);
     form.querySelectorAll("input, textarea, select").forEach((el) => {
@@ -391,6 +433,10 @@ const CrudEngine = (() => {
   function readFormValues() {
     const payload = {};
     cfg.fields.forEach((field) => {
+      if (field.type === "image" || field.type === "richtext") {
+        payload[field.key] = fieldWidgets[field.key] ? fieldWidgets[field.key].getValue() : "";
+        return;
+      }
       const el = document.getElementById(`f_${field.key}`);
       if (!el) return;
       if (field.type === "checkbox") {
@@ -466,6 +512,7 @@ const CrudEngine = (() => {
       return;
     }
 
+    const wasEditing = !!editingId;
     // Patch the in-memory list instead of re-fetching everything.
     if (editingId) {
       const idx = rows.findIndex((r) => r.id === editingId);
@@ -478,8 +525,11 @@ const CrudEngine = (() => {
 
     DashUnsaved.set(false);
     bootstrap.Modal.getOrCreateInstance(document.getElementById("crudFormModal")).hide();
-    DashToast.success(editingId ? "Changes saved." : `${esc(cfg.singularLabel || "Item")} added.`);
+    DashToast.success(wasEditing ? "Changes saved." : `${esc(cfg.singularLabel || "Item")} added.`);
     renderTable();
+
+    const label = result.data[cfg.deleteLabelField || cfg.columns[0].key] || `#${result.data.id}`;
+    DashActivity.log(wasEditing ? "updated" : "created", cfg.table, label);
   }
 
   function openDelete(id) {
@@ -511,9 +561,12 @@ const CrudEngine = (() => {
       return;
     }
 
+    const deletedRow = rows.find((r) => r.id === deletingId);
     rows = rows.filter((r) => r.id !== deletingId);
     bootstrap.Modal.getOrCreateInstance(document.getElementById("crudDeleteModal")).hide();
     DashToast.success("Deleted.");
+    const label = deletedRow ? deletedRow[cfg.deleteLabelField || cfg.columns[0].key] : `#${deletingId}`;
+    DashActivity.log("deleted", cfg.table, label);
     deletingId = null;
     renderTable();
   }

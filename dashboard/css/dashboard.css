@@ -696,3 +696,235 @@ button:focus-visible,
   font-size: 0.78rem;
   margin-top: 4px;
 }
+
+/* ---------- Sidebar nav badge (unread messages) ---------- */
+.nav-badge {
+  background: var(--n-gold);
+  color: var(--n-forest-dark);
+  font-size: 0.68rem;
+  font-weight: 800;
+  border-radius: 20px;
+  padding: 1px 7px;
+  margin-left: auto;
+}
+.dash-nav a { justify-content: flex-start; }
+.dash-nav a .nav-badge { margin-left: auto; }
+
+/* ---------- Image field (upload / browse library / remove) ---------- */
+.image-field {
+  border: 1px dashed var(--n-border);
+  border-radius: var(--radius);
+  padding: 14px;
+  background: var(--n-cream);
+}
+.image-field-preview {
+  width: 100%;
+  max-width: 220px;
+  height: 120px;
+  border-radius: 8px;
+  background: var(--n-white);
+  border: 1px solid var(--n-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 10px;
+  color: var(--n-mist);
+  font-size: 1.8rem;
+}
+.image-field-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.image-field-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.image-field-upload-btn {
+  margin-bottom: 0;
+  cursor: pointer;
+}
+.image-field-status {
+  font-size: 0.8rem;
+  color: var(--n-muted);
+}
+
+/* ---------- Media library picker (inside modal) ---------- */
+.media-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  max-height: 420px;
+  overflow-y: auto;
+}
+.media-picker-item {
+  border: 1px solid var(--n-border);
+  background: var(--n-white);
+  border-radius: 8px;
+  padding: 6px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.media-picker-item:hover { border-color: var(--n-gold); transform: translateY(-2px); }
+.media-picker-item img {
+  width: 100%;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  background: var(--n-cream);
+}
+.media-picker-name {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--n-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------- Media Library page ---------- */
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 16px;
+}
+.media-card {
+  background: var(--n-white);
+  border: 1px solid var(--n-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.media-card-thumb {
+  height: 130px;
+  background: var(--n-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.media-card-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.media-card-body { padding: 10px 12px; }
+.media-card-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--n-charcoal);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.media-card-meta {
+  font-size: 0.72rem;
+  color: var(--n-muted);
+  margin-top: 2px;
+}
+.media-card-actions {
+  display: flex;
+  gap: 4px;
+  padding: 0 8px 10px;
+}
+.media-card-actions .btn {
+  flex: 1;
+  border: 1px solid var(--n-border);
+  background: var(--n-white);
+  border-radius: 7px;
+  font-size: 0.78rem;
+  padding: 6px 4px;
+  color: var(--n-body);
+}
+.media-card-actions .btn:hover { background: var(--n-cream); }
+
+/* ---------- Rich text editor ---------- */
+.rich-text-field { border: 1px solid var(--n-border); border-radius: 8px; overflow: hidden; }
+.rt-toolbar {
+  display: flex;
+  gap: 2px;
+  padding: 6px;
+  background: var(--n-cream);
+  border-bottom: 1px solid var(--n-border);
+  flex-wrap: wrap;
+}
+.rt-btn {
+  border: none;
+  background: transparent;
+  color: var(--n-body);
+  width: 30px; height: 30px;
+  border-radius: 6px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.rt-btn:hover { background: var(--n-white); color: var(--n-forest); }
+.rt-editor {
+  min-height: 120px;
+  border: none;
+  border-radius: 0;
+  padding: 12px;
+}
+.rt-editor:focus { outline: none; box-shadow: none; }
+.rt-count { padding: 4px 12px 8px; }
+
+/* ---------- List rows (Messages / Subscribers) ---------- */
+.list-row-card {
+  background: var(--n-white);
+  border: 1px solid var(--n-border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  margin-bottom: 10px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.list-row-card.unread { border-left: 3px solid var(--n-gold); background: #FFFDF6; }
+.list-row-main { flex: 1; min-width: 0; }
+.list-row-title { font-weight: 700; color: var(--n-charcoal); font-size: 0.94rem; }
+.list-row-sub { font-size: 0.8rem; color: var(--n-muted); margin-top: 1px; }
+.list-row-body { font-size: 0.88rem; color: var(--n-body); margin-top: 8px; white-space: pre-wrap; }
+.list-row-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+.filter-tabs { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+.filter-tab {
+  border: 1px solid var(--n-border);
+  background: var(--n-white);
+  color: var(--n-body);
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+.filter-tab.active { background: var(--n-forest); color: var(--n-white); border-color: var(--n-forest); }
+
+/* ---------- Activity log ---------- */
+.activity-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--n-border);
+}
+.activity-item:last-child { border-bottom: none; }
+.activity-icon {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--n-cream);
+  color: var(--n-forest);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.85rem;
+}
+.activity-text { font-size: 0.86rem; color: var(--n-body); }
+.activity-text strong { color: var(--n-charcoal); }
+.activity-time { font-size: 0.74rem; color: var(--n-muted); margin-top: 1px; }
+
+/* ---------- Repeater used by Site Settings (social links) ---------- */
+.settings-section-title {
+  font-weight: 700;
+  font-family: 'Syne', sans-serif;
+  color: var(--n-charcoal);
+  font-size: 0.98rem;
+  margin: 22px 0 12px;
+  padding-top: 18px;
+  border-top: 1px solid var(--n-border);
+}
+.settings-section-title:first-child { margin-top: 0; padding-top: 0; border-top: none; }

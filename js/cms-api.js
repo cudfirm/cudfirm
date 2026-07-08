@@ -94,5 +94,22 @@ const CMSApi = (() => {
             .order("sort_order", { ascending: true }),
         "navigation"
       ),
+
+    // --- Phase 3 additions (Site Settings + SEO Manager) ---
+    // Same safeQuery pattern as everything above: returns null on
+    // any failure so cms-loader.js can fall back to the defaults
+    // already hardcoded in script.js.
+
+    getSiteSettings: () =>
+      safeQuery(
+        () => db.from("site_settings").select("*").eq("id", 1).single(),
+        "site_settings"
+      ),
+
+    getSeoMeta: (pageKey) =>
+      safeQuery(
+        () => db.from("seo_meta").select("*").eq("page_key", pageKey).single(),
+        "seo_meta"
+      ),
   };
 })();

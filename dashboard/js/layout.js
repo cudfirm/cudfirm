@@ -24,6 +24,15 @@ const DashLayout = (() => {
     { key: "navigation", href: "navigation.html", label: "Navigation", icon: "bi-list-ul" },
   ];
 
+  const PLATFORM_NAV_ITEMS = [
+    { key: "media", href: "media.html", label: "Media Library", icon: "bi-images" },
+    { key: "settings", href: "settings.html", label: "Site Settings", icon: "bi-gear" },
+    { key: "seo", href: "seo.html", label: "SEO Manager", icon: "bi-search" },
+    { key: "messages", href: "messages.html", label: "Messages", icon: "bi-envelope" },
+    { key: "subscribers", href: "subscribers.html", label: "Subscribers", icon: "bi-people" },
+    { key: "activity", href: "activity.html", label: "Activity Log", icon: "bi-clock-history" },
+  ];
+
   function initials(email) {
     if (!email) return "A";
     return email.slice(0, 2).toUpperCase();
@@ -36,12 +45,15 @@ const DashLayout = (() => {
     const user = window.dashUser || {};
     const email = user.email || "Admin";
 
-    const navHtml = NAV_ITEMS.map(
-      (item) => `
+    const navHtml = (items) =>
+      items
+        .map((item) => {
+          return `
         <a href="${esc(item.href)}" class="${item.key === active ? "active" : ""}" ${item.key === active ? 'aria-current="page"' : ""}>
           <i class="bi ${item.icon}" aria-hidden="true"></i> ${esc(item.label)}
-        </a>`
-    ).join("");
+        </a>`;
+        })
+        .join("");
 
     shell.innerHTML = `
       <a href="#page-content" class="skip-link">Skip to content</a>
@@ -56,7 +68,9 @@ const DashLayout = (() => {
         </div>
         <nav class="dash-nav" aria-label="Dashboard sections">
           <div class="nav-section-label">Content</div>
-          ${navHtml}
+          ${navHtml(NAV_ITEMS)}
+          <div class="nav-section-label">Platform</div>
+          ${navHtml(PLATFORM_NAV_ITEMS)}
         </nav>
         <div class="side-foot">
           <div class="side-user">
@@ -99,6 +113,39 @@ const DashLayout = (() => {
         const isOpen = sidebar.classList.toggle("open");
         menuToggle.setAttribute("aria-expanded", String(isOpen));
       });
+    }
+
+    refreshUnreadBadge(shell);
+  }
+
+  /**
+   * Patches an unread-count badge onto the "Messages" nav link.
+   * Self-contained on purpose: every protected page calls
+   * DashLayout.render(), so this runs everywhere automatically
+   * without any page needing to fetch or pass a count. Fails
+   * silently — a badge that doesn't appear is not worth surfacing
+   * an error toast for.
+   */
+  async function refreshUnreadBadge(shell) {
+    try {
+      const { count, error } = await supabaseClient
+        .from("messages")
+        .select("*", { count: "exact", head: true })
+        .eq("is_read", false)
+        .eq("is_archived", false);
+      if (error || !count) return;
+
+      const link = shell.querySelector('a[href="messages.html"]');
+      if (!link) return;
+      let badge = link.querySelector(".nav-badge");
+      if (!badge) {
+        badge = document.createElement("span");
+        badge.className = "nav-badge";
+        link.appendChild(badge);
+      }
+      badge.textContent = count > 99 ? "99+" : String(count);
+    } catch (err) {
+      // Silent — a missing badge isn't worth interrupting the admin over.
     }
   }
 

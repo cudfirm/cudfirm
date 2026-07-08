@@ -16,7 +16,7 @@ const FaqPageConfig = {
   ],
   fields: [
     { key: "question", label: "Question", type: "text", required: true, maxLength: 200 },
-    { key: "answer", label: "Answer", type: "textarea", required: true, rows: 4, maxLength: 800 },
+    { key: "answer", label: "Answer", type: "richtext", required: true, maxLength: 800 },
     { key: "is_active", label: "Active (visible on live site)", type: "checkbox", default: true },
     { key: "sort_order", label: "Sort order", type: "number", default: 0 },
   ],

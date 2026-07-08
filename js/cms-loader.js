@@ -22,6 +22,8 @@ window.CMS = {
   testimonials: null,
   faq: null,
   navigation: null,
+  siteSettings: null,
+  seo: null,
 };
 
 // Hard timeout: never block the page for more than 2.5s on a slow
@@ -36,7 +38,7 @@ function withTimeout(promise, ms) {
 window.CMSReady = (async function loadCMS() {
   const TIMEOUT_MS = 2500;
 
-  const [hero, services, portfolio, testimonials, faq, navigation] =
+  const [hero, services, portfolio, testimonials, faq, navigation, siteSettings, seo] =
     await Promise.all([
       withTimeout(CMSApi.getHero(), TIMEOUT_MS),
       withTimeout(CMSApi.getServices(), TIMEOUT_MS),
@@ -44,9 +46,11 @@ window.CMSReady = (async function loadCMS() {
       withTimeout(CMSApi.getTestimonials(), TIMEOUT_MS),
       withTimeout(CMSApi.getFaqs(), TIMEOUT_MS),
       withTimeout(CMSApi.getNavigation(), TIMEOUT_MS),
+      withTimeout(CMSApi.getSiteSettings(), TIMEOUT_MS),
+      withTimeout(CMSApi.getSeoMeta("home"), TIMEOUT_MS),
     ]);
 
-  window.CMS = { hero, services, portfolio, testimonials, faq, navigation };
+  window.CMS = { hero, services, portfolio, testimonials, faq, navigation, siteSettings, seo };
 
   if (Object.values(window.CMS).every((v) => v === null || (Array.isArray(v) && v.length === 0))) {
     console.info('[CMS] No Supabase content found — using built-in defaults from script.js.');

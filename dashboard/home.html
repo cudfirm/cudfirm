@@ -33,21 +33,35 @@
 
   async function renderHome() {
     const root = document.getElementById("page-content");
-    const skeletonCards = Array.from({ length: 5 })
+    const skeletonCards = Array.from({ length: 8 })
       .map(() => `<div class="stat-card"><div class="skeleton-bar" style="width:38px;height:38px;border-radius:9px;margin-bottom:12px"></div><div class="skeleton-bar" style="width:50%;height:1.6rem;margin-bottom:8px"></div><div class="skeleton-bar" style="width:70%"></div></div>`)
       .join("");
     root.innerHTML = `
       <div class="stat-grid" id="statGrid" aria-live="polite" aria-busy="true">
         ${skeletonCards}
       </div>
-      <h2 class="h5 mb-3 mt-4">Quick edit</h2>
-      <div class="quick-links">
-        <a class="quick-link-card" href="hero.html"><i class="bi bi-flag" aria-hidden="true"></i><span class="qlabel">Hero Section</span><span class="qdesc">Homepage headline &amp; CTAs</span></a>
-        <a class="quick-link-card" href="services.html"><i class="bi bi-grid-3x3-gap" aria-hidden="true"></i><span class="qlabel">Services</span><span class="qdesc">Pricing cards &amp; offerings</span></a>
-        <a class="quick-link-card" href="portfolio.html"><i class="bi bi-briefcase" aria-hidden="true"></i><span class="qlabel">Portfolio</span><span class="qdesc">Client project showcase</span></a>
-        <a class="quick-link-card" href="testimonials.html"><i class="bi bi-chat-quote" aria-hidden="true"></i><span class="qlabel">Testimonials</span><span class="qdesc">Client quotes</span></a>
-        <a class="quick-link-card" href="faq.html"><i class="bi bi-question-circle" aria-hidden="true"></i><span class="qlabel">FAQ</span><span class="qdesc">Common questions</span></a>
-        <a class="quick-link-card" href="navigation.html"><i class="bi bi-list-ul" aria-hidden="true"></i><span class="qlabel">Navigation</span><span class="qdesc">Sidebar &amp; footer tabs</span></a>
+
+      <div class="row g-4 mt-1">
+        <div class="col-lg-7">
+          <h2 class="h5 mb-3">Quick edit</h2>
+          <div class="quick-links">
+            <a class="quick-link-card" href="hero.html"><i class="bi bi-flag" aria-hidden="true"></i><span class="qlabel">Hero Section</span><span class="qdesc">Homepage headline &amp; CTAs</span></a>
+            <a class="quick-link-card" href="services.html"><i class="bi bi-grid-3x3-gap" aria-hidden="true"></i><span class="qlabel">Services</span><span class="qdesc">Pricing cards &amp; offerings</span></a>
+            <a class="quick-link-card" href="portfolio.html"><i class="bi bi-briefcase" aria-hidden="true"></i><span class="qlabel">Portfolio</span><span class="qdesc">Client project showcase</span></a>
+            <a class="quick-link-card" href="testimonials.html"><i class="bi bi-chat-quote" aria-hidden="true"></i><span class="qlabel">Testimonials</span><span class="qdesc">Client quotes</span></a>
+            <a class="quick-link-card" href="faq.html"><i class="bi bi-question-circle" aria-hidden="true"></i><span class="qlabel">FAQ</span><span class="qdesc">Common questions</span></a>
+            <a class="quick-link-card" href="navigation.html"><i class="bi bi-list-ul" aria-hidden="true"></i><span class="qlabel">Navigation</span><span class="qdesc">Sidebar &amp; footer tabs</span></a>
+            <a class="quick-link-card" href="media.html"><i class="bi bi-images" aria-hidden="true"></i><span class="qlabel">Media Library</span><span class="qdesc">Uploaded images</span></a>
+            <a class="quick-link-card" href="settings.html"><i class="bi bi-gear" aria-hidden="true"></i><span class="qlabel">Site Settings</span><span class="qdesc">Contact, footer &amp; branding</span></a>
+            <a class="quick-link-card" href="seo.html"><i class="bi bi-search" aria-hidden="true"></i><span class="qlabel">SEO Manager</span><span class="qdesc">Titles &amp; meta descriptions</span></a>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <h2 class="h5 mb-3">Recent activity</h2>
+          <div class="table-card p-3" id="recentActivity" aria-live="polite">
+            <div class="loading-state" role="status"><i class="bi bi-arrow-repeat" aria-hidden="true"></i> Loading…</div>
+          </div>
+        </div>
       </div>
     `;
 
@@ -57,9 +71,12 @@
       { key: "testimonials", label: "Testimonials", icon: "bi-chat-quote", href: "testimonials.html" },
       { key: "faq", label: "FAQ Entries", icon: "bi-question-circle", href: "faq.html" },
       { key: "navigation", label: "Nav Items", icon: "bi-list-ul", href: "navigation.html" },
+      { key: "messages", label: "Unread Messages", icon: "bi-envelope", href: "messages.html", filters: { is_read: false, is_archived: false } },
+      { key: "subscribers", label: "Subscribers", icon: "bi-people", href: "subscribers.html" },
+      { key: "media_library", label: "Media Files", icon: "bi-images", href: "media.html" },
     ];
 
-    const results = await Promise.all(tables.map((t) => AdminApi.count(t.key)));
+    const results = await Promise.all(tables.map((t) => AdminApi.count(t.key, t.filters)));
 
     const grid = document.getElementById("statGrid");
     grid.setAttribute("aria-busy", "false");
@@ -80,6 +97,39 @@
     if (anyError) {
       DashToast.error(DashError.friendly(anyError.error, "Some counts couldn't be loaded."));
     }
+
+    renderRecentActivity();
+  }
+
+  async function renderRecentActivity() {
+    const panel = document.getElementById("recentActivity");
+    const { data, error } = await AdminApi.list("activity_log", "created_at", false);
+
+    if (error) {
+      panel.innerHTML = `<div class="empty-state"><i class="bi bi-exclamation-triangle" aria-hidden="true"></i>Could not load recent activity.</div>`;
+      return;
+    }
+
+    const rows = (data || []).slice(0, 8);
+    if (!rows.length) {
+      panel.innerHTML = `<div class="empty-state"><i class="bi bi-clock-history" aria-hidden="true"></i>No activity recorded yet.</div>`;
+      return;
+    }
+
+    const icons = { created: "bi-plus-circle", updated: "bi-pencil", deleted: "bi-trash3", uploaded: "bi-upload" };
+    panel.innerHTML =
+      rows
+        .map(
+          (r) => `
+      <div class="activity-item">
+        <div class="activity-icon"><i class="bi ${icons[r.action] || "bi-dot"}" aria-hidden="true"></i></div>
+        <div>
+          <div class="activity-text"><strong>${esc(r.actor_email || "Someone")}</strong> ${esc(r.action)} ${esc(r.entity || "")}${r.entity_label ? ` — "${esc(r.entity_label)}"` : ""}</div>
+          <div class="activity-time">${r.created_at ? new Date(r.created_at).toLocaleString() : ""}</div>
+        </div>
+      </div>`
+        )
+        .join("") + `<a href="activity.html" class="stat-link d-inline-block mt-2">View full log <i class="bi bi-arrow-right" aria-hidden="true"></i></a>`;
   }
 </script>
 </body>

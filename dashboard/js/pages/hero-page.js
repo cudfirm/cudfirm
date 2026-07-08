@@ -16,6 +16,7 @@
 const HeroPage = (() => {
   const TABLE = "hero";
   let trustItems = [];
+  let heroImageWidget = null;
   let isSaving = false;
 
   function markDirty() {
@@ -63,6 +64,11 @@ const HeroPage = (() => {
               <textarea class="form-control" id="f_subtitle" rows="3" maxlength="400">${esc(hero.subtitle)}</textarea>
             </div>
 
+            <div class="col-12">
+              <label class="form-label">Hero image <span class="form-hint d-inline">(optional — shown alongside the headline)</span></label>
+              <div id="heroImageMount"></div>
+            </div>
+
             <div class="col-md-6">
               <label class="form-label" for="f_cta_primary_text">Primary CTA text</label>
               <input type="text" class="form-control" id="f_cta_primary_text" maxlength="60" value="${esc(hero.cta_primary_text)}">
@@ -99,6 +105,12 @@ const HeroPage = (() => {
     `;
 
     renderTrustItems();
+    heroImageWidget = ImageField.mount(document.getElementById("heroImageMount"), {
+      value: hero.image_url,
+      category: "hero",
+      label: "Hero image",
+      onChange: markDirty,
+    });
     document.getElementById("addTrustItem").addEventListener("click", () => {
       trustItems.push({ icon: "bi-check-circle-fill", label: "" });
       markDirty();
@@ -180,6 +192,7 @@ const HeroPage = (() => {
       eyebrow: document.getElementById("f_eyebrow").value,
       title: titleEl.value,
       subtitle: document.getElementById("f_subtitle").value,
+      image_url: heroImageWidget ? heroImageWidget.getValue() : "",
       cta_primary_text: document.getElementById("f_cta_primary_text").value,
       cta_primary_target: document.getElementById("f_cta_primary_target").value,
       cta_secondary_text: document.getElementById("f_cta_secondary_text").value,
@@ -199,6 +212,7 @@ const HeroPage = (() => {
 
     DashUnsaved.set(false);
     DashToast.success("Hero section updated.");
+    DashActivity.log("updated", "hero", "Hero Section");
   }
 
   return { init };

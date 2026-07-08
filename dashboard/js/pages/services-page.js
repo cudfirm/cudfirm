@@ -18,7 +18,8 @@ const ServicesPageConfig = {
   ],
   fields: [
     { key: "name", label: "Name", type: "text", required: true, maxLength: 120, placeholder: "e.g. Starter Landing Page" },
-    { key: "description", label: "Description", type: "textarea", required: true, rows: 4, maxLength: 600 },
+    { key: "icon_url", label: "Icon / image", type: "image", category: "services" },
+    { key: "description", label: "Description", type: "richtext", required: true, maxLength: 600 },
     { key: "price", label: "Price", type: "text", maxLength: 40, placeholder: "e.g. ₦50,000" },
     { key: "tags", label: "Tags (comma-separated)", type: "tags", placeholder: "#Landing, #Starter, #₦50K" },
     { key: "search_terms", label: "Search terms", type: "textarea", rows: 2, maxLength: 300, hint: "Used by the on-page search box — space-separated keywords." },

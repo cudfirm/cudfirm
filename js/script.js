@@ -221,6 +221,7 @@ function buildTab1() {
       <span class="hero-eyebrow">${hero.eyebrow}</span>
       <h1 class="hero-title">${hero.title}</h1>
       <p class="hero-sub">${hero.subtitle}</p>
+      ${hero.image_url ? `<img src="${hero.image_url}" alt="${(hero.eyebrow || 'CUDFIRM').replace(/"/g, '&quot;')}" class="hero-cms-image" loading="lazy">` : ''}
       <div class="hero-cta-row">
         <button class="btn-hero-primary" onclick="openTab(event,'${hero.cta_primary_target}')">${hero.cta_primary_text}</button>
         <button class="btn-hero-secondary" onclick="openTab(event,'${hero.cta_secondary_target}')">${hero.cta_secondary_text}</button>
@@ -374,14 +375,14 @@ function buildTab3() {
   const cmsServices = window.CMS && Array.isArray(window.CMS.services) ? window.CMS.services : null;
   const items = (cmsServices && cmsServices.length)
     ? cmsServices.map(s => ({
-        icon: s.name, desc: s.description, tags: s.tags || [],
+        icon: s.name, iconUrl: s.icon_url || null, desc: s.description, tags: s.tags || [],
         search: s.search_terms || '', price: s.price, isSpecial: !!s.is_special,
       }))
     : itemsFallback;
 
   const listItems = items.map(item => `
     <div class="list-item" data-search-text="${item.search || ''}">
-      <div class="item-icon">${item.icon}</div>
+      <div class="item-icon">${item.iconUrl ? `<img src="${item.iconUrl}" alt="" loading="lazy" class="item-icon-img">` : item.icon}</div>
       <div class="item-content d-flex justify-content-between align-items-center gap-2">
         <div>
           <h6 style="margin:0 0 0.2rem;">${item.desc}</h6>
@@ -676,7 +677,7 @@ function buildTab9() {
 
   const cmsTestimonials = window.CMS && Array.isArray(window.CMS.testimonials) ? window.CMS.testimonials : null;
   const stars = (cmsTestimonials && cmsTestimonials.length)
-    ? cmsTestimonials.map(t => ({ name: t.name, role: t.role, quote: t.quote, color: t.accent_color || '#0B3D2E', isPlaceholder: !!t.is_placeholder }))
+    ? cmsTestimonials.map(t => ({ name: t.name, role: t.role, quote: t.quote, color: t.accent_color || '#0B3D2E', isPlaceholder: !!t.is_placeholder, avatarUrl: t.avatar_url || null }))
     : starsFallback.map(s => ({ ...s, isPlaceholder: true }));
 
   const allPlaceholder = stars.every(s => s.isPlaceholder);
@@ -699,7 +700,9 @@ function buildTab9() {
         <div class="col-12 col-md-6">
           <div class="card p-4 testimonial-placeholder-card">
             ${s.isPlaceholder ? `<div class="testimonial-placeholder-badge" aria-label="Illustrative example">Illustrative</div>` : ''}
-            <div style="width:44px;height:44px;border-radius:50%;background:${s.color};color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:0.75rem;">${s.name[0]}</div>
+            ${s.avatarUrl
+              ? `<img src="${s.avatarUrl}" alt="" loading="lazy" style="width:44px;height:44px;border-radius:50%;object-fit:cover;margin-bottom:0.75rem;">`
+              : `<div style="width:44px;height:44px;border-radius:50%;background:${s.color};color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:0.75rem;">${s.name[0]}</div>`}
             <p style="font-size:0.85rem;font-style:italic;color:var(--text-color);margin-bottom:0.75rem;">"<em>${s.quote}</em>"</p>
             <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;color:${s.color};">${s.name}</div>
             <div style="font-size:0.72rem;color:var(--n-muted);">${s.role}</div>
@@ -1456,6 +1459,7 @@ function sendToAdmin() {
   if (!validateForm()) return;
   const { name, contactInfo, message } = getFormValues();
   submitToGoogleSheets(name, contactInfo, message);
+  submitEnquiryToSupabase(name, contactInfo, message);
   showToast('Request sent ✓ We\'ll reply within 24 hours!');
   setTimeout(() => { window.location.href = 'success.html'; }, 1500);
 }
@@ -1463,7 +1467,9 @@ function sendToAdmin() {
 function sendToWhatsAppWithForm() {
   if (!validateForm()) return;
   const { name, contactInfo, message } = getFormValues();
-  const yourNumber = '+2348028699824';
+  submitEnquiryToSupabase(name, contactInfo, message);
+  const s = window.CMS && window.CMS.siteSettings;
+  const yourNumber = (s && s.whatsapp ? s.whatsapp : '+2348028699824').replace(/[^\d+]/g, '');
   const text = `Hello CUDFIRM,\n\nName: ${name}\nContact: ${contactInfo}\n\nMessage:\n${message}`;
   window.open(`https://wa.me/${yourNumber}?text=${encodeURIComponent(text)}`, '_blank');
 }
@@ -1471,6 +1477,7 @@ function sendToWhatsAppWithForm() {
 function sendToEmail() {
   if (!validateForm()) return;
   const { name, contactInfo, message } = getFormValues();
+  submitEnquiryToSupabase(name, contactInfo, message);
   const subject = encodeURIComponent('Website Quote Request — CUDFIRM');
   const body = encodeURIComponent(`Name: ${name}\nContact Info: ${contactInfo}\n\nMessage:\n${message}`);
   window.location.href = `mailto:info@cudfirm.com?subject=${subject}&body=${body}`;
@@ -1498,6 +1505,198 @@ function submitToGoogleSheets(name, contactInfo, message) {
   formData.append('timestamp', new Date().toISOString());
   fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: formData })
     .catch(err => console.warn('Google Sheets submission failed:', err));
+}
+
+// =============================================
+// SUPABASE ENQUIRY STORAGE (Phase 3)
+// Powers the Messages page in /dashboard. RLS on the `messages`
+// table only allows INSERT from the public (anon) key — reading,
+// updating, and deleting requires an authenticated admin session.
+// Fire-and-forget: a failure here must never block the visitor's
+// WhatsApp/email/Google-Sheets submission, which is why every path
+// above calls this alongside its existing behavior rather than
+// instead of it.
+// =============================================
+function submitEnquiryToSupabase(name, contactInfo, message) {
+  if (typeof supabaseClient === 'undefined') return;
+  supabaseClient
+    .from('messages')
+    .insert({ name, contact_info: contactInfo, message })
+    .then(({ error }) => {
+      if (error) console.warn('[messages] Supabase submission failed:', error.message);
+    });
+}
+
+// =============================================
+// SITE SETTINGS (Phase 3)
+// Patches footer copy/tagline, social links, and adds a newsletter
+// signup form to each of the page's footer instances. Runs once,
+// after buildAllSections() — it only ever PATCHES existing elements
+// or appends a new form; it never replaces the footer markup itself,
+// so if siteSettings comes back null (Supabase down, not configured
+// yet) the page is byte-for-byte what it was before this feature
+// existed.
+// =============================================
+function applySiteSettings() {
+  const s = window.CMS && window.CMS.siteSettings;
+  if (!s) return;
+
+  if (s.copyright_text) {
+    document.querySelectorAll('.footer-copy').forEach(el => { el.textContent = s.copyright_text; });
+  }
+  if (s.footer_text) {
+    document.querySelectorAll('.footer-tagline').forEach(el => { el.textContent = s.footer_text; });
+  }
+  if (s.favicon_url) {
+    const favicon = document.getElementById('siteFavicon');
+    if (favicon) favicon.href = s.favicon_url;
+  }
+  if (s.email) {
+    document.querySelectorAll('a[href^="mailto:info@cudfirm.com"]').forEach(a => {
+      a.href = `mailto:${s.email}`;
+      if (a.textContent.trim() === 'info@cudfirm.com') a.textContent = s.email;
+    });
+  }
+  if (s.phone) {
+    document.querySelectorAll('a[href^="tel:+2349056317709"]').forEach(a => {
+      a.href = `tel:${s.phone.replace(/[^\d+]/g, '')}`;
+    });
+  }
+
+  if (Array.isArray(s.social_links) && s.social_links.length) {
+    const byPlatform = {};
+    s.social_links.forEach(l => { if (l && l.platform && l.url) byPlatform[l.platform] = l.url; });
+    document.querySelectorAll('.icons-social__link').forEach(a => {
+      const iconEl = a.querySelector('i');
+      const cls = iconEl ? iconEl.className : '';
+      Object.keys(byPlatform).forEach(platform => {
+        if (cls.includes(platform)) a.href = byPlatform[platform];
+      });
+    });
+  }
+
+  document.querySelectorAll('.footin').forEach((footer, idx) => {
+    if (footer.querySelector('.newsletter-form')) return;
+    const form = document.createElement('form');
+    form.className = 'newsletter-form';
+    form.setAttribute('aria-label', 'Subscribe to our newsletter');
+    form.innerHTML = `
+      <label for="newsletterEmail${idx}" class="newsletter-label">Get occasional tips &amp; offers</label>
+      <div class="newsletter-row">
+        <input type="email" id="newsletterEmail${idx}" class="newsletter-input" placeholder="you@email.com" required aria-required="true" autocomplete="email">
+        <button type="submit" class="newsletter-btn">Subscribe</button>
+      </div>
+      <div class="newsletter-msg" role="status" aria-live="polite"></div>
+    `;
+    form.addEventListener('submit', onNewsletterSubmit);
+    const copyEl = footer.querySelector('.footer-copy');
+    if (copyEl && copyEl.parentNode) {
+      copyEl.parentNode.insertBefore(form, copyEl);
+    } else {
+      footer.appendChild(form);
+    }
+  });
+
+  loadAnalytics(s);
+}
+
+/**
+ * Injects Google Analytics (gtag.js) and/or the Meta Pixel — but only
+ * when an admin has actually entered an ID in Site Settings. No IDs
+ * set (the default for every existing install) means no tracking
+ * scripts are added at all, identical to today's behavior. Guarded
+ * against double-injection if applySiteSettings() were ever called
+ * twice on the same page load.
+ */
+function loadAnalytics(s) {
+  if (s.ga_id && !document.getElementById('ga-gtag-script')) {
+    const script1 = document.createElement('script');
+    script1.id = 'ga-gtag-script';
+    script1.async = true;
+    script1.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(s.ga_id)}`;
+    document.head.appendChild(script1);
+
+    const script2 = document.createElement('script');
+    script2.id = 'ga-gtag-init';
+    script2.textContent = `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${s.ga_id}');`;
+    document.head.appendChild(script2);
+  }
+
+  if (s.fb_pixel_id && !document.getElementById('meta-pixel-init')) {
+    const script = document.createElement('script');
+    script.id = 'meta-pixel-init';
+    script.textContent = `!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', '${s.fb_pixel_id}');fbq('track', 'PageView');`;
+    document.head.appendChild(script);
+  }
+}
+
+function onNewsletterSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const input = form.querySelector('input[type="email"]');
+  const msg = form.querySelector('.newsletter-msg');
+  const btn = form.querySelector('button');
+  const email = (input.value || '').trim();
+  if (!email) return;
+
+  btn.disabled = true;
+  msg.textContent = '';
+  submitNewsletterSignup(email).then(ok => {
+    btn.disabled = false;
+    if (ok) {
+      msg.textContent = "You're subscribed — thank you! 🎉";
+      form.reset();
+    } else {
+      msg.textContent = 'Something went wrong. Please try again.';
+    }
+  });
+}
+
+function submitNewsletterSignup(email) {
+  if (typeof supabaseClient === 'undefined') return Promise.resolve(false);
+  return supabaseClient
+    .from('subscribers')
+    .insert({ email })
+    .then(({ error }) => {
+      if (!error) return true;
+      // A duplicate email means they're already subscribed — treat
+      // that as success from the visitor's point of view.
+      if (error.message && error.message.toLowerCase().includes('duplicate')) return true;
+      console.warn('[subscribers] Supabase submission failed:', error.message);
+      return false;
+    });
+}
+
+// =============================================
+// SEO MANAGER (Phase 3)
+// Applies the "home" seo_meta row (see SEO Manager in /dashboard)
+// to the existing, already-present <head> tags. Every tag it touches
+// already exists in index.html with a sensible default — this only
+// overwrites content/href attributes, never creates new tags, so a
+// missing seo_meta row leaves the page exactly as it ships today.
+// =============================================
+function applySeoMeta() {
+  const seo = window.CMS && window.CMS.seo;
+  if (!seo) return;
+
+  if (seo.title) document.title = seo.title;
+
+  const setMeta = (selector, attr, value) => {
+    if (!value) return;
+    const el = document.querySelector(selector);
+    if (el) el.setAttribute(attr, value);
+  };
+
+  setMeta('meta[name="description"]', 'content', seo.meta_description);
+  setMeta('meta[property="og:title"]', 'content', seo.title);
+  setMeta('meta[property="og:description"]', 'content', seo.meta_description);
+  setMeta('meta[name="twitter:title"]', 'content', seo.title);
+  setMeta('meta[name="twitter:description"]', 'content', seo.meta_description);
+  setMeta('meta[name="robots"]', 'content', seo.robots);
+  setMeta('link[rel="canonical"]', 'href', seo.canonical_url);
+  if (seo.canonical_url) setMeta('meta[property="og:url"]', 'content', seo.canonical_url);
+  setMeta('meta[property="og:image"]', 'content', seo.og_image);
+  setMeta('meta[name="twitter:image"]', 'content', seo.twitter_image || seo.og_image);
 }
 
 // =============================================
@@ -1954,6 +2153,13 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   // STEP 2: Build all sections into DOM
   buildAllSections();
+
+  // STEP 2b: Patch in Site Settings (footer/contact/social/newsletter)
+  // and SEO <head> tags now that both the DOM and window.CMS exist.
+  // No-ops safely if siteSettings/seo weren't found — the page simply
+  // keeps the hardcoded defaults it already has.
+  applySiteSettings();
+  applySeoMeta();
 
   // STEP 3: Store sections for global search
   const contentMain = document.querySelector('.content-main');

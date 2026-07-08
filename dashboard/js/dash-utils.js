@@ -111,13 +111,22 @@ const DashUnsaved = (() => {
 const DashValidate = (() => {
   const UNSAFE_URL_SCHEME = /^\s*(javascript|data|vbscript):/i;
 
+  function stripTags(html) {
+    return (html || "").replace(/<[^>]*>/g, "").trim();
+  }
+
   /**
    * Validates a single field value against its config. Returns an
    * error string, or null if valid. Kept deliberately small — this
    * mirrors the handful of constraints the CMS fields actually need.
    */
   function validateField(field, value) {
-    const trimmed = typeof value === "string" ? value.trim() : value;
+    // Rich text values are HTML strings — "required"/"maxLength" need
+    // to reason about the visible text, not markup, so they match
+    // what the on-screen character counter shows and don't reject a
+    // save the admin can plainly see is within the limit.
+    const isRichText = field.type === "richtext";
+    const trimmed = isRichText ? stripTags(value) : typeof value === "string" ? value.trim() : value;
 
     if (field.required && (trimmed === "" || trimmed === null || trimmed === undefined)) {
       return `${field.label} is required.`;
@@ -140,4 +149,30 @@ const DashValidate = (() => {
   }
 
   return { validateField, UNSAFE_URL_SCHEME };
+})();
+
+/**
+ * Fire-and-forget audit trail. Every create/update/delete/upload
+ * across the dashboard calls DashActivity.log(...) after a
+ * successful write. A logging failure must never block or fail the
+ * action it's describing, so errors here only ever go to console.
+ */
+const DashActivity = (() => {
+  async function log(action, entity, entityLabel, details) {
+    try {
+      const actor = (window.dashUser && window.dashUser.email) || null;
+      const { error } = await supabaseClient.from("activity_log").insert({
+        actor_email: actor,
+        action,
+        entity,
+        entity_label: entityLabel || null,
+        details: details || null,
+      });
+      if (error) console.warn("[activity_log] not recorded:", error.message);
+    } catch (err) {
+      console.warn("[activity_log] not recorded:", err);
+    }
+  }
+
+  return { log };
 })();

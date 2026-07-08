@@ -55,9 +55,13 @@ const AdminApi = (() => {
     return safely(() => db.from(table).delete().eq("id", id));
   }
 
-  async function count(table) {
+  async function count(table, filters = {}) {
     return safely(async () => {
-      const { count, error } = await db.from(table).select("*", { count: "exact", head: true });
+      let query = db.from(table).select("*", { count: "exact", head: true });
+      Object.entries(filters).forEach(([key, value]) => {
+        query = query.eq(key, value);
+      });
+      const { count, error } = await query;
       return { count, error };
     });
   }

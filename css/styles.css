@@ -3092,3 +3092,95 @@ select:focus-visible {
 .footin {
   padding: 0.75rem 1rem;
 }
+
+/* ============================================================
+   PHASE 3 ADDITIONS
+   Every rule below styles an element that only appears when an
+   admin has actually set the corresponding field (hero image,
+   service icon, testimonial avatar, newsletter form) — none of
+   this changes anything for an install that hasn't used those
+   Phase 3 dashboard features yet.
+   ============================================================ */
+
+.hero-cms-image {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+  max-height: 280px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin: 1rem 0 0.5rem;
+  box-shadow: 0 8px 24px rgba(12, 17, 8, 0.12);
+}
+
+.item-icon-img {
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+}
+
+.newsletter-form {
+  max-width: 340px;
+  margin: 0.75rem auto 1rem;
+  text-align: center;
+}
+
+.newsletter-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--n-muted);
+  margin-bottom: 0.4rem;
+}
+
+.newsletter-row {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.newsletter-input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--background-content);
+  color: var(--text-color);
+  font-size: 0.82rem;
+}
+
+.newsletter-input:focus {
+  outline: 2px solid var(--n-gold);
+  outline-offset: 1px;
+}
+
+.newsletter-btn {
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  border: none;
+  background: var(--n-forest);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.newsletter-btn:hover { background: var(--primary-color-dark, #072A1F); }
+.newsletter-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.newsletter-msg {
+  font-size: 0.75rem;
+  margin-top: 0.4rem;
+  min-height: 1em;
+  color: var(--n-gold);
+}
+
+@media (max-width: 480px) {
+  .newsletter-row { flex-direction: column; }
+}

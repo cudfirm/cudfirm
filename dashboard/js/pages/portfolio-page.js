@@ -20,7 +20,7 @@ const PortfolioPageConfig = {
     { key: "name", label: "Project name", type: "text", required: true, maxLength: 120 },
     { key: "industry", label: "Industry", type: "text", placeholder: "e.g. Fashion & Design", maxLength: 100 },
     { key: "project_type", label: "Project type", type: "text", placeholder: "e.g. Designer Portfolio Site", maxLength: 100 },
-    { key: "image_url", label: "Image URL", type: "url", placeholder: "img/example.webp or https://…", maxLength: 500, hint: "A relative path (img/example.webp) or a full https:// URL." },
+    { key: "image_url", label: "Image", type: "image", category: "portfolio", hint: "Upload or pick from the Media Library." },
     { key: "link", label: "Link", type: "url", placeholder: "'#', an external URL, or an internal tab id", maxLength: 500 },
     { key: "problem", label: "Problem", type: "textarea", rows: 2, maxLength: 400 },
     { key: "solution", label: "Solution", type: "textarea", rows: 2, maxLength: 400 },

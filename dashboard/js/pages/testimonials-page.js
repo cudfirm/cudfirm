@@ -18,6 +18,7 @@ const TestimonialsPageConfig = {
   ],
   fields: [
     { key: "name", label: "Name", type: "text", required: true, maxLength: 100, placeholder: "e.g. Adaeze O." },
+    { key: "avatar_url", label: "Avatar", type: "image", category: "testimonials" },
     { key: "role", label: "Role", type: "text", maxLength: 120, placeholder: "e.g. Fashion Designer · Lagos" },
     { key: "quote", label: "Quote", type: "textarea", required: true, rows: 3, maxLength: 500 },
     { key: "accent_color", label: "Accent color", type: "color", default: "#0B3D2E" },
