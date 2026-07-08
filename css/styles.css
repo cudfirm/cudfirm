@@ -3147,11 +3147,12 @@ select:focus-visible {
 }
 
 @media (min-width: 768px) {
-  .hero-cms-image { max-height: 480px; }
+  .hero-cms-image { max-height: 38vh; }
 }
 @media (min-width: 1024px) {
-  .hero-cms-image { max-height: 560px; }
+  .hero-cms-image { max-height: 40vh; }
 }
+
 
 
 .item-icon-img {
