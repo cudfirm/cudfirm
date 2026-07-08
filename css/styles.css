@@ -3105,8 +3105,10 @@ select:focus-visible {
   display: block;
 
   /* Responsive sizing */
-  width: min(100%, 760px);
+  max-width: min(100%, 760px);
+  width: auto;
   height: auto;
+
 
   /* Center the image */
   margin: 2rem auto;
@@ -3144,16 +3146,13 @@ select:focus-visible {
     0 40px 80px rgba(0,0,0,.16);
 }
 
-/* THE VERSION 1.0 NOW
-.hero-cms-image{
-    display:block;
-    width:min(100%, 720px);
-    height:auto;
-    object-fit:contain;
-    margin:1.25rem auto;
-    border-radius:14px;
-    box-shadow:0 8px 24px rgba(12,17,8,.12);
-} */
+@media (min-width: 768px) {
+  .hero-cms-image { max-height: 480px; }
+}
+@media (min-width: 1024px) {
+  .hero-cms-image { max-height: 560px; }
+}
+
 
 .item-icon-img {
   width: 28px;
