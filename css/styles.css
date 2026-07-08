@@ -3105,7 +3105,7 @@ select:focus-visible {
   display: block;
 
   /* Responsive sizing */
-  max-width: min(100%, 760px);
+  max-width: min(100%, 540px);
   width: auto;
   height: auto;
 
@@ -3147,10 +3147,10 @@ select:focus-visible {
 }
 
 @media (min-width: 768px) {
-  .hero-cms-image { max-height: 38vh; }
+  .hero-cms-image { max-height: 35vh; }
 }
 @media (min-width: 1024px) {
-  .hero-cms-image { max-height: 40vh; }
+  .hero-cms-image { max-height: 37vh; }
 }
 
 
