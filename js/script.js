@@ -1461,7 +1461,7 @@ function sendToAdmin() {
   submitToGoogleSheets(name, contactInfo, message);
   submitEnquiryToSupabase(name, contactInfo, message);
   showToast('Request sent ✓ We\'ll reply within 24 hours!');
-  setTimeout(() => { window.location.href = 'success.html'; }, 1500);
+  setTimeout(() => { window.location.href = 'thank-you.html'; }, 1500);
 }
 
 function sendToWhatsAppWithForm() {
@@ -2170,13 +2170,20 @@ document.addEventListener('DOMContentLoaded', async function () {
   // STEP 4: Open Home first
   openTab(null, 'tab1');
 
-  // STEP 5: Restore last visited tab
-  try {
-    const saved = localStorage.getItem('cudfirm_last_tab');
-    if (saved && saved !== 'tab1' && document.getElementById(saved)) {
-      setTimeout(() => openTab(null, saved), 60);
-    }
-  } catch(e) {}
+  // STEP 5: Open tab requested via URL hash (e.g. index.html#tab3,
+  // used by thank-you.html's navigation buttons); otherwise restore
+  // the last visited tab as before.
+  const hashTab = location.hash ? location.hash.slice(1) : '';
+  if (hashTab && document.getElementById(hashTab)) {
+    setTimeout(() => openTab(null, hashTab), 60);
+  } else {
+    try {
+      const saved = localStorage.getItem('cudfirm_last_tab');
+      if (saved && saved !== 'tab1' && document.getElementById(saved)) {
+        setTimeout(() => openTab(null, saved), 60);
+      }
+    } catch(e) {}
+  }
 
   // STEP 6: Global Search
   const searchIcon = document.getElementById('searchIcon');

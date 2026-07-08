@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" />
+  <title>Thank You — CUDFIRM</title>
+  <meta name="description" content="Thank you for reaching out to CUDFIRM. We've received your enquiry and will be in touch within 24 hours." />
+  <meta name="robots" content="noindex, follow" />
+
+  <link rel="icon" type="image/webp" href="img/cudfirm.webp" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" />
+
+  <!-- Reuses the main site's brand tokens, hero gradient, and button
+       styles (.home-hero, .hero-eyebrow/.hero-title/.hero-sub,
+       .btn-hero-primary/.btn-hero-secondary) so this page matches the
+       CUDFIRM design without duplicating it. -->
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <style>
+    /* Page-local layout only — everything else comes from styles.css.
+       index.html's body is a fixed-height app shell (overflow:hidden);
+       this is a plain scrolling page, so that's overridden here only. */
+    body {
+      overflow: auto;
+      height: auto;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ty-hero {
+      text-align: center;
+      padding: 3rem 1.25rem 2.5rem;
+    }
+    .ty-hero .hero-sub { margin-left: auto; margin-right: auto; max-width: 480px; }
+
+    .ty-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--n-gold);
+      color: var(--n-charcoal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 1.25rem;
+      box-shadow: 0 6px 20px rgba(200, 146, 42, 0.4);
+    }
+
+    .ty-hero .hero-title { font-size: 2rem; }
+
+    .ty-body {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 2rem 1.25rem 3rem;
+      background: var(--background-main);
+    }
+
+    .ty-card {
+      max-width: 640px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .ty-note {
+      color: var(--text-color);
+      opacity: 0.75;
+      font-size: 0.92rem;
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+
+    .ty-nav-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .ty-nav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 1rem 0.75rem;
+      border-radius: 14px;
+      border: 1px solid var(--border-color);
+      background: var(--background-content);
+      color: var(--text-color);
+      text-decoration: none;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+    .ty-nav-btn i {
+      font-size: 1.3rem;
+      color: var(--n-gold);
+    }
+    .ty-nav-btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--n-gold);
+      box-shadow: 0 8px 20px rgba(12, 17, 8, 0.1);
+      color: var(--text-color);
+    }
+
+    .ty-footer {
+      text-align: center;
+      padding: 1.25rem;
+      font-size: 0.75rem;
+      color: var(--text-color);
+      opacity: 0.55;
+    }
+
+    @media (max-width: 480px) {
+      .ty-nav-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+      .ty-hero .hero-title { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="home-hero ty-hero">
+    <div class="ty-icon" aria-hidden="true"><i class="bi bi-check-lg"></i></div>
+    <span class="hero-eyebrow">Enquiry Received</span>
+    <h1 class="hero-title">Thank you!</h1>
+    <p class="hero-sub">
+      Your message has been received and logged with our team. We reply to every
+      enquiry within 24 hours — keep an eye on your inbox or WhatsApp.
+    </p>
+  </section>
+
+  <main class="ty-body">
+    <div class="ty-card">
+      <p class="ty-note">
+        In the meantime, feel free to explore more of what CUDFIRM can build for you.
+      </p>
+
+      <nav class="ty-nav-grid" aria-label="Continue exploring the CUDFIRM site">
+        <a class="ty-nav-btn" href="index.html">
+          <i class="bi bi-house-door" aria-hidden="true"></i> Home
+        </a>
+        <a class="ty-nav-btn" href="index.html#tab3">
+          <i class="bi bi-grid-3x3-gap" aria-hidden="true"></i> Services
+        </a>
+        <a class="ty-nav-btn" href="index.html#tab4">
+          <i class="bi bi-briefcase" aria-hidden="true"></i> Portfolio
+        </a>
+        <a class="ty-nav-btn" href="index.html#connect-content">
+          <i class="bi bi-chat-dots" aria-hidden="true"></i> Contact
+        </a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="ty-footer">
+    &copy; 2026 CUDFIRM &middot; Professional Web Design Studio &middot; Lagos, Nigeria
+  </footer>
+
+</body>
+</html>
