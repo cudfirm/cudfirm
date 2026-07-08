@@ -221,7 +221,7 @@ function buildTab1() {
       <span class="hero-eyebrow">${hero.eyebrow}</span>
       <h1 class="hero-title">${hero.title}</h1>
       <p class="hero-sub">${hero.subtitle}</p>
-      ${hero.image_url ? `<img src="${hero.image_url}" alt="${(hero.eyebrow || 'CUDFIRM').replace(/"/g, '&quot;')}" class="hero-cms-image" loading="lazy">` : ''}
+      ${hero.image_url ? `<img src="${hero.image_url}" alt="${(hero.eyebrow || 'CUDFIRM').replace(/"/g, '&quot;')}" class="hero-cms-image" loading="lazy" onclick="openLightbox(this.src, this.alt, null)">` : ''}
       <div class="hero-cta-row">
         <button class="btn-hero-primary" onclick="openTab(event,'${hero.cta_primary_target}')">${hero.cta_primary_text}</button>
         <button class="btn-hero-secondary" onclick="openTab(event,'${hero.cta_secondary_target}')">${hero.cta_secondary_text}</button>
