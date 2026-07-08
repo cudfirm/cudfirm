@@ -3104,6 +3104,18 @@ select:focus-visible {
 
 .hero-cms-image {
   display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 14px;
+  margin: 1rem 0 0.5rem;
+  box-shadow: 0 8px 24px rgba(12, 17, 8, 0.12);
+}
+
+/* OLD HERO IMAGE
+.hero-cms-image {
+  display: block;
   max-width: 100%;
   width: 100%;
   max-height: 280px;
@@ -3111,18 +3123,20 @@ select:focus-visible {
   border-radius: 14px;
   margin: 1rem 0 0.5rem;
   box-shadow: 0 8px 24px rgba(12, 17, 8, 0.12);
-}
+} */
 
 /* Phase 3.1 hotfix: mobile's 280px cap looks correct there, but the
    same fixed height crops far more of the image once the hero grows
    wider on tablet/desktop. Raise the cap at those breakpoints only —
    nothing else about the rule changes. */
+
+/* REMOVING THE MEDIA SECTION FOR HERO IMAGE
 @media (min-width: 768px) {
   .hero-cms-image { max-height: 420px; }
 }
 @media (min-width: 1024px) {
   .hero-cms-image { max-height: 480px; }
-}
+} */
 
 .item-icon-img {
   width: 28px;
