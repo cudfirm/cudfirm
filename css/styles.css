@@ -3101,18 +3101,17 @@ select:focus-visible {
    this changes anything for an install that hasn't used those
    Phase 3 dashboard features yet.
    ============================================================ */
-/* WORKING HERO IMAGE 1.0
-.hero-cms-image {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-width: 100%;
-  object-fit: contain;
-  border-radius: 14px;
-  margin: 1rem 0 0.5rem;
-  box-shadow: 0 8px 24px rgba(12, 17, 8, 0.12);
+
+.hero-cms-image{
+    display:block;
+    width:min(100%, 720px);
+    height:auto;
+    object-fit:contain;
+    margin:1.25rem auto;
+    border-radius:14px;
+    box-shadow:0 8px 24px rgba(12,17,8,.12);
 }
-*/
+/*
 .hero-cms-image {
   display: block;
   width: 100%;
@@ -3134,7 +3133,7 @@ select:focus-visible {
   .hero-cms-image {
     max-width: 900px;
   }
-}
+} */
 
 .item-icon-img {
   width: 28px;
