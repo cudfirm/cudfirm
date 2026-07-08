@@ -3105,7 +3105,7 @@ select:focus-visible {
   display: block;
 
   /* Responsive sizing */
-  width: min(100%, 760px);
+  width: min(100%, 840px);
   height: auto;
 
   /* Center the image */
