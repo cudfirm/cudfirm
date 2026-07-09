@@ -3110,8 +3110,10 @@ select:focus-visible {
   height: auto;
 
 
-  /* Center the image */
-  margin: 2rem auto;
+  /* Vertical spacing only — horizontal centering now lives on
+     .hero-cms-image-wrap below, so the wrapper can shrink-wrap
+     tightly around the image for the "Click to enlarge" overlay */
+  margin: 2rem 0;
 
   /* Keep the whole image visible */
   object-fit: contain;
@@ -3162,6 +3164,40 @@ select:focus-visible {
   }
 }
 
+/* Positioning wrapper for the "Click to enlarge" hint below.
+   width: fit-content shrink-wraps it exactly to the image's
+   rendered box (padding/border/shadow included) at every
+   breakpoint, and margin: 0 auto re-centers it — replacing the
+   horizontal centering that used to live on .hero-cms-image itself. */
+.hero-cms-image-wrap {
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
+  position: relative;
+}
+
+.hero-cms-image-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 24px; /* sits inside the image's own padding, not on the white card border */
+  transform: translateX(-50%) translateY(6px);
+  background: rgba(11, 61, 46, 0.82); /* --n-forest at reduced opacity */
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 6px 14px;
+  border-radius: 999px;
+  opacity: 0;
+  pointer-events: none; /* never intercepts the click — the image's own onclick still fires */
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.hero-cms-image-wrap:hover .hero-cms-image-hint {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
 
 
 
