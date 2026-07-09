@@ -9,6 +9,7 @@ const FaqPageConfig = {
   hint: "Questions and answers shown on the FAQ tab.",
   orderCol: "sort_order",
   deleteLabelField: "question",
+  searchFields: ["question", "answer"],
   columns: [
     { key: "question", label: "Question", primary: true },
     { key: "answer", label: "Answer" },

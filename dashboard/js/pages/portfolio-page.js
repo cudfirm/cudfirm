@@ -9,6 +9,18 @@ const PortfolioPageConfig = {
   hint: "These populate the Portfolio tab and the homepage preview grid.",
   orderCol: "sort_order",
   deleteLabelField: "name",
+  searchFields: ["name", "industry", "project_type", "problem", "solution", "tags"],
+  filters: [
+    { key: "industry", label: "Industry", dynamic: true },
+    {
+      key: "is_active",
+      label: "Status",
+      options: [
+        { value: "true", label: "Active" },
+        { value: "false", label: "Hidden" },
+      ],
+    },
+  ],
   columns: [
     { key: "name", label: "Project", primary: true },
     { key: "industry", label: "Industry" },

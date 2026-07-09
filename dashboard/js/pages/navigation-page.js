@@ -15,6 +15,7 @@ const NavigationPageConfig = {
   hint: "Controls the sidebar and footer tabs/links on the live site.",
   orderCol: "sort_order",
   deleteLabelField: "label",
+  searchFields: ["label", "tab_id", "badge"],
   columns: [
     { key: "label", label: "Label", primary: true },
     { key: "tab_id", label: "Tab ID" },

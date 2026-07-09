@@ -9,6 +9,17 @@ const TestimonialsPageConfig = {
   hint: "Client quotes shown on the Testimonials tab.",
   orderCol: "sort_order",
   deleteLabelField: "name",
+  searchFields: ["name", "role", "quote"],
+  filters: [
+    {
+      key: "is_active",
+      label: "Status",
+      options: [
+        { value: "true", label: "Active" },
+        { value: "false", label: "Hidden" },
+      ],
+    },
+  ],
   columns: [
     { key: "name", label: "Name", primary: true },
     { key: "role", label: "Role" },

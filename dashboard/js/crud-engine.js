@@ -24,6 +24,14 @@
  *    Save button guards against double submission.
  *  - Inline field validation (required / maxLength / numeric / unsafe
  *    URL schemes) runs before any network call.
+ *
+ * Phase 4.1 addition:
+ *  - Search/filter/sort toolbar, delegated entirely to the reusable
+ *    DashListControls module (list-controls.js). CrudEngine just
+ *    owns the small `listState` object and asks DashListControls to
+ *    render the toolbar and to filter/sort `rows` before display —
+ *    no new Supabase requests, no change to how rows are fetched,
+ *    saved, or reordered.
  * ------------------------------------------------------------------
  */
 
@@ -34,6 +42,7 @@ const CrudEngine = (() => {
   let deletingId = null;
   let isSaving = false;
   let isDeleting = false;
+  let listState = DashListControls.defaultState();
 
   function tagsToText(val) {
     if (Array.isArray(val)) return val.join(", ");
@@ -50,6 +59,7 @@ const CrudEngine = (() => {
   async function init(config) {
     cfg = config;
     rows = [];
+    listState = DashListControls.defaultState();
     renderToolbar();
     renderModalShell();
     await reload();
@@ -65,11 +75,49 @@ const CrudEngine = (() => {
           <i class="bi bi-plus-lg" aria-hidden="true"></i> Add ${esc(cfg.singularLabel || cfg.title)}
         </button>
       </div>
+      <div id="crudFiltersBarWrap"></div>
       <div class="table-card">
         <div id="crudTableWrap" aria-live="polite"></div>
       </div>
     `;
     document.getElementById("btnAddNew").addEventListener("click", () => openForm(null));
+  }
+
+  /**
+   * Renders the search/filter/sort toolbar (once rows are loaded, so
+   * any "dynamic" filter — e.g. Portfolio's Industry — has real
+   * values to build its options from) and wires its controls. Called
+   * once from reload(); never re-rendered afterward, so the search
+   * box keeps focus/cursor position across saves, deletes, and
+   * reorders (those only call renderTable()).
+   */
+  function renderFiltersBar() {
+    const wrap = document.getElementById("crudFiltersBarWrap");
+    if (!wrap) return;
+    wrap.innerHTML = DashListControls.renderHtml(cfg, listState, rows);
+
+    const searchInput = document.getElementById("listSearchInput");
+    if (searchInput) {
+      searchInput.addEventListener("input", (e) => {
+        listState.search = e.target.value;
+        renderTable();
+      });
+    }
+
+    wrap.querySelectorAll("[data-filter-key]").forEach((select) => {
+      select.addEventListener("change", (e) => {
+        listState.filters[e.target.dataset.filterKey] = e.target.value;
+        renderTable();
+      });
+    });
+
+    const sortSelect = document.getElementById("listSortSelect");
+    if (sortSelect) {
+      sortSelect.addEventListener("change", (e) => {
+        listState.sort = e.target.value;
+        renderTable();
+      });
+    }
   }
 
   function renderModalShell() {
@@ -157,6 +205,7 @@ const CrudEngine = (() => {
       return;
     }
     rows = data || [];
+    renderFiltersBar();
     renderTable();
   }
 
@@ -166,7 +215,10 @@ const CrudEngine = (() => {
 
   function renderTable() {
     const wrap = document.getElementById("crudTableWrap");
+    const countEl = document.getElementById("crudResultsCount");
+
     if (!rows.length) {
+      if (countEl) countEl.textContent = "";
       wrap.innerHTML = `
         <div class="empty-state">
           <i class="bi bi-inbox" aria-hidden="true"></i>
@@ -181,8 +233,32 @@ const CrudEngine = (() => {
       return;
     }
 
+    const visibleRows = DashListControls.apply(rows, cfg, listState);
+    const defaultView = DashListControls.isDefaultView(listState);
+
+    if (countEl) {
+      countEl.textContent = defaultView ? "" : `Showing ${visibleRows.length} of ${rows.length}`;
+    }
+
+    if (!visibleRows.length) {
+      wrap.innerHTML = `
+        <div class="empty-state">
+          <i class="bi bi-search" aria-hidden="true"></i>
+          No ${esc(cfg.title.toLowerCase())} match your search or filters.
+          <div class="mt-3">
+            <button class="btn btn-light" id="btnClearFilters" type="button">Clear search &amp; filters</button>
+          </div>
+        </div>`;
+      document.getElementById("btnClearFilters").addEventListener("click", () => {
+        listState = DashListControls.defaultState();
+        renderFiltersBar();
+        renderTable();
+      });
+      return;
+    }
+
     const headCells = cfg.columns.map((c) => `<th scope="col">${esc(c.label)}</th>`).join("");
-    const bodyRows = rows
+    const bodyRows = visibleRows
       .map((row, idx) => {
         const cells = cfg.columns
           .map((c) => {
@@ -200,7 +276,7 @@ const CrudEngine = (() => {
           .join("");
 
         const itemLabel = esc(row[cfg.deleteLabelField || cfg.columns[0].key] || `#${row.id}`);
-        const canReorder = cfg.orderable !== false;
+        const canReorder = cfg.orderable !== false && defaultView;
         return `
           <tr data-id="${row.id}">
             ${cells}
@@ -209,7 +285,7 @@ const CrudEngine = (() => {
                 ${
                   canReorder
                     ? `<button class="btn" data-action="up" aria-label="Move ${itemLabel} up" ${idx === 0 ? "disabled" : ""}><i class="bi bi-arrow-up" aria-hidden="true"></i></button>
-                       <button class="btn" data-action="down" aria-label="Move ${itemLabel} down" ${idx === rows.length - 1 ? "disabled" : ""}><i class="bi bi-arrow-down" aria-hidden="true"></i></button>`
+                       <button class="btn" data-action="down" aria-label="Move ${itemLabel} down" ${idx === visibleRows.length - 1 ? "disabled" : ""}><i class="bi bi-arrow-down" aria-hidden="true"></i></button>`
                     : ""
                 }
                 <button class="btn" data-action="edit" aria-label="Edit ${itemLabel}"><i class="bi bi-pencil" aria-hidden="true"></i></button>
@@ -220,7 +296,13 @@ const CrudEngine = (() => {
       })
       .join("");
 
+    const reorderHint =
+      cfg.orderable !== false && !defaultView
+        ? `<div class="form-hint mb-2">Switch to Manual Order with no search or filters active to drag-reorder items.</div>`
+        : "";
+
     wrap.innerHTML = `
+      ${reorderHint}
       <div class="table-responsive-x">
         <table class="dash-table">
           <thead><tr>${headCells}<th scope="col" style="width:1%">Actions</th></tr></thead>

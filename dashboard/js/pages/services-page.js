@@ -9,6 +9,17 @@ const ServicesPageConfig = {
   hint: "These power the pricing cards on the Services tab of the live site.",
   orderCol: "sort_order",
   deleteLabelField: "name",
+  searchFields: ["name", "description", "price", "tags", "search_terms"],
+  filters: [
+    {
+      key: "is_active",
+      label: "Status",
+      options: [
+        { value: "true", label: "Active" },
+        { value: "false", label: "Hidden" },
+      ],
+    },
+  ],
   columns: [
     { key: "name", label: "Name", primary: true },
     { key: "price", label: "Price" },
