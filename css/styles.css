@@ -3147,11 +3147,21 @@ select:focus-visible {
 }
 
 @media (min-width: 768px) {
-  .hero-cms-image { max-height: 35vh; }
+  .hero-cms-image {
+    width: min(50vw, 480px);
+    height: 30vh;
+    object-fit: cover;
+  }
 }
+
 @media (min-width: 1024px) {
-  .hero-cms-image { max-height: 37vh; }
+  .hero-cms-image {
+    width: min(50vw, 560px);
+    height: 32vh;
+    object-fit: cover;
+  }
 }
+
 
 
 
