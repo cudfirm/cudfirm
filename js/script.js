@@ -264,25 +264,28 @@ function buildTab1() {
         </div>
       </div>
 
-      <!-- Portfolio Highlights -->
-      <div class="card card-section mb-3">
-        <div class="card-header">
-          <h3><i class="bi bi-laptop me-1" style="color:var(--n-gold)"></i>Recent Work</h3>
-          <button class="btn btn-sm btn-success see-all" onclick="openTab(event,'tab4')">View All</button>
+      <!-- Recent Work + Services: stacked on phones, side by side from tablet upward -->
+      <div class="home-showcase-grid mb-3">
+        <!-- Portfolio Highlights -->
+        <div class="card card-section">
+          <div class="card-header">
+            <h3><i class="bi bi-laptop me-1" style="color:var(--n-gold)"></i>Recent Work</h3>
+            <button class="btn btn-sm btn-success see-all" onclick="openTab(event,'tab4')">View All</button>
+          </div>
+          <div class="card-content row icon-grid row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-7 row-cols-xl-9 quote0">
+            ${gridItems(portfolio)}
+          </div>
         </div>
-        <div class="card-content row icon-grid row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-7 row-cols-xl-9 quote0">
-          ${gridItems(portfolio)}
-        </div>
-      </div>
 
-      <!-- Services -->
-      <div class="card card-section mb-3">
-        <div class="card-header">
-          <h3><i class="bi bi-briefcase me-1" style="color:var(--n-gold)"></i>What We Build</h3>
-          <button class="btn btn-sm btn-primary see-all" onclick="openTab(event,'tab3')">View All</button>
-        </div>
-        <div class="card-content row icon-grid row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-7 row-cols-xl-9 quote0">
-          ${gridItems(services)}
+        <!-- Services -->
+        <div class="card card-section">
+          <div class="card-header">
+            <h3><i class="bi bi-briefcase me-1" style="color:var(--n-gold)"></i>What We Build</h3>
+            <button class="btn btn-sm btn-primary see-all" onclick="openTab(event,'tab3')">View All</button>
+          </div>
+          <div class="card-content row icon-grid row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-7 row-cols-xl-9 quote0">
+            ${gridItems(services)}
+          </div>
         </div>
       </div>
     </div>

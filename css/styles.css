@@ -3272,3 +3272,46 @@ select:focus-visible {
 @media (max-width: 480px) {
   .newsletter-row { flex-direction: column; }
 }
+
+/* ============================================
+   HOME SHOWCASE — Recent Work + What We Build
+   Phones remain stacked; tablets and larger use two balanced columns.
+   ============================================ */
+.home-showcase-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.home-showcase-grid > .card-section {
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .home-showcase-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+    align-items: stretch;
+  }
+
+  .home-showcase-grid > .card-section {
+    height: 100%;
+  }
+
+  /* Keep each half-width card readable instead of inheriting the
+     much denser full-page Bootstrap column counts. */
+  .home-showcase-grid .icon-grid > * {
+    flex: 0 0 33.333333%;
+    width: 33.333333%;
+    max-width: 33.333333%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .home-showcase-grid .icon-grid > * {
+    flex-basis: 25%;
+    width: 25%;
+    max-width: 25%;
+  }
+}
