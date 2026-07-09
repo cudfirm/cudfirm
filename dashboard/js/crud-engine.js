@@ -34,6 +34,10 @@
  *    current page and page size live in `listState`; page navigation
  *    only slices the already-loaded rows and makes no new Supabase
  *    requests.
+ *
+ * Phase 4.4 addition:
+ *  - Drag-and-drop manual ordering in the default list view. Existing
+ *    up/down buttons remain as keyboard, touch and cross-page fallback.
  * ------------------------------------------------------------------
  */
 
@@ -48,6 +52,8 @@ const CrudEngine = (() => {
   let bulkDeleteIds = [];
   let selectedIds = new Set();
   let listState = DashListControls.defaultState();
+  let draggedId = null;
+  let isReordering = false;
 
   function tagsToText(val) {
     if (Array.isArray(val)) return val.join(", ");
@@ -67,6 +73,8 @@ const CrudEngine = (() => {
     selectedIds = new Set();
     bulkDeleteIds = [];
     listState = DashListControls.defaultState();
+    draggedId = null;
+    isReordering = false;
     renderToolbar();
     renderModalShell();
     await reload();
@@ -332,7 +340,7 @@ const CrudEngine = (() => {
         const canReorder = cfg.orderable !== false && defaultView;
         const fullIndex = rows.findIndex((candidate) => candidate.id === row.id);
         return `
-          <tr data-id="${row.id}" class="${selectedIds.has(row.id) ? "is-selected" : ""}">
+          <tr data-id="${row.id}" class="${selectedIds.has(row.id) ? "is-selected" : ""}${canReorder ? " is-draggable" : ""}">
             <td class="col-select">
               <input class="form-check-input crud-row-select" type="checkbox" data-select-id="${row.id}" aria-label="Select ${itemLabel}" ${selectedIds.has(row.id) ? "checked" : ""}>
             </td>
@@ -341,8 +349,9 @@ const CrudEngine = (() => {
               <div class="row-actions">
                 ${
                   canReorder
-                    ? `<button class="btn" data-action="up" aria-label="Move ${itemLabel} up" ${fullIndex === 0 ? "disabled" : ""}><i class="bi bi-arrow-up" aria-hidden="true"></i></button>
-                       <button class="btn" data-action="down" aria-label="Move ${itemLabel} down" ${fullIndex === rows.length - 1 ? "disabled" : ""}><i class="bi bi-arrow-down" aria-hidden="true"></i></button>`
+                    ? `<button class="btn crud-drag-handle" type="button" draggable="true" data-drag-id="${row.id}" aria-label="Drag ${itemLabel} to reorder" title="Drag to reorder"><i class="bi bi-grip-vertical" aria-hidden="true"></i></button>
+                       <button class="btn" data-action="up" aria-label="Move ${itemLabel} up" ${fullIndex === 0 || isReordering ? "disabled" : ""}><i class="bi bi-arrow-up" aria-hidden="true"></i></button>
+                       <button class="btn" data-action="down" aria-label="Move ${itemLabel} down" ${fullIndex === rows.length - 1 || isReordering ? "disabled" : ""}><i class="bi bi-arrow-down" aria-hidden="true"></i></button>`
                     : ""
                 }
                 <button class="btn" data-action="edit" aria-label="Edit ${itemLabel}"><i class="bi bi-pencil" aria-hidden="true"></i></button>
@@ -356,7 +365,9 @@ const CrudEngine = (() => {
     const reorderHint =
       cfg.orderable !== false && !defaultView
         ? `<div class="form-hint mb-2">Switch to Manual Order with no search or filters active to reorder items.</div>`
-        : "";
+        : cfg.orderable !== false && defaultView
+          ? `<div class="form-hint crud-reorder-hint mb-2"><i class="bi bi-grip-vertical" aria-hidden="true"></i> Drag the handle to reorder items on this page. Use the arrow buttons for keyboard, touch, or cross-page moves.</div>`
+          : "";
 
     wrap.innerHTML = `
       ${reorderHint}
@@ -403,6 +414,10 @@ const CrudEngine = (() => {
       });
     });
 
+    if (cfg.orderable !== false && defaultView) {
+      wireDragAndDrop(wrap);
+    }
+
     const pageSizeSelect = document.getElementById("crudPageSizeSelect");
     if (pageSizeSelect) {
       pageSizeSelect.addEventListener("change", (e) => {
@@ -422,7 +437,105 @@ const CrudEngine = (() => {
     });
   }
 
+  function wireDragAndDrop(wrap) {
+    const handles = wrap.querySelectorAll("[data-drag-id]");
+    const tableRows = wrap.querySelectorAll("tr[data-id]");
+
+    handles.forEach((handle) => {
+      handle.addEventListener("dragstart", (event) => {
+        if (isReordering) {
+          event.preventDefault();
+          return;
+        }
+        draggedId = Number(handle.dataset.dragId);
+        const row = handle.closest("tr[data-id]");
+        if (row) row.classList.add("is-dragging");
+        event.dataTransfer.effectAllowed = "move";
+        event.dataTransfer.setData("text/plain", String(draggedId));
+      });
+
+      handle.addEventListener("dragend", () => {
+        draggedId = null;
+        tableRows.forEach((row) => row.classList.remove("is-dragging", "is-drag-over"));
+      });
+    });
+
+    tableRows.forEach((row) => {
+      row.addEventListener("dragover", (event) => {
+        if (!draggedId || Number(row.dataset.id) === draggedId || isReordering) return;
+        event.preventDefault();
+        event.dataTransfer.dropEffect = "move";
+        tableRows.forEach((candidate) => candidate.classList.remove("is-drag-over"));
+        row.classList.add("is-drag-over");
+      });
+
+      row.addEventListener("dragleave", (event) => {
+        if (!row.contains(event.relatedTarget)) row.classList.remove("is-drag-over");
+      });
+
+      row.addEventListener("drop", async (event) => {
+        event.preventDefault();
+        const targetId = Number(row.dataset.id);
+        row.classList.remove("is-drag-over");
+        if (!draggedId || draggedId === targetId || isReordering) return;
+        const sourceId = draggedId;
+        draggedId = null;
+        await moveItemToPosition(sourceId, targetId);
+      });
+    });
+  }
+
+  async function moveItemToPosition(sourceId, targetId) {
+    const sourceIndex = rows.findIndex((row) => row.id === sourceId);
+    const targetIndex = rows.findIndex((row) => row.id === targetId);
+    if (sourceIndex < 0 || targetIndex < 0 || sourceIndex === targetIndex) return;
+
+    const orderCol = cfg.orderCol || "sort_order";
+    const rangeStart = Math.min(sourceIndex, targetIndex);
+    const rangeEnd = Math.max(sourceIndex, targetIndex);
+    const originalRows = rows.slice();
+    const orderValues = originalRows
+      .slice(rangeStart, rangeEnd + 1)
+      .map((row, index) => row[orderCol] ?? rangeStart + index + 1);
+
+    const nextRows = rows.slice();
+    const [movedRow] = nextRows.splice(sourceIndex, 1);
+    nextRows.splice(targetIndex, 0, movedRow);
+
+    const changedRows = nextRows.slice(rangeStart, rangeEnd + 1).map((row, index) => ({
+      row,
+      nextOrder: orderValues[index],
+    }));
+
+    isReordering = true;
+    renderTable();
+
+    const results = await Promise.all(
+      changedRows.map(({ row, nextOrder }) => AdminApi.update(cfg.table, row.id, { [orderCol]: nextOrder }))
+    );
+    const failed = results.find((result) => result.error);
+
+    if (failed) {
+      rows = originalRows;
+      isReordering = false;
+      renderTable();
+      DashToast.error(DashError.friendly(failed.error, "Could not save the new order."));
+      if (DashError.isAuthExpired(failed.error)) redirectToLogin();
+      return;
+    }
+
+    changedRows.forEach(({ row, nextOrder }) => {
+      row[orderCol] = nextOrder;
+    });
+    rows = nextRows;
+    isReordering = false;
+    renderTable();
+    DashToast.success("Order updated.");
+    DashActivity.log("reordered", cfg.table, `${changedRows.length} items`);
+  }
+
   async function reorder(id, direction) {
+    if (isReordering) return;
     const idx = rows.findIndex((r) => r.id === id);
     const swapIdx = idx + direction;
     if (swapIdx < 0 || swapIdx >= rows.length) return;
