@@ -27,11 +27,13 @@
  *
  * Phase 4.1 addition:
  *  - Search/filter/sort toolbar, delegated entirely to the reusable
- *    DashListControls module (list-controls.js). CrudEngine just
- *    owns the small `listState` object and asks DashListControls to
- *    render the toolbar and to filter/sort `rows` before display —
- *    no new Supabase requests, no change to how rows are fetched,
- *    saved, or reordered.
+ *    DashListControls module (list-controls.js).
+ *
+ * Phase 4.2 addition:
+ *  - Client-side pagination layered after search/filter/sort. The
+ *    current page and page size live in `listState`; page navigation
+ *    only slices the already-loaded rows and makes no new Supabase
+ *    requests.
  * ------------------------------------------------------------------
  */
 
@@ -100,6 +102,7 @@ const CrudEngine = (() => {
     if (searchInput) {
       searchInput.addEventListener("input", (e) => {
         listState.search = e.target.value;
+        listState.page = 1;
         renderTable();
       });
     }
@@ -107,6 +110,7 @@ const CrudEngine = (() => {
     wrap.querySelectorAll("[data-filter-key]").forEach((select) => {
       select.addEventListener("change", (e) => {
         listState.filters[e.target.dataset.filterKey] = e.target.value;
+        listState.page = 1;
         renderTable();
       });
     });
@@ -115,6 +119,7 @@ const CrudEngine = (() => {
     if (sortSelect) {
       sortSelect.addEventListener("change", (e) => {
         listState.sort = e.target.value;
+        listState.page = 1;
         renderTable();
       });
     }
@@ -233,14 +238,11 @@ const CrudEngine = (() => {
       return;
     }
 
-    const visibleRows = DashListControls.apply(rows, cfg, listState);
+    const filteredRows = DashListControls.apply(rows, cfg, listState);
     const defaultView = DashListControls.isDefaultView(listState);
 
-    if (countEl) {
-      countEl.textContent = defaultView ? "" : `Showing ${visibleRows.length} of ${rows.length}`;
-    }
-
-    if (!visibleRows.length) {
+    if (!filteredRows.length) {
+      if (countEl) countEl.textContent = "No matching records";
       wrap.innerHTML = `
         <div class="empty-state">
           <i class="bi bi-search" aria-hidden="true"></i>
@@ -257,9 +259,19 @@ const CrudEngine = (() => {
       return;
     }
 
+    const pagination = DashListControls.paginate(filteredRows, listState);
+    listState.page = pagination.page;
+    listState.pageSize = pagination.pageSize;
+    const visibleRows = pagination.rows;
+
+    if (countEl) {
+      const range = `Showing ${pagination.startIndex + 1}–${pagination.endIndex} of ${pagination.totalItems}`;
+      countEl.textContent = pagination.totalItems === rows.length ? range : `${range} matching records`;
+    }
+
     const headCells = cfg.columns.map((c) => `<th scope="col">${esc(c.label)}</th>`).join("");
     const bodyRows = visibleRows
-      .map((row, idx) => {
+      .map((row) => {
         const cells = cfg.columns
           .map((c) => {
             const val = row[c.key];
@@ -277,6 +289,7 @@ const CrudEngine = (() => {
 
         const itemLabel = esc(row[cfg.deleteLabelField || cfg.columns[0].key] || `#${row.id}`);
         const canReorder = cfg.orderable !== false && defaultView;
+        const fullIndex = rows.findIndex((candidate) => candidate.id === row.id);
         return `
           <tr data-id="${row.id}">
             ${cells}
@@ -284,8 +297,8 @@ const CrudEngine = (() => {
               <div class="row-actions">
                 ${
                   canReorder
-                    ? `<button class="btn" data-action="up" aria-label="Move ${itemLabel} up" ${idx === 0 ? "disabled" : ""}><i class="bi bi-arrow-up" aria-hidden="true"></i></button>
-                       <button class="btn" data-action="down" aria-label="Move ${itemLabel} down" ${idx === visibleRows.length - 1 ? "disabled" : ""}><i class="bi bi-arrow-down" aria-hidden="true"></i></button>`
+                    ? `<button class="btn" data-action="up" aria-label="Move ${itemLabel} up" ${fullIndex === 0 ? "disabled" : ""}><i class="bi bi-arrow-up" aria-hidden="true"></i></button>
+                       <button class="btn" data-action="down" aria-label="Move ${itemLabel} down" ${fullIndex === rows.length - 1 ? "disabled" : ""}><i class="bi bi-arrow-down" aria-hidden="true"></i></button>`
                     : ""
                 }
                 <button class="btn" data-action="edit" aria-label="Edit ${itemLabel}"><i class="bi bi-pencil" aria-hidden="true"></i></button>
@@ -298,7 +311,7 @@ const CrudEngine = (() => {
 
     const reorderHint =
       cfg.orderable !== false && !defaultView
-        ? `<div class="form-hint mb-2">Switch to Manual Order with no search or filters active to drag-reorder items.</div>`
+        ? `<div class="form-hint mb-2">Switch to Manual Order with no search or filters active to reorder items.</div>`
         : "";
 
     wrap.innerHTML = `
@@ -309,6 +322,7 @@ const CrudEngine = (() => {
           <tbody>${bodyRows}</tbody>
         </table>
       </div>
+      ${DashListControls.renderPaginationHtml(pagination)}
     `;
 
     wrap.querySelectorAll("tr[data-id]").forEach((tr) => {
@@ -321,6 +335,24 @@ const CrudEngine = (() => {
           if (action === "up") reorder(id, -1);
           if (action === "down") reorder(id, 1);
         });
+      });
+    });
+
+    const pageSizeSelect = document.getElementById("crudPageSizeSelect");
+    if (pageSizeSelect) {
+      pageSizeSelect.addEventListener("change", (e) => {
+        listState.pageSize = Number(e.target.value);
+        listState.page = 1;
+        renderTable();
+      });
+    }
+
+    wrap.querySelectorAll("[data-page]").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (button.disabled) return;
+        listState.page = Number(button.dataset.page);
+        renderTable();
+        wrap.scrollIntoView({ behavior: "smooth", block: "start" });
       });
     });
   }

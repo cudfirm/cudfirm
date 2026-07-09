@@ -1,53 +1,34 @@
 /**
  * dashboard/js/list-controls.js
  * ------------------------------------------------------------------
- * Phase 4.1 — reusable client-side Search / Filter / Sort for the
- * CrudEngine-powered list pages (Services, Portfolio, Testimonials,
- * FAQ, Navigation).
+ * Reusable client-side Search / Filter / Sort / Pagination helpers
+ * for the CrudEngine-powered dashboard list pages.
  *
- * This module is deliberately stateless: it doesn't hold row data or
- * remember what the admin typed. The caller (crud-engine.js) owns a
- * small `state` object ({ search, filters, sort }) and calls:
- *
- *   DashListControls.renderHtml(cfg, state, rows)   -> toolbar markup
- *   DashListControls.apply(rows, cfg, state)         -> filtered/sorted rows
- *
- * Keeping it stateless/pure is what makes it reusable: a future
- * Pagination feature can slice() the array apply() returns, and a
- * future Bulk Actions feature can operate on that same filtered
- * subset — neither needs to touch this file.
- *
- * Everything here reads from the already-loaded `rows` array that
- * CrudEngine fetched — no extra Supabase requests are made while
- * searching, filtering, or sorting.
- *
- * Opt-in per page via two optional config keys (a page with neither
- * gets no toolbar at all and behaves exactly as before):
- *
- *   searchFields: ['name', 'description']   // row keys to search across
- *   filters: [{
- *     key: 'is_active',                     // row key to filter on
- *     label: 'Status',
- *     options: [{ value: 'true', label: 'Active' }, { value: 'false', label: 'Hidden' }],
- *     dynamic: false,                       // if true, options are derived from the loaded rows instead of listed above
- *   }]
- *
- * Sort is generic and needs no per-page config: Manual Order (the
- * existing sort_order column), Newest/Oldest (by id — none of these
- * tables have a created_at column, and id already increases in
- * creation order, so it's a safe, schema-free stand-in), and A→Z /
- * Z→A (using the same field CrudEngine already uses for delete
- * confirmations: cfg.deleteLabelField, falling back to the first
- * column — no new config needed).
+ * This module remains stateless. CrudEngine owns the current state and
+ * passes it into these pure helpers. All work is performed against the
+ * already-loaded rows array, so searching, filtering, sorting and page
+ * navigation never make additional Supabase requests.
  * ------------------------------------------------------------------
  */
 
 const DashListControls = (() => {
+  const DEFAULT_PAGE_SIZE = 10;
+  const PAGE_SIZE_OPTIONS = [10, 20, 50];
+
   function defaultState() {
-    return { search: "", filters: {}, sort: "manual" };
+    return {
+      search: "",
+      filters: {},
+      sort: "manual",
+      page: 1,
+      pageSize: DEFAULT_PAGE_SIZE,
+    };
   }
 
-  /** True when nothing is searched/filtered and sort is untouched — the only state where manual drag-free reordering (up/down) still makes sense. */
+  /**
+   * Manual ordering is safe only when the full, unfiltered manual-order
+   * list is being viewed. Pagination itself does not change that rule.
+   */
   function isDefaultView(state) {
     const noFilters = Object.values(state.filters).every((v) => !v || v === "all");
     return !state.search.trim() && state.sort === "manual" && noFilters;
@@ -134,10 +115,97 @@ const DashListControls = (() => {
     } else if (state.sort === "za") {
       result.sort((a, b) => String(b[sortField] || "").localeCompare(String(a[sortField] || "")));
     }
-    // "manual" — leave as-is; rows already arrive sorted by sort_order from AdminApi.list.
 
     return result;
   }
 
-  return { defaultState, isDefaultView, renderHtml, apply };
+  /**
+   * Return the valid current page plus its rows and metadata. The caller
+   * may copy `page` back into state when a delete/filter leaves the old
+   * page number outside the new valid range.
+   */
+  function paginate(items, state) {
+    const requestedSize = Number(state.pageSize);
+    const pageSize = PAGE_SIZE_OPTIONS.includes(requestedSize) ? requestedSize : DEFAULT_PAGE_SIZE;
+    const totalItems = items.length;
+    const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+    const requestedPage = Number(state.page) || 1;
+    const page = Math.min(Math.max(1, requestedPage), totalPages);
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = Math.min(startIndex + pageSize, totalItems);
+
+    return {
+      rows: items.slice(startIndex, endIndex),
+      page,
+      pageSize,
+      totalItems,
+      totalPages,
+      startIndex,
+      endIndex,
+    };
+  }
+
+  function pageItems(currentPage, totalPages) {
+    if (totalPages <= 7) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    const items = [1];
+    const start = Math.max(2, currentPage - 1);
+    const end = Math.min(totalPages - 1, currentPage + 1);
+
+    if (start > 2) items.push("ellipsis-start");
+    for (let page = start; page <= end; page += 1) items.push(page);
+    if (end < totalPages - 1) items.push("ellipsis-end");
+    items.push(totalPages);
+
+    return items;
+  }
+
+  function renderPaginationHtml(meta) {
+    if (!meta.totalItems) return "";
+
+    const pageSizeOptions = PAGE_SIZE_OPTIONS.map(
+      (size) => `<option value="${size}" ${meta.pageSize === size ? "selected" : ""}>${size}</option>`
+    ).join("");
+
+    const pageButtons = pageItems(meta.page, meta.totalPages)
+      .map((item) => {
+        if (typeof item !== "number") {
+          return `<span class="crud-page-ellipsis" aria-hidden="true">&hellip;</span>`;
+        }
+        return `<button type="button" class="crud-page-btn${item === meta.page ? " is-active" : ""}" data-page="${item}" ${item === meta.page ? 'aria-current="page"' : ""} aria-label="Go to page ${item}">${item}</button>`;
+      })
+      .join("");
+
+    return `
+      <div class="crud-pagination" aria-label="Pagination">
+        <label class="crud-page-size">
+          <span>Show</span>
+          <select class="form-select" id="crudPageSizeSelect" aria-label="Items per page">
+            ${pageSizeOptions}
+          </select>
+          <span>per page</span>
+        </label>
+
+        <div class="crud-page-nav">
+          <button type="button" class="crud-page-btn crud-page-step" data-page="${meta.page - 1}" ${meta.page === 1 ? "disabled" : ""} aria-label="Previous page">
+            <i class="bi bi-chevron-left" aria-hidden="true"></i><span>Previous</span>
+          </button>
+          <div class="crud-page-numbers" aria-label="Page numbers">${pageButtons}</div>
+          <button type="button" class="crud-page-btn crud-page-step" data-page="${meta.page + 1}" ${meta.page === meta.totalPages ? "disabled" : ""} aria-label="Next page">
+            <span>Next</span><i class="bi bi-chevron-right" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>`;
+  }
+
+  return {
+    defaultState,
+    isDefaultView,
+    renderHtml,
+    apply,
+    paginate,
+    renderPaginationHtml,
+  };
 })();
