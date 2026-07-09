@@ -46,7 +46,7 @@ const CMSApi = (() => {
           db
             .from("services")
             .select("*")
-            .eq("is_active", true)
+            .eq("status", "published")
             .order("sort_order", { ascending: true }),
         "services"
       ),
@@ -57,7 +57,7 @@ const CMSApi = (() => {
           db
             .from("portfolio_projects")
             .select("*")
-            .eq("is_active", true)
+            .eq("status", "published")
             .order("sort_order", { ascending: true }),
         "portfolio_projects"
       ),
@@ -68,7 +68,7 @@ const CMSApi = (() => {
           db
             .from("testimonials")
             .select("*")
-            .eq("is_active", true)
+            .eq("status", "published")
             .order("sort_order", { ascending: true }),
         "testimonials"
       ),
@@ -79,7 +79,7 @@ const CMSApi = (() => {
           db
             .from("faq")
             .select("*")
-            .eq("is_active", true)
+            .eq("status", "published")
             .order("sort_order", { ascending: true }),
         "faq"
       ),
@@ -90,7 +90,7 @@ const CMSApi = (() => {
           db
             .from("navigation")
             .select("*")
-            .eq("is_active", true)
+            .eq("status", "published")
             .order("sort_order", { ascending: true }),
         "navigation"
       ),

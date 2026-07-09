@@ -35,6 +35,10 @@
  *    only slices the already-loaded rows and makes no new Supabase
  *    requests.
  *
+ * Phase 4.5 addition:
+ *  - Four-state content workflow (Draft / Published / Hidden / Archived)
+ *    with status badges, form control, filtering and bulk transitions.
+ *
  * Phase 4.4 addition:
  *  - Drag-and-drop manual ordering in the default list view. Existing
  *    up/down buttons remain as keyboard, touch and cross-page fallback.
@@ -324,6 +328,12 @@ const CrudEngine = (() => {
         const cells = cfg.columns
           .map((c) => {
             const val = row[c.key];
+            if (c.type === "status") {
+              const status = String(val || "draft").toLowerCase();
+              const labels = { draft: "Draft", published: "Published", hidden: "Hidden", archived: "Archived" };
+              const label = labels[status] || status;
+              return `<td><span class="badge badge-soft badge-status badge-status-${esc(status)}">${esc(label)}</span></td>`;
+            }
             if (c.type === "bool") {
               return `<td><span class="badge badge-soft ${val ? "badge-active" : "badge-inactive"}">${esc(val ? c.trueLabel || "Yes" : c.falseLabel || "No")}</span></td>`;
             }
@@ -741,6 +751,11 @@ const CrudEngine = (() => {
         payload[field.key] = el.value;
       }
     });
+    if (cfg.statusWorkflow && payload.status) {
+      // Keep the legacy compatibility flag synchronized while all public
+      // rendering now uses the richer status column.
+      payload.is_active = payload.status === "published";
+    }
     return payload;
   }
 
@@ -865,8 +880,17 @@ const CrudEngine = (() => {
   }
 
 
-  function hasActiveField() {
-    return Array.isArray(cfg.fields) && cfg.fields.some((field) => field.key === "is_active");
+  function hasStatusWorkflow() {
+    return cfg.statusWorkflow === true && Array.isArray(cfg.fields) && cfg.fields.some((field) => field.key === "status");
+  }
+
+  function statusPayload(status) {
+    return {
+      status,
+      // Preserve backwards compatibility with any older consumer that still
+      // reads is_active. Only Published is publicly visible.
+      is_active: status === "published",
+    };
   }
 
   function pruneSelection() {
@@ -887,12 +911,18 @@ const CrudEngine = (() => {
       return;
     }
 
-    const activeActions = hasActiveField()
-      ? `<button type="button" class="btn btn-light btn-sm" data-bulk-action="activate">
-           <i class="bi bi-eye" aria-hidden="true"></i> Show
+    const statusActions = hasStatusWorkflow()
+      ? `<button type="button" class="btn btn-light btn-sm" data-bulk-status="published">
+           <i class="bi bi-send-check" aria-hidden="true"></i> Publish
          </button>
-         <button type="button" class="btn btn-light btn-sm" data-bulk-action="hide">
+         <button type="button" class="btn btn-light btn-sm" data-bulk-status="draft">
+           <i class="bi bi-file-earmark" aria-hidden="true"></i> Draft
+         </button>
+         <button type="button" class="btn btn-light btn-sm" data-bulk-status="hidden">
            <i class="bi bi-eye-slash" aria-hidden="true"></i> Hide
+         </button>
+         <button type="button" class="btn btn-light btn-sm" data-bulk-status="archived">
+           <i class="bi bi-archive" aria-hidden="true"></i> Archive
          </button>`
       : "";
 
@@ -903,7 +933,7 @@ const CrudEngine = (() => {
           <button type="button" class="crud-clear-selection" data-bulk-action="clear">Clear</button>
         </div>
         <div class="crud-bulk-actions">
-          ${activeActions}
+          ${statusActions}
           <button type="button" class="btn btn-danger btn-sm" data-bulk-action="delete">
             <i class="bi bi-trash3" aria-hidden="true"></i> Delete
           </button>
@@ -916,24 +946,26 @@ const CrudEngine = (() => {
         if (action === "clear") {
           selectedIds.clear();
           renderTable();
-        } else if (action === "activate") {
-          runBulkStatus(true);
-        } else if (action === "hide") {
-          runBulkStatus(false);
         } else if (action === "delete") {
           openBulkDelete();
         }
       });
     });
+
+    wrap.querySelectorAll("[data-bulk-status]").forEach((button) => {
+      button.addEventListener("click", () => runBulkStatus(button.dataset.bulkStatus));
+    });
   }
 
-  async function runBulkStatus(isActive) {
-    if (isBulkWorking || !selectedIds.size || !hasActiveField()) return;
+  async function runBulkStatus(status) {
+    const allowed = ["draft", "published", "hidden", "archived"];
+    if (isBulkWorking || !selectedIds.size || !hasStatusWorkflow() || !allowed.includes(status)) return;
     isBulkWorking = true;
     const ids = Array.from(selectedIds);
     setBulkButtonsDisabled(true);
 
-    const results = await Promise.all(ids.map((id) => AdminApi.update(cfg.table, id, { is_active: isActive })));
+    const payload = statusPayload(status);
+    const results = await Promise.all(ids.map((id) => AdminApi.update(cfg.table, id, payload)));
     const failed = results
       .map((result, index) => ({ result, id: ids[index] }))
       .filter(({ result }) => result.error);
@@ -943,7 +975,7 @@ const CrudEngine = (() => {
         .filter((id) => id !== null)
     );
 
-    rows = rows.map((row) => (succeededIds.has(row.id) ? { ...row, is_active: isActive } : row));
+    rows = rows.map((row) => (succeededIds.has(row.id) ? { ...row, ...payload } : row));
     succeededIds.forEach((id) => selectedIds.delete(id));
 
     setBulkButtonsDisabled(false);
@@ -954,8 +986,9 @@ const CrudEngine = (() => {
       if (failed.some(({ result }) => DashError.isAuthExpired(result.error))) redirectToLogin();
     }
     if (succeededIds.size) {
-      DashToast.success(`${succeededIds.size} item${succeededIds.size === 1 ? "" : "s"} ${isActive ? "shown" : "hidden"}.`);
-      DashActivity.log(isActive ? "bulk activated" : "bulk hidden", cfg.table, `${succeededIds.size} items`);
+      const pastTense = { published: "published", draft: "moved to draft", hidden: "hidden", archived: "archived" }[status];
+      DashToast.success(`${succeededIds.size} item${succeededIds.size === 1 ? "" : "s"} ${pastTense}.`);
+      DashActivity.log(`bulk ${status}`, cfg.table, `${succeededIds.size} items`);
     }
     renderTable();
   }

@@ -8,16 +8,19 @@ const PortfolioPageConfig = {
   singularLabel: "Project",
   hint: "These populate the Portfolio tab and the homepage preview grid.",
   orderCol: "sort_order",
+  statusWorkflow: true,
   deleteLabelField: "name",
   searchFields: ["name", "industry", "project_type", "problem", "solution", "tags"],
   filters: [
     { key: "industry", label: "Industry", dynamic: true },
     {
-      key: "is_active",
+      key: "status",
       label: "Status",
       options: [
-        { value: "true", label: "Active" },
-        { value: "false", label: "Hidden" },
+        { value: "published", label: "Published" },
+        { value: "draft", label: "Draft" },
+        { value: "hidden", label: "Hidden" },
+        { value: "archived", label: "Archived" },
       ],
     },
   ],
@@ -26,7 +29,7 @@ const PortfolioPageConfig = {
     { key: "industry", label: "Industry" },
     { key: "is_live", label: "Live?", type: "bool", trueLabel: "Live", falseLabel: "Demo" },
     { key: "featured_home", label: "On Home", type: "bool", trueLabel: "Featured", falseLabel: "Hidden" },
-    { key: "is_active", label: "Status", type: "bool", trueLabel: "Active", falseLabel: "Hidden" },
+    { key: "status", label: "Status", type: "status" },
   ],
   fields: [
     { key: "name", label: "Project name", type: "text", required: true, maxLength: 120 },
@@ -39,7 +42,19 @@ const PortfolioPageConfig = {
     { key: "tags", label: "Tags (comma-separated)", type: "tags", placeholder: "#Fashion, #Live" },
     { key: "is_live", label: "Live project (unchecked = \"Demo\")", type: "checkbox", default: true },
     { key: "featured_home", label: "Feature in homepage preview grid", type: "checkbox", default: true },
-    { key: "is_active", label: "Active (visible on live site)", type: "checkbox", default: true },
+    {
+      key: "status",
+      label: "Content status",
+      type: "select",
+      required: true,
+      default: "published",
+      options: [
+        { value: "published", label: "Published" },
+        { value: "draft", label: "Draft" },
+        { value: "hidden", label: "Hidden" },
+        { value: "archived", label: "Archived" },
+      ],
+    },
     { key: "sort_order", label: "Sort order", type: "number", default: 0 },
   ],
 };

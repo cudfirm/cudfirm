@@ -8,15 +8,18 @@ const TestimonialsPageConfig = {
   singularLabel: "Testimonial",
   hint: "Client quotes shown on the Testimonials tab.",
   orderCol: "sort_order",
+  statusWorkflow: true,
   deleteLabelField: "name",
   searchFields: ["name", "role", "quote"],
   filters: [
     {
-      key: "is_active",
+      key: "status",
       label: "Status",
       options: [
-        { value: "true", label: "Active" },
-        { value: "false", label: "Hidden" },
+        { value: "published", label: "Published" },
+        { value: "draft", label: "Draft" },
+        { value: "hidden", label: "Hidden" },
+        { value: "archived", label: "Archived" },
       ],
     },
   ],
@@ -25,7 +28,7 @@ const TestimonialsPageConfig = {
     { key: "role", label: "Role" },
     { key: "quote", label: "Quote" },
     { key: "is_placeholder", label: "Illustrative", type: "bool", trueLabel: "Illustrative", falseLabel: "Real" },
-    { key: "is_active", label: "Status", type: "bool", trueLabel: "Active", falseLabel: "Hidden" },
+    { key: "status", label: "Status", type: "status" },
   ],
   fields: [
     { key: "name", label: "Name", type: "text", required: true, maxLength: 100, placeholder: "e.g. Adaeze O." },
@@ -34,7 +37,19 @@ const TestimonialsPageConfig = {
     { key: "quote", label: "Quote", type: "textarea", required: true, rows: 3, maxLength: 500 },
     { key: "accent_color", label: "Accent color", type: "color", default: "#0B3D2E" },
     { key: "is_placeholder", label: "Show \"Illustrative\" badge", type: "checkbox", default: true },
-    { key: "is_active", label: "Active (visible on live site)", type: "checkbox", default: true },
+    {
+      key: "status",
+      label: "Content status",
+      type: "select",
+      required: true,
+      default: "published",
+      options: [
+        { value: "published", label: "Published" },
+        { value: "draft", label: "Draft" },
+        { value: "hidden", label: "Hidden" },
+        { value: "archived", label: "Archived" },
+      ],
+    },
     { key: "sort_order", label: "Sort order", type: "number", default: 0 },
   ],
 };

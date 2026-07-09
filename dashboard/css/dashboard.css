@@ -537,6 +537,14 @@ a { text-decoration: none; }
 
 .badge-active { background: var(--n-gold-pale); color: #7A5A0F; font-weight: 600; }
 .badge-inactive { background: #EFEFEF; color: #8A8A8A; font-weight: 600; }
+
+/* Phase 4.5: four-state content workflow */
+.badge-status { font-weight: 700; text-transform: capitalize; }
+.badge-status-published { background: #E7F7EE; color: #176B3A; }
+.badge-status-draft { background: #EEF2F7; color: #4D5B6A; }
+.badge-status-hidden { background: #FFF3D6; color: #8A5A00; }
+.badge-status-archived { background: #F1EAF8; color: #68418A; }
+
 .badge-soft { font-size: 0.72rem; padding: 4px 9px; border-radius: 20px; }
 
 .row-actions { display: flex; gap: 4px; align-items: center; white-space: nowrap; }
