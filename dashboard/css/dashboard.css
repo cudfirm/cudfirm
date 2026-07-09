@@ -1251,3 +1251,106 @@ button:focus-visible,
     display: none;
   }
 }
+
+/* ================================================================
+   Phase 5.1 — Message management
+   ================================================================ */
+.message-controls {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(170px, 220px) auto;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.message-search-wrap { position: relative; min-width: 0; }
+.message-search-wrap > i {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--n-muted);
+  pointer-events: none;
+  z-index: 2;
+}
+.message-search-wrap .form-control { padding-left: 40px; width: 100%; min-width: 0; }
+.message-status-tabs { margin-bottom: 14px; }
+.message-tab-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  margin-left: 4px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.07);
+  font-size: .7rem;
+}
+.filter-tab.active .message-tab-count { background: rgba(255,255,255,.18); }
+.message-bulk-bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  border: 1px solid var(--n-border);
+  border-radius: var(--radius);
+  background: var(--n-white);
+}
+.message-bulk-bar[hidden] { display: none !important; }
+.message-bulk-bar .form-select { width: auto; min-width: 190px; }
+.message-select-page {
+  display: flex;
+  justify-content: flex-end;
+  padding: 2px 4px 9px;
+  color: var(--n-muted);
+  font-size: .8rem;
+}
+.message-select-page label { display: inline-flex; gap: 7px; align-items: center; cursor: pointer; }
+.message-card { align-items: center; }
+.message-card > .message-select { flex: 0 0 auto; }
+.message-card-open {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  text-align: left;
+  color: inherit;
+}
+.message-card-open:hover .list-row-title { color: var(--n-forest); }
+.message-title-line { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.message-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  background: var(--n-cream);
+  color: var(--n-body);
+}
+.message-status.status-unread { background: #FFF1C7; color: #785400; }
+.message-status.status-read { background: #EDF1EF; color: #52615B; }
+.message-status.status-important { background: #FFE6B0; color: #8A5700; }
+.message-status.status-replied { background: #DFF4E8; color: #17623A; }
+.message-status.status-archived { background: #E8E8E8; color: #555; }
+.message-status.status-spam { background: #FCE2E2; color: #922B2B; }
+.message-detail-body { white-space: pre-wrap; line-height: 1.7; color: var(--n-body); }
+.message-detail-footer { justify-content: space-between; }
+.message-pagination { margin-top: 14px; }
+
+@media (max-width: 767.98px) {
+  .message-controls { grid-template-columns: 1fr; }
+  .message-controls .form-control,
+  .message-controls .form-select { font-size: 16px; max-width: 100%; box-sizing: border-box; }
+  .message-bulk-bar { align-items: stretch; flex-direction: column; }
+  .message-bulk-bar .form-select { width: 100%; min-width: 0; font-size: 16px; }
+  .message-card { align-items: flex-start; flex-wrap: wrap; }
+  .message-card-open { flex-basis: calc(100% - 34px); }
+  .message-actions { width: 100%; justify-content: flex-end; border-top: 1px solid var(--n-border); padding-top: 8px; }
+  .message-detail-footer { align-items: stretch; flex-direction: column; }
+  .message-detail-footer .btn { width: 100%; }
+}

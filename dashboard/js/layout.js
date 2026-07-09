@@ -131,8 +131,7 @@ const DashLayout = (() => {
       const { count, error } = await supabaseClient
         .from("messages")
         .select("*", { count: "exact", head: true })
-        .eq("is_read", false)
-        .eq("is_archived", false);
+        .eq("status", "unread");
       if (error || !count) return;
 
       const link = shell.querySelector('a[href="messages.html"]');
