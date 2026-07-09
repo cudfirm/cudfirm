@@ -1133,3 +1133,74 @@ button:focus-visible,
     display: none;
   }
 }
+
+/* ---------- Phase 4.3: bulk actions ---------- */
+.crud-bulk-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px 16px;
+  background: var(--n-gold-pale);
+  border-bottom: 1px solid var(--n-gold-light);
+}
+
+.crud-bulk-summary,
+.crud-bulk-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.crud-bulk-summary {
+  color: var(--n-charcoal);
+  font-size: 0.84rem;
+}
+
+.crud-clear-selection {
+  border: 0;
+  background: transparent;
+  color: var(--n-jade);
+  padding: 2px 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.crud-clear-selection:hover { color: var(--n-forest); }
+
+.dash-table .col-select {
+  width: 44px;
+  min-width: 44px;
+  text-align: center;
+  padding-left: 12px;
+  padding-right: 8px;
+}
+
+.dash-table tr.is-selected td {
+  background: rgba(215, 179, 74, 0.09);
+}
+
+.crud-row-select,
+#crudSelectPage {
+  cursor: pointer;
+}
+
+@media (max-width: 560px) {
+  .crud-bulk-bar {
+    align-items: stretch;
+    flex-direction: column;
+    padding: 12px;
+  }
+
+  .crud-bulk-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .crud-bulk-actions .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}

@@ -44,6 +44,9 @@ const CrudEngine = (() => {
   let deletingId = null;
   let isSaving = false;
   let isDeleting = false;
+  let isBulkWorking = false;
+  let bulkDeleteIds = [];
+  let selectedIds = new Set();
   let listState = DashListControls.defaultState();
 
   function tagsToText(val) {
@@ -61,6 +64,8 @@ const CrudEngine = (() => {
   async function init(config) {
     cfg = config;
     rows = [];
+    selectedIds = new Set();
+    bulkDeleteIds = [];
     listState = DashListControls.defaultState();
     renderToolbar();
     renderModalShell();
@@ -79,6 +84,7 @@ const CrudEngine = (() => {
       </div>
       <div id="crudFiltersBarWrap"></div>
       <div class="table-card">
+        <div id="crudBulkBarWrap"></div>
         <div id="crudTableWrap" aria-live="polite"></div>
       </div>
     `;
@@ -103,6 +109,7 @@ const CrudEngine = (() => {
       searchInput.addEventListener("input", (e) => {
         listState.search = e.target.value;
         listState.page = 1;
+        selectedIds.clear();
         renderTable();
       });
     }
@@ -111,6 +118,7 @@ const CrudEngine = (() => {
       select.addEventListener("change", (e) => {
         listState.filters[e.target.dataset.filterKey] = e.target.value;
         listState.page = 1;
+        selectedIds.clear();
         renderTable();
       });
     });
@@ -120,6 +128,7 @@ const CrudEngine = (() => {
       sortSelect.addEventListener("change", (e) => {
         listState.sort = e.target.value;
         listState.page = 1;
+        selectedIds.clear();
         renderTable();
       });
     }
@@ -168,11 +177,32 @@ const CrudEngine = (() => {
           </div>
         </div>
       </div>
+
+      <div class="modal fade" id="crudBulkDeleteModal" tabindex="-1" aria-labelledby="crudBulkDeleteTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="crudBulkDeleteTitle">Delete selected items?</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p class="mb-0" id="crudBulkDeleteBody">This permanently deletes the selected items. This can't be undone.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-danger" id="crudConfirmBulkDeleteBtn">
+                <i class="bi bi-trash3" aria-hidden="true"></i> <span class="btn-label">Delete selected</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     `;
     document.body.appendChild(wrap);
 
     document.getElementById("crudForm").addEventListener("submit", onSubmitForm);
     document.getElementById("crudConfirmDeleteBtn").addEventListener("click", onConfirmDelete);
+    document.getElementById("crudConfirmBulkDeleteBtn").addEventListener("click", onConfirmBulkDelete);
 
     // Guard against closing the modal (X, Cancel, backdrop click, Esc)
     // while there are unsaved edits.
@@ -186,7 +216,7 @@ const CrudEngine = (() => {
   }
 
   function renderSkeletonRows() {
-    const cols = cfg.columns.length + 1;
+    const cols = cfg.columns.length + 2;
     const rowsHtml = Array.from({ length: 4 })
       .map(
         () => `<tr>${Array.from({ length: cols }).map(() => `<td><div class="skeleton-bar"></div></td>`).join("")}</tr>`
@@ -210,6 +240,7 @@ const CrudEngine = (() => {
       return;
     }
     rows = data || [];
+    pruneSelection();
     renderFiltersBar();
     renderTable();
   }
@@ -223,6 +254,8 @@ const CrudEngine = (() => {
     const countEl = document.getElementById("crudResultsCount");
 
     if (!rows.length) {
+      selectedIds.clear();
+      renderBulkBar([]);
       if (countEl) countEl.textContent = "";
       wrap.innerHTML = `
         <div class="empty-state">
@@ -242,6 +275,7 @@ const CrudEngine = (() => {
     const defaultView = DashListControls.isDefaultView(listState);
 
     if (!filteredRows.length) {
+      renderBulkBar([]);
       if (countEl) countEl.textContent = "No matching records";
       wrap.innerHTML = `
         <div class="empty-state">
@@ -263,12 +297,19 @@ const CrudEngine = (() => {
     listState.page = pagination.page;
     listState.pageSize = pagination.pageSize;
     const visibleRows = pagination.rows;
+    renderBulkBar(visibleRows);
 
     if (countEl) {
       const range = `Showing ${pagination.startIndex + 1}–${pagination.endIndex} of ${pagination.totalItems}`;
       countEl.textContent = pagination.totalItems === rows.length ? range : `${range} matching records`;
     }
 
+    const pageIds = visibleRows.map((row) => row.id);
+    const allPageSelected = pageIds.length > 0 && pageIds.every((id) => selectedIds.has(id));
+    const somePageSelected = pageIds.some((id) => selectedIds.has(id));
+    const selectHead = `<th scope="col" class="col-select">
+      <input class="form-check-input" type="checkbox" id="crudSelectPage" aria-label="Select all items on this page" ${allPageSelected ? "checked" : ""}>
+    </th>`;
     const headCells = cfg.columns.map((c) => `<th scope="col">${esc(c.label)}</th>`).join("");
     const bodyRows = visibleRows
       .map((row) => {
@@ -291,7 +332,10 @@ const CrudEngine = (() => {
         const canReorder = cfg.orderable !== false && defaultView;
         const fullIndex = rows.findIndex((candidate) => candidate.id === row.id);
         return `
-          <tr data-id="${row.id}">
+          <tr data-id="${row.id}" class="${selectedIds.has(row.id) ? "is-selected" : ""}">
+            <td class="col-select">
+              <input class="form-check-input crud-row-select" type="checkbox" data-select-id="${row.id}" aria-label="Select ${itemLabel}" ${selectedIds.has(row.id) ? "checked" : ""}>
+            </td>
             ${cells}
             <td>
               <div class="row-actions">
@@ -318,12 +362,33 @@ const CrudEngine = (() => {
       ${reorderHint}
       <div class="table-responsive-x">
         <table class="dash-table">
-          <thead><tr>${headCells}<th scope="col" style="width:1%">Actions</th></tr></thead>
+          <thead><tr>${selectHead}${headCells}<th scope="col" style="width:1%">Actions</th></tr></thead>
           <tbody>${bodyRows}</tbody>
         </table>
       </div>
       ${DashListControls.renderPaginationHtml(pagination)}
     `;
+
+    const selectPage = document.getElementById("crudSelectPage");
+    if (selectPage) {
+      selectPage.indeterminate = !allPageSelected && somePageSelected;
+      selectPage.addEventListener("change", () => {
+        pageIds.forEach((id) => {
+          if (selectPage.checked) selectedIds.add(id);
+          else selectedIds.delete(id);
+        });
+        renderTable();
+      });
+    }
+
+    wrap.querySelectorAll("[data-select-id]").forEach((checkbox) => {
+      checkbox.addEventListener("change", () => {
+        const id = Number(checkbox.dataset.selectId);
+        if (checkbox.checked) selectedIds.add(id);
+        else selectedIds.delete(id);
+        renderTable();
+      });
+    });
 
     wrap.querySelectorAll("tr[data-id]").forEach((tr) => {
       const id = Number(tr.dataset.id);
@@ -677,11 +742,167 @@ const CrudEngine = (() => {
 
     const deletedRow = rows.find((r) => r.id === deletingId);
     rows = rows.filter((r) => r.id !== deletingId);
+    selectedIds.delete(deletingId);
     bootstrap.Modal.getOrCreateInstance(document.getElementById("crudDeleteModal")).hide();
     DashToast.success("Deleted.");
     const label = deletedRow ? deletedRow[cfg.deleteLabelField || cfg.columns[0].key] : `#${deletingId}`;
     DashActivity.log("deleted", cfg.table, label);
     deletingId = null;
+    renderTable();
+  }
+
+
+  function hasActiveField() {
+    return Array.isArray(cfg.fields) && cfg.fields.some((field) => field.key === "is_active");
+  }
+
+  function pruneSelection() {
+    const validIds = new Set(rows.map((row) => row.id));
+    selectedIds.forEach((id) => {
+      if (!validIds.has(id)) selectedIds.delete(id);
+    });
+  }
+
+  function renderBulkBar(visibleRows) {
+    const wrap = document.getElementById("crudBulkBarWrap");
+    if (!wrap) return;
+
+    pruneSelection();
+    const selectedCount = selectedIds.size;
+    if (!selectedCount) {
+      wrap.innerHTML = "";
+      return;
+    }
+
+    const activeActions = hasActiveField()
+      ? `<button type="button" class="btn btn-light btn-sm" data-bulk-action="activate">
+           <i class="bi bi-eye" aria-hidden="true"></i> Show
+         </button>
+         <button type="button" class="btn btn-light btn-sm" data-bulk-action="hide">
+           <i class="bi bi-eye-slash" aria-hidden="true"></i> Hide
+         </button>`
+      : "";
+
+    wrap.innerHTML = `
+      <div class="crud-bulk-bar" role="region" aria-label="Bulk actions">
+        <div class="crud-bulk-summary">
+          <strong>${selectedCount}</strong> selected
+          <button type="button" class="crud-clear-selection" data-bulk-action="clear">Clear</button>
+        </div>
+        <div class="crud-bulk-actions">
+          ${activeActions}
+          <button type="button" class="btn btn-danger btn-sm" data-bulk-action="delete">
+            <i class="bi bi-trash3" aria-hidden="true"></i> Delete
+          </button>
+        </div>
+      </div>`;
+
+    wrap.querySelectorAll("[data-bulk-action]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const action = button.dataset.bulkAction;
+        if (action === "clear") {
+          selectedIds.clear();
+          renderTable();
+        } else if (action === "activate") {
+          runBulkStatus(true);
+        } else if (action === "hide") {
+          runBulkStatus(false);
+        } else if (action === "delete") {
+          openBulkDelete();
+        }
+      });
+    });
+  }
+
+  async function runBulkStatus(isActive) {
+    if (isBulkWorking || !selectedIds.size || !hasActiveField()) return;
+    isBulkWorking = true;
+    const ids = Array.from(selectedIds);
+    setBulkButtonsDisabled(true);
+
+    const results = await Promise.all(ids.map((id) => AdminApi.update(cfg.table, id, { is_active: isActive })));
+    const failed = results
+      .map((result, index) => ({ result, id: ids[index] }))
+      .filter(({ result }) => result.error);
+    const succeededIds = new Set(
+      results
+        .map((result, index) => (result.error ? null : ids[index]))
+        .filter((id) => id !== null)
+    );
+
+    rows = rows.map((row) => (succeededIds.has(row.id) ? { ...row, is_active: isActive } : row));
+    succeededIds.forEach((id) => selectedIds.delete(id));
+
+    setBulkButtonsDisabled(false);
+    isBulkWorking = false;
+
+    if (failed.length) {
+      DashToast.error(`${failed.length} item${failed.length === 1 ? "" : "s"} could not be updated.`);
+      if (failed.some(({ result }) => DashError.isAuthExpired(result.error))) redirectToLogin();
+    }
+    if (succeededIds.size) {
+      DashToast.success(`${succeededIds.size} item${succeededIds.size === 1 ? "" : "s"} ${isActive ? "shown" : "hidden"}.`);
+      DashActivity.log(isActive ? "bulk activated" : "bulk hidden", cfg.table, `${succeededIds.size} items`);
+    }
+    renderTable();
+  }
+
+  function setBulkButtonsDisabled(disabled) {
+    const wrap = document.getElementById("crudBulkBarWrap");
+    if (!wrap) return;
+    wrap.querySelectorAll("button").forEach((button) => {
+      button.disabled = disabled;
+    });
+  }
+
+  function openBulkDelete() {
+    if (!selectedIds.size || isBulkWorking) return;
+    bulkDeleteIds = Array.from(selectedIds);
+    const count = bulkDeleteIds.length;
+    document.getElementById("crudBulkDeleteBody").textContent =
+      `Are you sure you want to permanently delete ${count} selected item${count === 1 ? "" : "s"}? This can't be undone.`;
+    bootstrap.Modal.getOrCreateInstance(document.getElementById("crudBulkDeleteModal")).show();
+  }
+
+  async function onConfirmBulkDelete() {
+    if (!bulkDeleteIds.length || isBulkWorking) return;
+    isBulkWorking = true;
+    const btn = document.getElementById("crudConfirmBulkDeleteBtn");
+    btn.disabled = true;
+    btn.querySelector(".btn-label").textContent = "Deleting…";
+
+    const ids = bulkDeleteIds.slice();
+    const results = await Promise.all(ids.map((id) => AdminApi.remove(cfg.table, id)));
+    const failed = results
+      .map((result, index) => ({ result, id: ids[index] }))
+      .filter(({ result }) => result.error);
+    const deletedIds = new Set(
+      results
+        .map((result, index) => (result.error ? null : ids[index]))
+        .filter((id) => id !== null)
+    );
+
+    rows = rows.filter((row) => !deletedIds.has(row.id));
+    deletedIds.forEach((id) => selectedIds.delete(id));
+
+    btn.disabled = false;
+    btn.querySelector(".btn-label").textContent = "Delete selected";
+    isBulkWorking = false;
+    bulkDeleteIds = failed.map(({ id }) => id);
+
+    if (!failed.length) {
+      bootstrap.Modal.getOrCreateInstance(document.getElementById("crudBulkDeleteModal")).hide();
+    }
+
+    if (failed.length) {
+      DashToast.error(`${failed.length} item${failed.length === 1 ? "" : "s"} could not be deleted.`);
+      if (failed.some(({ result }) => DashError.isAuthExpired(result.error))) redirectToLogin();
+    }
+    if (deletedIds.size) {
+      DashToast.success(`${deletedIds.size} item${deletedIds.size === 1 ? "" : "s"} deleted.`);
+      DashActivity.log("bulk deleted", cfg.table, `${deletedIds.size} items`);
+    }
+
     renderTable();
   }
 
