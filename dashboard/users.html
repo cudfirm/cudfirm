@@ -10,5 +10,17 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="../js/supabase.js"></script>
 <script src="js/dash-utils.js"></script><script src="js/permissions.js"></script><script src="js/auth-guard.js"></script>
 <script src="js/layout.js"></script><script src="js/dashboard-api.js"></script><script src="js/pages/users-page.js"></script>
-<script>DashAuth.onReady(()=>{DashLayout.render({active:"users",title:"Users & Roles",icon:"bi-person-gear"});UsersPage.init();});</script>
+<script>
+DashAuth.onReady(async (user, profile) => {
+  try {
+    if (profile && window.DashPermissions) DashPermissions.setProfile(profile);
+    DashLayout.render({ active: "users", title: "Users & Roles", icon: "bi-person-gear" });
+    await UsersPage.init();
+  } catch (error) {
+    console.error("[users] page startup failed:", error);
+    const root = document.getElementById("page-content");
+    if (root) root.innerHTML = '<div class="empty-state"><i class="bi bi-exclamation-triangle"></i><h2>Users & Roles could not load</h2><p>Refresh the page and try again.</p></div>';
+  }
+});
+</script>
 </body></html>
