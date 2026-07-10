@@ -13,6 +13,8 @@ const ActivityPage = (() => {
     updated: "bi-pencil",
     deleted: "bi-trash3",
     uploaded: "bi-upload",
+    "backed up": "bi-cloud-arrow-down",
+    restored: "bi-arrow-counterclockwise",
   };
 
   async function init() {
