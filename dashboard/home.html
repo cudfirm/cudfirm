@@ -26,11 +26,6 @@
 <script src="js/dashboard-api.js"></script>
 
 <script>
-  DashAuth.onReady(async () => {
-    DashLayout.render({ active: "home", title: "Dashboard Home", icon: "bi-house-door" });
-    await renderHome();
-  });
-
   const CONTENT_TABLES = ["services", "portfolio_projects", "testimonials", "faq", "navigation"];
   const ANALYTICS_TIMEOUT_MS = 12000;
 
@@ -388,6 +383,11 @@
         </div>
       </div>`).join("") + `<a href="activity.html" class="stat-link d-inline-block mt-2">View full log <i class="bi bi-arrow-right" aria-hidden="true"></i></a>`;
   }
+
+  DashAuth.onReady(async () => {
+    DashLayout.render({ active: "home", title: "Dashboard Home", icon: "bi-house-door" });
+    await renderHome();
+  });
 </script>
 </body>
 </html>
