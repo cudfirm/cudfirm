@@ -33,6 +33,7 @@ const DashLayout = (() => {
     { key: "messages", permission: "view_messages", href: "messages.html", label: "Messages", icon: "bi-envelope" },
     { key: "subscribers", permission: "view_subscribers", href: "subscribers.html", label: "Subscribers", icon: "bi-people" },
     { key: "activity", permission: "view_activity", href: "activity.html", label: "Activity Log", icon: "bi-clock-history" },
+    { key: "security", permission: "view_security", href: "security.html", label: "Security & Audit", icon: "bi-shield-lock" },
     { key: "users", permission: "manage_users", href: "users.html", label: "Users & Roles", icon: "bi-person-gear" },
   ];
 
@@ -109,6 +110,17 @@ const DashLayout = (() => {
     `;
 
     document.getElementById("signOutBtn").addEventListener("click", async () => {
+      try {
+        await supabaseClient.rpc("record_auth_security_event", {
+          p_event_type: "logout",
+          p_email: email,
+          p_success: true,
+          p_details: {},
+          p_user_agent: navigator.userAgent || null,
+        });
+      } catch (error) {
+        console.warn("[security] logout event was not recorded:", error);
+      }
       await supabaseClient.auth.signOut();
       window.location.replace("index.html");
     });

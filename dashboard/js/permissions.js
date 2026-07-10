@@ -46,6 +46,7 @@ const DashPermissions = (() => {
     "messages.html": "view_messages",
     "subscribers.html": "view_subscribers",
     "activity.html": "view_activity",
+    "security.html": "view_security",
     "users.html": "manage_users",
   };
 

@@ -70,6 +70,24 @@
     errorBox.classList.remove("show");
   }
 
+  async function recordLoginEvent(eventType, email, success, reason) {
+    try {
+      await Promise.race([
+        supabaseClient.rpc("record_auth_security_event", {
+          p_event_type: eventType,
+          p_email: email || null,
+          p_success: success,
+          p_details: reason ? { reason } : {},
+          p_user_agent: navigator.userAgent || null,
+        }),
+        new Promise((resolve) => window.setTimeout(resolve, 1500)),
+      ]);
+    } catch (auditError) {
+      // Security logging must never prevent sign-in or show a second error.
+      console.warn("[security] login event was not recorded:", auditError);
+    }
+  }
+
   // If already signed in, skip straight to the dashboard.
   (async () => {
     const { data } = await supabaseClient.auth.getSession();
@@ -104,10 +122,13 @@
       // failures get remapped to a friendlier message here.
       const raw = (error.message || "").toLowerCase();
       const isInfra = !navigator.onLine || raw.includes("fetch") || raw.includes("network") || (error.status && error.status >= 500);
+      const reason = isInfra ? "network_or_service_error" : "invalid_credentials";
+      void recordLoginEvent("login_failed", email, false, reason);
       showError(isInfra ? DashError.friendly(error, "Could not sign in. Please try again.") : error.message || "Could not sign in. Check your email and password.");
       return;
     }
 
+    await recordLoginEvent("login_success", email, true, null);
     showNotice("Signed in — redirecting…");
     window.location.replace("home.html");
   });

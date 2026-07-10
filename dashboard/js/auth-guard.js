@@ -82,6 +82,17 @@
 
       if (profileError || !profile || profile.is_active === false) {
         console.error("[dashboard] profile check failed:", profileError || "inactive profile");
+        try {
+          await supabaseClient.rpc("record_auth_security_event", {
+            p_event_type: "access_denied",
+            p_email: user.email || null,
+            p_success: false,
+            p_details: { reason: profile && profile.is_active === false ? "suspended_profile" : "profile_unavailable" },
+            p_user_agent: navigator.userAgent || null,
+          });
+        } catch (auditError) {
+          console.warn("[security] denied-access event was not recorded:", auditError);
+        }
         await supabaseClient.auth.signOut();
         window.location.replace(LOGIN_PATH + "?error=access");
         return;
