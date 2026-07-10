@@ -15,6 +15,7 @@ const SettingsPage = (() => {
   let logoWidget = null;
   let faviconWidget = null;
   let isSaving = false;
+  let originalMaintenanceEnabled = false;
 
   function markDirty() {
     DashUnsaved.set(true);
@@ -32,6 +33,7 @@ const SettingsPage = (() => {
     }
 
     socialLinks = Array.isArray(data.social_links) ? [...data.social_links] : [];
+    originalMaintenanceEnabled = Boolean(data.maintenance_enabled);
     renderForm(data);
   }
 
@@ -104,6 +106,47 @@ const SettingsPage = (() => {
             </div>
           </div>
 
+          <div class="settings-section-title">Maintenance mode</div>
+          <div class="maintenance-settings-card">
+            <div class="form-check form-switch maintenance-toggle-row">
+              <input class="form-check-input" type="checkbox" role="switch" id="f_maintenance_enabled" ${s.maintenance_enabled ? "checked" : ""}>
+              <label class="form-check-label" for="f_maintenance_enabled">
+                <strong>Enable maintenance mode</strong>
+                <span>Public visitors will see the maintenance screen. The dashboard remains available.</span>
+              </label>
+            </div>
+
+            <div class="row g-3 mt-1">
+              <div class="col-12">
+                <label class="form-label" for="f_maintenance_title">Maintenance title</label>
+                <input type="text" class="form-control" id="f_maintenance_title" maxlength="120" value="${esc(s.maintenance_title || "We’ll be right back")}">
+              </div>
+              <div class="col-12">
+                <label class="form-label" for="f_maintenance_message">Maintenance message</label>
+                <textarea class="form-control" id="f_maintenance_message" rows="4" maxlength="700">${esc(s.maintenance_message || "We are making a few improvements to the website. Please check back shortly.")}</textarea>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="f_maintenance_return_at">Expected return time</label>
+                <input type="datetime-local" class="form-control" id="f_maintenance_return_at" value="${toDateTimeLocal(s.maintenance_return_at)}">
+                <div class="form-hint">Optional. This is shown in the visitor’s local time.</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="f_maintenance_contact_url">Contact link</label>
+                <input type="text" class="form-control" id="f_maintenance_contact_url" maxlength="300" value="${esc(s.maintenance_contact_url || "")}" placeholder="mailto:hello@example.com or https://wa.me/…">
+                <div class="form-hint">Leave blank to use the company email above.</div>
+              </div>
+            </div>
+
+            <div class="maintenance-actions-row">
+              <button type="button" class="btn btn-outline-brand" id="maintenancePreviewBtn">
+                <i class="bi bi-eye" aria-hidden="true"></i> Preview maintenance page
+              </button>
+              <a class="btn btn-outline-secondary" href="../index.html?maintenance-bypass=1" target="_blank" rel="noopener">
+                <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i> Open live site as admin
+              </a>
+            </div>
+          </div>
+
           <div class="settings-section-title">Analytics</div>
           <div class="row g-3">
             <div class="col-md-6">
@@ -145,11 +188,65 @@ const SettingsPage = (() => {
       renderSocialLinks();
     });
     document.getElementById("settingsForm").addEventListener("submit", onSave);
+    document.getElementById("maintenancePreviewBtn").addEventListener("click", previewMaintenance);
 
     DashUnsaved.set(false);
-    document.getElementById("settingsForm").querySelectorAll("input, textarea").forEach((el) => {
+    document.getElementById("settingsForm").querySelectorAll("input, textarea, select").forEach((el) => {
       el.addEventListener("input", markDirty);
     });
+  }
+
+  function toDateTimeLocal(value) {
+    if (!value) return "";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "";
+    const local = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+    return local.toISOString().slice(0, 16);
+  }
+
+  function previewMaintenance() {
+    const values = {
+      company: document.getElementById("f_company_name").value || "CUDFIRM",
+      title: document.getElementById("f_maintenance_title").value || "We’ll be right back",
+      message: document.getElementById("f_maintenance_message").value || "We are making a few improvements to the website. Please check back shortly.",
+      returnAt: document.getElementById("f_maintenance_return_at").value,
+      contact: document.getElementById("f_maintenance_contact_url").value || document.getElementById("f_email").value,
+      logo: logoWidget ? logoWidget.getValue() : "",
+    };
+
+    const returnText = values.returnAt
+      ? new Intl.DateTimeFormat(undefined, { dateStyle: "medium", timeStyle: "short" }).format(new Date(values.returnAt))
+      : "";
+
+    const modal = document.createElement("div");
+    modal.className = "modal fade";
+    modal.tabIndex = -1;
+    modal.setAttribute("aria-labelledby", "maintenancePreviewTitle");
+    modal.innerHTML = `
+      <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content maintenance-preview-modal">
+          <div class="modal-header">
+            <h2 class="modal-title fs-5" id="maintenancePreviewTitle">Maintenance page preview</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="maintenance-preview-canvas">
+              <div class="maintenance-preview-card">
+                <div class="maintenance-preview-brand">${values.logo ? `<img src="${esc(values.logo)}" alt="">` : ""}<span>${esc(values.company)}</span></div>
+                <div class="maintenance-preview-icon" aria-hidden="true"><i class="bi bi-tools"></i></div>
+                <h3>${esc(values.title)}</h3>
+                <p>${esc(values.message)}</p>
+                ${returnText ? `<div class="maintenance-preview-return"><i class="bi bi-clock"></i> Expected back: ${esc(returnText)}</div>` : ""}
+                ${values.contact ? `<span class="maintenance-preview-button">Contact us</span>` : ""}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    document.body.appendChild(modal);
+    const instance = new bootstrap.Modal(modal);
+    modal.addEventListener("hidden.bs.modal", () => modal.remove(), { once: true });
+    instance.show();
   }
 
   const PLATFORM_OPTIONS = ["instagram", "facebook", "twitter", "linkedin", "tiktok", "youtube"];
@@ -221,7 +318,20 @@ const SettingsPage = (() => {
       google_maps_embed: document.getElementById("f_google_maps_embed").value,
       ga_id: document.getElementById("f_ga_id").value,
       fb_pixel_id: document.getElementById("f_fb_pixel_id").value,
+      maintenance_enabled: document.getElementById("f_maintenance_enabled").checked,
+      maintenance_title: document.getElementById("f_maintenance_title").value.trim(),
+      maintenance_message: document.getElementById("f_maintenance_message").value.trim(),
+      maintenance_return_at: document.getElementById("f_maintenance_return_at").value
+        ? new Date(document.getElementById("f_maintenance_return_at").value).toISOString()
+        : null,
+      maintenance_contact_url: document.getElementById("f_maintenance_contact_url").value.trim() || null,
     };
+
+    if (!payload.maintenance_title || !payload.maintenance_message) {
+      setSaving(false);
+      DashToast.error("Maintenance title and message are required.");
+      return;
+    }
 
     const { error } = await AdminApi.update(TABLE, 1, payload);
 
@@ -234,8 +344,16 @@ const SettingsPage = (() => {
     }
 
     DashUnsaved.set(false);
-    DashToast.success("Site settings updated.");
+    DashToast.success(payload.maintenance_enabled ? "Settings saved. Maintenance mode is enabled." : "Site settings updated.");
     DashActivity.log("updated", "site_settings", "Site Settings");
+    if (payload.maintenance_enabled !== originalMaintenanceEnabled) {
+      DashActivity.log(
+        payload.maintenance_enabled ? "enabled" : "disabled",
+        "maintenance_mode",
+        payload.maintenance_enabled ? "Maintenance Mode Enabled" : "Maintenance Mode Disabled"
+      );
+      originalMaintenanceEnabled = payload.maintenance_enabled;
+    }
   }
 
   return { init };
