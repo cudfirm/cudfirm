@@ -28,6 +28,7 @@ const DashLayout = (() => {
     { key: "media", href: "media.html", label: "Media Library", icon: "bi-images" },
     { key: "settings", href: "settings.html", label: "Site Settings", icon: "bi-gear" },
     { key: "seo", href: "seo.html", label: "SEO Manager", icon: "bi-search" },
+    { key: "site-health", href: "site-health.html", label: "Site Health", icon: "bi-shield-check" },
     { key: "messages", href: "messages.html", label: "Messages", icon: "bi-envelope" },
     { key: "subscribers", href: "subscribers.html", label: "Subscribers", icon: "bi-people" },
     { key: "activity", href: "activity.html", label: "Activity Log", icon: "bi-clock-history" },
