@@ -1685,3 +1685,144 @@ button:focus-visible,
 @keyframes dash-spin {
   to { transform: rotate(360deg); }
 }
+
+/* ---------- Phase 5.4: SEO health checks ---------- */
+.seo-health-summary {
+  margin: 0 0 18px;
+  padding: 20px;
+  background: var(--n-white);
+  border: 1px solid var(--n-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+.seo-health-summary-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 16px;
+}
+.seo-health-summary-head h2 {
+  margin: 0;
+  color: var(--n-charcoal);
+  font-family: 'Syne', sans-serif;
+  font-size: 1.08rem;
+  font-weight: 800;
+}
+.seo-health-summary-head p {
+  margin: 4px 0 0;
+  color: var(--n-muted);
+  font-size: .8rem;
+}
+.seo-health-average {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  white-space: nowrap;
+}
+.seo-health-average strong {
+  color: var(--n-forest);
+  font-family: 'Syne', sans-serif;
+  font-size: 1.65rem;
+  line-height: 1;
+}
+.seo-health-average span {
+  color: var(--n-muted);
+  font-size: .72rem;
+}
+.seo-health-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.seo-health-stat {
+  min-width: 0;
+  padding: 13px 14px;
+  border: 1px solid var(--n-border);
+  border-radius: 12px;
+  background: var(--n-cream);
+}
+.seo-health-stat span {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--n-muted);
+  font-size: .72rem;
+}
+.seo-health-stat strong {
+  color: var(--n-charcoal);
+  font-family: 'Syne', sans-serif;
+  font-size: 1.25rem;
+}
+.seo-health-stat.seo-health-good { background: #e8f5ee; border-color: #c8e7d5; }
+.seo-health-stat.seo-health-attention { background: #fff7df; border-color: #efdca0; }
+.seo-health-stat.seo-health-poor { background: #fceaea; border-color: #efc7c7; }
+
+.seo-health-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 9px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  font: inherit;
+  font-size: .7rem;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+.seo-health-pill:hover { transform: translateY(-1px); box-shadow: 0 5px 13px rgba(12, 17, 8, .08); }
+.seo-health-pill:focus-visible { outline: 3px solid rgba(197, 154, 42, .3); outline-offset: 2px; }
+.seo-health-pill .seo-health-score {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 22px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.72);
+}
+.seo-health-pill.seo-health-good { color: #17623a; background: #dff4e8; border-color: #bfe3ce; }
+.seo-health-pill.seo-health-attention { color: #765607; background: #fff1c7; border-color: #ead38a; }
+.seo-health-pill.seo-health-poor { color: #922b2b; background: #fce2e2; border-color: #efbcbc; }
+
+.seo-health-modal-key {
+  margin-top: 3px;
+  color: var(--n-muted);
+  font-size: .78rem;
+}
+.seo-health-issue-list { display: grid; gap: 10px; }
+.seo-health-issue,
+.seo-health-all-good {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  padding: 13px 14px;
+  border: 1px solid var(--n-border);
+  border-radius: 12px;
+}
+.seo-health-issue i,
+.seo-health-all-good i { margin-top: 1px; font-size: 1.05rem; }
+.seo-health-issue strong,
+.seo-health-all-good strong { display: block; color: var(--n-charcoal); font-size: .84rem; }
+.seo-health-issue p,
+.seo-health-all-good p { margin: 3px 0 0; color: var(--n-body); font-size: .78rem; }
+.seo-health-issue-warning { background: #fffaf0; border-color: #ead9a8; }
+.seo-health-issue-warning i { color: #b77b00; }
+.seo-health-issue-critical { background: #fff3f3; border-color: #efc9c9; }
+.seo-health-issue-critical i { color: #b33333; }
+.seo-health-all-good { background: #eff8f3; border-color: #c9e5d5; }
+.seo-health-all-good i { color: #238451; }
+
+@media (max-width: 900px) {
+  .seo-health-stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 575.98px) {
+  .seo-health-summary { padding: 16px; }
+  .seo-health-summary-head { align-items: flex-start; flex-direction: column; }
+  .seo-health-stat-grid { grid-template-columns: 1fr 1fr; gap: 9px; }
+  .seo-health-stat { padding: 11px 12px; }
+}

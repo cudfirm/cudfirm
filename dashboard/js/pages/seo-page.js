@@ -12,10 +12,14 @@ const SeoPageConfig = {
   orderCol: "page_key",
   orderable: false,
   deleteLabelField: "page_key",
+  searchFields: ["page_key", "title", "meta_description", "canonical_url"],
+  renderSummary: (rows) => SeoHealth.renderSummary(rows),
+  afterRender: (context) => SeoHealth.wire(context),
   columns: [
     { key: "page_key", label: "Page Key", primary: true },
     { key: "title", label: "Title" },
     { key: "robots", label: "Robots" },
+    { key: "_seo_health", label: "SEO Health", render: (row, rows) => SeoHealth.renderCell(row, rows) },
   ],
   fields: [
     { key: "page_key", label: "Page key", type: "text", required: true, maxLength: 60, placeholder: "e.g. home", hint: "A short identifier — \"home\" is the one currently read by the live site." },

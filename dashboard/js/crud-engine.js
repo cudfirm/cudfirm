@@ -94,6 +94,7 @@ const CrudEngine = (() => {
           <i class="bi bi-plus-lg" aria-hidden="true"></i> Add ${esc(cfg.singularLabel || cfg.title)}
         </button>
       </div>
+      <div id="crudPageSummaryWrap"></div>
       <div id="crudFiltersBarWrap"></div>
       <div class="table-card">
         <div id="crudBulkBarWrap"></div>
@@ -261,8 +262,15 @@ const CrudEngine = (() => {
     setTimeout(() => window.location.replace("index.html"), 1200);
   }
 
+  function renderPageSummary() {
+    const wrap = document.getElementById("crudPageSummaryWrap");
+    if (!wrap) return;
+    wrap.innerHTML = typeof cfg.renderSummary === "function" ? cfg.renderSummary(rows) : "";
+  }
+
   function renderTable() {
     const wrap = document.getElementById("crudTableWrap");
+    renderPageSummary();
     const countEl = document.getElementById("crudResultsCount");
 
     if (!rows.length) {
@@ -328,6 +336,9 @@ const CrudEngine = (() => {
         const cells = cfg.columns
           .map((c) => {
             const val = row[c.key];
+            if (typeof c.render === "function") {
+              return `<td class="${c.primary ? "col-primary" : ""}">${c.render(row, rows)}</td>`;
+            }
             if (c.type === "status") {
               const status = String(val || "draft").toLowerCase();
               const labels = { draft: "Draft", published: "Published", hidden: "Hidden", archived: "Archived" };
@@ -445,6 +456,10 @@ const CrudEngine = (() => {
         wrap.scrollIntoView({ behavior: "smooth", block: "start" });
       });
     });
+
+    if (typeof cfg.afterRender === "function") {
+      cfg.afterRender({ wrap, rows, filteredRows, visibleRows });
+    }
   }
 
   function wireDragAndDrop(wrap) {
