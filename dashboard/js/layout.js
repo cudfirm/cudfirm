@@ -15,24 +15,25 @@
 
 const DashLayout = (() => {
   const NAV_ITEMS = [
-    { key: "home", href: "home.html", label: "Dashboard Home", icon: "bi-house-door" },
-    { key: "hero", href: "hero.html", label: "Hero Section", icon: "bi-flag" },
-    { key: "services", href: "services.html", label: "Services", icon: "bi-grid-3x3-gap" },
-    { key: "portfolio", href: "portfolio.html", label: "Portfolio", icon: "bi-briefcase" },
-    { key: "testimonials", href: "testimonials.html", label: "Testimonials", icon: "bi-chat-quote" },
-    { key: "faq", href: "faq.html", label: "FAQ", icon: "bi-question-circle" },
-    { key: "navigation", href: "navigation.html", label: "Navigation", icon: "bi-list-ul" },
+    { key: "home", permission: "view_dashboard", href: "home.html", label: "Dashboard Home", icon: "bi-house-door" },
+    { key: "hero", href: "hero.html", label: "Hero Section", icon: "bi-flag", permission: "view_dashboard" },
+    { key: "services", permission: "view_dashboard", href: "services.html", label: "Services", icon: "bi-grid-3x3-gap" },
+    { key: "portfolio", permission: "view_dashboard", href: "portfolio.html", label: "Portfolio", icon: "bi-briefcase" },
+    { key: "testimonials", permission: "view_dashboard", href: "testimonials.html", label: "Testimonials", icon: "bi-chat-quote" },
+    { key: "faq", permission: "view_dashboard", href: "faq.html", label: "FAQ", icon: "bi-question-circle" },
+    { key: "navigation", permission: "view_dashboard", href: "navigation.html", label: "Navigation", icon: "bi-list-ul" },
   ];
 
   const PLATFORM_NAV_ITEMS = [
-    { key: "media", href: "media.html", label: "Media Library", icon: "bi-images" },
-    { key: "settings", href: "settings.html", label: "Site Settings", icon: "bi-gear" },
-    { key: "seo", href: "seo.html", label: "SEO Manager", icon: "bi-search" },
-    { key: "site-health", href: "site-health.html", label: "Site Health", icon: "bi-shield-check" },
-    { key: "backup", href: "backup.html", label: "Backup & Restore", icon: "bi-database-check" },
-    { key: "messages", href: "messages.html", label: "Messages", icon: "bi-envelope" },
-    { key: "subscribers", href: "subscribers.html", label: "Subscribers", icon: "bi-people" },
-    { key: "activity", href: "activity.html", label: "Activity Log", icon: "bi-clock-history" },
+    { key: "media", permission: "view_media", href: "media.html", label: "Media Library", icon: "bi-images" },
+    { key: "settings", permission: "manage_settings", href: "settings.html", label: "Site Settings", icon: "bi-gear" },
+    { key: "seo", permission: "view_seo", href: "seo.html", label: "SEO Manager", icon: "bi-search" },
+    { key: "site-health", permission: "run_site_health", href: "site-health.html", label: "Site Health", icon: "bi-shield-check" },
+    { key: "backup", permission: "backup_restore", href: "backup.html", label: "Backup & Restore", icon: "bi-database-check" },
+    { key: "messages", permission: "view_messages", href: "messages.html", label: "Messages", icon: "bi-envelope" },
+    { key: "subscribers", permission: "view_subscribers", href: "subscribers.html", label: "Subscribers", icon: "bi-people" },
+    { key: "activity", permission: "view_activity", href: "activity.html", label: "Activity Log", icon: "bi-clock-history" },
+    { key: "users", permission: "manage_users", href: "users.html", label: "Users & Roles", icon: "bi-person-gear" },
   ];
 
   function initials(email) {
@@ -46,9 +47,12 @@ const DashLayout = (() => {
 
     const user = window.dashUser || {};
     const email = user.email || "Admin";
+    const profile = (window.DashPermissions && DashPermissions.getProfile()) || {};
+    const roleLabel = window.DashPermissions ? DashPermissions.roleLabel() : "Admin";
 
     const navHtml = (items) =>
       items
+        .filter((item) => !item.permission || !window.DashPermissions || DashPermissions.can(item.permission))
         .map((item) => {
           return `
         <a href="${esc(item.href)}" class="${item.key === active ? "active" : ""}" ${item.key === active ? 'aria-current="page"' : ""}>
@@ -77,7 +81,7 @@ const DashLayout = (() => {
         <div class="side-foot">
           <div class="side-user">
             <div class="avatar" aria-hidden="true">${esc(initials(email))}</div>
-            <div class="email">${esc(email)}</div>
+            <div><div class="email">${esc(email)}</div><div class="side-role">${esc(roleLabel)}</div></div>
           </div>
           <button class="btn-signout" id="signOutBtn" type="button">
             <i class="bi bi-box-arrow-right" aria-hidden="true"></i> Sign out

@@ -37,28 +37,31 @@
   window.DashAuth = {
     ready: false,
     user: null,
+    profile: null,
     _callbacks: [],
     onReady(cb) {
       if (this.ready) {
-        cb(this.user);
+        cb(this.user, this.profile);
       } else {
         this._callbacks.push(cb);
       }
     },
   };
 
-  function notifyReady(user) {
+  function notifyReady(user, profile) {
     window.dashUser = user;
     window.DashAuth.user = user;
+    window.DashAuth.profile = profile;
+    if (window.DashPermissions) window.DashPermissions.setProfile(profile);
     window.DashAuth.ready = true;
     document.documentElement.classList.add("auth-ready");
 
     const queued = window.DashAuth._callbacks.splice(0);
-    queued.forEach((cb) => cb(user));
+    queued.forEach((cb) => cb(user, profile));
 
     // Kept for backwards compatibility with anything else listening
     // for this event; DashAuth.onReady() above is the reliable path.
-    document.dispatchEvent(new CustomEvent("dash:authenticated", { detail: user }));
+    document.dispatchEvent(new CustomEvent("dash:authenticated", { detail: { user, profile } }));
   }
 
   async function guard() {
@@ -70,7 +73,29 @@
         return;
       }
 
-      notifyReady(data.session.user);
+      const user = data.session.user;
+      const { data: profile, error: profileError } = await supabaseClient
+        .from("user_profiles")
+        .select("id,email,full_name,role,is_active,created_at,updated_at")
+        .eq("id", user.id)
+        .single();
+
+      if (profileError || !profile || profile.is_active === false) {
+        console.error("[dashboard] profile check failed:", profileError || "inactive profile");
+        await supabaseClient.auth.signOut();
+        window.location.replace(LOGIN_PATH + "?error=access");
+        return;
+      }
+
+      if (window.DashPermissions) {
+        window.DashPermissions.setProfile(profile);
+        if (!window.DashPermissions.canAccessPage()) {
+          window.location.replace("home.html?error=permission");
+          return;
+        }
+      }
+
+      notifyReady(user, profile);
     } catch (err) {
       console.error("[dashboard] auth check failed:", err);
       window.location.replace(LOGIN_PATH);

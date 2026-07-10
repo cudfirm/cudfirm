@@ -2055,3 +2055,10 @@ button:focus-visible,
 @media (max-width: 1050px) { .backup-grid { grid-template-columns: 1fr; } .backup-section-list { max-height: none; } }
 @media (max-width: 700px) { .backup-hero { flex-direction: column; } .backup-scope-note { max-width: none; width: 100%; } .backup-panel { padding: 16px; } }
 @media (max-width: 420px) { .backup-section-option { grid-template-columns: auto 30px minmax(0, 1fr); padding: 9px; } .backup-panel-head > i { display: none; } }
+
+/* Phase 6.2 — roles and permissions */
+.side-role{font-size:.72rem;color:rgba(255,255,255,.58);margin-top:.08rem;text-transform:uppercase;letter-spacing:.04em}
+.permission-readonly-badge{display:inline-flex;align-items:center;gap:.4rem;padding:.45rem .7rem;border-radius:999px;background:#f2f4f1;color:#526057;font-size:.82rem;font-weight:700}
+.role-guide{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.75rem}.role-guide>div{background:#fff;border:1px solid var(--dash-border,#e4e8e3);border-radius:12px;padding:1rem;box-shadow:0 4px 16px rgba(20,35,25,.04)}.role-guide strong,.role-guide span{display:block}.role-guide span{font-size:.82rem;color:#6b756e;margin-top:.3rem;line-height:1.45}.user-active-toggle{display:inline-flex;align-items:center;gap:.45rem;margin:0}.dash-table small{color:#748078;font-weight:400}
+@media(max-width:900px){.role-guide{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.role-guide{grid-template-columns:1fr}.user-role{min-width:145px}}

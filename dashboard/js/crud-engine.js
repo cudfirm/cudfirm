@@ -84,15 +84,17 @@ const CrudEngine = (() => {
     await reload();
   }
 
+  function can(permission) { return !window.DashPermissions || DashPermissions.can(permission); }
+
   function renderToolbar() {
     const root = document.getElementById("page-content");
     root.innerHTML = `
       ${cfg.note ? `<div class="singleton-note"><i class="bi bi-info-circle-fill mt-1" aria-hidden="true"></i><span>${esc(cfg.note)}</span></div>` : ""}
       <div class="crud-toolbar">
         <div class="crud-hint">${esc(cfg.hint || `Manage the ${cfg.title.toLowerCase()} shown on the live site.`)}</div>
-        <button class="btn btn-brand" id="btnAddNew" type="button">
+        ${can("create_content") ? `<button class="btn btn-brand" id="btnAddNew" type="button">
           <i class="bi bi-plus-lg" aria-hidden="true"></i> Add ${esc(cfg.singularLabel || cfg.title)}
-        </button>
+        </button>` : `<span class="permission-readonly-badge"><i class="bi bi-eye"></i> Read only</span>`}
       </div>
       <div id="crudPageSummaryWrap"></div>
       <div id="crudFiltersBarWrap"></div>
@@ -101,7 +103,8 @@ const CrudEngine = (() => {
         <div id="crudTableWrap" aria-live="polite"></div>
       </div>
     `;
-    document.getElementById("btnAddNew").addEventListener("click", () => openForm(null));
+    const addBtn = document.getElementById("btnAddNew");
+    if (addBtn) addBtn.addEventListener("click", () => openForm(null));
   }
 
   /**
@@ -282,12 +285,13 @@ const CrudEngine = (() => {
           <i class="bi bi-inbox" aria-hidden="true"></i>
           No ${esc(cfg.title.toLowerCase())} yet.
           <div class="mt-3">
-            <button class="btn btn-brand" id="btnAddNewEmpty" type="button">
+            ${can("create_content") ? `<button class="btn btn-brand" id="btnAddNewEmpty" type="button">
               <i class="bi bi-plus-lg" aria-hidden="true"></i> Add ${esc(cfg.singularLabel || cfg.title)}
-            </button>
+            </button>` : ""}
           </div>
         </div>`;
-      document.getElementById("btnAddNewEmpty").addEventListener("click", () => openForm(null));
+      const emptyAddBtn = document.getElementById("btnAddNewEmpty");
+      if (emptyAddBtn) emptyAddBtn.addEventListener("click", () => openForm(null));
       return;
     }
 
@@ -327,9 +331,10 @@ const CrudEngine = (() => {
     const pageIds = visibleRows.map((row) => row.id);
     const allPageSelected = pageIds.length > 0 && pageIds.every((id) => selectedIds.has(id));
     const somePageSelected = pageIds.some((id) => selectedIds.has(id));
-    const selectHead = `<th scope="col" class="col-select">
+    const canBulk = can("publish_content") || can("delete_content");
+    const selectHead = canBulk ? `<th scope="col" class="col-select">
       <input class="form-check-input" type="checkbox" id="crudSelectPage" aria-label="Select all items on this page" ${allPageSelected ? "checked" : ""}>
-    </th>`;
+    </th>` : "";
     const headCells = cfg.columns.map((c) => `<th scope="col">${esc(c.label)}</th>`).join("");
     const bodyRows = visibleRows
       .map((row) => {
@@ -358,13 +363,13 @@ const CrudEngine = (() => {
           .join("");
 
         const itemLabel = esc(row[cfg.deleteLabelField || cfg.columns[0].key] || `#${row.id}`);
-        const canReorder = cfg.orderable !== false && defaultView;
+        const canReorder = cfg.orderable !== false && defaultView && can("edit_content");
         const fullIndex = rows.findIndex((candidate) => candidate.id === row.id);
         return `
           <tr data-id="${row.id}" class="${selectedIds.has(row.id) ? "is-selected" : ""}${canReorder ? " is-draggable" : ""}">
-            <td class="col-select">
+            ${canBulk ? `<td class="col-select">
               <input class="form-check-input crud-row-select" type="checkbox" data-select-id="${row.id}" aria-label="Select ${itemLabel}" ${selectedIds.has(row.id) ? "checked" : ""}>
-            </td>
+            </td>` : ""}
             ${cells}
             <td>
               <div class="row-actions">
@@ -375,8 +380,8 @@ const CrudEngine = (() => {
                        <button class="btn" data-action="down" aria-label="Move ${itemLabel} down" ${fullIndex === rows.length - 1 || isReordering ? "disabled" : ""}><i class="bi bi-arrow-down" aria-hidden="true"></i></button>`
                     : ""
                 }
-                <button class="btn" data-action="edit" aria-label="Edit ${itemLabel}"><i class="bi bi-pencil" aria-hidden="true"></i></button>
-                <button class="btn text-danger" data-action="delete" aria-label="Delete ${itemLabel}"><i class="bi bi-trash3" aria-hidden="true"></i></button>
+                ${can("edit_content") ? `<button class="btn" data-action="edit" aria-label="Edit ${itemLabel}"><i class="bi bi-pencil" aria-hidden="true"></i></button>` : ""}
+                ${can("delete_content") ? `<button class="btn text-danger" data-action="delete" aria-label="Delete ${itemLabel}"><i class="bi bi-trash3" aria-hidden="true"></i></button>` : ""}
               </div>
             </td>
           </tr>`;
@@ -706,6 +711,7 @@ const CrudEngine = (() => {
   }
 
   function openForm(id) {
+    if (!can(id ? "edit_content" : "create_content")) return DashToast.error("You do not have permission to modify content.");
     editingId = id;
     const row = id ? rows.find((r) => r.id === id) : null;
     document.getElementById("crudFormTitle").textContent = row ? `Edit ${cfg.singularLabel || cfg.title}` : `Add ${cfg.singularLabel || cfg.title}`;
@@ -855,6 +861,7 @@ const CrudEngine = (() => {
   }
 
   function openDelete(id) {
+    if (!can("delete_content")) return DashToast.error("You do not have permission to delete content.");
     deletingId = id;
     const row = rows.find((r) => r.id === id);
     const itemLabel = row ? row[cfg.deleteLabelField || cfg.columns[0].key] : null;
@@ -973,6 +980,7 @@ const CrudEngine = (() => {
   }
 
   async function runBulkStatus(status) {
+    if (!can("publish_content")) return DashToast.error("You do not have permission to change publishing status.");
     const allowed = ["draft", "published", "hidden", "archived"];
     if (isBulkWorking || !selectedIds.size || !hasStatusWorkflow() || !allowed.includes(status)) return;
     isBulkWorking = true;
@@ -1017,6 +1025,7 @@ const CrudEngine = (() => {
   }
 
   function openBulkDelete() {
+    if (!can("delete_content")) return DashToast.error("You do not have permission to delete content.");
     if (!selectedIds.size || isBulkWorking) return;
     bulkDeleteIds = Array.from(selectedIds);
     const count = bulkDeleteIds.length;
