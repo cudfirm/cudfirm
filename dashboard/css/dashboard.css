@@ -1935,9 +1935,27 @@ button:focus-visible,
 }
 
 @media (max-width: 900px) {
+  /* Keep the interactive sidebar above the dimming backdrop. */
+  .dash-sidebar {
+    z-index: 1040;
+    pointer-events: auto;
+    touch-action: pan-y;
+  }
+
+  .dash-sidebar-backdrop {
+    z-index: 1035;
+  }
+
   .dash-sidebar-backdrop.open {
     display: block;
     opacity: 1;
+  }
+
+  /* Allow the navigation area itself to scroll while page content stays locked. */
+  .dash-nav {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
 
   body.dash-nav-open {
