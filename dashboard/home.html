@@ -31,14 +31,231 @@
     await renderHome();
   });
 
+  const CONTENT_TABLES = ["services", "portfolio_projects", "testimonials", "faq", "navigation"];
+
+  function safeRows(result) {
+    return result && !result.error && Array.isArray(result.data) ? result.data : [];
+  }
+
+  function statusOf(row, fallbackActive = true) {
+    if (row && row.status) return String(row.status).toLowerCase();
+    return row && row.is_active === false ? "hidden" : (fallbackActive ? "published" : "unknown");
+  }
+
+  function isThisMonth(value) {
+    if (!value) return false;
+    const date = new Date(value);
+    const now = new Date();
+    return !Number.isNaN(date.getTime()) && date.getFullYear() === now.getFullYear() && date.getMonth() === now.getMonth();
+  }
+
+  function formatDate(value) {
+    if (!value) return "—";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "—";
+    return date.toLocaleString([], { dateStyle: "medium", timeStyle: "short" });
+  }
+
+  function shorten(value, limit = 84) {
+    const text = String(value || "").replace(/\s+/g, " ").trim();
+    return text.length > limit ? `${text.slice(0, limit - 1)}…` : text;
+  }
+
+  function monthBuckets(rows, months = 6) {
+    const now = new Date();
+    const buckets = [];
+    for (let offset = months - 1; offset >= 0; offset -= 1) {
+      const date = new Date(now.getFullYear(), now.getMonth() - offset, 1);
+      buckets.push({
+        year: date.getFullYear(),
+        month: date.getMonth(),
+        label: date.toLocaleDateString([], { month: "short" }),
+        count: 0,
+      });
+    }
+    (rows || []).forEach((row) => {
+      const date = new Date(row.created_at);
+      if (Number.isNaN(date.getTime())) return;
+      const bucket = buckets.find((item) => item.year === date.getFullYear() && item.month === date.getMonth());
+      if (bucket) bucket.count += 1;
+    });
+    return buckets;
+  }
+
+  function renderBarChart(items, emptyLabel) {
+    const max = Math.max(1, ...items.map((item) => item.count));
+    if (!items.some((item) => item.count > 0)) {
+      return `<div class="analytics-empty">${esc(emptyLabel)}</div>`;
+    }
+    return `<div class="analytics-bars">${items.map((item) => {
+      const width = Math.max(item.count ? 7 : 0, Math.round((item.count / max) * 100));
+      return `
+        <div class="analytics-bar-row">
+          <div class="analytics-bar-label">${esc(item.label)}</div>
+          <div class="analytics-bar-track"><span style="width:${width}%"></span></div>
+          <div class="analytics-bar-value">${item.count}</div>
+        </div>`;
+    }).join("")}</div>`;
+  }
+
+  function renderTrendChart(messageBuckets, subscriberBuckets) {
+    const max = Math.max(1, ...messageBuckets.map((item) => item.count), ...subscriberBuckets.map((item) => item.count));
+    return `
+      <div class="trend-legend" aria-hidden="true">
+        <span><i class="legend-dot messages"></i>Messages</span>
+        <span><i class="legend-dot subscribers"></i>Subscribers</span>
+      </div>
+      <div class="trend-chart" role="img" aria-label="Messages and subscribers received over the last six months">
+        ${messageBuckets.map((item, index) => {
+          const messageHeight = item.count ? Math.max(10, Math.round((item.count / max) * 100)) : 2;
+          const subscriberCount = subscriberBuckets[index] ? subscriberBuckets[index].count : 0;
+          const subscriberHeight = subscriberCount ? Math.max(10, Math.round((subscriberCount / max) * 100)) : 2;
+          return `
+            <div class="trend-month">
+              <div class="trend-columns">
+                <span class="trend-column messages" style="height:${messageHeight}%" title="${item.count} messages"></span>
+                <span class="trend-column subscribers" style="height:${subscriberHeight}%" title="${subscriberCount} subscribers"></span>
+              </div>
+              <span class="trend-label">${esc(item.label)}</span>
+            </div>`;
+        }).join("")}
+      </div>`;
+  }
+
   async function renderHome() {
     const root = document.getElementById("page-content");
-    const skeletonCards = Array.from({ length: 8 })
-      .map(() => `<div class="stat-card"><div class="skeleton-bar" style="width:38px;height:38px;border-radius:9px;margin-bottom:12px"></div><div class="skeleton-bar" style="width:50%;height:1.6rem;margin-bottom:8px"></div><div class="skeleton-bar" style="width:70%"></div></div>`)
-      .join("");
     root.innerHTML = `
-      <div class="stat-grid" id="statGrid" aria-live="polite" aria-busy="true">
-        ${skeletonCards}
+      <div class="analytics-loading" role="status" aria-live="polite">
+        <i class="bi bi-arrow-repeat" aria-hidden="true"></i>
+        Loading dashboard analytics…
+      </div>`;
+
+    const requests = [
+      ...CONTENT_TABLES.map((table) => AdminApi.list(table, "sort_order", true)),
+      AdminApi.list("messages", "created_at", false),
+      AdminApi.list("subscribers", "created_at", false),
+      AdminApi.list("activity_log", "created_at", false),
+    ];
+
+    const results = await Promise.all(requests);
+    const contentResults = results.slice(0, CONTENT_TABLES.length);
+    const messagesResult = results[CONTENT_TABLES.length];
+    const subscribersResult = results[CONTENT_TABLES.length + 1];
+    const activityResult = results[CONTENT_TABLES.length + 2];
+
+    const contentRows = contentResults.flatMap(safeRows);
+    const messages = safeRows(messagesResult);
+    const subscribers = safeRows(subscribersResult);
+    const activity = safeRows(activityResult);
+
+    const contentCounts = { published: 0, draft: 0, hidden: 0, archived: 0 };
+    contentRows.forEach((row) => {
+      const status = statusOf(row);
+      if (Object.prototype.hasOwnProperty.call(contentCounts, status)) contentCounts[status] += 1;
+    });
+
+    const messageCounts = { unread: 0, read: 0, important: 0, replied: 0, archived: 0, spam: 0 };
+    messages.forEach((row) => {
+      const status = String(row.status || (row.is_archived ? "archived" : row.is_read ? "read" : "unread")).toLowerCase();
+      if (Object.prototype.hasOwnProperty.call(messageCounts, status)) messageCounts[status] += 1;
+    });
+
+    const subscriberCounts = { active: 0, unsubscribed: 0, bounced: 0, archived: 0 };
+    subscribers.forEach((row) => {
+      const status = String(row.status || (row.is_active === false ? "unsubscribed" : "active")).toLowerCase();
+      if (Object.prototype.hasOwnProperty.call(subscriberCounts, status)) subscriberCounts[status] += 1;
+    });
+
+    const messagesThisMonth = messages.filter((row) => isThisMonth(row.created_at)).length;
+    const messageBuckets = monthBuckets(messages);
+    const subscriberBuckets = monthBuckets(subscribers);
+
+    root.innerHTML = `
+      <section aria-labelledby="overviewTitle">
+        <div class="analytics-section-heading">
+          <div>
+            <h2 id="overviewTitle">Business overview</h2>
+            <p>Live totals from your website and CMS.</p>
+          </div>
+          <span class="analytics-updated"><i class="bi bi-clock" aria-hidden="true"></i> Updated now</span>
+        </div>
+
+        <div class="stat-grid analytics-stat-grid">
+          ${renderStatCard("bi-collection", contentRows.length, "Total Content", "All managed content records", "services.html")}
+          ${renderStatCard("bi-envelope-exclamation", messageCounts.unread, "Unread Messages", `${messagesThisMonth} received this month`, "messages.html", messageCounts.unread > 0 ? "attention" : "")}
+          ${renderStatCard("bi-people", subscriberCounts.active, "Active Subscribers", `${subscribers.length} total subscribers`, "subscribers.html")}
+          ${renderStatCard("bi-check-circle", contentCounts.published, "Published Items", `${contentCounts.draft} draft · ${contentCounts.hidden} hidden`, "services.html")}
+        </div>
+      </section>
+
+      <div class="analytics-grid analytics-grid-top">
+        <section class="analytics-card" aria-labelledby="contentStatusTitle">
+          <div class="analytics-card-head">
+            <div><h2 id="contentStatusTitle">Content status</h2><p>Across Services, Portfolio, Testimonials, FAQ and Navigation.</p></div>
+            <a href="services.html">Manage</a>
+          </div>
+          ${renderBarChart([
+            { label: "Published", count: contentCounts.published },
+            { label: "Draft", count: contentCounts.draft },
+            { label: "Hidden", count: contentCounts.hidden },
+            { label: "Archived", count: contentCounts.archived },
+          ], "No content records yet.")}
+        </section>
+
+        <section class="analytics-card" aria-labelledby="messageStatusTitle">
+          <div class="analytics-card-head">
+            <div><h2 id="messageStatusTitle">Messages overview</h2><p>${messages.length} total messages · ${messagesThisMonth} this month.</p></div>
+            <a href="messages.html">Open inbox</a>
+          </div>
+          ${renderBarChart([
+            { label: "Unread", count: messageCounts.unread },
+            { label: "Read", count: messageCounts.read },
+            { label: "Important", count: messageCounts.important },
+            { label: "Replied", count: messageCounts.replied },
+            { label: "Archived", count: messageCounts.archived },
+            { label: "Spam", count: messageCounts.spam },
+          ], "No messages received yet.")}
+        </section>
+      </div>
+
+      <div class="analytics-grid">
+        <section class="analytics-card" aria-labelledby="subscriberStatusTitle">
+          <div class="analytics-card-head">
+            <div><h2 id="subscriberStatusTitle">Subscribers overview</h2><p>Current newsletter list health.</p></div>
+            <a href="subscribers.html">Manage</a>
+          </div>
+          ${renderBarChart([
+            { label: "Active", count: subscriberCounts.active },
+            { label: "Unsubscribed", count: subscriberCounts.unsubscribed },
+            { label: "Bounced", count: subscriberCounts.bounced },
+            { label: "Archived", count: subscriberCounts.archived },
+          ], "No subscribers yet.")}
+        </section>
+
+        <section class="analytics-card" aria-labelledby="growthTitle">
+          <div class="analytics-card-head">
+            <div><h2 id="growthTitle">Six-month activity</h2><p>New messages and newsletter subscribers.</p></div>
+          </div>
+          ${renderTrendChart(messageBuckets, subscriberBuckets)}
+        </section>
+      </div>
+
+      <div class="analytics-grid analytics-recent-grid">
+        <section class="analytics-card" aria-labelledby="recentMessagesTitle">
+          <div class="analytics-card-head">
+            <div><h2 id="recentMessagesTitle">Recent messages</h2><p>Your five newest enquiries.</p></div>
+            <a href="messages.html">View all</a>
+          </div>
+          ${renderRecentMessages(messages)}
+        </section>
+
+        <section class="analytics-card" aria-labelledby="recentSubscribersTitle">
+          <div class="analytics-card-head">
+            <div><h2 id="recentSubscribersTitle">Recent subscribers</h2><p>Your five newest newsletter contacts.</p></div>
+            <a href="subscribers.html">View all</a>
+          </div>
+          ${renderRecentSubscribers(subscribers)}
+        </section>
       </div>
 
       <div class="row g-4 mt-1">
@@ -59,77 +276,78 @@
         <div class="col-lg-5">
           <h2 class="h5 mb-3">Recent activity</h2>
           <div class="table-card p-3" id="recentActivity" aria-live="polite">
-            <div class="loading-state" role="status"><i class="bi bi-arrow-repeat" aria-hidden="true"></i> Loading…</div>
+            ${renderRecentActivity(activity)}
           </div>
         </div>
-      </div>
-    `;
+      </div>`;
 
-    const tables = [
-      { key: "services", label: "Services", icon: "bi-grid-3x3-gap", href: "services.html" },
-      { key: "portfolio_projects", label: "Portfolio Projects", icon: "bi-briefcase", href: "portfolio.html" },
-      { key: "testimonials", label: "Testimonials", icon: "bi-chat-quote", href: "testimonials.html" },
-      { key: "faq", label: "FAQ Entries", icon: "bi-question-circle", href: "faq.html" },
-      { key: "navigation", label: "Nav Items", icon: "bi-list-ul", href: "navigation.html" },
-      { key: "messages", label: "Unread Messages", icon: "bi-envelope", href: "messages.html", filters: { is_read: false, is_archived: false } },
-      { key: "subscribers", label: "Subscribers", icon: "bi-people", href: "subscribers.html" },
-      { key: "media_library", label: "Media Files", icon: "bi-images", href: "media.html" },
-    ];
-
-    const results = await Promise.all(tables.map((t) => AdminApi.count(t.key, t.filters)));
-
-    const grid = document.getElementById("statGrid");
-    grid.setAttribute("aria-busy", "false");
-    grid.innerHTML = tables
-      .map((t, i) => {
-        const { count, error } = results[i];
-        return `
-          <div class="stat-card">
-            <div class="stat-icon"><i class="bi ${t.icon}" aria-hidden="true"></i></div>
-            <div class="stat-value">${error ? "—" : count}</div>
-            <div class="stat-label">${esc(t.label)}</div>
-            <a href="${esc(t.href)}" class="stat-link">Manage <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-          </div>`;
-      })
-      .join("");
-
-    const anyError = results.find((r) => r.error);
-    if (anyError) {
-      DashToast.error(DashError.friendly(anyError.error, "Some counts couldn't be loaded."));
+    const failures = results.filter((result) => result && result.error);
+    if (failures.length) {
+      DashToast.error(DashError.friendly(failures[0].error, "Some dashboard analytics couldn't be loaded."));
     }
-
-    renderRecentActivity();
   }
 
-  async function renderRecentActivity() {
-    const panel = document.getElementById("recentActivity");
-    const { data, error } = await AdminApi.list("activity_log", "created_at", false);
+  function renderStatCard(icon, value, label, detail, href, tone = "") {
+    return `
+      <div class="stat-card analytics-stat-card ${tone}">
+        <div class="stat-icon"><i class="bi ${icon}" aria-hidden="true"></i></div>
+        <div class="stat-value">${Number(value || 0).toLocaleString()}</div>
+        <div class="stat-label">${esc(label)}</div>
+        <div class="stat-detail">${esc(detail)}</div>
+        <a href="${esc(href)}" class="stat-link">Manage <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+      </div>`;
+  }
 
-    if (error) {
-      panel.innerHTML = `<div class="empty-state"><i class="bi bi-exclamation-triangle" aria-hidden="true"></i>Could not load recent activity.</div>`;
-      return;
-    }
+  function renderRecentMessages(messages) {
+    const rows = (messages || []).slice(0, 5);
+    if (!rows.length) return `<div class="analytics-empty">No messages received yet.</div>`;
+    return `<div class="analytics-list">${rows.map((row) => {
+      const status = String(row.status || (row.is_read ? "read" : "unread")).toLowerCase();
+      return `
+        <a class="analytics-list-item" href="messages.html">
+          <span class="analytics-list-icon"><i class="bi bi-envelope" aria-hidden="true"></i></span>
+          <span class="analytics-list-body">
+            <strong>${esc(row.name || row.contact_info || "Website visitor")}</strong>
+            <span>${esc(shorten(row.message || row.contact_info, 72))}</span>
+            <small>${esc(formatDate(row.created_at))}</small>
+          </span>
+          <span class="analytics-status ${esc(status)}">${esc(status)}</span>
+        </a>`;
+    }).join("")}</div>`;
+  }
 
-    const rows = (data || []).slice(0, 8);
+  function renderRecentSubscribers(subscribers) {
+    const rows = (subscribers || []).slice(0, 5);
+    if (!rows.length) return `<div class="analytics-empty">No subscribers yet.</div>`;
+    return `<div class="analytics-list">${rows.map((row) => {
+      const status = String(row.status || (row.is_active === false ? "unsubscribed" : "active")).toLowerCase();
+      return `
+        <a class="analytics-list-item" href="subscribers.html">
+          <span class="analytics-list-icon"><i class="bi bi-person" aria-hidden="true"></i></span>
+          <span class="analytics-list-body">
+            <strong>${esc(row.email || "Unknown subscriber")}</strong>
+            <span>${esc(row.source || "footer")} signup</span>
+            <small>${esc(formatDate(row.created_at))}</small>
+          </span>
+          <span class="analytics-status ${esc(status)}">${esc(status)}</span>
+        </a>`;
+    }).join("")}</div>`;
+  }
+
+  function renderRecentActivity(activity) {
+    const rows = (activity || []).slice(0, 8);
     if (!rows.length) {
-      panel.innerHTML = `<div class="empty-state"><i class="bi bi-clock-history" aria-hidden="true"></i>No activity recorded yet.</div>`;
-      return;
+      return `<div class="empty-state"><i class="bi bi-clock-history" aria-hidden="true"></i>No activity recorded yet.</div>`;
     }
-
     const icons = { created: "bi-plus-circle", updated: "bi-pencil", deleted: "bi-trash3", uploaded: "bi-upload" };
-    panel.innerHTML =
-      rows
-        .map(
-          (r) => `
+    return rows.map((row) => `
       <div class="activity-item">
-        <div class="activity-icon"><i class="bi ${icons[r.action] || "bi-dot"}" aria-hidden="true"></i></div>
+        <div class="activity-icon"><i class="bi ${icons[row.action] || "bi-dot"}" aria-hidden="true"></i></div>
         <div>
-          <div class="activity-text"><strong>${esc(r.actor_email || "Someone")}</strong> ${esc(r.action)} ${esc(r.entity || "")}${r.entity_label ? ` — "${esc(r.entity_label)}"` : ""}</div>
-          <div class="activity-time">${r.created_at ? new Date(r.created_at).toLocaleString() : ""}</div>
+          <div class="activity-text"><strong>${esc(row.actor_email || "Someone")}</strong> ${esc(row.action || "updated")} ${esc(row.entity || "")}${row.entity_label ? ` — “${esc(row.entity_label)}”` : ""}</div>
+          <div class="activity-time">${esc(formatDate(row.created_at))}</div>
         </div>
-      </div>`
-        )
-        .join("") + `<a href="activity.html" class="stat-link d-inline-block mt-2">View full log <i class="bi bi-arrow-right" aria-hidden="true"></i></a>`;
+      </div>`).join("") + `<a href="activity.html" class="stat-link d-inline-block mt-2">View full log <i class="bi bi-arrow-right" aria-hidden="true"></i></a>`;
   }
 </script>
 </body>
