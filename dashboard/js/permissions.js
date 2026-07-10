@@ -122,3 +122,8 @@ const DashPermissions = (() => {
 
   return { MATRIX, PAGE_RULES, setProfile, getProfile, getRole, roleLabel, can, require, canAccessPage, currentPage };
 })();
+
+// Expose the permission helper on window because the authentication,
+// layout, and page scripts deliberately use window.DashPermissions
+// to detect whether the shared permission system is available.
+window.DashPermissions = DashPermissions;
