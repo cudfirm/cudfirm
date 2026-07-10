@@ -16,6 +16,7 @@ const SettingsPage = (() => {
   let faviconWidget = null;
   let isSaving = false;
   let originalMaintenanceEnabled = false;
+  let currentSettings = {};
 
   function markDirty() {
     DashUnsaved.set(true);
@@ -32,6 +33,7 @@ const SettingsPage = (() => {
       return;
     }
 
+    currentSettings = data || {};
     socialLinks = Array.isArray(data.social_links) ? [...data.social_links] : [];
     originalMaintenanceEnabled = Boolean(data.maintenance_enabled);
     renderForm(data);
@@ -82,6 +84,77 @@ const SettingsPage = (() => {
               <label class="form-label">Favicon</label>
               <div id="faviconMount"></div>
               <div class="form-hint">Square image recommended (e.g. 512×512).</div>
+            </div>
+          </div>
+
+          <div class="settings-section-title">Theme & appearance</div>
+          <div class="theme-settings-card">
+            <div class="theme-settings-head">
+              <div>
+                <strong>Public-site appearance</strong>
+                <span>Uses isolated CSS variables and a separate theme manager. The main stylesheet and script.js remain untouched.</span>
+              </div>
+              <div class="theme-head-actions">
+                <button type="button" class="btn btn-outline-secondary" id="themeResetBtn"><i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i> Reset</button>
+                <button type="button" class="btn btn-outline-brand" id="themePreviewBtn"><i class="bi bi-eye" aria-hidden="true"></i> Preview theme</button>
+              </div>
+            </div>
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label" for="f_theme_preset">Theme preset</label>
+                <select class="form-select" id="f_theme_preset">
+                  ${themeOptions([['default','Default'],['minimal','Minimal'],['corporate','Corporate'],['creative','Creative'],['dark','Dark']], s.theme_preset || 'default')}
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="f_theme_mode">Visitor theme default</label>
+                <select class="form-select" id="f_theme_mode">
+                  ${themeOptions([['light','Light'],['dark','Dark'],['visitor','Respect visitor choice']], s.theme_mode || 'light')}
+                </select>
+              </div>
+
+              ${colorControl('theme_primary_color','Primary colour', s.theme_primary_color || '#0B3D2E')}
+              ${colorControl('theme_secondary_color','Secondary colour', s.theme_secondary_color || '#1A6B4A')}
+              ${colorControl('theme_accent_color','Accent colour', s.theme_accent_color || '#C8922A')}
+              ${colorControl('theme_background_color','Background colour', s.theme_background_color || '#F5F0E6')}
+              ${colorControl('theme_text_color','Text colour', s.theme_text_color || '#3A4035')}
+
+              <div class="col-md-6">
+                <label class="form-label" for="f_theme_heading_font">Heading font</label>
+                <select class="form-select" id="f_theme_heading_font">${themeOptions([['syne','Syne'],['dm_sans','DM Sans'],['georgia','Georgia']], s.theme_heading_font || 'syne')}</select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="f_theme_body_font">Body font</label>
+                <select class="form-select" id="f_theme_body_font">${themeOptions([['dm_sans','DM Sans'],['system','System Sans'],['georgia','Georgia']], s.theme_body_font || 'dm_sans')}</select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label" for="f_theme_button_style">Button style</label>
+                <select class="form-select" id="f_theme_button_style">${themeOptions([['square','Square'],['soft','Soft'],['rounded','Rounded'],['pill','Pill']], s.theme_button_style || 'rounded')}</select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label" for="f_theme_spacing">Section spacing</label>
+                <select class="form-select" id="f_theme_spacing">${themeOptions([['compact','Compact'],['comfortable','Comfortable'],['spacious','Spacious']], s.theme_spacing || 'comfortable')}</select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label" for="f_theme_shadow">Card shadows</label>
+                <select class="form-select" id="f_theme_shadow">${themeOptions([['none','None'],['soft','Soft'],['medium','Medium'],['strong','Strong']], s.theme_shadow || 'medium')}</select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="f_theme_radius">Corner radius</label>
+                <select class="form-select" id="f_theme_radius">${themeOptions([['square','Square'],['small','Small'],['medium','Medium'],['large','Large']], s.theme_radius || 'medium')}</select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="f_theme_container_width">Content width</label>
+                <select class="form-select" id="f_theme_container_width">${themeOptions([['narrow','Narrow'],['standard','Standard'],['wide','Wide']], s.theme_container_width || 'standard')}</select>
+              </div>
+            </div>
+
+            <div class="theme-custom-css mt-3" id="customCssSection">
+              <label class="form-label" for="f_custom_css">Custom CSS <span class="badge text-bg-dark">Super Admin</span></label>
+              <textarea class="form-control font-monospace" id="f_custom_css" rows="9" maxlength="12000" spellcheck="false" placeholder="/* Optional custom overrides */">${esc(s.custom_css || '')}</textarea>
+              <div class="theme-css-meta"><span>Loads after all public styles.</span><span id="customCssCount">${String(s.custom_css || '').length} / 12000</span></div>
+              <div class="form-hint">Do not paste script tags or @import rules. Resetting this field removes all custom overrides.</div>
             </div>
           </div>
 
@@ -182,6 +255,7 @@ const SettingsPage = (() => {
     });
 
     renderSocialLinks();
+    syncColorControls();
     document.getElementById("addSocialLink").addEventListener("click", () => {
       socialLinks.push({ platform: "instagram", url: "" });
       markDirty();
@@ -189,11 +263,127 @@ const SettingsPage = (() => {
     });
     document.getElementById("settingsForm").addEventListener("submit", onSave);
     document.getElementById("maintenancePreviewBtn").addEventListener("click", previewMaintenance);
+    document.getElementById("themePreviewBtn").addEventListener("click", previewTheme);
+    document.getElementById("themeResetBtn").addEventListener("click", resetThemeForm);
+    document.getElementById("f_theme_preset").addEventListener("change", applyPresetToForm);
+
+    const cssInput = document.getElementById("f_custom_css");
+    const isSuperAdmin = window.DashPermissions && DashPermissions.getRole() === "super_admin";
+    if (!isSuperAdmin) {
+      document.getElementById("customCssSection").hidden = true;
+      cssInput.disabled = true;
+    } else {
+      cssInput.addEventListener("input", () => {
+        document.getElementById("customCssCount").textContent = `${cssInput.value.length} / 12000`;
+      });
+    }
 
     DashUnsaved.set(false);
     document.getElementById("settingsForm").querySelectorAll("input, textarea, select").forEach((el) => {
       el.addEventListener("input", markDirty);
     });
+  }
+
+  const THEME_PRESETS = {
+    default: { primary: "#0B3D2E", secondary: "#1A6B4A", accent: "#C8922A", background: "#F5F0E6", text: "#3A4035" },
+    minimal: { primary: "#20241F", secondary: "#667065", accent: "#B18A4A", background: "#F7F7F4", text: "#30352F" },
+    corporate: { primary: "#153B5B", secondary: "#2F678E", accent: "#C7902E", background: "#F2F5F7", text: "#26333D" },
+    creative: { primary: "#542A68", secondary: "#9A3F7A", accent: "#E39A35", background: "#FFF6EC", text: "#372C39" },
+    dark: { primary: "#10271F", secondary: "#23543D", accent: "#D4A84E", background: "#060E08", text: "#D4EAD8" },
+  };
+
+  function themeOptions(options, selected) {
+    return options.map(([value, label]) => `<option value="${value}" ${value === selected ? "selected" : ""}>${label}</option>`).join("");
+  }
+
+  function colorControl(key, label, value) {
+    return `<div class="col-md-4"><label class="form-label" for="f_${key}">${label}</label><div class="theme-color-control"><input type="color" id="f_${key}" value="${esc(value)}" aria-label="${label}"><input type="text" class="form-control" id="f_${key}_text" value="${esc(value)}" maxlength="7" pattern="#[0-9A-Fa-f]{6}" aria-label="${label} hexadecimal value"></div></div>`;
+  }
+
+  function syncColorControls() {
+    ["theme_primary_color","theme_secondary_color","theme_accent_color","theme_background_color","theme_text_color"].forEach((key) => {
+      const picker = document.getElementById(`f_${key}`);
+      const text = document.getElementById(`f_${key}_text`);
+      picker.addEventListener("input", () => { text.value = picker.value.toUpperCase(); markDirty(); });
+      text.addEventListener("input", () => {
+        if (/^#[0-9a-f]{6}$/i.test(text.value)) picker.value = text.value;
+      });
+    });
+  }
+
+  function applyPresetToForm() {
+    const preset = THEME_PRESETS[document.getElementById("f_theme_preset").value];
+    if (!preset) return;
+    const map = { theme_primary_color: preset.primary, theme_secondary_color: preset.secondary, theme_accent_color: preset.accent, theme_background_color: preset.background, theme_text_color: preset.text };
+    Object.entries(map).forEach(([key, value]) => {
+      document.getElementById(`f_${key}`).value = value;
+      document.getElementById(`f_${key}_text`).value = value;
+    });
+    if (document.getElementById("f_theme_preset").value === "dark") document.getElementById("f_theme_mode").value = "dark";
+    markDirty();
+  }
+
+  function resetThemeForm() {
+    document.getElementById("f_theme_preset").value = "default";
+    document.getElementById("f_theme_mode").value = "light";
+    document.getElementById("f_theme_heading_font").value = "syne";
+    document.getElementById("f_theme_body_font").value = "dm_sans";
+    document.getElementById("f_theme_button_style").value = "rounded";
+    document.getElementById("f_theme_spacing").value = "comfortable";
+    document.getElementById("f_theme_shadow").value = "medium";
+    document.getElementById("f_theme_radius").value = "medium";
+    document.getElementById("f_theme_container_width").value = "standard";
+    applyPresetToForm();
+    const cssInput = document.getElementById("f_custom_css");
+    if (!cssInput.disabled) {
+      cssInput.value = "";
+      document.getElementById("customCssCount").textContent = "0 / 12000";
+    }
+    markDirty();
+  }
+
+  function collectThemeValues() {
+    const readColor = (key, fallback) => {
+      const value = document.getElementById(`f_${key}_text`).value.trim();
+      return /^#[0-9a-f]{6}$/i.test(value) ? value.toUpperCase() : fallback;
+    };
+    const isSuperAdmin = window.DashPermissions && DashPermissions.getRole() === "super_admin";
+    return {
+      theme_preset: document.getElementById("f_theme_preset").value,
+      theme_mode: document.getElementById("f_theme_mode").value,
+      theme_primary_color: readColor("theme_primary_color", "#0B3D2E"),
+      theme_secondary_color: readColor("theme_secondary_color", "#1A6B4A"),
+      theme_accent_color: readColor("theme_accent_color", "#C8922A"),
+      theme_background_color: readColor("theme_background_color", "#F5F0E6"),
+      theme_text_color: readColor("theme_text_color", "#3A4035"),
+      theme_heading_font: document.getElementById("f_theme_heading_font").value,
+      theme_body_font: document.getElementById("f_theme_body_font").value,
+      theme_button_style: document.getElementById("f_theme_button_style").value,
+      theme_spacing: document.getElementById("f_theme_spacing").value,
+      theme_shadow: document.getElementById("f_theme_shadow").value,
+      theme_radius: document.getElementById("f_theme_radius").value,
+      theme_container_width: document.getElementById("f_theme_container_width").value,
+      custom_css: isSuperAdmin ? document.getElementById("f_custom_css").value : (currentSettings.custom_css || ""),
+    };
+  }
+
+  function validateCustomCss(css) {
+    if (css.length > 12000) return "Custom CSS must be 12,000 characters or fewer.";
+    if (/<\/?(?:script|style)\b/i.test(css)) return "Do not include script or style tags in Custom CSS.";
+    if (/\@import\b/i.test(css)) return "@import rules are not allowed in Custom CSS.";
+    return "";
+  }
+
+  function previewTheme() {
+    const settings = collectThemeValues();
+    const error = validateCustomCss(settings.custom_css || "");
+    if (error) { DashToast.error(error); return; }
+    try {
+      sessionStorage.setItem("cudfirm_theme_preview", JSON.stringify(settings));
+      window.open("../index.html?theme-preview=1", "_blank", "noopener");
+    } catch (_) {
+      DashToast.error("Could not prepare the theme preview.");
+    }
   }
 
   function toDateTimeLocal(value) {
@@ -318,6 +508,7 @@ const SettingsPage = (() => {
       google_maps_embed: document.getElementById("f_google_maps_embed").value,
       ga_id: document.getElementById("f_ga_id").value,
       fb_pixel_id: document.getElementById("f_fb_pixel_id").value,
+      ...collectThemeValues(),
       maintenance_enabled: document.getElementById("f_maintenance_enabled").checked,
       maintenance_title: document.getElementById("f_maintenance_title").value.trim(),
       maintenance_message: document.getElementById("f_maintenance_message").value.trim(),
@@ -326,6 +517,13 @@ const SettingsPage = (() => {
         : null,
       maintenance_contact_url: document.getElementById("f_maintenance_contact_url").value.trim() || null,
     };
+
+    const cssError = validateCustomCss(payload.custom_css || "");
+    if (cssError) {
+      setSaving(false);
+      DashToast.error(cssError);
+      return;
+    }
 
     if (!payload.maintenance_title || !payload.maintenance_message) {
       setSaving(false);
@@ -343,6 +541,7 @@ const SettingsPage = (() => {
       return;
     }
 
+    currentSettings = { ...currentSettings, ...payload };
     DashUnsaved.set(false);
     DashToast.success(payload.maintenance_enabled ? "Settings saved. Maintenance mode is enabled." : "Site settings updated.");
     DashActivity.log("updated", "site_settings", "Site Settings");

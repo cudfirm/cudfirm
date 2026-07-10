@@ -2115,3 +2115,20 @@ button:focus-visible,
   .maintenance-actions-row .btn { width: 100%; }
   .maintenance-preview-canvas { min-height: 440px; padding: .75rem; }
 }
+
+/* Phase 6.4 — Theme and custom styling controls */
+.theme-settings-card { padding: 1.25rem; border: 1px solid var(--border, #ddd7ca); border-radius: 16px; background: rgba(255,255,255,.58); }
+.theme-settings-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border, #ddd7ca); }
+.theme-settings-head strong, .theme-settings-head span { display: block; }
+.theme-settings-head strong { color: var(--n-charcoal); font-family: var(--font-display, "Syne", sans-serif); }
+.theme-settings-head span { max-width: 680px; margin-top: .25rem; color: var(--n-muted); font-size: .84rem; line-height: 1.5; }
+.theme-color-control { display: grid; grid-template-columns: 48px minmax(0,1fr); gap: .6rem; align-items: center; }
+.theme-color-control input[type="color"] { width: 48px; height: 42px; padding: 3px; border: 1px solid var(--n-border); border-radius: 10px; background: #fff; cursor: pointer; }
+.theme-color-control input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+.theme-color-control input[type="color"]::-webkit-color-swatch { border: 0; border-radius: 7px; }
+.theme-custom-css { padding-top: 1rem; border-top: 1px solid var(--border, #ddd7ca); }
+.theme-custom-css textarea { min-height: 180px; resize: vertical; line-height: 1.55; tab-size: 2; }
+.theme-css-meta { display: flex; justify-content: space-between; gap: 1rem; margin-top: .4rem; color: var(--n-muted); font-size: .72rem; }
+@media (max-width: 700px) { .theme-settings-head { flex-direction: column; } .theme-settings-head .btn { width: 100%; } }
+.theme-head-actions { display: flex; flex-wrap: wrap; gap: .6rem; flex: 0 0 auto; }
+@media (max-width: 700px) { .theme-head-actions { width: 100%; } .theme-head-actions .btn { flex: 1 1 150px; } }

@@ -1,0 +1,53 @@
+/* CUDFIRM Phase 6.4 — isolated theme overrides. */
+:root {
+  --theme-heading-font: 'Syne', sans-serif;
+  --theme-body-font: 'DM Sans', system-ui, sans-serif;
+  --theme-radius-sm: 8px;
+  --theme-radius-md: 14px;
+  --theme-radius-lg: 20px;
+  --theme-section-space: 1rem;
+  --theme-container-max: 100%;
+  --theme-card-shadow: var(--shadow-md);
+  --theme-button-radius: 8px;
+}
+
+body { font-family: var(--theme-body-font); }
+h1, h2, h3, h4, h5, h6,
+.sidebar-header, .section-title, .settings-section-title { font-family: var(--theme-heading-font); }
+
+/* Keep existing component geometry, but allow the dashboard theme controls to tune it safely. */
+.btn, button, .cud-btn, .btn-hero-primary, .btn-hero-secondary { border-radius: var(--theme-button-radius); }
+.card, .table-card, .content-card, .portfolio-card, .service-card, .testimonial-card,
+.home-section-card, .maintenance-preview-card { box-shadow: var(--theme-card-shadow); }
+
+.content-main > *, .tab-content > * {
+  width: min(100%, var(--theme-container-max));
+  margin-inline: auto;
+}
+
+html[data-theme-spacing="compact"] { --theme-section-space: .7rem; }
+html[data-theme-spacing="comfortable"] { --theme-section-space: 1rem; }
+html[data-theme-spacing="spacious"] { --theme-section-space: 1.35rem; }
+
+html[data-theme-spacing] .tab-content,
+html[data-theme-spacing] .section-container,
+html[data-theme-spacing] .home-section-card { padding-block: var(--theme-section-space); }
+
+html[data-theme-radius="square"] { --theme-radius-sm: 0; --theme-radius-md: 0; --theme-radius-lg: 0; }
+html[data-theme-radius="small"] { --theme-radius-sm: 5px; --theme-radius-md: 8px; --theme-radius-lg: 12px; }
+html[data-theme-radius="medium"] { --theme-radius-sm: 8px; --theme-radius-md: 14px; --theme-radius-lg: 20px; }
+html[data-theme-radius="large"] { --theme-radius-sm: 14px; --theme-radius-md: 22px; --theme-radius-lg: 30px; }
+
+html[data-theme-shadow="none"] { --theme-card-shadow: none; --shadow-sm: none; --shadow-md: none; }
+html[data-theme-shadow="soft"] { --theme-card-shadow: 0 5px 15px rgba(11,61,46,.08); }
+html[data-theme-shadow="medium"] { --theme-card-shadow: 0 10px 24px rgba(11,61,46,.13); }
+html[data-theme-shadow="strong"] { --theme-card-shadow: 0 18px 42px rgba(11,61,46,.20); }
+
+html[data-theme-container="narrow"] { --theme-container-max: 980px; }
+html[data-theme-container="standard"] { --theme-container-max: 1180px; }
+html[data-theme-container="wide"] { --theme-container-max: 1440px; }
+
+html[data-theme-button="square"] { --theme-button-radius: 0; }
+html[data-theme-button="soft"] { --theme-button-radius: 6px; }
+html[data-theme-button="rounded"] { --theme-button-radius: 12px; }
+html[data-theme-button="pill"] { --theme-button-radius: 999px; }
