@@ -421,14 +421,7 @@ const SubscribersPage = (() => {
     const csv = [headers, ...rows.map((row) => [row.email, row.status, row.source, row.created_at, row.unsubscribed_at, row.bounced_at, row.archived_at])]
       .map((row) => row.map(csvCell).join(",")).join("\r\n");
     const blob = new Blob(["\ufeff", csv], { type: "text/csv;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const anchor = document.createElement("a");
-    anchor.href = url;
-    anchor.download = `cudfirm-subscribers-${label}-${new Date().toISOString().slice(0, 10)}.csv`;
-    document.body.appendChild(anchor);
-    anchor.click();
-    anchor.remove();
-    URL.revokeObjectURL(url);
+    DashDownload.blob(blob, `cudfirm-subscribers-${label}-${new Date().toISOString().slice(0, 10)}.csv`);
   }
 
   function csvCell(value) { return `"${String(value ?? "").replace(/"/g, '""')}"`; }

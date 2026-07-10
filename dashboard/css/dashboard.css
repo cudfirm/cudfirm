@@ -1918,3 +1918,66 @@ button:focus-visible,
   .site-health-item-actions { grid-column: 2; }
   .site-health-item-head { align-items: flex-start; flex-direction: column; }
 }
+
+/* ================================================================
+   PHASE 5.6 — STABILITY & ACCESSIBILITY POLISH
+   ================================================================ */
+.dash-sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1035;
+  border: 0;
+  padding: 0;
+  background: rgba(8, 18, 14, 0.48);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+@media (max-width: 900px) {
+  .dash-sidebar-backdrop.open {
+    display: block;
+    opacity: 1;
+  }
+
+  body.dash-nav-open {
+    overflow: hidden;
+  }
+
+  /* Prevent iOS from zooming dashboard form controls on focus. */
+  .dash-content input,
+  .dash-content select,
+  .dash-content textarea {
+    font-size: max(16px, 1em);
+  }
+}
+
+/* Consistent keyboard focus without changing mouse/touch appearance. */
+.dash-sidebar a:focus-visible,
+.dash-topbar a:focus-visible,
+.dash-content a:focus-visible,
+.dash-content button:focus-visible,
+.dash-content input:focus-visible,
+.dash-content select:focus-visible,
+.dash-content textarea:focus-visible,
+.btn-menu-toggle:focus-visible,
+.btn-signout:focus-visible {
+  outline: 3px solid rgba(46, 139, 87, 0.45);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dash-sidebar,
+  .dash-sidebar-backdrop,
+  .dash-toast,
+  .health-spin,
+  .loading-state i,
+  .site-health-progress i {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  html {
+    scroll-behavior: auto !important;
+  }
+}

@@ -83,6 +83,7 @@ const DashLayout = (() => {
           </button>
         </div>
       </aside>
+      <button class="dash-sidebar-backdrop" id="sidebarBackdrop" type="button" aria-label="Close navigation menu" tabindex="-1"></button>
 
       <div class="dash-main">
         <header class="dash-topbar">
@@ -109,12 +110,27 @@ const DashLayout = (() => {
 
     const menuToggle = document.getElementById("menuToggle");
     const sidebar = document.getElementById("dashSidebar");
-    if (menuToggle) {
-      menuToggle.addEventListener("click", () => {
-        const isOpen = sidebar.classList.toggle("open");
-        menuToggle.setAttribute("aria-expanded", String(isOpen));
-      });
-    }
+    const backdrop = document.getElementById("sidebarBackdrop");
+
+    const setSidebarOpen = (open) => {
+      sidebar.classList.toggle("open", open);
+      backdrop.classList.toggle("open", open);
+      document.body.classList.toggle("dash-nav-open", open);
+      menuToggle.setAttribute("aria-expanded", String(open));
+    };
+
+    menuToggle.addEventListener("click", () => setSidebarOpen(!sidebar.classList.contains("open")));
+    backdrop.addEventListener("click", () => setSidebarOpen(false));
+    sidebar.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setSidebarOpen(false)));
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && sidebar.classList.contains("open")) {
+        setSidebarOpen(false);
+        menuToggle.focus();
+      }
+    });
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 900 && sidebar.classList.contains("open")) setSidebarOpen(false);
+    });
 
     refreshUnreadBadge(shell);
   }

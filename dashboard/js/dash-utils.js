@@ -151,6 +151,57 @@ const DashValidate = (() => {
   return { validateField, UNSAFE_URL_SCHEME };
 })();
 
+
+/**
+ * Clipboard helper with a safe fallback for browsers/pages where the
+ * modern Clipboard API is unavailable (for example, some non-HTTPS
+ * local test environments).
+ */
+const DashClipboard = (() => {
+  async function writeText(value) {
+    const text = String(value == null ? "" : value);
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      return;
+    }
+
+    const area = document.createElement("textarea");
+    area.value = text;
+    area.setAttribute("readonly", "");
+    area.style.position = "fixed";
+    area.style.opacity = "0";
+    area.style.pointerEvents = "none";
+    document.body.appendChild(area);
+    area.select();
+    area.setSelectionRange(0, area.value.length);
+    const copied = document.execCommand("copy");
+    area.remove();
+    if (!copied) throw new Error("Copy command was not available.");
+  }
+
+  return { writeText };
+})();
+
+/**
+ * Download helper that delays object-URL cleanup. Revoking immediately
+ * after click can cancel downloads in Safari and some mobile browsers.
+ */
+const DashDownload = (() => {
+  function blob(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = filename;
+    anchor.hidden = true;
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  return { blob };
+})();
+
 /**
  * Fire-and-forget audit trail. Every create/update/delete/upload
  * across the dashboard calls DashActivity.log(...) after a

@@ -180,7 +180,7 @@ const MediaPage = (() => {
     const row = allRows.find((r) => r.id === id);
     if (!row) return;
     try {
-      await navigator.clipboard.writeText(row.public_url);
+      await DashClipboard.writeText(row.public_url);
       DashToast.success("URL copied to clipboard.");
     } catch (err) {
       DashToast.error("Couldn't copy automatically — long-press or select the URL manually.");

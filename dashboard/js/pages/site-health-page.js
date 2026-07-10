@@ -150,7 +150,7 @@ const SiteHealthPage = (() => {
     }).join("");
 
     container.querySelectorAll(".health-copy").forEach((btn) => btn.addEventListener("click", async () => {
-      try { await navigator.clipboard.writeText(btn.dataset.url); DashToast.success("URL copied."); }
+      try { await DashClipboard.writeText(btn.dataset.url); DashToast.success("URL copied."); }
       catch (_) { DashToast.error("Could not copy the URL."); }
     }));
     container.querySelectorAll(".health-review").forEach((btn) => btn.addEventListener("click", () => {
@@ -170,14 +170,7 @@ const SiteHealthPage = (() => {
       ...rows.map((r) => [r.type, r.source, r.url, statusLabel(r.status), r.detail, r.suggestion]),
     ].map((row) => row.map(escapeCsv).join(",")).join("\r\n");
     const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `cudfirm-site-health-${new Date().toISOString().slice(0, 10)}.csv`;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(url);
+    DashDownload.blob(blob, `cudfirm-site-health-${new Date().toISOString().slice(0, 10)}.csv`);
   }
 
   function init() { renderShell(); }
