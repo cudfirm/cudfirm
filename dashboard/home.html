@@ -32,6 +32,21 @@
   });
 
   const CONTENT_TABLES = ["services", "portfolio_projects", "testimonials", "faq", "navigation"];
+  const ANALYTICS_TIMEOUT_MS = 12000;
+
+  function withTimeout(promise, label) {
+    return Promise.race([
+      Promise.resolve(promise),
+      new Promise((resolve) => {
+        window.setTimeout(() => {
+          resolve({
+            data: null,
+            error: { message: `${label} request timed out` },
+          });
+        }, ANALYTICS_TIMEOUT_MS);
+      }),
+    ]);
+  }
 
   function safeRows(result) {
     return result && !result.error && Array.isArray(result.data) ? result.data : [];
@@ -124,21 +139,32 @@
 
   async function renderHome() {
     const root = document.getElementById("page-content");
+    if (!root) return;
+
     root.innerHTML = `
       <div class="analytics-loading" role="status" aria-live="polite">
         <i class="bi bi-arrow-repeat" aria-hidden="true"></i>
         Loading dashboard analytics…
       </div>`;
 
-    const requests = [
-      ...CONTENT_TABLES.map((table) => AdminApi.list(table, "sort_order", true)),
-      AdminApi.list("messages", "created_at", false),
-      AdminApi.list("subscribers", "created_at", false),
-      AdminApi.list("activity_log", "created_at", false),
-    ];
+    try {
+      const requests = [
+        ...CONTENT_TABLES.map((table) => withTimeout(AdminApi.list(table, "sort_order", true), table)),
+        withTimeout(AdminApi.list("messages", "created_at", false), "messages"),
+        withTimeout(AdminApi.list("subscribers", "created_at", false), "subscribers"),
+        withTimeout(AdminApi.list("activity_log", "created_at", false), "activity log"),
+      ];
 
-    const results = await Promise.all(requests);
-    const contentResults = results.slice(0, CONTENT_TABLES.length);
+      const settled = await Promise.allSettled(requests);
+      const results = settled.map((entry) => {
+        if (entry.status === "fulfilled") return entry.value;
+        return {
+          data: null,
+          error: { message: entry.reason && entry.reason.message ? entry.reason.message : "Analytics request failed" },
+        };
+      });
+
+      const contentResults = results.slice(0, CONTENT_TABLES.length);
     const messagesResult = results[CONTENT_TABLES.length];
     const subscribersResult = results[CONTENT_TABLES.length + 1];
     const activityResult = results[CONTENT_TABLES.length + 2];
@@ -281,9 +307,22 @@
         </div>
       </div>`;
 
-    const failures = results.filter((result) => result && result.error);
-    if (failures.length) {
-      DashToast.error(DashError.friendly(failures[0].error, "Some dashboard analytics couldn't be loaded."));
+      const failures = results.filter((result) => result && result.error);
+      if (failures.length) {
+        DashToast.error(DashError.friendly(failures[0].error, "Some dashboard analytics couldn't be loaded."));
+      }
+    } catch (error) {
+      console.error("[dashboard analytics] render failed:", error);
+      root.innerHTML = `
+        <div class="analytics-load-error" role="alert">
+          <i class="bi bi-exclamation-triangle" aria-hidden="true"></i>
+          <div>
+            <h2>Dashboard analytics could not load</h2>
+            <p>The rest of the dashboard is still available. Refresh this page to try again.</p>
+            <button type="button" class="btn btn-primary" onclick="window.location.reload()">Retry</button>
+          </div>
+        </div>`;
+      DashToast.error(DashError.friendly(error, "Dashboard analytics couldn't be loaded."));
     }
   }
 
