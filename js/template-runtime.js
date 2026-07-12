@@ -92,6 +92,7 @@
             data,
             site: state.data.site,
             theme: state.data.theme,
+            contract: state.data,
             sectionConfig,
             manifest: state.manifest,
             runtime: Object.freeze({ templateId, sectionName }),

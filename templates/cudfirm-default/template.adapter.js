@@ -87,6 +87,146 @@
     });
   }
 
+  function createHomeGridItem(item) {
+    const column = document.createElement('div');
+    column.className = 'col grid-item';
+    column.dataset.img = text(item.imageUrl);
+    column.dataset.name = text(item.name);
+    column.dataset.link = text(item.destination || '#');
+
+    const image = document.createElement('img');
+    image.src = text(item.imageUrl);
+    image.alt = text(item.alt || item.name || 'CUDFIRM');
+    image.className = 'img-fluid';
+    image.loading = 'lazy';
+    image.addEventListener('error', () => {
+      image.src = 'https://placehold.co/600x800/0B3D2E/C8922A?text=CUDFIRM';
+    }, { once: true });
+
+    const label = document.createElement('span');
+    label.className = 'text';
+    label.textContent = text(item.name);
+    column.append(image, label);
+    return column;
+  }
+
+  function replaceHomeGrid(container, items) {
+    if (!container || !Array.isArray(items) || !items.length) return false;
+    const fragment = document.createDocumentFragment();
+    items.forEach((item) => {
+      if (!hasText(item.name) || !hasText(item.imageUrl)) return;
+      fragment.appendChild(createHomeGridItem(item));
+    });
+    if (!fragment.childNodes.length) return false;
+    container.replaceChildren(fragment);
+    return true;
+  }
+
+  function renderHomeHero(mount, hero) {
+    const container = mount?.querySelector('.home-hero');
+    if (!container || !hero || !hasText(hero.title)) return false;
+
+    setText(container.querySelector('.hero-eyebrow'), hero.eyebrow);
+    setText(container.querySelector('.hero-title'), hero.title);
+    setText(container.querySelector('.hero-sub'), hero.subtitle);
+
+    const primary = container.querySelector('.btn-hero-primary');
+    if (primary) {
+      setText(primary, hero.primaryAction?.label);
+      if (hasText(hero.primaryAction?.target)) {
+        primary.onclick = (event) => window.openTab?.(event, hero.primaryAction.target);
+      }
+    }
+
+    const secondary = container.querySelector('.btn-hero-secondary');
+    if (secondary) {
+      setText(secondary, hero.secondaryAction?.label);
+      if (hasText(hero.secondaryAction?.target)) {
+        secondary.onclick = (event) => window.openTab?.(event, hero.secondaryAction.target);
+      }
+    }
+
+    let imageWrap = container.querySelector('.hero-cms-image-wrap');
+    if (hasText(hero.imageUrl)) {
+      if (!imageWrap) {
+        imageWrap = document.createElement('div');
+        imageWrap.className = 'hero-cms-image-wrap';
+        const actions = container.querySelector('.hero-cta-row');
+        container.insertBefore(imageWrap, actions || null);
+      }
+      imageWrap.replaceChildren();
+      const image = document.createElement('img');
+      image.src = hero.imageUrl;
+      image.alt = hero.eyebrow || hero.title || 'CUDFIRM';
+      image.className = 'hero-cms-image';
+      image.loading = 'lazy';
+      image.addEventListener('click', () => window.openLightbox?.(image.src, image.alt, null));
+      const hint = document.createElement('span');
+      hint.className = 'hero-cms-image-hint';
+      hint.textContent = 'Click to enlarge';
+      imageWrap.append(image, hint);
+    } else if (imageWrap) {
+      imageWrap.remove();
+    }
+
+    const trustStrip = container.querySelector('.hero-trust-strip');
+    if (trustStrip && Array.isArray(hero.trustItems) && hero.trustItems.length) {
+      trustStrip.replaceChildren();
+      hero.trustItems.forEach((item) => {
+        if (!hasText(item?.label)) return;
+        const trustItem = document.createElement('span');
+        trustItem.setAttribute('role', 'listitem');
+        trustItem.appendChild(createIcon(item.icon || 'bi-check-circle-fill'));
+        trustItem.append(document.createTextNode(` ${item.label}`));
+        trustStrip.appendChild(trustItem);
+      });
+    }
+    return true;
+  }
+
+  function renderHome({ mount, data, contract }) {
+    if (!mount || !data || !contract) return false;
+    const heroRendered = renderHomeHero(mount, data);
+
+    const showcaseCards = mount.querySelectorAll('.home-showcase-grid > .card-section');
+    const portfolioGrid = showcaseCards[0]?.querySelector('.card-content.icon-grid');
+    const servicesGrid = showcaseCards[1]?.querySelector('.card-content.icon-grid');
+
+    const featuredPortfolio = Array.isArray(contract.portfolio)
+      ? contract.portfolio.filter((project) => project.featured && hasText(project.imageUrl)).map((project) => ({
+          imageUrl: project.imageUrl,
+          destination: project.destination || '#',
+          name: project.title,
+          alt: `${project.title} website built by CUDFIRM`,
+        }))
+      : [];
+    const portfolioRendered = replaceHomeGrid(portfolioGrid, featuredPortfolio);
+
+    const serviceItems = Array.isArray(contract.services)
+      ? contract.services.slice(0, 7).map((service) => ({
+          imageUrl: service.iconUrl || `https://placehold.co/200x250/0B3D2E/C8922A?text=${encodeURIComponent(service.title)}`,
+          destination: '#',
+          name: service.title,
+          alt: service.title,
+        }))
+      : [];
+    if (serviceItems.length) {
+      serviceItems.push({
+        imageUrl: 'https://placehold.co/200x250/3A4035/fff?text=MORE',
+        destination: 'tab3',
+        name: 'View All',
+        alt: 'More Services',
+      });
+    }
+    const servicesRendered = replaceHomeGrid(servicesGrid, serviceItems);
+
+    if (heroRendered || portfolioRendered || servicesRendered) {
+      mount.dataset.cudfirmAdapter = 'home';
+      return true;
+    }
+    return false;
+  }
+
   function renderAbout({ mount, data }) {
     if (!mount || !data || !hasText(data.title)) return false;
 
@@ -511,5 +651,5 @@
     return true;
   }
 
-  window.CUDFIRMDefaultAdapter = Object.freeze({ renderAbout, renderServices, renderPortfolio, renderTestimonials, renderFaq, renderContact });
+  window.CUDFIRMDefaultAdapter = Object.freeze({ renderHome, renderAbout, renderServices, renderPortfolio, renderTestimonials, renderFaq, renderContact });
 })();
