@@ -21,12 +21,10 @@ const DashPermissions = (() => {
     ],
     editor: [
       "view_dashboard", "create_content", "edit_content", "publish_content",
-      "view_messages", "view_subscribers", "view_seo", "manage_seo",
-      "view_media", "manage_media", "run_site_health", "view_activity"
+      "view_seo", "manage_seo", "view_media", "manage_media", "run_site_health"
     ],
     viewer: [
-      "view_dashboard", "view_messages", "view_subscribers", "view_seo",
-      "view_media", "run_site_health", "view_activity"
+      "view_dashboard", "view_seo", "view_media", "run_site_health"
     ],
   };
 

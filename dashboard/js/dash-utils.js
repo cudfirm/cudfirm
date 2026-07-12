@@ -211,13 +211,11 @@ const DashDownload = (() => {
 const DashActivity = (() => {
   async function log(action, entity, entityLabel, details) {
     try {
-      const actor = (window.dashUser && window.dashUser.email) || null;
-      const { error } = await supabaseClient.from("activity_log").insert({
-        actor_email: actor,
-        action,
-        entity,
-        entity_label: entityLabel || null,
-        details: details || null,
+      const { error } = await supabaseClient.rpc("record_activity_event", {
+        p_action: action,
+        p_entity: entity || null,
+        p_entity_label: entityLabel || null,
+        p_details: details || null,
       });
       if (error) console.warn("[activity_log] not recorded:", error.message);
     } catch (err) {
