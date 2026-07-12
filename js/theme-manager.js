@@ -41,7 +41,7 @@
     root.dataset.themeSpacing = settings.theme_spacing || "comfortable";
     root.dataset.themeShadow = settings.theme_shadow || "medium";
     root.dataset.themeRadius = settings.theme_radius || "medium";
-    root.dataset.themeContainer = settings.theme_container_width || "standard";
+    root.dataset.themeContainer = settings.theme_container_width || "wide";
     root.dataset.themeButton = settings.theme_button_style || "rounded";
 
     root.style.setProperty("--n-forest", primary);

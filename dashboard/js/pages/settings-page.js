@@ -146,7 +146,7 @@ const SettingsPage = (() => {
               </div>
               <div class="col-md-6">
                 <label class="form-label" for="f_theme_container_width">Content width</label>
-                <select class="form-select" id="f_theme_container_width">${themeOptions([['narrow','Narrow'],['standard','Standard'],['wide','Wide']], s.theme_container_width || 'standard')}</select>
+                <select class="form-select" id="f_theme_container_width">${themeOptions([['narrow','Narrow'],['standard','Standard'],['wide','Wide']], s.theme_container_width || 'wide')}</select>
               </div>
             </div>
 
@@ -332,7 +332,7 @@ const SettingsPage = (() => {
     document.getElementById("f_theme_spacing").value = "comfortable";
     document.getElementById("f_theme_shadow").value = "medium";
     document.getElementById("f_theme_radius").value = "medium";
-    document.getElementById("f_theme_container_width").value = "standard";
+    document.getElementById("f_theme_container_width").value = "wide";
     applyPresetToForm();
     const cssInput = document.getElementById("f_custom_css");
     if (!cssInput.disabled) {
