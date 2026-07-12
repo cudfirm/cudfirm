@@ -40,6 +40,18 @@ const CMSApi = (() => {
         "hero"
       ),
 
+    getAbout: () =>
+      safeQuery(
+        () => db.from("about_content").select("*").eq("id", 1).eq("status", "published").single(),
+        "about_content"
+      ),
+
+    getContact: () =>
+      safeQuery(
+        () => db.from("contact_content").select("*").eq("id", 1).eq("status", "published").single(),
+        "contact_content"
+      ),
+
     getServices: () =>
       safeQuery(
         () =>

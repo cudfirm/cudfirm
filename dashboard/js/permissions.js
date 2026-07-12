@@ -31,11 +31,13 @@ const DashPermissions = (() => {
   const PAGE_RULES = {
     "home.html": "view_dashboard",
     "hero.html": "view_dashboard",
+    "about.html": "view_dashboard",
     "services.html": "view_dashboard",
     "portfolio.html": "view_dashboard",
     "testimonials.html": "view_dashboard",
     "faq.html": "view_dashboard",
     "navigation.html": "view_dashboard",
+    "contact.html": "view_dashboard",
     "media.html": "view_media",
     "settings.html": "manage_settings",
     "seo.html": "view_seo",

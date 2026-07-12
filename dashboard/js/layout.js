@@ -23,11 +23,13 @@ const DashLayout = (() => {
   const NAV_ITEMS = [
     { key: "home", permission: "view_dashboard", href: "home.html", label: "Dashboard Home", icon: "bi-house-door" },
     { key: "hero", href: "hero.html", label: "Hero Section", icon: "bi-flag", permission: "view_dashboard" },
+    { key: "about", href: "about.html", label: "About Content", icon: "bi-info-circle", permission: "view_dashboard" },
     { key: "services", permission: "view_dashboard", href: "services.html", label: "Services", icon: "bi-grid-3x3-gap" },
     { key: "portfolio", permission: "view_dashboard", href: "portfolio.html", label: "Portfolio", icon: "bi-briefcase" },
     { key: "testimonials", permission: "view_dashboard", href: "testimonials.html", label: "Testimonials", icon: "bi-chat-quote" },
     { key: "faq", permission: "view_dashboard", href: "faq.html", label: "FAQ", icon: "bi-question-circle" },
     { key: "navigation", permission: "view_dashboard", href: "navigation.html", label: "Navigation", icon: "bi-list-ul" },
+    { key: "contact", href: "contact.html", label: "Contact Content", icon: "bi-envelope-paper", permission: "view_dashboard" },
   ];
 
   const PLATFORM_NAV_ITEMS = [

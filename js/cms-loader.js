@@ -17,11 +17,13 @@
 
 window.CMS = {
   hero: null,
+  about: null,
   services: null,
   portfolio: null,
   testimonials: null,
   faq: null,
   navigation: null,
+  contact: null,
   siteSettings: null,
   seo: null,
 };
@@ -38,19 +40,22 @@ function withTimeout(promise, ms) {
 window.CMSReady = (async function loadCMS() {
   const TIMEOUT_MS = 2500;
 
-  const [hero, services, portfolio, testimonials, faq, navigation, siteSettings, seo] =
+  const [hero, about, services, portfolio, testimonials, faq, navigation, contact, siteSettings, seo] =
     await Promise.all([
       withTimeout(CMSApi.getHero(), TIMEOUT_MS),
+      withTimeout(CMSApi.getAbout(), TIMEOUT_MS),
       withTimeout(CMSApi.getServices(), TIMEOUT_MS),
       withTimeout(CMSApi.getPortfolioProjects(), TIMEOUT_MS),
       withTimeout(CMSApi.getTestimonials(), TIMEOUT_MS),
       withTimeout(CMSApi.getFaqs(), TIMEOUT_MS),
       withTimeout(CMSApi.getNavigation(), TIMEOUT_MS),
+      withTimeout(CMSApi.getContact(), TIMEOUT_MS),
       withTimeout(CMSApi.getSiteSettings(), TIMEOUT_MS),
       withTimeout(CMSApi.getSeoMeta("home"), TIMEOUT_MS),
     ]);
 
-  window.CMS = { hero, services, portfolio, testimonials, faq, navigation, siteSettings, seo };
+  window.CMS = { hero, about, services, portfolio, testimonials, faq, navigation, contact, siteSettings, seo };
+  window.CMSContract = window.CUDFIRMContract ? window.CUDFIRMContract.normalize(window.CMS) : null;
 
   if (Object.values(window.CMS).every((v) => v === null || (Array.isArray(v) && v.length === 0))) {
     console.info('[CMS] No Supabase content found — using built-in defaults from script.js.');
