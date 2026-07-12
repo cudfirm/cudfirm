@@ -13,6 +13,12 @@
  * ------------------------------------------------------------------
  */
 
+window.CUDFIRM_APP = Object.freeze({
+  name: "CUDFIRM CMS",
+  version: "2.0.0",
+  release: "Production Release",
+});
+
 const DashLayout = (() => {
   const NAV_ITEMS = [
     { key: "home", permission: "view_dashboard", href: "home.html", label: "Dashboard Home", icon: "bi-house-door" },
@@ -34,6 +40,7 @@ const DashLayout = (() => {
     { key: "subscribers", permission: "view_subscribers", href: "subscribers.html", label: "Subscribers", icon: "bi-people" },
     { key: "activity", permission: "view_activity", href: "activity.html", label: "Activity Log", icon: "bi-clock-history" },
     { key: "security", permission: "view_security", href: "security.html", label: "Security & Audit", icon: "bi-shield-lock" },
+    { key: "changelog", permission: "view_dashboard", href: "changelog.html", label: "Release Notes", icon: "bi-journal-text" },
     { key: "users", permission: "manage_users", href: "users.html", label: "Users & Roles", icon: "bi-person-gear" },
   ];
 
@@ -83,6 +90,9 @@ const DashLayout = (() => {
           <div class="side-user">
             <div class="avatar" aria-hidden="true">${esc(initials(email))}</div>
             <div><div class="email">${esc(email)}</div><div class="side-role">${esc(roleLabel)}</div></div>
+          </div>
+          <div class="side-version" aria-label="Application version">
+            <span>CUDFIRM CMS</span><strong>v${esc(window.CUDFIRM_APP.version)}</strong>
           </div>
           <button class="btn-signout" id="signOutBtn" type="button">
             <i class="bi bi-box-arrow-right" aria-hidden="true"></i> Sign out
