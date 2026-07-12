@@ -1,6 +1,6 @@
 /**
  * CUDFIRM Default — Adapter 1 compatibility adapter.
- * Patches the legacy About and Contact DOM without replacing shared behavior.
+ * Patches selected legacy section DOM without replacing shared behavior.
  */
 (function () {
   'use strict';
@@ -138,6 +138,301 @@
     return true;
   }
 
+
+  function createTag(value, variant) {
+    const tag = document.createElement('span');
+    tag.className = `tag ${variant || 'orange'}`;
+    tag.textContent = text(value);
+    return tag;
+  }
+
+  function renderServices({ mount, data }) {
+    const list = mount?.querySelector('#tab3-list');
+    if (!list || !Array.isArray(data) || !data.length) return false;
+
+    const fragment = document.createDocumentFragment();
+    data.forEach((service) => {
+      if (!hasText(service.title) || !hasText(service.description)) return;
+
+      const item = document.createElement('div');
+      item.className = 'list-item';
+      item.dataset.searchText = [service.searchTerms, service.title, service.description, ...(Array.isArray(service.tags) ? service.tags : [])].filter(hasText).join(' ');
+
+      const icon = document.createElement('div');
+      icon.className = 'item-icon';
+      if (hasText(service.iconUrl)) {
+        const image = document.createElement('img');
+        image.src = service.iconUrl;
+        image.alt = '';
+        image.loading = 'lazy';
+        image.className = 'item-icon-img';
+        icon.appendChild(image);
+      } else {
+        icon.textContent = service.title;
+      }
+
+      const content = document.createElement('div');
+      content.className = 'item-content d-flex justify-content-between align-items-center gap-2';
+      const copy = document.createElement('div');
+      const description = document.createElement('h6');
+      description.style.cssText = 'margin:0 0 0.2rem;';
+      description.textContent = service.description;
+      const price = document.createElement('span');
+      price.style.cssText = "font-family:'Syne',sans-serif;font-weight:800;color:var(--n-gold);font-size:0.82rem;";
+      price.textContent = service.priceText;
+      copy.append(description, price);
+
+      const action = document.createElement('a');
+      action.href = '#';
+      action.className = `btn btn-sm ${service.special ? 'btn-primary' : 'btn-success'} flex-shrink-0`;
+      action.style.cssText = 'font-size:0.72rem;padding:0.3rem 0.65rem;';
+      action.textContent = service.special ? 'Enquire' : 'Request';
+      action.addEventListener('click', (event) => window.openTab?.(event, 'connect-content'));
+      content.append(copy, action);
+
+      const metadata = document.createElement('p');
+      metadata.className = 'mb-0';
+      metadata.style.cssText = 'font-size:0.72rem;';
+      metadata.append(document.createTextNode('CUDFIRM · '));
+      (Array.isArray(service.tags) ? service.tags : []).forEach((tagValue) => {
+        metadata.appendChild(createTag(tagValue, String(tagValue).startsWith('#₦') ? 'green' : 'orange'));
+      });
+
+      item.append(icon, content, metadata);
+      fragment.appendChild(item);
+    });
+
+    if (!fragment.childNodes.length) return false;
+    list.replaceChildren(fragment);
+    mount.dataset.cudfirmAdapter = 'services';
+    return true;
+  }
+
+  function openPortfolioDestination(event, destination) {
+    const target = text(destination).trim();
+    if (!target || target === '#') return;
+    if (/^https?:\/\//i.test(target) || (target.includes('/') && !target.startsWith('#'))) {
+      window.open(target, '_blank', 'noopener');
+      return;
+    }
+    window.openTab?.(event, target.replace(/^#/, ''));
+  }
+
+  function renderPortfolio({ mount, data }) {
+    const row = mount?.querySelector(':scope > .row.g-3.stagger-children');
+    if (!row || !Array.isArray(data) || !data.length) return false;
+
+    const fragment = document.createDocumentFragment();
+    data.forEach((project) => {
+      if (!hasText(project.title) || !hasText(project.imageUrl)) return;
+
+      const column = document.createElement('div');
+      column.className = 'col-12 col-md-6 col-lg-4';
+      const card = document.createElement('div');
+      card.className = 'card h-100';
+      card.style.cssText = 'overflow:hidden;cursor:pointer;';
+      card.setAttribute('role', 'article');
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('aria-label', `${project.title}${hasText(project.industry) ? ` — ${project.industry} project` : ''}`);
+      const activate = (event) => openPortfolioDestination(event, project.destination);
+      card.addEventListener('click', activate);
+      card.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          activate(event);
+        }
+      });
+
+      const media = document.createElement('div');
+      media.style.cssText = 'position:relative;';
+      const image = document.createElement('img');
+      image.src = project.imageUrl;
+      image.alt = `Screenshot of ${project.title} website built by CUDFIRM`;
+      image.loading = 'lazy';
+      image.style.cssText = 'width:100%;height:180px;object-fit:cover;';
+      image.addEventListener('error', () => {
+        image.src = 'https://placehold.co/400x280/0B3D2E/C8922A?text=CUDFIRM';
+      }, { once: true });
+      const statusBox = document.createElement('div');
+      statusBox.style.cssText = 'position:absolute;top:8px;right:8px;';
+      const status = createTag(project.live ? '● Live' : '● Demo', project.live ? 'green' : 'orange');
+      status.style.cssText = 'font-size:0.62rem;padding:0.2rem 0.5rem;';
+      statusBox.appendChild(status);
+      media.append(image, statusBox);
+
+      const content = document.createElement('div');
+      content.className = 'card-content';
+      const title = document.createElement('div');
+      title.style.cssText = "font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;margin-bottom:0.1rem;";
+      title.textContent = project.title;
+      const type = document.createElement('div');
+      type.style.cssText = 'font-size:0.72rem;color:var(--n-gold);font-weight:600;margin-bottom:0.4rem;';
+      type.textContent = [project.industry, project.projectType].filter(hasText).join(' · ');
+      content.append(title, type);
+
+      [['Problem:', project.problem], ['Solution:', project.solution]].forEach(([labelText, value]) => {
+        if (!hasText(value)) return;
+        const line = document.createElement('div');
+        line.style.cssText = 'font-size:0.75rem;color:var(--n-muted);margin-bottom:0.5rem;line-height:1.5;';
+        const strong = document.createElement('strong');
+        strong.style.cssText = 'color:var(--text-color);';
+        strong.textContent = labelText;
+        line.append(strong, document.createTextNode(` ${value}`));
+        content.appendChild(line);
+      });
+
+      const tags = document.createElement('div');
+      (Array.isArray(project.tags) ? project.tags : []).forEach((tagValue) => {
+        const green = tagValue === '#Live' || tagValue === '#GetStarted';
+        tags.appendChild(createTag(tagValue, green ? 'green' : 'orange'));
+      });
+      content.appendChild(tags);
+      card.append(media, content);
+      column.appendChild(card);
+      fragment.appendChild(column);
+    });
+
+    if (!fragment.childNodes.length) return false;
+    row.replaceChildren(fragment);
+    mount.dataset.cudfirmAdapter = 'portfolio';
+    return true;
+  }
+
+  function safeAccentColor(value) {
+    const candidate = text(value).trim();
+    return /^(#[0-9a-f]{3,8}|rgb\([^)]*\)|rgba\([^)]*\)|hsl\([^)]*\)|hsla\([^)]*\))$/i.test(candidate)
+      ? candidate
+      : '#0B3D2E';
+  }
+
+  function renderTestimonials({ mount, data }) {
+    const row = mount?.querySelector(':scope > .row.g-3.stagger-children');
+    if (!row || !Array.isArray(data) || !data.length) return false;
+
+    mount.querySelectorAll(':scope > .testimonial-placeholder-notice').forEach((notice) => notice.remove());
+    const allPlaceholder = data.every((item) => item.placeholder === true);
+    if (allPlaceholder) {
+      const notice = document.createElement('div');
+      notice.className = 'testimonial-placeholder-notice';
+      notice.setAttribute('role', 'note');
+      notice.setAttribute('aria-label', 'Testimonials notice');
+      notice.appendChild(createIcon('bi-info-circle-fill'));
+      const copy = document.createElement('div');
+      const strong = document.createElement('strong');
+      strong.textContent = 'Testimonials coming soon. ';
+      copy.append(strong, document.createTextNode('The cards below show the kind of results CUDFIRM clients experience. Real verified reviews will be displayed here as our portfolio grows. '));
+      const action = document.createElement('button');
+      action.className = 'btn-inline-link';
+      action.textContent = 'Become one of our first clients →';
+      action.addEventListener('click', (event) => window.openTab?.(event, 'connect-content'));
+      copy.appendChild(action);
+      notice.appendChild(copy);
+      row.before(notice);
+    }
+
+    const fragment = document.createDocumentFragment();
+    data.forEach((testimonial) => {
+      if (!hasText(testimonial.name) || !hasText(testimonial.quote)) return;
+      const accent = safeAccentColor(testimonial.accentColor);
+      const column = document.createElement('div');
+      column.className = 'col-12 col-md-6';
+      const card = document.createElement('div');
+      card.className = 'card p-4 testimonial-placeholder-card';
+
+      if (testimonial.placeholder) {
+        const badge = document.createElement('div');
+        badge.className = 'testimonial-placeholder-badge';
+        badge.setAttribute('aria-label', 'Illustrative example');
+        badge.textContent = 'Illustrative';
+        card.appendChild(badge);
+      }
+
+      if (hasText(testimonial.avatarUrl)) {
+        const avatar = document.createElement('img');
+        avatar.src = testimonial.avatarUrl;
+        avatar.alt = '';
+        avatar.loading = 'lazy';
+        avatar.style.cssText = 'width:44px;height:44px;border-radius:50%;object-fit:cover;margin-bottom:0.75rem;';
+        card.appendChild(avatar);
+      } else {
+        const avatar = document.createElement('div');
+        avatar.style.cssText = `width:44px;height:44px;border-radius:50%;background:${accent};color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:0.75rem;`;
+        avatar.textContent = testimonial.name.charAt(0).toUpperCase();
+        card.appendChild(avatar);
+      }
+
+      const quote = document.createElement('p');
+      quote.style.cssText = 'font-size:0.85rem;font-style:italic;color:var(--text-color);margin-bottom:0.75rem;';
+      quote.textContent = `“${testimonial.quote}”`;
+      const name = document.createElement('div');
+      name.style.cssText = `font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;color:${accent};`;
+      name.textContent = testimonial.name;
+      const role = document.createElement('div');
+      role.style.cssText = 'font-size:0.72rem;color:var(--n-muted);';
+      role.textContent = testimonial.role;
+      card.append(quote, name, role);
+      column.appendChild(card);
+      fragment.appendChild(column);
+    });
+
+    if (!fragment.childNodes.length) return false;
+    row.replaceChildren(fragment);
+    mount.dataset.cudfirmAdapter = 'testimonials';
+    return true;
+  }
+
+  function renderFaq({ mount, data }) {
+    const list = mount?.querySelector(':scope > .d-flex.flex-column.gap-3.stagger-children');
+    if (!list || !Array.isArray(data) || !data.length) return false;
+
+    const fragment = document.createDocumentFragment();
+    data.forEach((item, index) => {
+      if (!hasText(item.question) || !hasText(item.answer)) return;
+      const card = document.createElement('div');
+      card.className = 'card p-3';
+      card.style.cssText = 'cursor:pointer;';
+      card.setAttribute('role', 'button');
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('aria-expanded', 'false');
+
+      const top = document.createElement('div');
+      top.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:0.75rem;';
+      const question = document.createElement('div');
+      question.style.cssText = "font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;color:var(--n-forest);";
+      question.textContent = item.question;
+      const icon = createIcon('bi-chevron-down');
+      icon.style.cssText = 'color:var(--n-gold);flex-shrink:0;';
+      top.append(question, icon);
+
+      const answer = document.createElement('div');
+      answer.id = `cudfirm-faq-answer-${item.id || index + 1}`;
+      answer.className = 'faq-answer d-none';
+      answer.style.cssText = 'margin-top:0.75rem;font-size:0.8rem;color:var(--n-muted);line-height:1.65;';
+      answer.textContent = item.answer;
+      card.setAttribute('aria-controls', answer.id);
+
+      const toggle = () => {
+        const willOpen = answer.classList.contains('d-none');
+        answer.classList.toggle('d-none');
+        card.setAttribute('aria-expanded', String(willOpen));
+      };
+      card.addEventListener('click', toggle);
+      card.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          toggle();
+        }
+      });
+      card.append(top, answer);
+      fragment.appendChild(card);
+    });
+
+    if (!fragment.childNodes.length) return false;
+    list.replaceChildren(fragment);
+    mount.dataset.cudfirmAdapter = 'faq';
+    return true;
+  }
+
   function setFieldCopy(mount, selector, value, attribute) {
     const element = mount.querySelector(selector);
     if (!element || !hasText(value)) return;
@@ -216,5 +511,5 @@
     return true;
   }
 
-  window.CUDFIRMDefaultAdapter = Object.freeze({ renderAbout, renderContact });
+  window.CUDFIRMDefaultAdapter = Object.freeze({ renderAbout, renderServices, renderPortfolio, renderTestimonials, renderFaq, renderContact });
 })();

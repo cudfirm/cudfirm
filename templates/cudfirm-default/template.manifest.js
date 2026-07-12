@@ -7,7 +7,7 @@
     template: {
       id: 'cudfirm-default',
       name: 'CUDFIRM Default',
-      version: '1.0.0',
+      version: '1.1.0',
       author: 'CUDFIRM',
       description: 'Compatibility adapter for the original CUDFIRM public frontend.',
       category: 'agency',
@@ -31,6 +31,45 @@
         optionalFields: ['eyebrow', 'introduction', 'missionTitle', 'missionText', 'storyTitle', 'storyBlocks', 'valuesTitle', 'values', 'factsTitle', 'facts', 'imageUrl', 'imageAlt', 'action'],
         emptyState: 'keep-legacy',
       },
+      services: {
+        enabled: true,
+        required: false,
+        source: 'services',
+        mount: '#tab3',
+        renderer: 'renderServices',
+        itemRequiredFields: ['title', 'description'],
+        itemOptionalFields: ['priceText', 'iconUrl', 'tags', 'searchTerms', 'special'],
+        emptyState: 'keep-legacy',
+      },
+      portfolio: {
+        enabled: true,
+        required: false,
+        source: 'portfolio',
+        mount: '#tab4',
+        renderer: 'renderPortfolio',
+        itemRequiredFields: ['title', 'imageUrl'],
+        itemOptionalFields: ['industry', 'projectType', 'destination', 'problem', 'solution', 'tags', 'live', 'featured'],
+        emptyState: 'keep-legacy',
+      },
+      testimonials: {
+        enabled: true,
+        required: false,
+        source: 'testimonials',
+        mount: '#tab9',
+        renderer: 'renderTestimonials',
+        itemRequiredFields: ['name', 'quote'],
+        itemOptionalFields: ['role', 'avatarUrl', 'accentColor', 'placeholder'],
+        emptyState: 'keep-legacy',
+      },
+      faq: {
+        enabled: true,
+        required: false,
+        source: 'faq',
+        mount: '#tab13',
+        renderer: 'renderFaq',
+        itemRequiredFields: ['question', 'answer'],
+        emptyState: 'keep-legacy',
+      },
       contact: {
         enabled: true,
         required: false,
@@ -44,6 +83,7 @@
     },
     features: {
       tabs: true,
+      filtering: true,
       contactForm: true,
       newsletterForm: true,
       themeCustomization: true,
@@ -57,7 +97,7 @@
       rendererFailure: 'keep-legacy',
     },
     notes: [
-      { level: 'info', message: 'Adapter 1 patches About and Contact only; all other legacy renderers remain unchanged.' },
+      { level: 'info', message: 'Adapter 1 patches About, Services, Portfolio, Testimonials, FAQ, and Contact. Other legacy renderers remain unchanged.' },
     ],
   });
 })();
