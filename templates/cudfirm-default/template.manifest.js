@@ -7,7 +7,7 @@
     template: {
       id: 'cudfirm-default',
       name: 'CUDFIRM Default',
-      version: '1.2.0',
+      version: '1.3.0',
       author: 'CUDFIRM',
       description: 'Compatibility adapter for the original CUDFIRM public frontend.',
       category: 'agency',
@@ -80,6 +80,15 @@
         itemRequiredFields: ['question', 'answer'],
         emptyState: 'keep-legacy',
       },
+      navigation: {
+        enabled: true,
+        required: true,
+        managedBy: 'legacy-core',
+        source: 'navigation',
+        itemRequiredFields: ['label', 'target'],
+        itemOptionalFields: ['location', 'badge', 'order'],
+        compatibilityNotes: ['Rendered by js/script.js during Adapter 1 to preserve tab routing, breadcrumbs, mobile controls, and saved-tab restoration.'],
+      },
       contact: {
         enabled: true,
         required: false,
@@ -91,23 +100,79 @@
         emptyState: 'keep-legacy',
       },
     },
+    routes: {
+      mode: 'single-page-tabs',
+      pages: {
+        home: { target: 'home', section: 'home', seoPageKey: 'home' },
+        services: { target: 'tab3', section: 'services', seoPageKey: 'services' },
+        portfolio: { target: 'tab4', section: 'portfolio', seoPageKey: 'portfolio' },
+        testimonials: { target: 'tab9', section: 'testimonials', seoPageKey: 'testimonials' },
+        faq: { target: 'tab13', section: 'faq', seoPageKey: 'faq' },
+        about: { target: 'tab20', section: 'about', seoPageKey: 'about' },
+        contact: { target: 'connect', section: 'contact', seoPageKey: 'contact' },
+      },
+    },
+    forms: {
+      contact: {
+        managedBy: 'legacy-core',
+        formSelector: '#contactForm',
+        fields: {
+          name: '#contactName',
+          contact: '#contactInfo',
+          message: '#contactMessage',
+        },
+      },
+      newsletter: {
+        managedBy: 'legacy-core',
+        formSelector: '.newsletter-form',
+        fields: { email: '.newsletter-input' },
+      },
+    },
     features: {
       tabs: true,
       filtering: true,
+      search: true,
+      lightbox: true,
       contactForm: true,
       newsletterForm: true,
       themeCustomization: true,
       maintenanceMode: true,
+      darkMode: true,
+    },
+    seo: {
+      enabled: true,
+      managedBy: 'legacy-core',
+      pageResolution: {
+        mode: 'tab',
+        fallbackPageKey: 'home',
+      },
+      supportedFields: ['title', 'description', 'canonicalUrl', 'robots', 'openGraphImage', 'twitterImage'],
+    },
+    theme: {
+      enabled: true,
+      managedBy: 'shared-core',
+      cssVariableMap: {
+        primary: '--n-forest',
+        secondary: '--n-forest-mid',
+        accent: '--n-gold',
+        background: '--n-cream',
+        text: '--n-ink',
+        radius: '--n-radius',
+        containerWidth: '--n-container-width',
+      },
+      supportsCustomCss: true,
     },
     fallbacks: {
       missingRequiredSection: 'error',
       missingOptionalSection: 'ignore',
       missingRequiredField: 'warn-and-hide',
       missingOptionalField: 'ignore',
+      missingImage: 'keep-legacy',
+      emptyList: 'keep-legacy',
       rendererFailure: 'keep-legacy',
     },
     notes: [
-      { level: 'info', message: 'Adapter 1 patches Home composition, About, Services, Portfolio, Testimonials, FAQ, and Contact. Other legacy renderers remain unchanged.' },
+      { level: 'info', message: 'Adapter 1 renders the CMS-controlled public sections. Navigation, forms, SEO application, theme application, and routing remain explicitly declared legacy/shared-core capabilities during the compatibility phase.' },
     ],
   });
 })();

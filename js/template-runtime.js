@@ -4,11 +4,13 @@
 (function () {
   'use strict';
 
+  const CORE_VERSION = '2.0.0';
   const state = {
     status: 'idle',
     template: null,
     manifest: null,
     adapter: null,
+    registration: null,
     data: null,
     compatibility: null,
     renderedSections: [],
@@ -41,17 +43,13 @@
     try {
       state.status = 'loading-template';
       const templateId = window.CUDFIRM_CONFIG?.templateId || 'cudfirm-default';
-
-      window.CUDFIRMTemplateRegistry.register(templateId, {
-        manifest: window.CUDFIRMDefaultManifest,
-        adapter: window.CUDFIRMDefaultAdapter,
-      });
-
-      const registered = window.CUDFIRMTemplateRegistry.get(templateId);
+      const registered = window.CUDFIRMTemplateRegistry?.get(templateId);
       if (!registered) throw new Error(`Template "${templateId}" is not registered.`);
+
       state.template = templateId;
       state.manifest = registered.manifest;
       state.adapter = registered.adapter;
+      state.registration = registered.metadata || null;
 
       state.status = 'loading-data';
       await (window.CMSReady || Promise.resolve());
@@ -59,12 +57,17 @@
       if (!state.data) throw new Error('The normalized CMS data contract is unavailable.');
 
       const mounts = Object.values(state.manifest.sections || {})
-        .filter((section) => section.enabled && section.mount)
+        .filter((section) => section.enabled && (section.managedBy || 'adapter') === 'adapter' && section.mount)
         .map((section) => waitForSelector(section.mount));
       await Promise.all(mounts);
 
       state.status = 'validating';
-      state.compatibility = window.CUDFIRMTemplateValidator.validate(state.manifest, state.adapter, state.data);
+      state.compatibility = window.CUDFIRMTemplateValidator.validate(
+        state.manifest,
+        state.adapter,
+        state.data,
+        { coreVersion: CORE_VERSION, registration: state.registration },
+      );
       state.warnings.push(...state.compatibility.warnings);
       state.errors.push(...state.compatibility.errors);
 
@@ -77,6 +80,11 @@
       state.status = 'rendering';
       for (const [sectionName, sectionConfig] of Object.entries(state.manifest.sections || {})) {
         if (!sectionConfig.enabled) continue;
+        if ((sectionConfig.managedBy || 'adapter') !== 'adapter') {
+          state.skippedSections.push(sectionName);
+          continue;
+        }
+
         const mount = document.querySelector(sectionConfig.mount);
         const renderer = state.adapter[sectionConfig.renderer];
         const data = state.data[sectionConfig.source || sectionName];
@@ -95,7 +103,7 @@
             contract: state.data,
             sectionConfig,
             manifest: state.manifest,
-            runtime: Object.freeze({ templateId, sectionName }),
+            runtime: Object.freeze({ templateId, sectionName, coreVersion: CORE_VERSION }),
           });
           (rendered === false ? state.skippedSections : state.renderedSections).push(sectionName);
         } catch (error) {
@@ -108,8 +116,13 @@
       state.status = state.errors.length ? 'degraded' : 'ready';
       console.info('[CUDFIRM Runtime] Adapter 1 ready.', {
         template: templateId,
+        version: state.manifest.template.version,
+        status: state.compatibility.status,
         renderedSections: [...state.renderedSections],
-        skippedSections: [...state.skippedSections],
+        externallyManagedSections: Object.entries(state.manifest.sections || {})
+          .filter(([, section]) => section.enabled && (section.managedBy || 'adapter') !== 'adapter')
+          .map(([name]) => name),
+        warnings: [...state.warnings],
       });
     } catch (error) {
       state.status = 'failed';
@@ -118,10 +131,12 @@
     }
   }
 
+  window.CUDFIRM_CORE_VERSION = CORE_VERSION;
   window.CUDFIRM_RUNTIME = Object.freeze({
     getStatus: () => state.status,
     getTemplate: () => state.template,
     getManifest: () => state.manifest,
+    getRegistration: () => state.registration,
     getCompatibilityReport: () => state.compatibility,
     getData: () => state.data,
   });
