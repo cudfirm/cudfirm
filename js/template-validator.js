@@ -174,6 +174,18 @@
       if (supported === false) unsupportedFeatures.push(feature);
     });
 
+    const moduleCompatibility = context.moduleCompatibility || {
+      compatible: true,
+      status: 'compatible',
+      required: [],
+      optional: [],
+      installed: [],
+      errors: [],
+      warnings: [],
+    };
+    errors.push(...(moduleCompatibility.errors || []));
+    warnings.push(...(moduleCompatibility.warnings || []));
+
     return {
       compatible: errors.length === 0,
       status: errors.length ? 'incompatible' : warnings.length ? 'compatible-with-warnings' : 'compatible',
@@ -197,6 +209,10 @@
         seo: manifest?.seo || null,
         theme: manifest?.theme || null,
         navigation: manifest?.sections?.navigation || null,
+        modules: {
+          requirements: manifest?.modules || { required: [], optional: [] },
+          compatibility: moduleCompatibility,
+        },
       },
       errors,
       warnings,

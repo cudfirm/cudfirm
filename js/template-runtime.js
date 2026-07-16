@@ -53,8 +53,14 @@
 
       state.status = 'loading-data';
       await (window.CMSReady || Promise.resolve());
-      state.data = window.CMSContract || null;
-      if (!state.data) throw new Error('The normalized CMS data contract is unavailable.');
+      await (window.CUDFIRMModulesReady || Promise.resolve());
+
+      const baseContract = window.CMSContract || null;
+      if (!baseContract) throw new Error('The normalized CMS data contract is unavailable.');
+      state.data = {
+        ...baseContract,
+        extensions: window.CUDFIRMModuleRuntime?.getExtensions?.() || baseContract.extensions || {},
+      };
 
       const mounts = Object.values(state.manifest.sections || {})
         .filter((section) => section.enabled && (section.managedBy || 'adapter') === 'adapter' && section.mount)
@@ -62,11 +68,26 @@
       await Promise.all(mounts);
 
       state.status = 'validating';
+      const moduleCompatibility = window.CUDFIRMModuleRuntime?.checkTemplateRequirements?.(
+        state.manifest.modules || { required: [], optional: [] },
+      ) || {
+        compatible: true,
+        status: 'compatible',
+        required: [],
+        optional: [],
+        installed: [],
+        errors: [],
+        warnings: [],
+      };
       state.compatibility = window.CUDFIRMTemplateValidator.validate(
         state.manifest,
         state.adapter,
         state.data,
-        { coreVersion: CORE_VERSION, registration: state.registration },
+        {
+          coreVersion: CORE_VERSION,
+          registration: state.registration,
+          moduleCompatibility,
+        },
       );
       state.warnings.push(...state.compatibility.warnings);
       state.errors.push(...state.compatibility.errors);
@@ -122,6 +143,7 @@
         externallyManagedSections: Object.entries(state.manifest.sections || {})
           .filter(([, section]) => section.enabled && (section.managedBy || 'adapter') !== 'adapter')
           .map(([name]) => name),
+        installedModules: window.CUDFIRMModuleRuntime?.list?.() || [],
         warnings: [...state.warnings],
       });
     } catch (error) {
@@ -138,6 +160,7 @@
     getManifest: () => state.manifest,
     getRegistration: () => state.registration,
     getCompatibilityReport: () => state.compatibility,
+    getModuleCompatibilityReport: () => state.compatibility?.capabilities?.modules?.compatibility || null,
     getData: () => state.data,
   });
 
