@@ -1,6 +1,7 @@
 /**
  * CUDFIRM Member Accounts module manifest.
- * Phase 1 installs identity schema, permissions, RLS, and contract metadata only.
+ * Phase 2 adds trusted Supabase Edge Function operations while public account
+ * pages and dashboard management screens remain deferred to later phases.
  */
 (function () {
   'use strict';
@@ -28,6 +29,7 @@
     database: {
       migrations: [
         'modules/member-accounts/migrations/001_member_accounts.sql',
+        'modules/member-accounts/migrations/002_trusted_operations.sql',
       ],
       tables: [
         'member_settings',
@@ -37,6 +39,7 @@
         'member_closure_requests',
         'member_export_requests',
         'member_auth_locks',
+        'member_rate_limits',
       ],
     },
     permissions: [
@@ -59,6 +62,17 @@
     public: {
       components: [],
       routes: [],
+      edgeFunctions: [
+        'member-register',
+        'member-sign-in',
+        'member-resend-verification',
+        'member-invite',
+        'member-accept-invitation',
+        'member-admin-action',
+        'member-request',
+        'member-request-admin',
+        'member-export',
+      ],
     },
     contract: {
       namespace: 'members',

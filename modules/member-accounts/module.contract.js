@@ -1,7 +1,7 @@
 /**
- * CUDFIRM Member Accounts contract — Phase 1.
- * Public/member data loading is added in later phases; this file exposes only
- * safe capability metadata and approved defaults.
+ * CUDFIRM Member Accounts contract — Phase 2.
+ * Public account pages are added in Phase 3. This contract exposes safe module
+ * metadata only; all sensitive operations remain in trusted Edge Functions.
  */
 (function () {
   'use strict';
@@ -9,7 +9,7 @@
   const data = Object.freeze({
     enabled: true,
     version: '1.0.0',
-    implementationPhase: 'database-foundation',
+    implementationPhase: 'trusted-server-operations',
     registration: Object.freeze({
       publicEnabled: false,
       requireEmailVerification: true,
@@ -25,6 +25,17 @@
       displayName: '',
       status: '',
       role: '',
+    }),
+    serverOperations: Object.freeze({
+      registration: 'member-register',
+      signIn: 'member-sign-in',
+      resendVerification: 'member-resend-verification',
+      invitation: 'member-invite',
+      acceptInvitation: 'member-accept-invitation',
+      memberAction: 'member-admin-action',
+      memberRequest: 'member-request',
+      requestReview: 'member-request-admin',
+      exportReview: 'member-export',
     }),
     capabilities: Object.freeze({
       canRegister: false,
