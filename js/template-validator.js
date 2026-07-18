@@ -7,6 +7,9 @@
   const VALID_ID = /^[a-z0-9-]+$/;
   const VALID_VERSION = /^\d+\.\d+\.\d+$/;
   const VALID_ROUTE_MODES = new Set(['single-page', 'single-page-tabs', 'multi-page', 'hybrid']);
+  const VALID_SECTION_MANAGERS = new Set(['adapter', 'legacy-core', 'shared-core']);
+  const VALID_ASSET_TYPES = new Set(['stylesheet', 'script', 'font', 'image', 'external-library', 'other']);
+  const VALID_ASSET_MANAGERS = new Set(['template', 'host', 'legacy-core', 'shared-core']);
   const VALID_FALLBACKS = {
     missingRequiredSection: new Set(['error', 'show-fallback', 'warn-and-hide']),
     missingOptionalSection: new Set(['ignore', 'hide']),
@@ -55,6 +58,101 @@
     return compareVersions(version, maximum) <= 0;
   }
 
+  function findDuplicates(values) {
+    const seen = new Set();
+    const duplicates = new Set();
+    values.forEach((value) => {
+      if (seen.has(value)) duplicates.add(value);
+      seen.add(value);
+    });
+    return Array.from(duplicates);
+  }
+
+  function validateStringArray(value, path, errors, invalidSettings) {
+    if (!Array.isArray(value)) {
+      errors.push(`${path} must be an array.`);
+      invalidSettings.push(path);
+      return;
+    }
+    value.forEach((item, index) => {
+      if (typeof item !== 'string' || !item.trim()) {
+        errors.push(`${path}[${index}] must be a non-empty string.`);
+        invalidSettings.push(`${path}[${index}]`);
+      }
+    });
+    findDuplicates(value).forEach((duplicate) => {
+      errors.push(`${path} declares "${duplicate}" more than once.`);
+      invalidSettings.push(path);
+    });
+  }
+
+  function validateAssets(manifest, errors, warnings, invalidSettings) {
+    const assets = manifest?.assets;
+    if (!assets || typeof assets !== 'object') {
+      errors.push('Template asset requirements are missing.');
+      invalidSettings.push('assets');
+      return { required: [], optional: [] };
+    }
+
+    const groups = {
+      required: Array.isArray(assets.required) ? assets.required : null,
+      optional: Array.isArray(assets.optional) ? assets.optional : null,
+    };
+
+    Object.entries(groups).forEach(([groupName, group]) => {
+      if (!group) {
+        errors.push(`assets.${groupName} must be an array.`);
+        invalidSettings.push(`assets.${groupName}`);
+        return;
+      }
+
+      group.forEach((asset, index) => {
+        const path = `assets.${groupName}[${index}]`;
+        if (!asset || typeof asset !== 'object') {
+          errors.push(`${path} must be an object.`);
+          invalidSettings.push(path);
+          return;
+        }
+        if (!VALID_ID.test(asset.id || '')) {
+          errors.push(`${path}.id is invalid.`);
+          invalidSettings.push(`${path}.id`);
+        }
+        if (!VALID_ASSET_TYPES.has(asset.type)) {
+          errors.push(`${path}.type "${asset.type || '(missing)'}" is unsupported.`);
+          invalidSettings.push(`${path}.type`);
+        }
+        if (typeof asset.source !== 'string' || !asset.source.trim()) {
+          errors.push(`${path}.source is required.`);
+          invalidSettings.push(`${path}.source`);
+        }
+        if (!VALID_ASSET_MANAGERS.has(asset.managedBy)) {
+          errors.push(`${path}.managedBy "${asset.managedBy || '(missing)'}" is unsupported.`);
+          invalidSettings.push(`${path}.managedBy`);
+        }
+        if (asset.loadOrder !== undefined && (!Number.isInteger(asset.loadOrder) || asset.loadOrder < 0)) {
+          errors.push(`${path}.loadOrder must be a non-negative integer when provided.`);
+          invalidSettings.push(`${path}.loadOrder`);
+        }
+      });
+    });
+
+    const allAssets = [...(groups.required || []), ...(groups.optional || [])];
+    findDuplicates(allAssets.map((asset) => asset?.id).filter(Boolean)).forEach((duplicate) => {
+      errors.push(`Asset ID "${duplicate}" is declared more than once.`);
+      invalidSettings.push('assets');
+    });
+
+    if (!Array.isArray(assets.notes)) {
+      warnings.push('Asset compatibility notes are not declared as an array.');
+      invalidSettings.push('assets.notes');
+    }
+
+    return {
+      required: groups.required || [],
+      optional: groups.optional || [],
+    };
+  }
+
   function validate(manifest, adapter, data, context = {}) {
     const errors = [];
     const warnings = [];
@@ -67,7 +165,10 @@
 
     if (!manifest || typeof manifest !== 'object') errors.push('Manifest is missing.');
     if (!manifest?.template?.id || !VALID_ID.test(manifest.template.id)) errors.push('Template ID is invalid.');
+    if (!manifest?.template?.name) errors.push('Template name is required.');
     if (!VALID_VERSION.test(manifest?.template?.version || '')) errors.push('Template version must use semantic versioning (x.y.z).');
+    if (!manifest?.template?.author) warnings.push('Template author is not declared.');
+    if (!manifest?.template?.description) warnings.push('Template description is not declared.');
     if (!VALID_VERSION.test(manifest?.schemaVersion || '')) errors.push('Manifest schemaVersion must use semantic versioning (x.y.z).');
     if (!manifest?.sections || typeof manifest.sections !== 'object') errors.push('Manifest sections are missing.');
 
@@ -87,6 +188,20 @@
         warnings.push(`Locale ${locale} is not declared as supported by this template.`);
       }
     }
+    if (!Array.isArray(compatibility.notes)) {
+      warnings.push('Template compatibility notes are not declared as an array.');
+      invalidSettings.push('compatibility.notes');
+    }
+
+    if (!manifest?.modules || typeof manifest.modules !== 'object') {
+      errors.push('Template module requirements are missing.');
+      invalidSettings.push('modules');
+    } else {
+      validateStringArray(manifest.modules.required, 'modules.required', errors, invalidSettings);
+      validateStringArray(manifest.modules.optional, 'modules.optional', errors, invalidSettings);
+    }
+
+    const assets = validateAssets(manifest, errors, warnings, invalidSettings);
 
     if (manifest?.routes) {
       if (!VALID_ROUTE_MODES.has(manifest.routes.mode)) {
@@ -107,9 +222,42 @@
     });
 
     Object.entries(manifest?.sections || {}).forEach(([sectionName, section]) => {
-      if (!section?.enabled) return;
+      if (!section || typeof section !== 'object') {
+        errors.push(`${sectionName}: section configuration must be an object.`);
+        invalidSettings.push(`sections.${sectionName}`);
+        return;
+      }
+      if (typeof section.enabled !== 'boolean') {
+        errors.push(`${sectionName}: enabled must be a boolean.`);
+        invalidSettings.push(`sections.${sectionName}.enabled`);
+      }
+      if (!section.enabled) return;
+      if (typeof section.required !== 'boolean') {
+        errors.push(`${sectionName}: required must be a boolean.`);
+        invalidSettings.push(`sections.${sectionName}.required`);
+      }
+      if (typeof section.source !== 'string' || !section.source.trim()) {
+        errors.push(`${sectionName}: source is missing.`);
+        invalidSettings.push(`sections.${sectionName}.source`);
+      }
+
       const managedBy = section.managedBy || 'adapter';
+      if (!VALID_SECTION_MANAGERS.has(managedBy)) {
+        errors.push(`${sectionName}: managedBy value "${managedBy}" is unsupported.`);
+        invalidSettings.push(`sections.${sectionName}.managedBy`);
+      }
+
       const sectionData = getPath(data, section.source || sectionName);
+      const usesItemFields = Array.isArray(sectionData)
+        || Array.isArray(section.itemRequiredFields)
+        || Array.isArray(section.itemOptionalFields);
+      if (usesItemFields) {
+        validateStringArray(section.itemRequiredFields || [], `sections.${sectionName}.itemRequiredFields`, errors, invalidSettings);
+        validateStringArray(section.itemOptionalFields || [], `sections.${sectionName}.itemOptionalFields`, errors, invalidSettings);
+      } else {
+        validateStringArray(section.requiredFields || [], `sections.${sectionName}.requiredFields`, errors, invalidSettings);
+        validateStringArray(section.optionalFields || [], `sections.${sectionName}.optionalFields`, errors, invalidSettings);
+      }
 
       if (managedBy === 'adapter') {
         if (!section.mount || typeof section.mount !== 'string') {
@@ -123,9 +271,6 @@
           (section.required ? errors : warnings).push(`${sectionName}: renderer ${section.renderer || '(missing)'} is unavailable.`);
           missingRenderers.push(sectionName);
         }
-      } else if (managedBy !== 'legacy-core' && managedBy !== 'shared-core') {
-        errors.push(`${sectionName}: managedBy value "${managedBy}" is unsupported.`);
-        invalidSettings.push(`sections.${sectionName}.managedBy`);
       }
 
       (section.requiredFields || []).forEach((field) => {
@@ -209,6 +354,7 @@
         seo: manifest?.seo || null,
         theme: manifest?.theme || null,
         navigation: manifest?.sections?.navigation || null,
+        assets,
         modules: {
           requirements: manifest?.modules || { required: [], optional: [] },
           compatibility: moduleCompatibility,
@@ -225,5 +371,10 @@
     };
   }
 
-  window.CUDFIRMTemplateValidator = Object.freeze({ validate });
+  window.CUDFIRMTemplateValidator = Object.freeze({
+    validate,
+    parseVersion,
+    compareVersions,
+    matchesVersionRange,
+  });
 })();

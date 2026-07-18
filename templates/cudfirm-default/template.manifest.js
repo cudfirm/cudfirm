@@ -3,11 +3,11 @@
   'use strict';
 
   window.CUDFIRMDefaultManifest = Object.freeze({
-    schemaVersion: '1.0.0',
+    schemaVersion: '1.1.0',
     template: {
       id: 'cudfirm-default',
       name: 'CUDFIRM Default',
-      version: '1.3.0',
+      version: '1.4.0',
       author: 'CUDFIRM',
       description: 'Compatibility adapter for the original CUDFIRM public frontend.',
       category: 'agency',
@@ -23,6 +23,61 @@
     modules: {
       required: [],
       optional: [],
+    },
+    assets: {
+      required: [
+        {
+          id: 'legacy-public-styles',
+          type: 'stylesheet',
+          source: 'css/styles.css',
+          managedBy: 'legacy-core',
+          loadOrder: 10,
+          notes: 'Original CUDFIRM public layout and component styles.',
+        },
+        {
+          id: 'legacy-public-runtime',
+          type: 'script',
+          source: 'js/script.js',
+          managedBy: 'legacy-core',
+          loadOrder: 20,
+          notes: 'Creates the legacy tab mounts and preserves existing public interactions.',
+        },
+        {
+          id: 'template-adapter',
+          type: 'script',
+          source: 'templates/cudfirm-default/template.adapter.js',
+          managedBy: 'template',
+          loadOrder: 30,
+          notes: 'Maps the normalized CMS contract into the default template markup.',
+        },
+      ],
+      optional: [
+        {
+          id: 'theme-overrides',
+          type: 'stylesheet',
+          source: 'css/theme-overrides.css',
+          managedBy: 'shared-core',
+          loadOrder: 11,
+        },
+        {
+          id: 'font-awesome',
+          type: 'external-library',
+          source: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
+          managedBy: 'host',
+          loadOrder: 1,
+        },
+        {
+          id: 'bootstrap',
+          type: 'external-library',
+          source: 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
+          managedBy: 'host',
+          loadOrder: 2,
+        },
+      ],
+      notes: [
+        'The host page remains responsible for loading declared assets during the Adapter 1 compatibility phase.',
+        'Asset declarations describe requirements; the current runtime does not inject or reorder assets.',
+      ],
     },
     sections: {
       home: {

@@ -5,14 +5,16 @@ This compatibility adapter connects the normalized CUDFIRM CMS contract to the o
 ## Identity and compatibility
 
 - Template ID: `cudfirm-default`
-- Template version: `1.3.0`
-- Manifest schema: `1.0.0`
+- Template version: `1.4.0`
+- Manifest schema: `1.1.0`
 - Minimum CMS contract: `1.0.0`
 - Supported contract range: `1.x`
 - Required CUDFIRM core: `2.0.0`
 - Registration entry: `template.registration.js`
 
 The registration file is the only file that registers this adapter. The shared runtime no longer imports or registers a specific template.
+
+The manifest also declares required and optional assets, their ownership boundary, and intended load order. During Adapter 1, the host page still loads those assets; the shared runtime only validates and reports them.
 
 ## Adapter-rendered sections
 
