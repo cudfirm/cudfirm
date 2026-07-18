@@ -370,6 +370,9 @@
    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
    <script src="js/supabase.js"></script>
 
+  <!-- Active template selection for this deployment. -->
+  <script src="js/template-config.js" defer></script>
+
   <!-- CMS layer: fetches Supabase content into window.CMS before the
        page is built. script.js awaits window.CMSReady and falls back
        to its built-in defaults if any table is empty/unreachable. -->
@@ -393,7 +396,7 @@
 
   <script src="js/module-runtime.js" defer></script>
 
-  <!-- CUDFIRM Template Integration Framework — Adapter 1 compatibility layer -->
+  <!-- CUDFIRM Template Integration Framework — active Adapter 1 -->
   <script src="templates/cudfirm-default/template.manifest.js" defer></script>
   <script src="templates/cudfirm-default/template.adapter.js" defer></script>
   <script src="js/template-registry.js" defer></script>

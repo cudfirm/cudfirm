@@ -48,7 +48,8 @@ const data = {
 
 assert.equal(manifest.schemaVersion, '1.1.0');
 assert.equal(manifest.template.id, 'cudfirm-default');
-assert.equal(manifest.template.version, '1.4.0');
+assert.equal(manifest.template.version, '1.5.0');
+assert.equal(manifest.compatibility.minimumContractVersion, '1.1.0');
 assert.ok(manifest.assets.required.length > 0);
 assert.ok(manifest.assets.required.some((asset) => asset.id === 'template-adapter'));
 

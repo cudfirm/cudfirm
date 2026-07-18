@@ -5,8 +5,81 @@
 (function () {
   'use strict';
 
+  const ADAPTER_ID = 'cudfirm-default';
+  const ADAPTER_VERSION = '1.0.0';
+  const adapterState = {
+    initialized: false,
+    renderedSections: new Set(),
+    errors: [],
+  };
+
   const hasText = (value) => typeof value === 'string' && value.trim() !== '';
   const text = (value) => (value == null ? '' : String(value));
+
+  function brandName(site) {
+    return hasText(site?.name) ? site.name.trim() : 'CUDFIRM';
+  }
+
+  function markSectionMount(mount, sectionName) {
+    if (!mount?.dataset) return;
+    mount.dataset.cudfirmAdapter = ADAPTER_ID;
+    mount.dataset.cudfirmSection = sectionName;
+  }
+
+  function setRootState(name, value) {
+    const root = document?.documentElement;
+    if (!root?.dataset || value == null) return;
+    root.dataset[name] = String(value);
+  }
+
+  function initialize(context = {}) {
+    if (context.templateId && context.templateId !== ADAPTER_ID) {
+      throw new Error(`Adapter ${ADAPTER_ID} cannot initialize template "${context.templateId}".`);
+    }
+
+    adapterState.initialized = true;
+    adapterState.renderedSections.clear();
+    adapterState.errors.length = 0;
+    setRootState('cudfirmTemplate', ADAPTER_ID);
+    setRootState('cudfirmAdapterVersion', ADAPTER_VERSION);
+    setRootState('cudfirmTemplateState', 'initializing');
+  }
+
+  function beforeRender(context = {}) {
+    if (!adapterState.initialized) {
+      throw new Error(`Adapter ${ADAPTER_ID} must initialize before rendering.`);
+    }
+    if (context.mount?.dataset) context.mount.dataset.cudfirmRenderState = 'rendering';
+  }
+
+  function afterRender(context = {}) {
+    if (context.sectionName) adapterState.renderedSections.add(context.sectionName);
+    if (context.mount?.dataset) {
+      context.mount.dataset.cudfirmRenderState = 'rendered';
+      markSectionMount(context.mount, context.sectionName || '');
+    }
+  }
+
+  function complete(context = {}) {
+    setRootState('cudfirmTemplateState', context.report?.status || 'ready');
+    setRootState('cudfirmRenderedSections', Array.from(adapterState.renderedSections).join(','));
+  }
+
+  function onError(context = {}) {
+    const message = context.error?.message || context.phase || 'Unknown adapter error.';
+    adapterState.errors.push(message);
+    setRootState('cudfirmTemplateState', 'error');
+  }
+
+  function getState() {
+    return Object.freeze({
+      id: ADAPTER_ID,
+      version: ADAPTER_VERSION,
+      initialized: adapterState.initialized,
+      renderedSections: Object.freeze(Array.from(adapterState.renderedSections)),
+      errors: Object.freeze([...adapterState.errors]),
+    });
+  }
 
   function setText(element, value) {
     if (element && hasText(text(value))) element.textContent = text(value);
@@ -19,7 +92,7 @@
     return i;
   }
 
-  function renderStory(container, blocks) {
+  function renderStory(container, blocks, fallbackAlt) {
     if (!container || !Array.isArray(blocks) || !blocks.length) return;
     container.replaceChildren();
     blocks.forEach((block, index) => {
@@ -28,6 +101,14 @@
         heading.style.cssText = "font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;color:var(--n-forest);margin-bottom:0.45rem;";
         heading.textContent = block.heading;
         container.appendChild(heading);
+      }
+      if (hasText(block.imageUrl)) {
+        const image = document.createElement('img');
+        image.src = block.imageUrl;
+        image.alt = block.imageAlt || fallbackAlt || '';
+        image.loading = 'lazy';
+        image.style.cssText = 'width:100%;max-height:320px;object-fit:cover;border-radius:10px;margin:0.25rem 0 0.75rem;';
+        container.appendChild(image);
       }
       if (hasText(block.text)) {
         const paragraph = document.createElement('p');
@@ -87,7 +168,7 @@
     });
   }
 
-  function createHomeGridItem(item) {
+  function createHomeGridItem(item, brand) {
     const column = document.createElement('div');
     column.className = 'col grid-item';
     column.dataset.img = text(item.imageUrl);
@@ -96,11 +177,11 @@
 
     const image = document.createElement('img');
     image.src = text(item.imageUrl);
-    image.alt = text(item.alt || item.name || 'CUDFIRM');
+    image.alt = text(item.alt || item.name || brand || 'CUDFIRM');
     image.className = 'img-fluid';
     image.loading = 'lazy';
     image.addEventListener('error', () => {
-      image.src = 'https://placehold.co/600x800/0B3D2E/C8922A?text=CUDFIRM';
+      image.src = `https://placehold.co/600x800/0B3D2E/C8922A?text=${encodeURIComponent(brand || 'CUDFIRM')}`;
     }, { once: true });
 
     const label = document.createElement('span');
@@ -110,12 +191,12 @@
     return column;
   }
 
-  function replaceHomeGrid(container, items) {
+  function replaceHomeGrid(container, items, brand) {
     if (!container || !Array.isArray(items) || !items.length) return false;
     const fragment = document.createDocumentFragment();
     items.forEach((item) => {
       if (!hasText(item.name) || !hasText(item.imageUrl)) return;
-      fragment.appendChild(createHomeGridItem(item));
+      fragment.appendChild(createHomeGridItem(item, brand));
     });
     if (!fragment.childNodes.length) return false;
     container.replaceChildren(fragment);
@@ -184,8 +265,9 @@
     return true;
   }
 
-  function renderHome({ mount, data, contract }) {
+  function renderHome({ mount, data, contract, site }) {
     if (!mount || !data || !contract) return false;
+    const brand = brandName(site || contract.site);
     const heroRendered = renderHomeHero(mount, data);
 
     const showcaseCards = mount.querySelectorAll('.home-showcase-grid > .card-section');
@@ -197,10 +279,10 @@
           imageUrl: project.imageUrl,
           destination: project.destination || '#',
           name: project.title,
-          alt: `${project.title} website built by CUDFIRM`,
+          alt: `${project.title} website built by ${brand}`,
         }))
       : [];
-    const portfolioRendered = replaceHomeGrid(portfolioGrid, featuredPortfolio);
+    const portfolioRendered = replaceHomeGrid(portfolioGrid, featuredPortfolio, brand);
 
     const serviceItems = Array.isArray(contract.services)
       ? contract.services.slice(0, 7).map((service) => ({
@@ -218,16 +300,42 @@
         alt: 'More Services',
       });
     }
-    const servicesRendered = replaceHomeGrid(servicesGrid, serviceItems);
+    const servicesRendered = replaceHomeGrid(servicesGrid, serviceItems, brand);
 
     if (heroRendered || portfolioRendered || servicesRendered) {
-      mount.dataset.cudfirmAdapter = 'home';
+      markSectionMount(mount, 'home');
       return true;
     }
     return false;
   }
 
-  function renderAbout({ mount, data }) {
+
+  function renderAboutImage(container, data, brand) {
+    if (!container) return;
+
+    let wrapper = container.querySelector('.about-cms-image-wrap');
+    if (!hasText(data?.imageUrl)) {
+      wrapper?.remove();
+      return;
+    }
+
+    if (!wrapper) {
+      wrapper = document.createElement('div');
+      wrapper.className = 'about-cms-image-wrap';
+      wrapper.style.cssText = 'margin-bottom:1rem;';
+      container.insertBefore(wrapper, container.firstChild || null);
+    }
+
+    const image = document.createElement('img');
+    image.src = data.imageUrl;
+    image.alt = data.imageAlt || `${data.title || brand} image`;
+    image.loading = 'lazy';
+    image.style.cssText = 'width:100%;max-height:360px;object-fit:cover;border-radius:10px;';
+    image.addEventListener('click', () => window.openLightbox?.(image.src, image.alt, null));
+    wrapper.replaceChildren(image);
+  }
+
+  function renderAbout({ mount, data, site }) {
     if (!mount || !data || !hasText(data.title)) return false;
 
     setText(mount.querySelector('h6 .badge'), data.eyebrow);
@@ -237,7 +345,10 @@
     const values = cards[2];
     const facts = cards[3];
 
-    const missionParagraphs = mission?.querySelectorAll('.card-content > p') || [];
+    const brand = brandName(site);
+    const missionContent = mission?.querySelector('.card-content');
+    renderAboutImage(missionContent, data, brand);
+    const missionParagraphs = missionContent?.querySelectorAll(':scope > p') || [];
     setText(missionParagraphs[0], data.title);
     setText(missionParagraphs[1], data.introduction || data.missionText);
 
@@ -248,7 +359,7 @@
       if (icon) storyHeading.appendChild(icon);
       storyHeading.append(document.createTextNode(data.storyTitle));
     }
-    renderStory(story?.querySelector('.card-content'), data.storyBlocks);
+    renderStory(story?.querySelector('.card-content'), data.storyBlocks, `${data.title || brand} story image`);
 
     const valuesHeading = values?.querySelector('.card-header h3');
     if (valuesHeading && hasText(data.valuesTitle)) {
@@ -274,7 +385,7 @@
       actionButton.onclick = (event) => window.openTab?.(event, data.action.target);
     }
 
-    mount.dataset.cudfirmAdapter = 'about';
+    markSectionMount(mount, 'about');
     return true;
   }
 
@@ -286,11 +397,12 @@
     return tag;
   }
 
-  function renderServices({ mount, data }) {
+  function renderServices({ mount, data, site }) {
     const list = mount?.querySelector('#tab3-list');
     if (!list || !Array.isArray(data) || !data.length) return false;
 
     const fragment = document.createDocumentFragment();
+    const brand = brandName(site);
     data.forEach((service) => {
       if (!hasText(service.title) || !hasText(service.description)) return;
 
@@ -333,7 +445,7 @@
       const metadata = document.createElement('p');
       metadata.className = 'mb-0';
       metadata.style.cssText = 'font-size:0.72rem;';
-      metadata.append(document.createTextNode('CUDFIRM · '));
+      metadata.append(document.createTextNode(`${brand} · `));
       (Array.isArray(service.tags) ? service.tags : []).forEach((tagValue) => {
         metadata.appendChild(createTag(tagValue, String(tagValue).startsWith('#₦') ? 'green' : 'orange'));
       });
@@ -344,7 +456,7 @@
 
     if (!fragment.childNodes.length) return false;
     list.replaceChildren(fragment);
-    mount.dataset.cudfirmAdapter = 'services';
+    markSectionMount(mount, 'services');
     return true;
   }
 
@@ -358,11 +470,12 @@
     window.openTab?.(event, target.replace(/^#/, ''));
   }
 
-  function renderPortfolio({ mount, data }) {
+  function renderPortfolio({ mount, data, site }) {
     const row = mount?.querySelector(':scope > .row.g-3.stagger-children');
     if (!row || !Array.isArray(data) || !data.length) return false;
 
     const fragment = document.createDocumentFragment();
+    const brand = brandName(site);
     data.forEach((project) => {
       if (!hasText(project.title) || !hasText(project.imageUrl)) return;
 
@@ -387,11 +500,11 @@
       media.style.cssText = 'position:relative;';
       const image = document.createElement('img');
       image.src = project.imageUrl;
-      image.alt = `Screenshot of ${project.title} website built by CUDFIRM`;
+      image.alt = `Screenshot of ${project.title} website built by ${brand}`;
       image.loading = 'lazy';
       image.style.cssText = 'width:100%;height:180px;object-fit:cover;';
       image.addEventListener('error', () => {
-        image.src = 'https://placehold.co/400x280/0B3D2E/C8922A?text=CUDFIRM';
+        image.src = `https://placehold.co/400x280/0B3D2E/C8922A?text=${encodeURIComponent(brand)}`;
       }, { once: true });
       const statusBox = document.createElement('div');
       statusBox.style.cssText = 'position:absolute;top:8px;right:8px;';
@@ -434,7 +547,7 @@
 
     if (!fragment.childNodes.length) return false;
     row.replaceChildren(fragment);
-    mount.dataset.cudfirmAdapter = 'portfolio';
+    markSectionMount(mount, 'portfolio');
     return true;
   }
 
@@ -445,10 +558,11 @@
       : '#0B3D2E';
   }
 
-  function renderTestimonials({ mount, data }) {
+  function renderTestimonials({ mount, data, site }) {
     const row = mount?.querySelector(':scope > .row.g-3.stagger-children');
     if (!row || !Array.isArray(data) || !data.length) return false;
 
+    const brand = brandName(site);
     mount.querySelectorAll(':scope > .testimonial-placeholder-notice').forEach((notice) => notice.remove());
     const allPlaceholder = data.every((item) => item.placeholder === true);
     if (allPlaceholder) {
@@ -460,7 +574,7 @@
       const copy = document.createElement('div');
       const strong = document.createElement('strong');
       strong.textContent = 'Testimonials coming soon. ';
-      copy.append(strong, document.createTextNode('The cards below show the kind of results CUDFIRM clients experience. Real verified reviews will be displayed here as our portfolio grows. '));
+      copy.append(strong, document.createTextNode(`The cards below show the kind of results ${brand} clients experience. Real verified reviews will be displayed here as the portfolio grows. `));
       const action = document.createElement('button');
       action.className = 'btn-inline-link';
       action.textContent = 'Become one of our first clients →';
@@ -517,7 +631,7 @@
 
     if (!fragment.childNodes.length) return false;
     row.replaceChildren(fragment);
-    mount.dataset.cudfirmAdapter = 'testimonials';
+    markSectionMount(mount, 'testimonials');
     return true;
   }
 
@@ -569,7 +683,7 @@
 
     if (!fragment.childNodes.length) return false;
     list.replaceChildren(fragment);
-    mount.dataset.cudfirmAdapter = 'faq';
+    markSectionMount(mount, 'faq');
     return true;
   }
 
@@ -614,6 +728,8 @@
     setText(whatsappButton, form.whatsappLabel);
     setText(submitButton, form.submitLabel);
     setText(emailButton, form.emailLabel);
+    if (whatsappButton) whatsappButton.hidden = data.directContact?.showWhatsapp === false;
+    if (emailButton) emailButton.hidden = data.directContact?.showEmail === false;
 
     const privacy = mount.querySelector('#contactForm p[style*="text-align:center"]');
     setText(privacy, form.privacyText);
@@ -625,17 +741,27 @@
 
     const phoneLink = box?.querySelector('a[href^="tel:"]');
     if (phoneLink) {
-      if (direct.showPhone === false || !hasText(direct.phone)) phoneLink.style.display = 'none';
-      else phoneLink.href = `tel:${direct.phone.replace(/\s+/g, '')}`;
+      phoneLink.hidden = direct.showPhone === false;
+      if (direct.showPhone !== false && hasText(direct.phone)) {
+        phoneLink.href = `tel:${direct.phone.replace(/\s+/g, '')}`;
+      }
     }
     const copyButton = box?.querySelector('button[onclick*="copyToClipboard"]');
     if (copyButton) {
-      if (direct.showPhone === false || !hasText(direct.phone)) copyButton.style.display = 'none';
-      else copyButton.onclick = () => window.copyToClipboard?.(direct.phone, 'Number copied! ✓');
+      copyButton.hidden = direct.showPhone === false;
+      if (direct.showPhone !== false && hasText(direct.phone)) {
+        copyButton.onclick = () => window.copyToClipboard?.(direct.phone, 'Number copied! ✓');
+      }
     }
 
     const details = box?.querySelector('div[style*="font-size:0.75rem"]');
-    if (details) {
+    const hasConfiguredDetails = (
+      (direct.showEmail !== false && hasText(direct.email))
+      || (direct.showAddress !== false && hasText(direct.address))
+    );
+    if (details) details.hidden = direct.showEmail === false && direct.showAddress === false;
+    if (details && hasConfiguredDetails) {
+      details.hidden = false;
       details.replaceChildren();
       if (direct.showEmail !== false && hasText(direct.email)) {
         details.appendChild(createIcon('bi-envelope'));
@@ -647,9 +773,25 @@
       }
     }
 
-    mount.dataset.cudfirmAdapter = 'contact';
+    markSectionMount(mount, 'contact');
     return true;
   }
 
-  window.CUDFIRMDefaultAdapter = Object.freeze({ renderHome, renderAbout, renderServices, renderPortfolio, renderTestimonials, renderFaq, renderContact });
+  window.CUDFIRMDefaultAdapter = Object.freeze({
+    id: ADAPTER_ID,
+    version: ADAPTER_VERSION,
+    initialize,
+    beforeRender,
+    afterRender,
+    complete,
+    onError,
+    getState,
+    renderHome,
+    renderAbout,
+    renderServices,
+    renderPortfolio,
+    renderTestimonials,
+    renderFaq,
+    renderContact,
+  });
 })();

@@ -1,18 +1,22 @@
 # CUDFIRM Default Template — Adapter 1
 
-This compatibility adapter connects the normalized CUDFIRM CMS contract to the original public frontend without rewriting `js/script.js` or `css/styles.css`.
+This active Adapter 1 connects the normalized CUDFIRM CMS contract to the original public frontend without rewriting `js/script.js` or `css/styles.css`.
 
 ## Identity and compatibility
 
 - Template ID: `cudfirm-default`
-- Template version: `1.4.0`
+- Template version: `1.5.0`
 - Manifest schema: `1.1.0`
-- Minimum CMS contract: `1.0.0`
+- Minimum CMS contract: `1.1.0`
 - Supported contract range: `1.x`
 - Required CUDFIRM core: `2.0.0`
 - Registration entry: `template.registration.js`
 
 The registration file is the only file that registers this adapter. The shared runtime no longer imports or registers a specific template.
+
+The current deployment explicitly selects this adapter in `js/template-config.js`. A future client deployment can select another registered adapter there without changing the shared runtime.
+
+Adapter lifecycle hooks mark initialization, per-section render state, completion, and runtime-reported adapter errors for diagnostics. They do not introduce a second data loader or any privileged operation.
 
 The manifest also declares required and optional assets, their ownership boundary, and intended load order. During Adapter 1, the host page still loads those assets; the shared runtime only validates and reports them.
 
@@ -60,4 +64,4 @@ Empty normalized arrays keep the legacy fallback markup. A renderer failure is i
 
 ## Boundaries
 
-The adapter does not query Supabase, authenticate users, submit forms, or implement dashboard/security logic. Shared CMS, form, SEO, theme, and security behavior remains outside the template adapter.
+The adapter does not query Supabase, authenticate users, submit forms, or implement dashboard/security logic. It consumes only the normalized contract supplied by the shared runtime. Shared CMS, form, SEO, theme, and security behavior remains outside the template adapter.
