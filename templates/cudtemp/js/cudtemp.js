@@ -1,6 +1,5 @@
 /*
 CUDTEMP Adapter 2 interactions
-Derived from TemplateMo 622; attribution is retained in LICENSE-NOTICE.md
 */
 
 /* ── Smooth Scroll (JS-driven, overrides CSS) ── */
