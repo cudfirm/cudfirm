@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web1 — CUDFIRM Adapter 2</title>
+    <meta name="description" content="Web1 is the second template connected to the shared CUDFIRM CMS core.">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Web1 — CUDFIRM Adapter 2">
+    <meta property="og:description" content="Web1 is the second template connected to the shared CUDFIRM CMS core.">
+    <meta property="og:image" content="">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Web1 — CUDFIRM Adapter 2">
+    <meta name="twitter:description" content="Web1 is the second template connected to the shared CUDFIRM CMS core.">
+    <meta name="twitter:image" content="">
+    <link id="siteFavicon" rel="icon" href="img/cudfirm.webp" type="image/webp">
+    <link rel="canonical" href="">
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Swiper JS CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="templates/web1/css/styles.css">
+    <link rel="stylesheet" href="templates/web1/css/theme-overrides.css">
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#navbar" data-cudfirm-template="web1">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#hero" data-cudfirm-site-name>Web1</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav m-auto mb-2 mb-lg-0" data-cudfirm-navigation>
+                    <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Inventory</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                </ul>
+                <div class="d-lg-none mt-3">
+                    <a href="#contact" class="btn btn-primary w-100" data-cudfirm-nav-cta>Get a Quote</a>
+                </div>
+                <div class="d-none d-lg-flex">
+                    <a href="#contact" class="btn btn-primary" data-cudfirm-nav-cta>Get a Quote</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center gy-5">
+                <div class="col-lg-5">
+                    <div class="hero-content" data-aos="fade-right">
+                        <h1>Find Your <span>Dream Car</span> Today.</h1>
+                        <p>Web1 helps customers explore quality automobiles with clear information, responsive support, and dependable enquiry guidance.</p>
+                        <a href="#featured" class="btn btn-primary">View Collection</a>
+                        <a href="#contact" class="btn btn-secondary ms-2">Get Quote</a>
+                    </div>
+                </div>
+                <div class="col-lg-7" data-aos="fade-left">
+                    <div class="hero-slider-container">
+                        <!-- Swiper -->
+                        <div class="swiper hero-car-slider">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/AutoLex%20Car%20Dealer%20Website/1.png" class="img-fluid" alt="Car 1">
+                                    <div class="slide-content">
+                                        <h5>Prestige Phantom X</h5>
+                                        <p>$250,000</p>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/AutoLex%20Car%20Dealer%20Website/2.png" class="img-fluid" alt="Car 2">
+                                    <div class="slide-content">
+                                        <h5>Aura Grandeur</h5>
+                                        <p>$120,000</p>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/AutoLex%20Car%20Dealer%20Website/3.png" class="img-fluid" alt="Car 3">
+                                    <div class="slide-content">
+                                        <h5>Vortex Overlander</h5>
+                                        <p>$180,000</p>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/AutoLex%20Car%20Dealer%20Website/10.png" class="img-fluid" alt="Car 4">
+                                    <div class="slide-content">
+                                        <h5>Legacy Speedster</h5>
+                                        <p>$195,000</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hero-slider-nav">
+                            <div class="swiper-button-prev swiper-button"></div>
+                            <div class="swiper-button-next swiper-button"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section-padding">
+        <div class="container">
+            <div class="row align-items-center gx-5">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="about-image">
+                        <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/AutoLex%20Car%20Dealer%20Website/1.png" class="img-fluid" alt="Showroom">
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-5 mt-lg-0" data-aos="fade-left" data-aos-delay="200">
+                    <div class="section-title text-start">
+                        <h2 class="text-start m-0 p-0">The Web1 Difference</h2>
+                    </div>
+                    <p class="lead mt-4">Web1 is an automobile website created by CUDFIRM Limited to help customers discover vehicles and submit enquiries with confidence.</p>
+                    <p>The platform focuses on clear vehicle information, simple communication, and a secure dashboard for managing enquiries, content, and updates.</p>
+                    <a href="#" class="btn btn-primary">Our Story</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="why-choose-us" class="section-padding">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0" data-aos="fade-up">
+                    <div class="counter-box">
+                        <h3 class="counter" data-target="500">0</h3>
+                        <p>Vehicles in Stock</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="100">
+                    <div class="counter-box">
+                        <h3 class="counter" data-target="98">0</h3>
+                        <p>Customer Satisfaction %</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="200">
+                    <div class="counter-box">
+                        <h3 class="counter" data-target="15">0</h3>
+                        <p>Years in Business</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="300">
+                    <div class="counter-box">
+                        <h3 class="counter" data-target="20">0</h3>
+                        <p>Expert Technicians</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Cars Section -->
+    <section id="featured" class="section-padding">
+        <div class="container">
+            <div class="section-title text-center" data-aos="fade-up">
+                <h2>Curated Inventory</h2>
+                <p>Each vehicle in our collection is hand-selected for its quality, performance, and history.</p>
+            </div>
+            <div class="row g-4">
+                <!-- Car 1 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="car-card">
+                        <div class="img-container"><img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/AutoLex%20Car%20Dealer%20Website/5.png" class="card-img-top" alt="Car 1">
+                        </div>
+                        <div class="card-body">
+                            <div class="car-name">
+                                <h5>Prestige Phantom X</h5><span class="year">2024</span>
+                            </div>
+                            <p class="price">$250,000</p>
+                            <ul class="features">
+                                <li><i class="bi bi-speedometer2"></i> 3.2s 0-60</li>
+                                <li><i class="bi bi-gear-wide-connected"></i> Automatic</li>
+                                <li><i class="bi bi-fuel-pump"></i> V12</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Car 2 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="car-card">
+                        <div class="img-container"><img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/AutoLex%20Car%20Dealer%20Website/6.png" class="card-img-top" alt="Car 2">
+                        </div>
+                        <div class="card-body">
+                            <div class="car-name">
+                                <h5>Aura Grandeur</h5><span class="year">2023</span>
+                            </div>
+                            <p class="price">$120,000</p>
+                            <ul class="features">
+                                <li><i class="bi bi-speedometer2"></i> 5.1s 0-60</li>
+                                <li><i class="bi bi-gear-wide-connected"></i> Automatic</li>
+                                <li><i class="bi bi-fuel-pump"></i> V8</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Car 3 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="car-card">
+                        <div class="img-container"><img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/AutoLex%20Car%20Dealer%20Website/7.png" class="card-img-top" alt="Car 3">
+                        </div>
+                        <div class="card-body">
+                            <div class="car-name">
+                                <h5>Vortex Overlander</h5><span class="year">2024</span>
+                            </div>
+                            <p class="price">$180,000</p>
+                            <ul class="features">
+                                <li><i class="bi bi-speedometer2"></i> 4.5s 0-60</li>
+                                <li><i class="bi bi-gear-wide-connected"></i> Automatic</li>
+                                <li><i class="bi bi-fuel-pump"></i> V8 Turbo</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5" data-aos="fade-up">
+                <a href="#" class="btn btn-primary">View All Vehicles</a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Services Section -->
+    <section id="services" class="section-padding">
+        <div class="container">
+            <div class="section-title text-center" data-aos="fade-up">
+                <h2>Comprehensive Ownership Solutions</h2>
+                <p>Our relationship doesn't end when you drive off the lot. We provide a full suite of services to
+                    enhance your ownership experience.</p>
+            </div>
+            <div class="row g-5">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="service-item">
+                        <div class="icon"><i class="bi bi-wallet2"></i></div>
+                        <div>
+                            <h3>Bespoke Financing</h3>
+                            <p>Our financial experts work with a network of premium lenders to craft financing and
+                                leasing options tailored to your specific needs.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="service-item">
+                        <div class="icon"><i class="bi bi-arrow-repeat"></i></div>
+                        <div>
+                            <h3>Seamless Trade-Ins</h3>
+                            <p>Receive a transparent, competitive valuation for your current vehicle. We make the
+                                trade-in process simple and rewarding.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="service-item">
+                        <div class="icon"><i class="bi bi-tools"></i></div>
+                        <div>
+                            <h3>Certified Maintenance</h3>
+                            <p>Our state-of-the-art service center is staffed by factory-trained technicians who use
+                                only genuine parts to maintain your vehicle's integrity.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="service-item">
+                        <div class="icon"><i class="bi bi-gem"></i></div>
+                        <div>
+                            <h3>Concierge Services</h3>
+                            <p>From vehicle detailing to sourcing rare models, our concierge team is dedicated to
+                                fulfilling your automotive requests.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section-padding" style="background-color: var(--bg-color);">
+        <div class="container" data-aos="fade-up">
+            <div class="section-title text-center">
+                <h2>Client Experiences</h2>
+                <p>Hear directly from customers who received clear vehicle guidance and responsive support through Web1.</p>
+            </div>
+            <div class="swiper-container testimonial-slider">
+                <div class="swiper-wrapper">
+                    <!-- Testimonial 1 -->
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <div class="quote-icon"><i class="bi bi-quote"></i></div>
+                            <p>"This was by far the most professional and pleasant car buying experience I've ever had.
+                                The attention to detail is unmatched."</p>
+                            <div class="author">
+                                <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/AutoLex%20Car%20Dealer%20Website/Jane Doe.png" alt="Author 1">
+                                <div>
+                                    <h5>Jane Doe</h5><span>CEO, Tech Solutions</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <div class="quote-icon"><i class="bi bi-quote"></i></div>
+                            <p>"The team didn't just sell me a car; they guided me to the perfect vehicle for my
+                                lifestyle. Their expertise is truly invaluable."</p>
+                            <div class="author">
+                                <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/AutoLex%20Car%20Dealer%20Website/John Smith.png" alt="Author 2">
+                                <div>
+                                    <h5>John Smith</h5><span>Architect</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <div class="quote-icon"><i class="bi bi-quote"></i></div>
+                            <p>"I've been a loyal client for years. Web1 consistently exceeds my expectations with
+                                their service and incredible inventory."</p>
+                            <div class="author">
+                                <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/AutoLex%20Car%20Dealer%20Website/Michael Chen.png" alt="Author 3">
+                                <div>
+                                    <h5>Michael Chen</h5><span>Entrepreneur</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="section-padding" data-cudfirm-static-section="blog">
+        <div class="container">
+            <div class="section-title text-center" data-aos="fade-up">
+                <h2>From Our Journal</h2>
+                <p>Insights, trends, and stories from the world of luxury automobiles.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card border-0 shadow-sm h-100">
+                        <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/AutoLex%20Car%20Dealer%20Website/blog-1.png" class="card-img-top" alt="Blog 1">
+                        <div class="card-body">
+                            <p class="text-primary small mb-1">Automotive Trends</p>
+                            <h5 class="card-title"><a href="#" class="text-decoration-none text-dark">The
+                                    New Era of
+                                    Electric Supercars</a></h5>
+                            <p class="card-text">How electrification is redefining the limits of speed and performance.
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 pt-0">
+                            <a href="#" class="fw-bold text-decoration-none text-primary">Read More <i
+                                    class="bi bi-arrow-right-short"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card border-0 shadow-sm h-100">
+                        <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/AutoLex%20Car%20Dealer%20Website/blog-2.png" class="card-img-top" alt="Blog 2">
+                        <div class="card-body">
+                            <p class="text-primary small mb-1">Ownership Tips</p>
+                            <h5 class="card-title"><a href="#"
+                                    class="text-decoration-none text-dark">Preserving
+                                    Perfection: Detailing Secrets</a></h5>
+                            <p class="card-text">Expert advice on how to maintain that showroom shine and protect your
+                                investment.</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 pt-0">
+                            <a href="#" class="fw-bold text-decoration-none text-primary">Read More <i
+                                    class="bi bi-arrow-right-short"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card border-0 shadow-sm h-100">
+                        <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/AutoLex%20Car%20Dealer%20Website/blog-3.png" class="card-img-top" alt="Blog 3">
+                        <div class="card-body">
+                            <p class="text-primary small mb-1">Lifestyle</p>
+                            <h5 class="card-title"><a href="#"
+                                    class="text-decoration-none text-dark">Iconic Roads: A
+                                    Driver's Bucket List</a></h5>
+                            <p class="card-text">We explore the world's most breathtaking roads that every enthusiast
+                                must drive.</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 pt-0">
+                            <a href="#" class="fw-bold text-decoration-none text-primary">Read More <i
+                                    class="bi bi-arrow-right-short"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section id="cta" class="section-padding" data-cudfirm-static-section="cta">
+        <div class="container position-relative" style="z-index: 2;" data-aos="zoom-in">
+            <h2>Start Your Web1 Vehicle Enquiry</h2>
+            <p>Send an enquiry and the Web1 team will respond with availability, inspection details, and next steps.</p>
+            <a href="#contact" class="btn btn-light btn-lg">Send an Enquiry</a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-padding">
+        <div class="container">
+            <div class="section-title text-center" data-aos="fade-up">
+                <h2>Connect With Us</h2>
+                <p>Send Web1 a vehicle enquiry and the team will respond with availability and next steps.</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
+                    <form data-cudfirm-form="contact">
+                        <div class="row">
+                            <div class="col-md-6 mb-3"><input type="text" class="form-control" name="name" placeholder="Your Name" required></div>
+                            <div class="col-md-6 mb-3"><input type="email" class="form-control" name="email" placeholder="Your Email" required></div>
+                            <div class="col-12 mb-3"><input type="text" class="form-control" name="subject" placeholder="Subject" required></div>
+                            <div class="col-12 mb-3"><textarea class="form-control" name="message" rows="5" placeholder="Your Message" required></textarea></div>
+                            <div class="col-12 text-center"><button type="submit" class="btn btn-primary">Send
+                                    Message</button></div>
+                        </div>
+                        <div class="mt-3 text-center" data-cudfirm-form-feedback aria-live="polite"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                    <h5 class="navbar-brand">Web1</h5>
+                    <p>Web1 is an automobile website created by CUDFIRM Limited, helping customers explore quality cars with clear information and responsive support.</p>
+                    <div class="social-icons mt-4">
+                        <a href="#"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h5>Navigation</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none text-muted">About</a></li>
+                        <li><a href="#" class="text-decoration-none text-muted">Inventory</a></li>
+                        <li><a href="#" class="text-decoration-none text-muted">Services</a></li>
+                        <li><a href="#" class="text-decoration-none text-muted">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                        <li class="d-flex mb-2"><i class="bi bi-geo-alt me-2 pt-1 text-primary"></i> 123 Luxury Lane,
+                            Beverly Hills, CA 90210</li>
+                        <li class="d-flex mb-2"><i class="bi bi-telephone me-2 pt-1 text-primary"></i> (123) 456-7890
+                        </li>
+                        <li class="d-flex"><i class="bi bi-envelope me-2 pt-1 text-primary"></i> info@web1.example</li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5>Stay Informed</h5>
+                    <p>Join the Web1 mailing list for vehicle updates and announcements.</p>
+                    <form data-cudfirm-form="newsletter">
+                        <div class="input-group">
+                            <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+                            <button class="btn btn-primary" type="submit"><i class="bi bi-send"></i></button>
+                        </div>
+                        <div class="small mt-2" data-cudfirm-newsletter-feedback aria-live="polite"></div>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom text-center">
+                <p>© 2026 Web1. Created by <a href="https://cudfirm.netlify.app" target="_blank">CUDFIRM Limited</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" title="Go to top">
+        <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/AutoLex%20Car%20Dealer%20Website/car.png" alt="Car" class="car-image">
+        <div class="fire-trail">
+            <div class="flame"></div>
+            <div class="flame"></div>
+            <div class="flame"></div>
+            <div class="flame"></div>
+            <div class="flame"></div>
+        </div>
+    </button>
+
+    <!-- Template libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+
+    <!-- Shared CUDFIRM CMS core -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="js/supabase.js" defer></script>
+    <script src="templates/web1/template.config.js" defer></script>
+    <script src="js/template-config.js" defer></script>
+    <script src="js/cms-api.js" defer></script>
+    <script src="js/cms-contract.js" defer></script>
+    <script src="js/cms-loader.js" defer></script>
+    <script src="js/theme-manager.js" defer></script>
+    <script src="js/maintenance-mode.js" defer></script>
+    <script src="js/public-submissions.js" defer></script>
+
+    <!-- Shared extension-module framework -->
+    <script src="js/module-registry.js" defer></script>
+    <script src="js/module-validator.js" defer></script>
+    <script src="modules/member-accounts/module.manifest.js" defer></script>
+    <script src="modules/member-accounts/module.contract.js" defer></script>
+    <script src="modules/member-accounts/module.registration.js" defer></script>
+    <script src="js/module-runtime.js" defer></script>
+
+    <!-- CUDFIRM Adapter 2 — Web1 -->
+    <script src="templates/web1/template.manifest.js" defer></script>
+    <script src="templates/web1/template.adapter.js" defer></script>
+    <script src="js/template-registry.js" defer></script>
+    <script src="templates/web1/template.registration.js" defer></script>
+    <script src="js/template-validator.js" defer></script>
+    <script src="js/template-runtime.js" defer></script>
+    <script src="templates/web1/js/script.js" defer></script>
+
+</body>
+
+</html>
