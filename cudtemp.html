@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+
+<html data-cudtemp-template="cudtemp" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CUDTEMP — Reusable CUDFIRM CMS Template</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&amp;family=Playfair+Display:ital,wght@0,700;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="templates/cudtemp/css/cudtemp.css" rel="stylesheet"/>
+<meta content="CUDTEMP demonstrates how the reusable CUDFIRM CMS core can power a different public website design without duplicating dashboard, security, or Supabase logic." name="description"/></head>
+<body id="top">
+<!-- ── MOBILE MENU ── -->
+<div aria-label="Navigation" aria-modal="true" class="mobile-menu" id="mobileMenu" role="dialog">
+<a href="#top">Overview</a>
+<a href="#screens">Showcase</a>
+<a href="#features">Features</a>
+<a href="#pricing">Delivery</a>
+<a href="#testimonials">Reviews</a>
+<a href="#faq">FAQ</a>
+<a class="mobile-cta btn-primary" href="#contact">Start a Project</a>
+</div>
+<!-- ── 1. NAV ── -->
+<nav aria-label="Main navigation" class="nav" id="mainNav" role="navigation">
+<div class="nav-inner">
+<a class="nav-logo" href="#top">CUD<span>TEMP</span></a>
+<ul class="nav-links" role="list">
+<li><a href="#screens">Showcase</a></li>
+<li><a href="#features">Features</a></li>
+<li><a href="#pricing">Delivery</a></li>
+<li><a href="#testimonials">Reviews</a></li>
+<li><a href="#faq">FAQ</a></li>
+</ul>
+<div class="nav-cta">
+<a class="btn-ghost" href="#screens">View Demo</a>
+<a class="btn-primary" href="#contact">Start a Project</a>
+</div>
+<button aria-expanded="false" aria-label="Toggle menu" class="nav-hamburger" id="hamburger">
+<span></span><span></span><span></span>
+</button>
+</div>
+</nav>
+<!-- ── 2. HERO ── -->
+<section class="hero">
+<div class="container">
+<div class="hero-inner">
+<div class="hero-content">
+<div class="hero-badge reveal">
+<div class="hero-badge-dot">✦</div>
+<span>Reusable CMS Core with Template Adapters</span>
+</div>
+<h1 class="hero-title reveal reveal-delay-1">Your website,<br/><em>fully manageable.</em></h1>
+<p class="hero-sub reveal reveal-delay-2">CUDFIRM connects templates, content, media, SEO, security, and delivery tools through one protected dashboard for every client.</p>
+<div class="hero-actions reveal reveal-delay-3">
+<a class="btn-primary-lg" href="#contact">Start Your Project<span class="btn-arrow">→</span></a>
+<a class="btn-outline-lg" href="#screens"><span class="btn-play">▶</span>See the CMS in action</a>
+</div>
+<div class="hero-trust reveal reveal-delay-4">
+<div class="trust-item"><svg fill="none" height="16" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="16"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round"></path></svg>RLS Protected</div>
+<div class="trust-divider"></div>
+<div class="trust-item"><svg fill="none" height="16" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="16"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"></path></svg>Reusable Templates</div>
+<div class="trust-divider"></div>
+<div class="trust-item"><svg fill="none" height="16" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="16"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"></path></svg>Role-Based Access</div>
+</div>
+</div>
+<div class="hero-visual reveal reveal-delay-2">
+<div class="hero-dashboard">
+<div class="dashboard-bar">
+<div class="db-dot"></div><div class="db-dot"></div><div class="db-dot"></div>
+</div>
+<div class="dashboard-body">
+<div class="db-header">
+<div class="db-title">CMS Platform Health</div>
+<div class="db-tag">Secure</div>
+</div>
+<div class="db-chart">
+<div class="db-bar" style="height:35%"></div>
+<div class="db-bar" style="height:55%"></div>
+<div class="db-bar" style="height:42%"></div>
+<div class="db-bar active" style="height:75%"></div>
+<div class="db-bar" style="height:60%"></div>
+<div class="db-bar active" style="height:88%"></div>
+<div class="db-bar" style="height:70%"></div>
+<div class="db-bar active" style="height:92%"></div>
+</div>
+<div class="db-stats">
+<div class="db-stat">
+<div class="db-stat-val">2</div>
+<div class="db-stat-label">Template Adapters</div>
+<div class="db-stat-change">Ready</div>
+</div>
+<div class="db-stat">
+<div class="db-stat-val">4</div>
+<div class="db-stat-label">Access Roles</div>
+<div class="db-stat-change">Enforced</div>
+</div>
+<div class="db-stat">
+<div class="db-stat-val">1</div>
+<div class="db-stat-label">Shared CMS Core</div>
+<div class="db-stat-change">Reusable</div>
+</div>
+</div>
+</div>
+</div>
+<div class="hero-float-badge">
+<div class="float-badge-icon">✦</div>
+<div class="float-badge-text">
+<strong>Template adapter connected</strong>
+<span>Stable contract · shared runtime</span>
+</div>
+</div>
+<div class="hero-float-badge-2">
+<div class="float-badge-2-val">RLS ON</div>
+<div class="float-badge-2-label">Protected data access</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ── 3. LOGO TICKER ── -->
+<div class="ticker-section">
+<div class="ticker-label">A reusable platform built around</div>
+<div class="ticker-track-wrap">
+<div class="ticker-track">
+<!-- Set 1 -->
+<div class="ticker-item"><div class="ticker-item-icon"><svg fill="var(--accent)" height="16" viewbox="0 0 24 24" width="16"><rect height="7" rx="1" width="7" x="3" y="3"></rect><rect height="7" rx="1" width="7" x="14" y="3"></rect><rect height="7" rx="1" width="7" x="3" y="14"></rect><rect height="7" rx="1" width="7" x="14" y="14"></rect></svg></div>Template Adapters</div>
+<div class="ticker-dot"></div>
+<div class="ticker-item"><div class="ticker-item-icon"><svg fill="var(--accent)" height="16" viewbox="0 0 24 24" width="16"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3" stroke="#fff" stroke-linecap="round" stroke-width="2"></path></svg></div>CMS Dashboard</div>
+<div class="ticker-dot"></div>
+<div class="ticker-item"><div class="ticker-item-icon"><svg fill="var(--accent)" height="16" viewbox="0 0 24 24" width="16"><polygon points="12,2 22,20 2,20"></polygon></svg></div>Media Library</div>
+<div class="ticker-dot"></div>
+<div class="ticker-item"><div class="ticker-item-icon"><svg fill="var(--accent)" height="16" viewbox="0 0 24 24" width="16"><path d="M4 4h16v12H4z M8 20h8"></path></svg></div>SEO Manager</div>
+<div class="ticker-dot"></div>
+<div class="ticker-item"><div class="ticker-item-icon"><svg fill="var(--accent)" height="16" viewbox="0 0 24 24" width="16"><circle cx="12" cy="7" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg></div>Roles &amp; Permissions</div>
+<div class="ticker-dot"></div>
+<div class="ticker-item"><div class="ticker-item-icon"><svg fill="var(--accent)" height="16" viewbox="0 0 24 24" width="16"><rect height="14" rx="2" width="20" x="2" y="7"></rect><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"></path></svg></div>Backup &amp; Restore</div>
+<div class="ticker-dot"></div>
+<div class="ticker-item"><div class="ticker-item-icon"><svg fill="var(--accent)" height="16" viewbox="0 0 24 24" width="16"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg></div>Security Audit</div>
+<div class="ticker-dot"></div>
+<div class="ticker-item"><div class="ticker-item-icon"><svg fill="var(--accent)" height="16" viewbox="0 0 24 24" width="16"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg></div>Member Accounts</div>
+<div class="ticker-dot"></div>
+<!-- Set 2 (duplicate for seamless loop) -->
+<div class="ticker-item"><div class="ticker-item-icon"><svg fill="var(--accent)" height="16" viewbox="0 0 24 24" width="16"><rect height="7" rx="1" width="7" x="3" y="3"></rect><rect height="7" rx="1" width="7" x="14" y="3"></rect><rect height="7" rx="1" width="7" x="3" y="14"></rect><rect height="7" rx="1" width="7" x="14" y="14"></rect></svg></div>Template Adapters</div>
+<div class="ticker-dot"></div>
+<div class="ticker-item"><div class="ticker-item-icon"><svg fill="var(--accent)" height="16" viewbox="0 0 24 24" width="16"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3" stroke="#fff" stroke-linecap="round" stroke-width="2"></path></svg></div>CMS Dashboard</div>
+<div class="ticker-dot"></div>
+<div class="ticker-item"><div class="ticker-item-icon"><svg fill="var(--accent)" height="16" viewbox="0 0 24 24" width="16"><polygon points="12,2 22,20 2,20"></polygon></svg></div>Media Library</div>
+<div class="ticker-dot"></div>
+<div class="ticker-item"><div class="ticker-item-icon"><svg fill="var(--accent)" height="16" viewbox="0 0 24 24" width="16"><path d="M4 4h16v12H4z M8 20h8"></path></svg></div>SEO Manager</div>
+<div class="ticker-dot"></div>
+<div class="ticker-item"><div class="ticker-item-icon"><svg fill="var(--accent)" height="16" viewbox="0 0 24 24" width="16"><circle cx="12" cy="7" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg></div>Roles &amp; Permissions</div>
+<div class="ticker-dot"></div>
+<div class="ticker-item"><div class="ticker-item-icon"><svg fill="var(--accent)" height="16" viewbox="0 0 24 24" width="16"><rect height="14" rx="2" width="20" x="2" y="7"></rect><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"></path></svg></div>Backup &amp; Restore</div>
+<div class="ticker-dot"></div>
+<div class="ticker-item"><div class="ticker-item-icon"><svg fill="var(--accent)" height="16" viewbox="0 0 24 24" width="16"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg></div>Security Audit</div>
+<div class="ticker-dot"></div>
+<div class="ticker-item"><div class="ticker-item-icon"><svg fill="var(--accent)" height="16" viewbox="0 0 24 24" width="16"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg></div>Member Accounts</div>
+<div class="ticker-dot"></div>
+</div>
+</div>
+</div>
+<!-- ── 5. 3D PHONE CAROUSEL ── -->
+<section class="carousel-section" id="screens">
+<div class="container">
+<div class="carousel-header">
+<div class="section-label reveal">Platform Preview</div>
+<h2 class="section-title reveal reveal-delay-1">Your CMS,<br/><em>across every screen</em></h2>
+<p class="section-sub reveal reveal-delay-2">Preview content, services, portfolio, contact, and public pages through one responsive CUDFIRM management experience on any screen.</p>
+</div>
+</div>
+<div class="carousel-zoom">
+<button aria-label="Zoom out" class="zoom-btn" id="zoomOut">−</button>
+<div class="zoom-pips" id="zoomPips"></div>
+<button aria-label="Zoom in" class="zoom-btn" id="zoomIn">+</button>
+</div>
+<div class="carousel-stage" id="carouselStage">
+<div class="carousel-track" id="carouselTrack">
+<!-- Phone screens: 5 different screen designs + extras for looping -->
+<!-- We will render 7 cards and cycle positions -->
+<div class="phone-card" data-index="0" data-pos="left2">
+<div class="phone-shell">
+<div class="phone-screen">
+<img alt="CUDFIRM public website preview" loading="lazy" src="templates/cudtemp/images/cudtemp-screen-01.webp" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+</div>
+</div>
+</div>
+<div class="phone-card" data-index="1" data-pos="left1">
+<div class="phone-shell">
+<div class="phone-screen">
+<img alt="CUDFIRM About content editor" loading="lazy" src="templates/cudtemp/images/cudtemp-screen-02.webp" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+</div>
+</div>
+</div>
+<div class="phone-card" data-index="2" data-pos="center">
+<div class="phone-shell">
+<div class="phone-screen">
+<img alt="CUDFIRM services manager" loading="lazy" src="templates/cudtemp/images/cudtemp-screen-03.webp" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+</div>
+</div>
+</div>
+<div class="phone-card" data-index="3" data-pos="right1">
+<div class="phone-shell">
+<div class="phone-screen">
+<img alt="CUDFIRM portfolio showcase" loading="lazy" src="templates/cudtemp/images/cudtemp-screen-04.webp" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+</div>
+</div>
+</div>
+<div class="phone-card" data-index="4" data-pos="right2">
+<div class="phone-shell">
+<div class="phone-screen">
+<img alt="CUDFIRM contact workflow" loading="lazy" src="templates/cudtemp/images/cudtemp-screen-05.webp" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div style="display:flex;align-items:center;justify-content:center;gap:24px;width:100%;margin-top:48px;">
+<button aria-label="Previous screen" class="carousel-btn" id="carouselPrev">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="16"><path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</button>
+<div class="carousel-dots" id="carouselDots"></div>
+<button aria-label="Next screen" class="carousel-btn" id="carouselNext">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="16"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</button>
+</div>
+</section>
+<!-- ── 4. FEATURES ── -->
+<section class="features-section" id="features">
+<div class="container">
+<div class="features-header">
+<div class="section-label reveal">Core Platform</div>
+<h2 class="section-title reveal reveal-delay-1">Built for <em>reuse</em><br/>without duplicated systems</h2>
+<p class="section-sub reveal reveal-delay-2">Every template consumes the same stable content, security, permissions, media, and delivery systems through a controlled adapter layer.</p>
+</div>
+<!-- Feature 1 -->
+<div class="feature-row">
+<div class="feature-content reveal">
+<div class="feature-number">01 — Template Integration</div>
+<h3 class="feature-title">One core, many website designs</h3>
+<p class="feature-desc">Map stable CMS data into CUDFIRM-owned or client-supplied templates without rebuilding the dashboard for every delivery.</p>
+<div class="feature-checklist">
+<div class="feature-check"><div class="check-icon">✓</div><span>Stable template data contract</span></div>
+<div class="feature-check"><div class="check-icon">✓</div><span>Versioned compatibility manifests</span></div>
+<div class="feature-check"><div class="check-icon">✓</div><span>Shared adapter runtime and reports</span></div>
+</div>
+</div>
+<div class="feature-visual reveal reveal-delay-1">
+<div class="feature-visual-inner">
+<div class="fv-row">
+<div class="fv-card">
+<div class="fv-card-label">Content Sections</div>
+<div class="fv-card-val">12</div>
+<div class="fv-card-bar"><div class="fv-card-bar-fill" style="width:72%"></div></div>
+</div>
+<div class="fv-card">
+<div class="fv-card-label">Access Roles</div>
+<div class="fv-card-val">4</div>
+<div class="fv-card-bar"><div class="fv-card-bar-fill" style="width:88%"></div></div>
+</div>
+</div>
+<div class="fv-card">
+<div class="fv-card-label">Publishing Workflow</div>
+<div class="fv-list" style="margin-top:8px">
+<div class="fv-list-item"><span class="fv-list-name">Hero content published</span><span class="fv-pill green">Published</span></div>
+<div class="fv-list-item"><span class="fv-list-name">SEO review pending</span><span class="fv-pill blue">Review</span></div>
+<div class="fv-list-item"><span class="fv-list-name">Backup archive ready</span><span class="fv-pill dim">Ready</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Feature 2 -->
+<div class="feature-row reverse">
+<div class="feature-content reveal">
+<div class="feature-number">02 — CMS Operations</div>
+<h3 class="feature-title">Content tools that stay reusable</h3>
+<p class="feature-desc">Manage content, media, SEO, messages, subscribers, themes, maintenance, backups, and publishing workflows from one protected dashboard.</p>
+<div class="feature-checklist">
+<div class="feature-check"><div class="check-icon">✓</div><span>Draft, published, hidden, archived</span></div>
+<div class="feature-check"><div class="check-icon">✓</div><span>Search, filtering, sorting, ordering</span></div>
+<div class="feature-check"><div class="check-icon">✓</div><span>Backup, restore, exports, health checks</span></div>
+</div>
+</div>
+<div class="feature-visual reveal reveal-delay-1">
+<div class="feature-visual-inner">
+<div class="fv-card">
+<div class="fv-card-label">Trusted Operations</div>
+<div class="fv-list" style="margin-top:8px">
+<div class="fv-list-item"><span class="fv-list-name">Contact submission recorded</span><span class="fv-pill green">Recorded</span></div>
+<div class="fv-list-item"><span class="fv-list-name">Newsletter email accepted</span><span class="fv-pill green">Accepted</span></div>
+<div class="fv-list-item"><span class="fv-list-name">Security event logged</span><span class="fv-pill blue">Logged</span></div>
+<div class="fv-list-item"><span class="fv-list-name">Backup package created</span><span class="fv-pill dim">Created</span></div>
+</div>
+</div>
+<div class="fv-row">
+<div class="fv-card fv-wide">
+<div class="fv-card-label">Protected Functions</div>
+<div class="fv-card-val">10</div>
+<div class="fv-card-bar"><div class="fv-card-bar-fill" style="width:91%"></div></div>
+</div>
+<div class="fv-card">
+<div class="fv-card-label">Modules</div>
+<div class="fv-card-val">1</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Feature 3 -->
+<div class="feature-row">
+<div class="feature-content reveal">
+<div class="feature-number">03 — Security and Roles</div>
+<h3 class="feature-title">Permissions enforced at the source</h3>
+<p class="feature-desc">Protect viewer, editor, admin, and super-admin actions through PostgreSQL RLS and Storage rules, not hidden buttons alone.</p>
+<div class="feature-checklist">
+<div class="feature-check"><div class="check-icon">✓</div><span>RLS and API hardening enabled</span></div>
+<div class="feature-check"><div class="check-icon">✓</div><span>Activity and security event logging</span></div>
+<div class="feature-check"><div class="check-icon">✓</div><span>Role-based access across dashboard tools</span></div>
+</div>
+</div>
+<div class="feature-visual reveal reveal-delay-1">
+<div class="feature-visual-inner">
+<div class="fv-row">
+<div class="fv-card fv-wide">
+<div class="fv-card-label">Active Roles</div>
+<div style="display:flex;gap:-4px;margin-top:6px">
+<div style="width:28px;height:28px;border-radius:50%;background:var(--accent);border:2px solid var(--surface);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff">A</div>
+<div style="width:28px;height:28px;border-radius:50%;background:var(--accent-mid);border:2px solid var(--surface);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;margin-left:-6px">K</div>
+<div style="width:28px;height:28px;border-radius:50%;background:#5A6B66;border:2px solid var(--surface);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;margin-left:-6px">M</div>
+<div style="width:28px;height:28px;border-radius:50%;background:var(--bg-alt);border:2px solid var(--surface);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text-2);margin-left:-6px">+5</div>
+</div>
+</div>
+<div class="fv-card">
+<div class="fv-card-label">Audit Events</div>
+<div class="fv-card-val">4</div>
+</div>
+</div>
+<div class="fv-card">
+<div class="fv-card-label">Recent Activity</div>
+<div class="fv-list" style="margin-top:8px">
+<div class="fv-list-item"><span class="fv-list-name">Editor published content</span><span class="fv-pill green">Active</span></div>
+<div class="fv-list-item"><span class="fv-list-name">Admin reviewed settings</span><span class="fv-pill blue">Review</span></div>
+<div class="fv-list-item"><span class="fv-list-name">Backup completed safely</span><span class="fv-pill green">Done</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ── 6. STATS ── -->
+<section class="stats-section">
+<div class="container">
+<div class="stats-grid">
+<div class="stat-card reveal">
+<div class="stat-rule"></div>
+<div class="stat-value"><span class="stat-num" data-target="2">0</span><span class="stat-suffix"></span></div>
+<div class="stat-label">Template Adapters</div>
+<div class="stat-sublabel">Same reusable CMS core</div>
+</div>
+<div class="stat-card reveal reveal-delay-1">
+<div class="stat-rule"></div>
+<div class="stat-value"><span class="stat-num" data-target="4">0</span><span class="stat-suffix"></span></div>
+<div class="stat-label">Permission Roles</div>
+<div class="stat-sublabel">Viewer through Super Admin</div>
+</div>
+<div class="stat-card reveal reveal-delay-2">
+<div class="stat-rule"></div>
+<div class="stat-value"><span class="stat-num" data-target="0">0</span><span class="stat-suffix"></span></div>
+<div class="stat-label">Security Advisor Errors</div>
+<div class="stat-sublabel">Last verified production audit</div>
+</div>
+<div class="stat-card reveal reveal-delay-3">
+<div class="stat-rule"></div>
+<div class="stat-value"><span class="stat-num" data-target="1">0</span><span class="stat-suffix"></span></div>
+<div class="stat-label">Shared CMS Core</div>
+<div class="stat-sublabel">Built for many deployments</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ── 7. PRICING ── -->
+<section class="pricing-section" id="pricing">
+<div class="container">
+<div class="pricing-header">
+<div class="section-label reveal">Delivery Paths</div>
+<h2 class="section-title reveal reveal-delay-1">Three clear <em>starting points</em></h2>
+<p class="section-sub reveal reveal-delay-2">Choose a ready template, bring your own design, or request a tailored website experience.</p>
+</div>
+<div class="pricing-toggle reveal">
+<span class="toggle-label active" id="monthlyLabel">Website</span>
+<div aria-checked="true" aria-label="CUDFIRM website and CMS delivery" class="toggle-switch" id="pricingToggle" role="switch" tabindex="0"></div>
+<span class="toggle-label" id="annualLabel">CMS Included</span>
+<div class="toggle-badge">One Core</div>
+</div>
+<div class="pricing-grid">
+<div class="pricing-card reveal">
+<div class="pricing-tier">Ready Template</div>
+<div class="pricing-price">
+<span class="price-currency"></span>
+<span class="price-amount" id="price-starter">01</span>
+<span class="price-period"></span>
+</div>
+<div class="price-annual-note" id="annual-note-starter">CUDFIRM delivery option</div>
+<p class="pricing-desc">Start with a CUDFIRM-owned layout and connect your content through the shared CMS framework.</p>
+<div class="pricing-divider"></div>
+<div class="pricing-features">
+<div class="pricing-feature"><div class="pricing-check">✓</div><span>Fast template setup</span></div>
+<div class="pricing-feature"><div class="pricing-check">✓</div><span>CMS dashboard included</span></div>
+<div class="pricing-feature"><div class="pricing-check">✓</div><span>Content and media workflows</span></div>
+<div class="pricing-feature"><div class="pricing-check">✓</div><span>SEO and contact tools</span></div>
+<div class="pricing-feature"><div class="pricing-check">✓</div><span>Separate client deployment</span></div>
+</div>
+<a class="pricing-cta" href="#contact">Choose Template</a>
+</div>
+<div class="pricing-card featured reveal reveal-delay-1">
+<div class="pricing-badge">Flexible Option</div>
+<div class="pricing-tier">Client Template</div>
+<div class="pricing-price">
+<span class="price-currency"></span>
+<span class="price-amount" id="price-pro">02</span>
+<span class="price-period"></span>
+</div>
+<div class="price-annual-note" id="annual-note-pro">CUDFIRM delivery option</div>
+<p class="pricing-desc">Bring an existing website design and connect it without duplicating authentication, security, or dashboard logic.</p>
+<div class="pricing-divider"></div>
+<div class="pricing-features">
+<div class="pricing-feature"><div class="pricing-check">✓</div><span>Template compatibility audit</span></div>
+<div class="pricing-feature"><div class="pricing-check">✓</div><span>Stable data-contract mapping</span></div>
+<div class="pricing-feature"><div class="pricing-check">✓</div><span>Isolated adapter files</span></div>
+<div class="pricing-feature"><div class="pricing-check">✓</div><span>Existing structure preserved</span></div>
+<div class="pricing-feature"><div class="pricing-check">✓</div><span>Separate client deployment</span></div>
+<div class="pricing-feature"><div class="pricing-check">✓</div><span>Project-specific delivery support</span></div>
+</div>
+<a class="pricing-cta" href="#contact">Submit Template</a>
+</div>
+<div class="pricing-card reveal reveal-delay-2">
+<div class="pricing-tier">Tailored Build</div>
+<div class="pricing-price">
+<span class="price-currency"></span>
+<span class="price-amount" id="price-ent">03</span>
+<span class="price-period"></span>
+</div>
+<div class="price-annual-note" id="annual-note-ent">CUDFIRM delivery option</div>
+<p class="pricing-desc">Create a fresh public experience while keeping the same reusable CMS, permissions, security, and delivery foundation.</p>
+<div class="pricing-divider"></div>
+<div class="pricing-features">
+<div class="pricing-feature"><div class="pricing-check">✓</div><span>Custom visual direction</span></div>
+<div class="pricing-feature"><div class="pricing-check">✓</div><span>Reusable CMS connection</span></div>
+<div class="pricing-feature"><div class="pricing-check">✓</div><span>Responsive public pages</span></div>
+<div class="pricing-feature"><div class="pricing-check">✓</div><span>Roles and security included</span></div>
+<div class="pricing-feature"><div class="pricing-check">✓</div><span>Deployment handover ready</span></div>
+<div class="pricing-feature"><div class="pricing-check">✓</div><span>Project-specific delivery support</span></div>
+</div>
+<a class="pricing-cta" href="#contact">Request Consultation</a>
+</div>
+</div>
+</div>
+</section>
+<!-- ── 8. TESTIMONIALS ── -->
+<section class="testimonials-section" id="testimonials">
+<div class="container">
+<div class="testimonials-header">
+<div class="section-label reveal">Client Feedback</div>
+<h2 class="section-title reveal reveal-delay-1">Published <em>testimonials</em></h2>
+<p class="section-sub reveal reveal-delay-2">Approved client feedback is loaded from the shared dashboard and displayed here without template-specific data queries.</p>
+</div>
+<div class="testimonials-grid">
+<div class="testimonial-card tall reveal" data-cudtemp-testimonial-slot="1">
+<div class="testimonial-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+<p class="testimonial-quote">“Published client feedback from the CUDFIRM dashboard appears here when an approved testimonial is available for the public website.”</p>
+<div class="testimonial-author">
+<div class="author-avatar">CMS</div>
+<div>
+<div class="author-name">Published Client Review</div>
+<div class="author-role">Managed in CUDFIRM Dashboard</div>
+</div>
+</div>
+</div>
+<div class="testimonial-card reveal reveal-delay-1" data-cudtemp-testimonial-slot="2">
+<div class="testimonial-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+<p class="testimonial-quote">“This card is connected to CMS-managed testimonials and keeps client feedback separate from the reusable template source files.”</p>
+<div class="testimonial-author">
+<div class="author-avatar">CMS</div>
+<div>
+<div class="author-name">Published Client Review</div>
+<div class="author-role">Managed in CUDFIRM Dashboard</div>
+</div>
+</div>
+</div>
+<div class="testimonial-card reveal reveal-delay-2" data-cudtemp-testimonial-slot="3">
+<div class="testimonial-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+<p class="testimonial-quote">“Administrators can publish, hide, reorder, or archive testimonials without editing this CUDTEMP page or its adapter code.”</p>
+<div class="testimonial-author">
+<div class="author-avatar">CMS</div>
+<div>
+<div class="author-name">Published Client Review</div>
+<div class="author-role">Managed in CUDFIRM Dashboard</div>
+</div>
+</div>
+</div>
+<div class="testimonial-card reveal reveal-delay-1" data-cudtemp-testimonial-slot="4">
+<div class="testimonial-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+<p class="testimonial-quote">“The same approved testimonial data can appear differently across Adapter 1, CUDTEMP, and future compatible website templates.”</p>
+<div class="testimonial-author">
+<div class="author-avatar">CMS</div>
+<div>
+<div class="author-name">Published Client Review</div>
+<div class="author-role">Managed in CUDFIRM Dashboard</div>
+</div>
+</div>
+</div>
+<div class="testimonial-card reveal reveal-delay-2" data-cudtemp-testimonial-slot="5">
+<div class="testimonial-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+<p class="testimonial-quote">“No fictional customer claim is required: this area waits for real, published feedback managed through the protected dashboard.”</p>
+<div class="testimonial-author">
+<div class="author-avatar">CMS</div>
+<div>
+<div class="author-name">Published Client Review</div>
+<div class="author-role">Managed in CUDFIRM Dashboard</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ── 9. INTEGRATIONS ── -->
+<section class="integrations-section" id="integrations">
+<div class="container">
+<div class="integrations-header">
+<div class="section-label reveal">Platform Systems</div>
+<h2 class="section-title reveal reveal-delay-1">Connected through one<br/><em>reusable core</em></h2>
+<p class="section-sub reveal reveal-delay-2">CUDTEMP consumes existing CUDFIRM systems instead of duplicating authentication, Supabase logic, security rules, or dashboard tools.</p>
+</div>
+<div class="integrations-grid">
+<div class="integration-tile reveal"><div class="integration-name">Supabase</div></div>
+<div class="integration-tile reveal reveal-delay-1"><div class="integration-name">PostgreSQL RLS</div></div>
+<div class="integration-tile reveal reveal-delay-2"><div class="integration-name">Storage Policies</div></div>
+<div class="integration-tile reveal reveal-delay-3"><div class="integration-name">CMS Dashboard</div></div>
+<div class="integration-tile reveal"><div class="integration-name">Media Library</div></div>
+<div class="integration-tile reveal reveal-delay-1"><div class="integration-name">SEO Manager</div></div>
+<div class="integration-tile reveal reveal-delay-2"><div class="integration-name">Messages</div></div>
+<div class="integration-tile reveal reveal-delay-3"><div class="integration-name">Subscribers</div></div>
+<div class="integration-tile reveal"><div class="integration-name">Activity Log</div></div>
+<div class="integration-tile reveal reveal-delay-1"><div class="integration-name">Security Audit</div></div>
+<div class="integration-tile reveal reveal-delay-2"><div class="integration-name">Backup &amp; Restore</div></div>
+<div class="integration-tile reveal reveal-delay-3"><div class="integration-name">Roles &amp; Permissions</div></div>
+<div class="integration-tile reveal"><div class="integration-name">Maintenance Mode</div></div>
+<div class="integration-tile reveal reveal-delay-1"><div class="integration-name">Theme Manager</div></div>
+<div class="integration-tile reveal reveal-delay-2"><div class="integration-name">Member Accounts</div></div>
+<div class="integration-tile reveal reveal-delay-3"><div class="integration-name">Template Runtime</div></div>
+</div>
+</div>
+</section>
+<!-- ── 10. FAQ ── -->
+<section class="faq-section" id="faq">
+<div class="container">
+<div class="faq-inner">
+<div class="faq-sidebar reveal">
+<div class="section-label">FAQ</div>
+<h2 class="section-title">Questions,<br/><em>answered</em></h2>
+<p class="section-sub">Need a specific delivery answer? Contact CUDFIRM directly and receive guidance based on your website, template, and CMS requirements.</p>
+<button class="faq-toggle-all" id="faqToggleAll">
+<span id="faqToggleIcon">+</span> Expand all</button>
+</div>
+<div class="faq-list reveal reveal-delay-1" id="faqList">
+<div class="faq-item">
+<div aria-expanded="false" class="faq-question" role="button" tabindex="0">Can I start with a ready template?<div class="faq-icon">+</div></div>
+<div class="faq-answer"><div class="faq-answer-inner">Yes. CUDFIRM can connect a reusable CUDFIRM-owned template to the shared CMS core, then replace its default content and imagery with your approved business information.</div></div>
+</div>
+<div class="faq-item">
+<div aria-expanded="false" class="faq-question" role="button" tabindex="0">Can CUDFIRM connect my existing template?<div class="faq-icon">+</div></div>
+<div class="faq-answer"><div class="faq-answer-inner">Yes. A client-supplied template is audited first, then mapped through an isolated adapter. The existing CMS, dashboard, authentication, RLS, backup, and security systems are preserved.</div></div>
+</div>
+<div class="faq-item">
+<div aria-expanded="false" class="faq-question" role="button" tabindex="0">Will every client share the same database?<div class="faq-icon">+</div></div>
+<div class="faq-answer"><div class="faq-answer-inner">No. Each client delivery uses its own deployment and Supabase project, while the reusable CUDFIRM core and compatible template framework remain consistent across projects.</div></div>
+</div>
+<div class="faq-item">
+<div aria-expanded="false" class="faq-question" role="button" tabindex="0">How are roles and permissions protected?<div class="faq-icon">+</div></div>
+<div class="faq-answer"><div class="faq-answer-inner">Viewer, Editor, Admin, and Super Admin permissions are enforced through PostgreSQL RLS and Storage policies. Hidden dashboard buttons are not treated as the security boundary.</div></div>
+</div>
+<div class="faq-item">
+<div aria-expanded="false" class="faq-question" role="button" tabindex="0">What can the dashboard manage?<div class="faq-icon">+</div></div>
+<div class="faq-answer"><div class="faq-answer-inner">The dashboard manages public content, media, SEO, messages, subscribers, themes, maintenance, analytics, health checks, backups, activity records, and authorized user access.</div></div>
+</div>
+<div class="faq-item">
+<div aria-expanded="false" class="faq-question" role="button" tabindex="0">Can optional member accounts be included?<div class="faq-icon">+</div></div>
+<div class="faq-answer"><div class="faq-answer-inner">Yes. Member Accounts is an optional extension module with separate member profiles, controlled registration, verification, invitations, account states, trusted server operations, and protected permissions.</div></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ── 11. CTA BANNER ── -->
+<section class="cta-section" id="contact">
+<div class="container">
+<div class="cta-inner reveal">
+<div class="cta-content">
+<div class="cta-label">✦ Start a CUDFIRM Project</div>
+<h2 class="cta-title">Ready for a website<br/><em>you can actually manage?</em></h2>
+<p class="cta-sub">Choose a reusable template, submit your own design, or request a tailored website with the protected CUDFIRM CMS included.</p>
+</div>
+<div class="cta-actions">
+<a class="btn-cta-primary" href="#contact">Start Your Project<span>→</span></a>
+<a class="btn-cta-ghost" href="index.html">Visit Main CUDFIRM Site</a>
+</div>
+</div>
+</div>
+</section>
+<!-- ── 12. FOOTER ── -->
+<footer class="footer">
+<div class="container">
+<div class="footer-grid">
+<div class="footer-brand">
+<a class="nav-logo" href="#top">CUD<span>TEMP</span></a>
+<p class="footer-brand-desc">A reusable CMS platform connecting secure dashboard tools, stable content data, and compatible website templates for professional client delivery.</p>
+<div class="footer-socials">
+<a aria-label="Twitter / X" class="social-btn" href="https://x.com/cudfirm" rel="noopener noreferrer" target="_blank"><span>X</span></a>
+<a aria-label="LinkedIn" class="social-btn" href="https://linkedin.com/in/cudfirm" rel="noopener noreferrer" target="_blank"><span>in</span></a>
+<a aria-label="Instagram" class="social-btn" href="https://instagram.com/cudfirm" rel="noopener noreferrer" target="_blank"><span>IG</span></a>
+<a aria-label="Facebook" class="social-btn" href="https://fb.me/cudfirm" rel="noopener noreferrer" target="_blank"><span>f</span></a>
+</div>
+</div>
+<div>
+<div class="footer-col-label">Platform</div>
+<div class="footer-links">
+<a href="#features">CMS Core</a>
+<a href="#screens">Templates</a>
+<a href="#pricing">Delivery Paths</a>
+<a href="#integrations">Security</a>
+<a href="docs/CHANGELOG.md">Change Log</a>
+</div>
+</div>
+<div>
+<div class="footer-col-label">CUDFIRM</div>
+<div class="footer-links">
+<a href="index.html">About</a>
+<a href="portfolio.html">Portfolio</a>
+<a href="dashboard/">Dashboard</a>
+<a href="docs/PROJECT_CONTEXT.md">Documentation</a>
+<a href="#contact">Contact</a>
+</div>
+</div>
+<div>
+<div class="footer-col-label">Support</div>
+<div class="footer-links">
+<a href="#faq">FAQ</a>
+<a href="terms.html">Terms</a>
+<a href="index.html">Main Website</a>
+<a href="#contact">Project Enquiry</a>
+<a href="#top">Template Preview</a>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<div class="footer-copy">© 2026 CUDTEMP. A reusable template by <a href="https://cudfirm.netlify.app" rel="noopener noreferrer" target="_blank">CUDFIRM</a></div>
+<div class="footer-legal">
+<a href="index.html">Main Site</a>
+<a href="terms.html">Terms</a>
+<a href="#contact">Start Project</a>
+</div>
+</div>
+</div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/supabase.js"></script><script defer="" src="templates/cudtemp/template.config.js"></script><script defer="" src="js/template-config.js"></script><script defer="" src="js/cms-api.js"></script><script defer="" src="js/cms-contract.js"></script><script defer="" src="js/cms-loader.js"></script><script defer="" src="js/theme-manager.js"></script><script defer="" src="js/maintenance-mode.js"></script><script defer="" src="templates/cudtemp/js/cudtemp.js"></script><script defer="" src="js/module-registry.js"></script><script defer="" src="js/module-validator.js"></script><script defer="" src="modules/member-accounts/module.manifest.js"></script><script defer="" src="modules/member-accounts/module.contract.js"></script><script defer="" src="modules/member-accounts/module.registration.js"></script><script defer="" src="js/module-runtime.js"></script><script defer="" src="templates/cudtemp/template.manifest.js"></script><script defer="" src="templates/cudtemp/template.adapter.js"></script><script defer="" src="js/template-registry.js"></script><script defer="" src="templates/cudtemp/template.registration.js"></script><script defer="" src="js/template-validator.js"></script><script defer="" src="js/template-runtime.js"></script></body>
+</html>
