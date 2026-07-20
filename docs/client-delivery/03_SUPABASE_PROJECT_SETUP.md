@@ -49,38 +49,51 @@ For an existing client project:
 
 Never run client SQL against CUDFIRM production by mistake.
 
-## 4. Run the fresh-install SQL in order
+## 4. Run the canonical fresh installer in order
 
-A client installation package should normally contain files such as:
+Use the maintained files in:
 
 ```text
-01_core_fresh_install.sql
-02_<client>_starter_content.sql
+supabase/fresh-install/
+```
+
+The canonical package contains:
+
+```text
+01_cudfirm_core_fresh_install.sql
+02_client_starter_content.example.sql
 03_verify_fresh_install.sql
 04_promote_first_admin_if_needed.sql
 ```
 
-Additional corrective or branding files may follow with the next numbers.
+Before installation, copy and rename the starter-content example:
+
+```text
+02_client_starter_content.example.sql
+→ 02_<client>_starter_content.sql
+```
+
+Replace every `CHANGE_ME` value before running it. The example refuses to run while its guard placeholder remains unchanged.
 
 ### Required sequence
 
-1. Run `01_core_fresh_install.sql` once.
-2. Wait for a successful result.
-3. Run the client starter-content file once.
-4. Run the verification file.
-5. Review every verification result before continuing.
+1. Confirm the new, empty client Supabase project.
+2. Create the first client administrator in **Authentication → Users**.
+3. Run `01_cudfirm_core_fresh_install.sql` once.
+4. Run the completed client starter-content file once.
+5. Run `03_verify_fresh_install.sql` and review every result.
+6. Run `04_promote_first_admin_if_needed.sql` only when verification shows zero active Super Admins.
 
-### Recovery script rule
-
-Run `04_promote_first_admin_if_needed.sql` only when verification shows no active Super Admin.
-
-Example condition:
+The canonical core installer contains the schema and security history through migration `016`. It deliberately excludes:
 
 ```text
-active_super_admins = 0
+002_seed.sql
+017_public_messaging_refresh.sql
 ```
 
-If verification already shows one or more active Super Admins, keep the file but do not run it.
+Those two files contain CUDFIRM website content and must not become generic client content.
+
+A fresh installer is for a new empty project only. Existing projects must receive the next additive migration instead.
 
 ## 5. Never rewrite installation history
 
