@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "1.0.0",
+  "deploymentType": "client",
+  "client": {
+    "id": "change-me-client",
+    "name": "CHANGE ME Client"
+  },
+  "core": {
+    "version": "2.0.0",
+    "contractVersion": "1.1.0",
+    "runtimeVersion": "1.1.0"
+  },
+  "template": {
+    "id": "change-me-template",
+    "manifestGlobal": "CHANGE_ME_Manifest"
+  },
+  "supabase": {
+    "projectRef": "changemeprojectref00",
+    "isolated": true,
+    "forbiddenProjectRefs": [
+      "wefncrkzugezvduzejzf"
+    ]
+  },
+  "paths": {
+    "entry": "index.html",
+    "dashboard": "dashboard/index.html",
+    "clientConfig": "config/client-config.js",
+    "templateManifest": "templates/change-me-template/template.manifest.js",
+    "templateAdapter": "templates/change-me-template/template.adapter.js",
+    "freshInstaller": "supabase/fresh-install/01_cudfirm_core_fresh_install.sql",
+    "verificationSql": "supabase/fresh-install/03_verify_fresh_install.sql",
+    "required": [
+      "js/template-config.js",
+      "js/supabase.js",
+      "js/cms-api.js",
+      "js/cms-contract.js",
+      "js/cms-loader.js",
+      "js/template-registry.js",
+      "js/template-validator.js",
+      "js/template-runtime.js",
+      "js/public-forms.js"
+    ]
+  }
+}
