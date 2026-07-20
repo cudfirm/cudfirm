@@ -162,7 +162,7 @@ Example:
 window.CUDFIRM_CONFIG = Object.freeze({
   templateId: "client-template-id",
   coreVersion: "2.0.0",
-  contractVersion: "1.0.0",
+  contractVersion: "1.1.0",
   dataMode: "supabase",
   supabaseUrl: "https://CLIENT_PROJECT.supabase.co",
   supabaseAnonKey: "sb_publishable_...",

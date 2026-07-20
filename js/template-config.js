@@ -17,6 +17,8 @@
   window.CUDFIRM_CONFIG = Object.freeze({
     ...existing,
     coreVersion: existing.coreVersion || '2.0.0',
+    contractVersion: existing.contractVersion || '1.1.0',
+    dataMode: existing.dataMode || 'supabase',
     templateId: existing.templateId || 'cudfirm-default',
     templateRuntime: Object.freeze({
       ...existingRuntime,
