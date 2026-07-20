@@ -1,8 +1,8 @@
 /**
  * ================================================
  *  CUDFIRM GROUP — MASTER SCRIPT
- *  Professional Website Studio · Lagos, Nigeria
- *  "Build a Professional Website for Your Business"
+ *  Business Websites You Can Manage · Lagos, Nigeria
+ *  "A Better Website. More Control. Less Stress."
  * ================================================
  */
 
@@ -20,7 +20,7 @@ let currentTabIndex = 2;
 
 const TAB_NAMES = {
   'tab1':'Home','tab2':'Who We Help','tab3':'Services','tab4':'Portfolio',
-  'tab5':'Our Process','tab9':'Testimonials','tab13':'FAQ',
+  'tab5':'Our Process','tab9':'Benefits','tab13':'FAQ',
   'tab17':'Why CUDFIRM','tab20':'About Us',
   'explore-content':'Portfolio','connect-content':'Get A Quote'
 };
@@ -37,7 +37,7 @@ const SIDEBAR_TABS = [
   { id: 'tab2',            label: 'Who We Help' },
   { id: 'tab5',            label: 'Our Process' },
   { id: 'tab17',           label: 'Why CUDFIRM' },
-  { id: 'tab9',            label: 'Testimonials' },
+  { id: 'tab9',            label: 'Benefits' },
   { id: 'tab13',           label: 'FAQ' },
   { id: 'tab20',           label: 'About Us' },
   { id: 'connect-content', label: 'Get A Quote', badge: 'hot' },
@@ -144,7 +144,7 @@ function buildTab1() {
   const portfolioFallback = [
     { img: 'img/nseyin.webp',       link: '#',    name: 'NSEYIN Massage', alt: 'Health and Wellness Website By CUDFIRM' },
 
-    { img: 'img/cudfirm.webp',        link: '#',      name: 'Vacant For Now',   alt: 'Built by CUDFIRM For You' },
+    { img: 'img/cudfirm.webp',        link: 'index.html', name: 'CUDFIRM', alt: 'CUDFIRM business website and dashboard' },
 
     { img: 'img/lobahvisuals.webp', link: 'https://lobahvisuals.vercel.app',                                  name: 'Lobah Visuals',   alt: 'Photography Portfolio Built by CUDFIRM' },
 
@@ -161,13 +161,13 @@ function buildTab1() {
 
   // WHAT WE BUILD
   const servicesFallback = [
-    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=LANDING', link: '#', name: 'Landing Page', alt: 'Landing Page' },
+    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=STARTER', link: '#', name: 'Starter Website', alt: 'Starter Website' },
     { img: 'https://placehold.co/200x250/1A6B4A/fff?text=BUSINESS', link: '#', name: 'Business Website', alt: 'Business Website' },
     { img: 'https://placehold.co/200x250/C8922A/fff?text=MAINTAIN', link: '#', name: 'Maintenance', alt: 'Maintenance' },
-    { img: 'https://placehold.co/200x250/4D9E7A/fff?text=DOMAIN', link: '#', name: 'Domain & Hosting', alt: 'Hosting' },
-    { img: 'https://placehold.co/200x250/E8B84B/0B3D2E?text=SEO', link: '#', name: 'SEO Setup', alt: 'SEO' },
-    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=BRAND', link: '#', name: 'Brand Identity', alt: 'Branding' },
-    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=CONTENT', link: '#', name: 'Content Writing', alt: 'Content' },
+    { img: 'https://placehold.co/200x250/4D9E7A/fff?text=TEMPLATE', link: '#', name: 'Bring Your Template', alt: 'Client-Supplied Website Template' },
+    { img: 'https://placehold.co/200x250/E8B84B/0B3D2E?text=DOMAIN', link: '#', name: 'Domain & Hosting', alt: 'Domain and Hosting' },
+    { img: 'https://placehold.co/200x250/0B3D2E/C8922A?text=SEO', link: '#', name: 'Google & SEO', alt: 'Google and SEO Setup' },
+    { img: 'https://placehold.co/200x250/1A6B4A/fff?text=BRAND', link: '#', name: 'Brand Identity', alt: 'Brand Identity' },
     { img: 'https://placehold.co/200x250/3A4035/fff?text=MORE', link: 'tab3', name: 'View All', alt: 'More Services' },
   ];
 
@@ -192,16 +192,16 @@ function buildTab1() {
     : servicesFallback;
 
   const hero = (window.CMS && window.CMS.hero) ? window.CMS.hero : {
-    eyebrow: 'Professional Web Design Studio · Lagos, Nigeria',
-    title: 'Your Business Deserves a Website That Wins Customers',
-    subtitle: 'CUDFIRM builds fast, mobile-first websites for Nigerian businesses, professionals, and growing brands. We turn first-time visitors into paying customers — starting from ₦50,000, delivered in 3–7 days.',
+    eyebrow: 'Business Websites You Can Manage · Lagos, Nigeria',
+    title: 'Get a Website That Grows With Your Business',
+    subtitle: 'CUDFIRM builds fast, mobile-friendly websites that help customers find, trust and contact your business. You also get a simple dashboard to update your content — from ₦50,000, delivered in 3–7 days.',
     cta_primary_text: 'Get a Free Quote Today', cta_primary_target: 'connect-content',
     cta_secondary_text: 'See Our Work', cta_secondary_target: 'tab4',
     trust_items: [
       { icon: 'bi-check-circle-fill', label: 'Mobile-Ready' },
       { icon: 'bi-check-circle-fill', label: '3–7 Day Delivery' },
       { icon: 'bi-check-circle-fill', label: 'From ₦50,000' },
-      { icon: 'bi-check-circle-fill', label: '30-Day Support Included' },
+      { icon: 'bi-check-circle-fill', label: 'Easy Dashboard Included' },
     ],
   };
 
@@ -234,7 +234,7 @@ function buildTab1() {
     <div class="p-3">
       <h6 class="sticky-top d-flex align-items-center gap-2 py-2">
         <span class="badge text-bg-primary">CUDFIRM</span>
-        <span style="font-size:0.72rem;color:var(--n-muted);font-weight:400;">Websites that work — for Nigerian businesses, by Nigerians</span>
+        <span style="font-size:0.72rem;color:var(--n-muted);font-weight:400;">Professional websites built to win trust and grow your business.</span>
       </h6>
       <hr class="my-2 w-25" />
 
@@ -246,12 +246,12 @@ function buildTab1() {
         <div class="card-content">
           <div class="row g-3 text-center">
             ${[
-              { icon:'bi-phone', label:'Mobile-First', sub:'Over 80% of your customers browse on phones. Every site looks perfect on any screen.' },
-              { icon:'bi-lightning-charge', label:'Fast Delivery', sub:'Landing pages in 3–5 days. Full business sites in 5–10 business days.' },
-              { icon:'bi-cash-coin', label:'Honest Pricing', sub:'Starting from ₦50,000. One clear price upfront — no hidden costs, ever.' },
-              { icon:'bi-geo-alt', label:'Lagos-Based', sub:'Same timezone. Same language. Real local support you can actually reach.' },
-              { icon:'bi-search', label:'SEO Ready', sub:'Every site is built to be found on Google so customers can discover you.' },
-              { icon:'bi-headset', label:'30-Day Support', sub:'We don\'t disappear after launch. Free support for 30 days, guaranteed.' },
+              { icon:'bi-pencil-square', label:'Easy To Manage', sub:'Update your services, prices, images, FAQs and other website information without touching any code.' },
+              { icon:'bi-layout-text-window', label:'Your Design, Your Choice', sub:'Choose one of our ready-made designs or send us a website template you already like.' },
+              { icon:'bi-phone', label:'Built For Mobile', sub:'Your website will look clean and work properly on phones, tablets and computers.' },
+              { icon:'bi-search', label:'Ready For Google', sub:'We set up the important website details that help search engines understand and show your business.' },
+              { icon:'bi-shield-check', label:'Safe And Reliable', sub:'Customer messages and private business information are protected, with backups available when needed.' },
+              { icon:'bi-headset', label:'Support After Launch', sub:'We do not disappear after delivery. You receive 30 days of support to help you settle in.' },
             ].map(w => `
               <div class="col-6 col-md-4 col-lg-2">
                 <div class="card p-3">
@@ -269,7 +269,7 @@ function buildTab1() {
         <!-- Portfolio Highlights -->
         <div class="card card-section">
           <div class="card-header">
-            <h3><i class="bi bi-laptop me-1" style="color:var(--n-gold)"></i>Recent Work</h3>
+            <h3><i class="bi bi-laptop me-1" style="color:var(--n-gold)"></i>Websites We Have Built</h3>
             <button class="btn btn-sm btn-success see-all" onclick="openTab(event,'tab4')">View All</button>
           </div>
           <div class="card-content row icon-grid row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-7 row-cols-xl-9 quote0">
@@ -280,7 +280,7 @@ function buildTab1() {
         <!-- Services -->
         <div class="card card-section">
           <div class="card-header">
-            <h3><i class="bi bi-briefcase me-1" style="color:var(--n-gold)"></i>What We Build</h3>
+            <h3><i class="bi bi-briefcase me-1" style="color:var(--n-gold)"></i>What We Can Build For You</h3>
             <button class="btn btn-sm btn-primary see-all" onclick="openTab(event,'tab3')">View All</button>
           </div>
           <div class="card-content row icon-grid row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-7 row-cols-xl-9 quote0">
@@ -307,10 +307,10 @@ function buildTab1() {
           <span aria-hidden="true"> &middot; </span>
           <a href="terms.html#privacy" class="footer-legal-link">Privacy Policy</a>
           <span aria-hidden="true"> &middot; </span>
-          <a href="mailto:info@cudfirm.com" class="footer-legal-link">info@cudfirm.com</a>
+          <a href="mailto:cudfirm@gmail.com" class="footer-legal-link">cudfirm@gmail.com</a>
         </nav>
-        <p class="footer-copy">&copy; 2026 CUDFIRM &middot; Professional Web Design Studio &middot; Lagos, Nigeria</p>
-        <p class="footer-tagline">Websites that work as hard as your business does.</p>
+        <p class="footer-copy">&copy; 2026 CUDFIRM &middot; Business Websites You Can Manage &middot; Lagos, Nigeria</p>
+        <p class="footer-tagline">A Better Website. More Control. Less Stress.</p>
       </div>
     </footer>
   </section>`;
@@ -321,25 +321,25 @@ function buildTab1() {
 // ─────────────────────────────────────────────
 function buildTab2() {
   const sectors = [
-    { icon: 'bi-scissors',          name: 'Barbers & Salons',       desc: 'Look-book sites, booking info, gallery, and WhatsApp button.' },
-    { icon: 'bi-camera',            name: 'Photographers',           desc: 'Portfolio galleries, pricing packages, and contact forms.' },
-    { icon: 'bi-bag-heart',         name: 'Fashion Designers',       desc: 'Lookbooks, collection pages, custom orders, and social links.' },
-    { icon: 'bi-cup-hot',           name: 'Food Vendors & Caterers', desc: 'Menu pages, delivery info, Instagram integration, and orders.' },
-    { icon: 'bi-person-video3',     name: 'Coaches & Consultants',   desc: 'Service pages, testimonials, booking forms, and credibility.' },
-    { icon: 'bi-mortarboard',       name: 'Tutors & Teachers',       desc: 'Course listings, class schedules, student testimonials.' },
-    { icon: 'bi-shop',              name: 'Small Businesses',        desc: 'Full business sites with about, services, gallery, and contact.' },
-    { icon: 'bi-house-door',        name: 'Real Estate & Agents',    desc: 'Property listings, location maps, and inquiry forms.' },
-    { icon: 'bi-heart-pulse',       name: 'Wellness & Health',       desc: 'Service menus, appointment booking, and professional profiles.' },
-    { icon: 'bi-truck',             name: 'Logistics & Delivery',    desc: 'Service areas, pricing, tracking info, and WhatsApp contact.' },
-    { icon: 'bi-lightning-charge',  name: 'Solar & Energy',          desc: 'Solution pages, project showcase, and quote request forms.' },
-    { icon: 'bi-briefcase',         name: 'Any Business in Nigeria', desc: 'If you serve customers, you need a website. We build it.' },
+    { icon: 'bi-scissors',          name: 'Barbers & Salons',       desc: 'Show your services, prices, gallery, opening hours and WhatsApp contact in one place.' },
+    { icon: 'bi-camera',            name: 'Photographers',           desc: 'Display your best work, packages, prices and booking details in a clean portfolio website.' },
+    { icon: 'bi-bag-heart',         name: 'Fashion Designers',       desc: 'Show your collections, custom-order details, customer reviews and social media links.' },
+    { icon: 'bi-cup-hot',           name: 'Food Vendors & Caterers', desc: 'Share your menu, delivery areas, prices, food pictures and direct order contact.' },
+    { icon: 'bi-person-video3',     name: 'Coaches & Consultants',   desc: 'Explain your services, build trust, share reviews and receive consultation requests.' },
+    { icon: 'bi-mortarboard',       name: 'Tutors & Teachers',       desc: 'List your courses, class times, fees, learning details and student enquiries.' },
+    { icon: 'bi-shop',              name: 'Small Businesses',        desc: 'Get a complete website with your story, services, pictures, contact details and customer messages.' },
+    { icon: 'bi-house-door',        name: 'Real Estate & Agents',    desc: 'Display properties, prices, locations, pictures and enquiry forms for interested buyers or tenants.' },
+    { icon: 'bi-heart-pulse',       name: 'Wellness & Health',       desc: 'Present your services, professional profile, common questions and appointment contact options.' },
+    { icon: 'bi-truck',             name: 'Logistics & Delivery',    desc: 'Show your service areas, delivery options, price information and WhatsApp contact.' },
+    { icon: 'bi-lightning-charge',  name: 'Solar & Energy',          desc: 'Explain your solutions, show completed work and receive clear quote requests from customers.' },
+    { icon: 'bi-briefcase',         name: 'Any Business In Nigeria', desc: 'If customers need to find, trust or contact your business, we can build the right website for you.' },
   ];
 
   return `
   <section id="tab2" class="tab-content view p-3">
-    <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Who We Build For</span></h6>
+    <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Who We Help</span></h6>
     <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
-      If you have customers, you need a website. CUDFIRM builds professional websites for every type of Nigerian business — from solo operators to growing teams. Below are the industries we serve most.
+      Whether you work alone or run a growing team, CUDFIRM can build a website that helps customers understand your business, trust your brand and contact you easily.
     </p>
     <div class="row g-3 stagger-children">
       ${sectors.map(s => `
@@ -364,15 +364,15 @@ function buildTab2() {
 // ─────────────────────────────────────────────
 function buildTab3() {
   const itemsFallback = [
-    { icon:'Starter Landing Page',    desc:'Best for: barbers, photographers, food vendors, coaches, and anyone who needs to get online quickly. A single, conversion-focused page with your services, gallery, contact, and a WhatsApp button. Live in 3–5 days.',  tags:['#Landing','#Starter','#₦50K'], search:'landing page starter single one page fast affordable barber stylist photographer coach', price:'₦50,000' },
-    { icon:'Business Website',        desc:'Best for: growing businesses, professionals, and brands that need more than one page. Up to 6 custom pages with mobile-friendly design, SEO setup, contact forms, and 30-day free support after launch.',             tags:['#Full-Site','#Multi-Page','#₦100K'], search:'full business website multi page complete professional sme restaurant', price:'₦100,000' },
-    { icon:'Website Maintenance',     desc:'Best for: existing site owners who want to stay current without the technical headache. Monthly text updates, image changes, speed checks, and backups. Your site, always fresh.',                       tags:['#Monthly','#Support','#₦10K–20K'], search:'maintenance update support monthly changes fix bug backup', price:'₦10K–20K/mo' },
-    { icon:'Domain & Hosting Setup',  desc:'Best for: businesses starting from scratch. We register your .com.ng or .com domain and set up fast, reliable Nigerian web hosting — so your site is live and accessible worldwide.',                                       tags:['#Domain','#Hosting','#Setup'], search:'domain hosting setup register .com .com.ng website address', price:'From ₦15,000' },
-    { icon:'SEO Starter Pack',        desc:'Best for: businesses that want to appear on Google. We set up meta tags, Google Search Console, improve page speed, and configure local SEO — so customers searching for what you do can actually find you.',            tags:['#SEO','#Google','#Visibility'], search:'seo google search console meta tags visibility local search rank', price:'₦20,000' },
-    { icon:'Brand Identity',          desc:'Best for: new businesses and entrepreneurs. Logo design, colour palette, fonts, and a simple brand guide — everything you need to look consistent and professional across your website, social media, and print.',             tags:['#Branding','#Logo','#Design'], search:'logo branding identity design colour palette font guide professional', price:'From ₦25,000' },
-    { icon:'WhatsApp Business Setup', desc:'Best for: any business. We configure your WhatsApp Business profile with auto-replies, product catalogues, and a click-to-chat link embedded in your website — so customers reach you instantly.',              tags:['#WhatsApp','#Business'], search:'whatsapp business setup profile auto reply catalogue chat link', price:'₦5,000' },
-    { icon:'Social Media Integration',desc:'Best for: businesses that are active on Instagram, Facebook, or TikTok. We connect your social feed to your website so it always looks fresh and active — without any extra work from you.',                       tags:['#Social','#Instagram','#Feed'], search:'social media instagram facebook tiktok feed integration connect', price:'₦8,000' },
-    { icon:'Got A Special Request?',  desc:'Need something outside the standard list? Tell us what you want to build. We will review it and come back with a fair quote and clear timeline — no vague estimates.',                      tags:['#Custom','#Request'], search:'custom special request unique bespoke build quote', isSpecial: true, price:'Let\'s Talk' },
+    { icon:'Starter Website', desc:'Best for small businesses and professionals who need to get online quickly. You get one focused page with your services, pictures, contact details, WhatsApp button and an easy dashboard for updates.', tags:['#Starter','#OnePage','#Dashboard'], search:'starter website one page dashboard small business professional quick', price:'₦50,000' },
+    { icon:'Business Website', desc:'Best for growing businesses that need more space to explain what they do. You get up to six pages, mobile-friendly design, contact forms, Google setup, a management dashboard and 30 days of support.', tags:['#Business','#MultiPage','#Professional'], search:'business website multi page professional dashboard google contact forms', price:'₦100,000' },
+    { icon:'Website Maintenance', desc:'Best for business owners who want their website kept fresh and working well. We handle agreed text changes, image updates, checks, backups and small fixes.', tags:['#Monthly','#Support','#Updates'], search:'maintenance monthly support updates images backups fixes', price:'₦10,000–₦20,000 per month' },
+    { icon:'Bring Your Own Template', desc:'Already have a website design or template you like? Send it to us. We will review it, add your business content and connect it to the CUDFIRM dashboard where suitable.', tags:['#YourTemplate','#CustomDesign','#Setup'], search:'bring own template client supplied custom design dashboard setup', price:'Custom Quote' },
+    { icon:'Domain & Hosting Setup', desc:'We help you register your website address, connect reliable hosting and make sure the website is properly published online.', tags:['#Domain','#Hosting','#Launch'], search:'domain hosting launch publish website address', price:'From ₦15,000' },
+    { icon:'Google & SEO Setup', desc:'We set up your page titles, descriptions, Google tools and other important details that help customers find your business online.', tags:['#Google','#SEO','#Visibility'], search:'google seo visibility page titles descriptions search', price:'₦20,000' },
+    { icon:'Brand Identity', desc:'Need a more professional look? We can create a simple logo, colour style, fonts and brand guide for your website and social pages.', tags:['#Logo','#Branding','#Design'], search:'logo branding design colour fonts brand guide', price:'From ₦25,000' },
+    { icon:'Ready-Made Website Designs', desc:'Choose from CUDFIRM’s ready-made website designs and let us customise the words, pictures, colours and sections to suit your business.', tags:['#ReadyMade','#FastSetup','#Customised'], search:'ready made template fast setup customised website design', price:'Project Quote' },
+    { icon:'Special Website Request', desc:'Need something outside the standard options? Tell us what you want the website to do. We will review it and give you a clear answer, price and timeline.', tags:['#Custom','#SpecialRequest','#Quote'], search:'custom special request quote website features', isSpecial: true, price:'Let\'s Talk' },
   ];
 
   const cmsServices = window.CMS && Array.isArray(window.CMS.services) ? window.CMS.services : null;
@@ -435,24 +435,24 @@ function buildTab4() {
   const projectsFallback = [
     {
       name: 'NSEYIN Massage',
-      industry: 'Health and Wellness',
-      type: 'Service Website',
+      industry: 'Health And Wellness',
+      type: 'Massage Service Website',
       img: 'img/nseyin.webp',
       link: '#',
-      problem: 'Agents losing leads to competitors with better online presence.',
-      solution: 'Premium multi-page property site with listings, gallery, and inquiry form.',
-      tags: ['#RealEstate', '#Live'],
-      live: true,
+      problem: 'Potential clients needed a clear place to understand the massage services and contact the business directly.',
+      solution: 'A clean wellness website showing the services, brand information and direct contact options.',
+      tags: ['#Wellness', '#Massage', '#ServiceWebsite'],
+      live: false,
     },
     {
-      name: 'A Blank Page',
-      industry: 'Fashion & Design',
-      type: 'Designer Portfolio Site',
-      img: 'img/black.jpg',
-      link: 'portfolio/fashion/index.html',
-      problem: 'Collections buried on Instagram with no professional showcase.',
-      solution: 'Elegant lookbook site with collections, custom orders, and booking.',
-      tags: ['#Fashion', '#Live'],
+      name: 'CUDFIRM',
+      industry: 'Website Design And Management',
+      type: 'Business Website With Dashboard',
+      img: 'img/cudfirm.webp',
+      link: 'index.html',
+      problem: 'Many businesses receive websites they cannot update or manage without returning to the original developer.',
+      solution: 'CUDFIRM gives the business a professional website, a simple dashboard and the freedom to use different suitable website designs.',
+      tags: ['#Website', '#Dashboard', '#Live'],
       live: true,
     },
     {
@@ -464,7 +464,7 @@ function buildTab4() {
       problem: 'Talented photographer with no landing page for client bookings.',
       solution: 'Full-screen gallery portfolio with packages, pricing, and WhatsApp CTA.',
       tags: ['#Photography', '#Portfolio'],
-      live: true,
+      live: false,
     },
     {
       name: 'Eli Stitches',
@@ -475,7 +475,7 @@ function buildTab4() {
       problem: 'Customers couldn\'t find the tailor or understand their services online.',
       solution: 'Clean business site with services, gallery, measurement guide, and WhatsApp.',
       tags: ['#Tailoring', '#Business'],
-      live: true,
+      live: false,
     },
     {
       name: 'The Chef',
@@ -486,7 +486,7 @@ function buildTab4() {
       problem: 'Brand needed a direct sales page separate from social media.',
       solution: 'Conversion-focused landing page with product showcase and order CTA.',
       tags: ['#Retail', '#Landing'],
-      live: true,
+      live: false,
     },
     {
       name: 'AutoLux',
@@ -525,7 +525,7 @@ function buildTab4() {
   <section id="tab4" class="tab-content view p-3" aria-labelledby="portfolio-heading">
     <h6 class="sticky-top py-2"><span class="badge text-bg-primary" id="portfolio-heading">Our Portfolio</span></h6>
     <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
-      Real websites built for real businesses. Every site is mobile-ready, SEO-optimized, and designed to convert visitors into customers. <span style="color:#1A6B4A;font-weight:600;">GREEN</span> tags are live client sites.
+      A selection of CUDFIRM websites and website designs. <span style="color:#1A6B4A;font-weight:600;">GREEN</span> tags open a working website; gold tags show a demo or preview.
     </p>
     <div class="row g-3 stagger-children">
       ${projects.map(p => `
@@ -556,19 +556,19 @@ function buildTab4() {
 // ─────────────────────────────────────────────
 function buildTab5() {
   const steps = [
-    { num:'01', title:'You Contact Us', desc:'Send us a WhatsApp or fill the contact form. Tell us what your business does, who your customers are, and what you need.', icon:'bi-whatsapp', color:'#1A6B4A' },
-    { num:'02', title:'We Discuss & Quote', desc:'We reply within 24 hours with a fair quote and clear timeline. No jargon, no hidden costs. Just a simple conversation.', icon:'bi-chat-dots', color:'#C8922A' },
-    { num:'03', title:'You Approve & Pay 50%', desc:'Once you\'re happy with the plan, you pay 50% upfront so we can get started. The other 50% is due on delivery.', icon:'bi-check-circle', color:'#0B3D2E' },
-    { num:'04', title:'We Build Your Site', desc:'We design and develop your site within the agreed timeline — usually 3 to 7 business days for a landing page.', icon:'bi-laptop', color:'#4D9E7A' },
-    { num:'05', title:'You Review & Approve', desc:'We send you a preview link. You tell us what to tweak — we\'ll make up to 3 rounds of revisions at no extra cost.', icon:'bi-eye', color:'#E8B84B' },
-    { num:'06', title:'We Launch Your Site', desc:'You pay the final 50%, we publish your site live, hand over all files and access, and you\'re open for business.', icon:'bi-rocket-takeoff', color:'#C8922A' },
+    { num:'01', title:'Tell Us What You Need', desc:'Send us a WhatsApp message or complete the quote form. Tell us about your business, customers, preferred design and the website you need.', icon:'bi-whatsapp', color:'#1A6B4A' },
+    { num:'02', title:'Choose Your Design', desc:'Pick one of our ready-made designs or send us a website template you already have.', icon:'bi-layout-text-window', color:'#C8922A' },
+    { num:'03', title:'Get A Clear Quote', desc:'We confirm the work, price and delivery time. Once you approve it, you pay 50% so we can begin.', icon:'bi-check-circle', color:'#0B3D2E' },
+    { num:'04', title:'We Build Your Website', desc:'We add your content, pictures, contact details and business features, then prepare your dashboard for easy updates.', icon:'bi-laptop', color:'#4D9E7A' },
+    { num:'05', title:'You Review Everything', desc:'We send you a preview link. You check the website and tell us what needs to be adjusted before launch.', icon:'bi-eye', color:'#E8B84B' },
+    { num:'06', title:'We Launch And Hand Over', desc:'You pay the final 50%, we publish the website, give you the login details and show you how to manage it.', icon:'bi-rocket-takeoff', color:'#C8922A' },
   ];
 
   return `
   <section id="tab5" class="tab-content view p-3">
     <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Our Process</span></h6>
     <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
-      Six clear steps from first contact to launch day. No guesswork, no hidden steps, no surprises. Here is exactly what working with CUDFIRM looks like.
+      Six simple steps take your project from the first conversation to a live website. You will always know what is happening and what comes next.
     </p>
     <div class="d-flex flex-column gap-3 stagger-children">
       ${steps.map(s => `
@@ -581,7 +581,7 @@ function buildTab5() {
         </div>`).join('')}
     </div>
     <button class="view-more-btn mt-3" onclick="openTab(event,'connect-content')">
-      <i class="bi bi-arrow-right-circle me-1"></i>Start The Process — Contact Us
+      <i class="bi bi-arrow-right-circle me-1"></i>Start Your Website Project
     </button>
   </section>`;
 }
@@ -669,32 +669,29 @@ function buildTab8() {
 // TAB 9: TESTIMONIALS
 // ─────────────────────────────────────────────
 function buildTab9() {
-  // NOTE: These are illustrative placeholder testimonials.
-  // They will be replaced with verified client reviews as CUDFIRM grows.
-  const starsFallback = [
-    { name:'Adaeze O.', role:'Fashion Designer · Lagos', quote:'CUDFIRM built my website in 5 days. My clients now book me online instead of hunting for my number. Life-changing.', color:'#0B3D2E' },
-    { name:'Emeka N.', role:'Solar Installer · Abuja', quote:'I thought a professional website was too expensive for my small business. CUDFIRM proved me completely wrong.', color:'#C8922A' },
-    { name:'Fatima U.', role:'Food Vendor · Kano', quote:'My WhatsApp orders doubled in 3 weeks after my site went live. People trust me more because I have a real website.', color:'#1A6B4A' },
-    { name:'Chukwudi E.', role:'Photographer · Enugu', quote:'Clean, fast, mobile-ready, and clients actually find me on Google now. Worth every kobo.', color:'#4D9E7A' },
+  const benefitsFallback = [
+    { name:'Look More Professional', role:'Website Benefit', quote:'Give customers one trusted place to learn about your business, services and contact details.', color:'#0B3D2E', isPlaceholder:true },
+    { name:'Get More Enquiries', role:'Website Benefit', quote:'Make it easy for interested customers to call, send a message, complete a form or contact you on WhatsApp.', color:'#C8922A', isPlaceholder:true },
+    { name:'Save Time On Updates', role:'Website Benefit', quote:'Change common website information without waiting for a developer every time.', color:'#1A6B4A', isPlaceholder:true },
+    { name:'Stay In Control', role:'Website Benefit', quote:'Keep your website content, messages, staff access and important records organised in one place.', color:'#4D9E7A', isPlaceholder:true },
   ];
 
   const cmsTestimonials = window.CMS && Array.isArray(window.CMS.testimonials) ? window.CMS.testimonials : null;
   const stars = (cmsTestimonials && cmsTestimonials.length)
     ? cmsTestimonials.map(t => ({ name: t.name, role: t.role, quote: t.quote, color: t.accent_color || '#0B3D2E', isPlaceholder: !!t.is_placeholder, avatarUrl: t.avatar_url || null }))
-    : starsFallback.map(s => ({ ...s, isPlaceholder: true }));
+    : benefitsFallback;
 
   const allPlaceholder = stars.every(s => s.isPlaceholder);
 
   return `
   <section id="tab9" class="tab-content view p-3">
-    <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Testimonials</span></h6>
+    <h6 class="sticky-top py-2"><span class="badge text-bg-primary">${allPlaceholder ? 'What Your Website Helps You Do' : 'Testimonials'}</span></h6>
 
     ${allPlaceholder ? `
-    <div class="testimonial-placeholder-notice" role="note" aria-label="Testimonials notice">
+    <div class="testimonial-placeholder-notice" role="note" aria-label="Website benefits notice">
       <i class="bi bi-info-circle-fill" aria-hidden="true"></i>
       <div>
-        <strong>Testimonials coming soon.</strong> The cards below show the kind of results CUDFIRM clients experience. Real verified reviews will be displayed here as our portfolio grows.
-        <button class="btn-inline-link" onclick="openTab(event,'connect-content')">Become one of our first clients &rarr;</button>
+        <strong>Real client reviews will be added here as they are collected.</strong> For now, these are the practical benefits every CUDFIRM website is built to provide.
       </div>
     </div>` : ''}
 
@@ -702,18 +699,17 @@ function buildTab9() {
       ${stars.map(s => `
         <div class="col-12 col-md-6">
           <div class="card p-4 testimonial-placeholder-card">
-            ${s.isPlaceholder ? `<div class="testimonial-placeholder-badge" aria-label="Illustrative example">Illustrative</div>` : ''}
             ${s.avatarUrl
               ? `<img src="${s.avatarUrl}" alt="" loading="lazy" style="width:44px;height:44px;border-radius:50%;object-fit:cover;margin-bottom:0.75rem;">`
               : `<div style="width:44px;height:44px;border-radius:50%;background:${s.color};color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:0.75rem;">${s.name[0]}</div>`}
-            <p style="font-size:0.85rem;font-style:italic;color:var(--text-color);margin-bottom:0.75rem;">"<em>${s.quote}</em>"</p>
+            <p style="font-size:0.85rem;color:var(--text-color);margin-bottom:0.75rem;">${s.isPlaceholder ? s.quote : `“${s.quote}”`}</p>
             <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;color:${s.color};">${s.name}</div>
             <div style="font-size:0.72rem;color:var(--n-muted);">${s.role}</div>
           </div>
         </div>`).join('')}
     </div>
     <button class="view-more-btn mt-3" onclick="openTab(event,'connect-content')">
-      <i class="bi bi-star me-1"></i>Work With Us — Be Our Next Success Story
+      <i class="bi bi-arrow-right-circle me-1"></i>Start Your Website Project
     </button>
   </section>`;
 }
@@ -830,16 +826,16 @@ function buildTab12() {
 // ─────────────────────────────────────────────
 function buildTab13() {
   const faqsFallback = [
-    { q:'How long does it take to build a website?', a:'A landing page takes 3–5 business days. A full multi-page business website takes 5–10 business days. We agree on a timeline before starting.' },
-    { q:'What do I need to provide to get started?', a:'Your business name, logo (if any), phone number, services or products, and any photos. We guide you through what\'s needed — even if you don\'t have everything ready.' },
-    { q:'Do you offer payment in instalments?', a:'Yes. You pay 50% upfront to begin and 50% on delivery. No full payment required before we start work.' },
-    { q:'Will my website work on mobile phones?', a:'Yes — every site we build is mobile-first. Over 80% of Nigerians browse on their phones, so this is non-negotiable for us.' },
-    { q:'Can I update my website myself after you build it?', a:'We can teach you how to make basic updates. Alternatively, our monthly maintenance plan covers all changes for ₦10,000–₦20,000/month.' },
-    { q:'Do you do e-commerce or online stores?', a:'We currently focus on landing pages, business sites, and portfolios. Online stores are complex — we recommend focusing on a simple site first to build trust with customers.' },
-    { q:'What if I don\'t have a logo or brand yet?', a:'We offer basic logo and brand identity design as an add-on from ₦25,000. We can start with a simple, clean design and improve it over time.' },
-    { q:'Do you host the website too?', a:'Yes. We can handle domain registration and hosting setup for you as part of the project or as a separate add-on service.' },
-    { q:'Where are you based and can you work with clients outside Lagos?', a:'CUDFIRM is based in Lagos, Nigeria. We work with clients all over Nigeria — Abuja, Port Harcourt, Kano, Enugu, and beyond. Everything is done remotely via WhatsApp, email, and video calls, so location is never a barrier.' },
-    { q:'How do I get started?', a:'Simple. Go to the "Get A Quote" section, fill in your name, contact details, and tell us about your business. We will respond within 24 hours with a clear quote and next steps. You can also reach us directly on WhatsApp if you prefer a conversation first.' },
+    { q:'How long does it take to build a website?', a:'A landing page usually takes 3–7 business days. A larger business website may take up to 3–10 business days. We agree on the delivery date before work starts.' },
+    { q:'What do I need to provide?', a:'Your business name, services, phone number, logo if available, pictures and any written information you already have. We will guide you if some items are not ready.' },
+    { q:'Can I use my own website template?', a:'Yes. You can choose one of our ready-made designs or send us your own template. We will review it and explain how it can be used for your project.' },
+    { q:'Can I update the website myself?', a:'Yes. You will receive a simple dashboard for updating the parts of the website included in your package, such as services, pictures, FAQs and contact information.' },
+    { q:'What can I manage from the dashboard?', a:'Depending on your website, you can manage content, images, services, portfolio items, customer messages, newsletter sign-ups, Google details, website reports, staff access and backups.' },
+    { q:'Can my staff have separate login access?', a:'Yes. Different team members can receive different levels of access, so they only see or manage what they are allowed to use.' },
+    { q:'Is my website and customer information safe?', a:'CUDFIRM protects private records and limits who can view or change them. We also provide backups and checks to help keep the website working properly.' },
+    { q:'Will my website work on phones and Google?', a:'Yes. Every website is built for mobile devices, and we set up the basic information Google needs to understand the website. Good search results also depend on your content and competition.' },
+    { q:'Do you build online stores or special features?', a:'Special features and online stores are reviewed separately. Tell us what you need, and we will explain what is possible, the cost and the delivery time.' },
+    { q:'How do I get started?', a:'Complete the quote form or send us a WhatsApp message with your business details and preferred design. We will reply within 24 hours with the next steps.' },
   ];
 
   const cmsFaqs = window.CMS && Array.isArray(window.CMS.faq) ? window.CMS.faq : null;
@@ -965,19 +961,19 @@ function buildTab16() {
 // ─────────────────────────────────────────────
 function buildTab17() {
   const reasons = [
-    { icon:'bi-person-circle', title:'We Understand Business, Not Just Code', desc:'CUDFIRM has real-world operations and quality control experience. We know what a business needs from a website — not just what looks good.' },
-    { icon:'bi-geo-alt', title:'Lagos-Based, Nigerian-Focused', desc:'We are in the same timezone, speak the same language, and understand Nigerian customer behaviour. No generic "international" agency templates.' },
-    { icon:'bi-phone', title:'Mobile-First, Always', desc:'Over 80% of your customers browse on phones. Every site we build works perfectly on mobile — this is non-negotiable.' },
-    { icon:'bi-currency-dollar', title:'Honest Pricing, No Surprises', desc:'We tell you the price upfront. No discovery calls that turn into ₦500K proposals. Landing pages from ₦50,000 — that\'s it.' },
-    { icon:'bi-headset', title:'You Can Actually Reach Us', desc:'WhatsApp, phone, email — we respond. We don\'t disappear after collecting payment. 30-day post-launch support is standard.' },
-    { icon:'bi-rocket-takeoff', title:'Fast Turnaround', desc:'Landing pages in 3–5 days. Business websites in 5–10 days. We respect your time and your urgency to get online.' },
+    { icon:'bi-pencil-square', title:'Update Your Website Yourself', desc:'Change your services, pictures, portfolio, FAQs and other information from a simple dashboard.' },
+    { icon:'bi-layout-text-window', title:'Use Our Design Or Yours', desc:'Choose a CUDFIRM design or bring your own template. Your website does not have to look like every other client’s website.' },
+    { icon:'bi-chat-dots', title:'Keep Customer Messages Together', desc:'Contact-form messages and newsletter sign-ups can be viewed and managed from your dashboard.' },
+    { icon:'bi-graph-up', title:'See How Your Website Is Doing', desc:'View useful website reports, check important Google details and spot issues that may affect visitors.' },
+    { icon:'bi-people', title:'Give Staff The Right Access', desc:'Allow team members to view or update only the parts they need, without giving everyone full control.' },
+    { icon:'bi-shield-check', title:'Backups And Proper Support', desc:'Your website can be backed up before major changes, and you receive a clear launch, handover and support process.' },
   ];
 
   return `
   <section id="tab17" class="tab-content view p-3">
     <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Why CUDFIRM</span></h6>
     <p class="alert mb-3" style="background:var(--n-gold-pale);border-left:4px solid var(--n-gold);border-radius:8px;font-size:0.83rem;color:var(--n-forest);padding:0.7rem 1rem;">
-      There are hundreds of web designers in Nigeria. Here is exactly what makes CUDFIRM different — and why the businesses we build for keep coming back.
+      A good website should not only look fine. It should help your business, save you time and give you proper control after it goes live.
     </p>
     <div class="row g-3 stagger-children">
       ${reasons.map(r => `
@@ -992,7 +988,7 @@ function buildTab17() {
         </div>`).join('')}
     </div>
     <button class="view-more-btn mt-3" onclick="openTab(event,'connect-content')">
-      <i class="bi bi-arrow-right-circle me-1"></i>Start Working With Us
+      <i class="bi bi-arrow-right-circle me-1"></i>Build With CUDFIRM
     </button>
   </section>`;
 }
@@ -1002,10 +998,10 @@ function buildTab17() {
 // ─────────────────────────────────────────────
 function buildTab20() {
   const values = [
-    { icon:'bi-people', title:'Client Success First', desc:'Every website we build is measured by one thing: does it help your business get more customers? That is our only metric.' },
-    { icon:'bi-geo-alt', title:'Built for Nigeria', desc:'We understand the Nigerian market — mobile-first customers, WhatsApp culture, local trust signals, and local payment habits.' },
-    { icon:'bi-eye', title:'Radical Transparency', desc:'You know the price before we start. You know the timeline. You know what you get. No surprises, ever.' },
-    { icon:'bi-shield-check', title:'Quality Without Compromise', desc:'Fast, secure, mobile-friendly, and built with clean code. Every site we deliver is one we are proud to put our name on.' },
+    { icon:'bi-graph-up-arrow', title:'Business Results First', desc:'Every website should help your business look trusted, reach customers and receive more enquiries.' },
+    { icon:'bi-chat-square-text', title:'Simple And Clear', desc:'We explain the price, work and delivery time plainly, without confusing words or hidden surprises.' },
+    { icon:'bi-person-check', title:'You Stay In Control', desc:'Your business should be able to manage important website information without depending on us for every small change.' },
+    { icon:'bi-shield-check', title:'Quality You Can Trust', desc:'We build websites that are fast, mobile-friendly, secure and properly checked before delivery.' },
   ];
 
   return `
@@ -1016,10 +1012,10 @@ function buildTab20() {
     <div class="card card-section mb-3" style="border-left:4px solid var(--n-gold);">
       <div class="card-content">
         <p style="font-size:1rem;font-family:'Syne',sans-serif;font-weight:700;color:var(--n-forest);margin-bottom:0.75rem;line-height:1.55;">
-          Every Nigerian business deserves a professional website — not just the corporations.
+          Every Business Deserves A Website It Can Manage And Grow
         </p>
         <p style="font-size:0.85rem;color:var(--n-muted);line-height:1.7;margin:0;">
-          Too many talented people — barbers, photographers, food vendors, coaches, and tailors — are losing customers to competitors simply because they don't have a proper website. A Canva flyer or Instagram page is not a website. CUDFIRM exists to change that, one business at a time.
+          CUDFIRM helps businesses get online with websites that look professional, work well on phones and are easy to update. We handle the building, setup and launch, then give you a simple dashboard and proper support.
         </p>
       </div>
     </div>
@@ -1031,13 +1027,13 @@ function buildTab20() {
       </div>
       <div class="card-content">
         <p style="font-size:0.85rem;color:var(--n-muted);line-height:1.75;margin-bottom:0.75rem;">
-          CUDFIRM started in Lagos with a simple observation: small Nigerian businesses were spending time and money on social media pages and Canva flyers, but without a proper website, they had no real online presence they owned or controlled.
+          CUDFIRM started with a simple problem: many small businesses depended only on social media, while others had websites they could not update without calling a developer.
         </p>
         <p style="font-size:0.85rem;color:var(--n-muted);line-height:1.75;margin-bottom:0.75rem;">
-          We set out to build professional websites that are fast, beautiful, and genuinely useful — designed specifically for how Nigerian customers search, browse, and buy.
+          We decided to build websites that are not only attractive, but also useful. Clients should be able to update their information, receive enquiries and stay in control after launch.
         </p>
         <p style="font-size:0.85rem;color:var(--n-muted);line-height:1.75;margin:0;">
-          Today, CUDFIRM is a focused web design studio. One clear mission. One service. Done properly.
+          Today, CUDFIRM builds business websites using ready-made designs, customised designs and client-supplied templates, with a clear process from setup to handover.
         </p>
       </div>
     </div>
@@ -1074,7 +1070,7 @@ function buildTab20() {
             { label:'Based In', value:'Lagos, Nigeria' },
             { label:'Delivery', value:'3–10 Business Days' },
             { label:'Starting Price', value:'₦50,000' },
-            { label:'Support Hours', value:'Mon–Sat, 8am–8pm WAT' },
+            { label:'Support Hours', value:'Monday–Saturday, 8am–8pm WAT' },
           ].map(f => `
             <div class="col-6 col-md-3">
               <div class="card p-3">
@@ -1087,7 +1083,7 @@ function buildTab20() {
     </div>
 
     <button class="view-more-btn" onclick="openTab(event,'connect-content')">
-      <i class="bi bi-arrow-right-circle me-1"></i>Work With Us
+      <i class="bi bi-arrow-right-circle me-1"></i>Work With CUDFIRM
     </button>
 
     <footer class="footin mt-4" role="contentinfo">
@@ -1106,10 +1102,10 @@ function buildTab20() {
           <span aria-hidden="true"> &middot; </span>
           <a href="terms.html#privacy" class="footer-legal-link">Privacy Policy</a>
           <span aria-hidden="true"> &middot; </span>
-          <a href="mailto:info@cudfirm.com" class="footer-legal-link">info@cudfirm.com</a>
+          <a href="mailto:cudfirm@gmail.com" class="footer-legal-link">cudfirm@gmail.com</a>
         </nav>
-        <p class="footer-copy">&copy; 2026 CUDFIRM &middot; Professional Web Design Studio &middot; Lagos, Nigeria</p>
-        <p class="footer-tagline">Websites that work as hard as your business does.</p>
+        <p class="footer-copy">&copy; 2026 CUDFIRM &middot; Business Websites You Can Manage &middot; Lagos, Nigeria</p>
+        <p class="footer-tagline">A Better Website. More Control. Less Stress.</p>
       </div>
     </footer>
   </section>`;
@@ -1235,17 +1231,17 @@ function buildForumContent() {
 function buildConnectContent() {
   return `
   <section id="connect-content" class="tab-content view p-3 p-sm-4">
-    <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Get A Quote</span></h6>
+    <h6 class="sticky-top py-2"><span class="badge text-bg-primary">Request A Free Quote</span></h6>
     <hr class="my-2 w-25" />
     <div class="contact-container">
       <h4 class="contact-header">Let's Build Your Website</h4>
       <p class="contact-subheader">
-        Tell us about your business and what you need. We reply within 24 hours with a clear quote and timeline. No jargon, no commitment, no pressure.
+        Tell us about your business, the website you need and the design you prefer. We will reply within 24 hours with a clear price, delivery time and next step.
       </p>
       <div class="contact-trust-row" role="list" aria-label="Contact assurances">
         <span role="listitem"><i class="bi bi-clock" aria-hidden="true"></i> Reply within 24 hours</span>
         <span role="listitem"><i class="bi bi-shield-check" aria-hidden="true"></i> No commitment required</span>
-        <span role="listitem"><i class="bi bi-cash-coin" aria-hidden="true"></i> Transparent pricing</span>
+        <span role="listitem"><i class="bi bi-cash-coin" aria-hidden="true"></i> Clear price before we start</span>
       </div>
       <div class="row g-4">
         <div class="col-12 col-lg-8">
@@ -1259,8 +1255,8 @@ function buildConnectContent() {
               <input type="text" class="form-control" id="contactInfo" name="contact_info" placeholder="email@example.com or +234..." required />
             </div>
             <div class="mb-3">
-              <label for="contactMessage" class="form-label">Tell Us About Your Business & What You Need</label>
-              <textarea class="form-control" id="contactMessage" name="message" rows="5" placeholder="e.g. I run a barber shop in Lagos and need a simple landing page with my services, gallery, and a WhatsApp button..." required></textarea>
+              <label for="contactMessage" class="form-label">Tell Us About Your Business And Website</label>
+              <textarea class="form-control" id="contactMessage" name="message" rows="5" placeholder="Tell us what your business does, the pages or features you need, and whether you want one of our designs or have your own template." required></textarea>
             </div>
             <div class="d-flex flex-column gap-2">
               <button type="button" class="btn btn-whatsapp w-100" onclick="sendToWhatsAppWithForm()" style="padding:0.65rem;font-size:0.9rem;">
@@ -1283,14 +1279,14 @@ function buildConnectContent() {
         <div class="col-12 col-lg-4">
           <div class="quick-contact-box">
             <h5><i class="bi bi-headset me-1"></i>Talk To Us Directly</h5>
-            <p>We are available Monday–Saturday, 8am to 8pm WAT. WhatsApp is the fastest way to reach us.</p>
+            <p>WhatsApp is the fastest way to discuss your project.</p>
             <a href="tel:+2349056317709" class="btn btn-warning w-100 mb-2"><i class="bi bi-telephone me-1"></i>Call Us Now</a>
             <button class="btn btn-outline-light w-100" onclick="copyToClipboard('+2349056317709','Number copied! ✓')">
               <i class="bi bi-clipboard me-1"></i>Copy Number
             </button>
             <hr style="border-color:rgba(255,255,255,0.2);margin:1rem 0;" />
             <div style="font-size:0.75rem;opacity:0.8;text-align:center;">
-              <i class="bi bi-envelope me-1"></i>info@cudfirm.com<br/>
+              <i class="bi bi-envelope me-1"></i>cudfirm@gmail.com<br/>
               <i class="bi bi-geo-alt me-1 mt-1 d-inline-block"></i>Lagos, Nigeria
             </div>
           </div>
@@ -1313,10 +1309,10 @@ function buildConnectContent() {
           <span aria-hidden="true"> &middot; </span>
           <a href="terms.html#privacy" class="footer-legal-link">Privacy Policy</a>
           <span aria-hidden="true"> &middot; </span>
-          <a href="mailto:info@cudfirm.com" class="footer-legal-link">info@cudfirm.com</a>
+          <a href="mailto:cudfirm@gmail.com" class="footer-legal-link">cudfirm@gmail.com</a>
         </nav>
-        <p class="footer-copy">&copy; 2026 CUDFIRM &middot; Professional Web Design Studio &middot; Lagos, Nigeria</p>
-        <p class="footer-tagline">Websites that work as hard as your business does.</p>
+        <p class="footer-copy">&copy; 2026 CUDFIRM &middot; Business Websites You Can Manage &middot; Lagos, Nigeria</p>
+        <p class="footer-tagline">A Better Website. More Control. Less Stress.</p>
       </div>
     </footer>
   </section>`;
@@ -1483,7 +1479,7 @@ function sendToEmail() {
   submitEnquiryToSupabase(name, contactInfo, message);
   const subject = encodeURIComponent('Website Quote Request — CUDFIRM');
   const body = encodeURIComponent(`Name: ${name}\nContact Info: ${contactInfo}\n\nMessage:\n${message}`);
-  window.location.href = `mailto:info@cudfirm.com?subject=${subject}&body=${body}`;
+  window.location.href = `mailto:cudfirm@gmail.com?subject=${subject}&body=${body}`;
 }
 
 function submitTip() {
@@ -1555,9 +1551,9 @@ function applySiteSettings() {
     if (favicon) favicon.href = s.favicon_url;
   }
   if (s.email) {
-    document.querySelectorAll('a[href^="mailto:info@cudfirm.com"]').forEach(a => {
+    document.querySelectorAll('a[href^="mailto:cudfirm@gmail.com"]').forEach(a => {
       a.href = `mailto:${s.email}`;
-      if (a.textContent.trim() === 'info@cudfirm.com') a.textContent = s.email;
+      if (a.textContent.trim() === 'cudfirm@gmail.com') a.textContent = s.email;
     });
   }
   if (s.phone) {

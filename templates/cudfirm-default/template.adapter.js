@@ -565,21 +565,18 @@
     const brand = brandName(site);
     mount.querySelectorAll(':scope > .testimonial-placeholder-notice').forEach((notice) => notice.remove());
     const allPlaceholder = data.every((item) => item.placeholder === true);
+    const sectionBadge = mount.querySelector('h6 .badge');
+    if (sectionBadge) sectionBadge.textContent = allPlaceholder ? 'What Your Website Helps You Do' : 'Testimonials';
     if (allPlaceholder) {
       const notice = document.createElement('div');
       notice.className = 'testimonial-placeholder-notice';
       notice.setAttribute('role', 'note');
-      notice.setAttribute('aria-label', 'Testimonials notice');
+      notice.setAttribute('aria-label', 'Website benefits notice');
       notice.appendChild(createIcon('bi-info-circle-fill'));
       const copy = document.createElement('div');
       const strong = document.createElement('strong');
-      strong.textContent = 'Testimonials coming soon. ';
-      copy.append(strong, document.createTextNode(`The cards below show the kind of results ${brand} clients experience. Real verified reviews will be displayed here as the portfolio grows. `));
-      const action = document.createElement('button');
-      action.className = 'btn-inline-link';
-      action.textContent = 'Become one of our first clients →';
-      action.addEventListener('click', (event) => window.openTab?.(event, 'connect-content'));
-      copy.appendChild(action);
+      strong.textContent = 'Real client reviews will be added here as they are collected. ';
+      copy.append(strong, document.createTextNode(`For now, these are the practical benefits every ${brand} website is built to provide.`));
       notice.appendChild(copy);
       row.before(notice);
     }
@@ -592,14 +589,6 @@
       column.className = 'col-12 col-md-6';
       const card = document.createElement('div');
       card.className = 'card p-4 testimonial-placeholder-card';
-
-      if (testimonial.placeholder) {
-        const badge = document.createElement('div');
-        badge.className = 'testimonial-placeholder-badge';
-        badge.setAttribute('aria-label', 'Illustrative example');
-        badge.textContent = 'Illustrative';
-        card.appendChild(badge);
-      }
 
       if (hasText(testimonial.avatarUrl)) {
         const avatar = document.createElement('img');
@@ -616,8 +605,8 @@
       }
 
       const quote = document.createElement('p');
-      quote.style.cssText = 'font-size:0.85rem;font-style:italic;color:var(--text-color);margin-bottom:0.75rem;';
-      quote.textContent = `“${testimonial.quote}”`;
+      quote.style.cssText = `font-size:0.85rem;${testimonial.placeholder ? '' : 'font-style:italic;'}color:var(--text-color);margin-bottom:0.75rem;`;
+      quote.textContent = testimonial.placeholder ? testimonial.quote : `“${testimonial.quote}”`;
       const name = document.createElement('div');
       name.style.cssText = `font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;color:${accent};`;
       name.textContent = testimonial.name;
