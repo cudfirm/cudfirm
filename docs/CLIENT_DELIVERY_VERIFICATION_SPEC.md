@@ -30,8 +30,9 @@ The descriptor declares:
 - Core, contract and runtime versions
 - Template ID and manifest global
 - Independent Supabase project reference
+- Optional site root for packages where the deployable website is nested
 - Entry page and dashboard login page
-- Client configuration file
+- Client configuration file and shared Supabase bootstrap path
 - Template manifest and adapter
 - Canonical fresh installer and verification SQL
 - Additional files that must exist
@@ -61,12 +62,12 @@ The verifier checks:
 2. The delivery is explicitly marked as a client deployment.
 3. Core `2.0.0`, CMS contract `1.1.0`, and runtime `1.1.0` are declared.
 4. Every required file exists inside the delivery root.
-5. The public site and dashboard load the client configuration before `js/supabase.js`.
+5. The public site and dashboard load the client configuration before the declared shared Supabase bootstrap.
 6. The client configuration points to the declared client Supabase project.
 7. The client project is not `CUDFIRM_DATABASE` or another forbidden project.
 8. Browser files do not contain `service_role` or `sb_secret_*` credentials.
 9. The template manifest declares modules, assets, sections, compatibility and form ownership.
-10. Template-owned local assets exist.
+10. Template-owned local assets exist relative to the declared site root.
 11. Adapter-managed mounts are present when they use simple ID, class or tag selectors.
 12. Declared renderer names appear in the adapter source.
 13. The adapter does not create a Supabase client or query database tables directly.

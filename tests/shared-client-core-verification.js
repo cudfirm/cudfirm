@@ -136,6 +136,8 @@ function load(relativePath, context) {
   const formsSource = fs.readFileSync(path.resolve(__dirname, '../js/public-forms.js'), 'utf8');
   assert.equal(formsSource.includes('db.from('), false, 'Public form service must not query tables directly.');
   assert.equal(formsSource.includes('managedBy !== "shared-core"'), true);
+  assert.equal(formsSource.includes('fields.subject'), true);
+  assert.equal(formsSource.includes('Subject: ${subject}'), true);
 
   console.log('Shared client core verification passed.');
 })().catch((error) => {

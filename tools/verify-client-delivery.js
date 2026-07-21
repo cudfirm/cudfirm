@@ -230,10 +230,11 @@ function verifyDelivery(deliveryRoot, options = {}) {
         }
 
         const entryHtml = resolvedPaths.entry && isFile(resolvedPaths.entry) ? readText(resolvedPaths.entry) : '';
+        const siteRoot = resolveInside(root, descriptor.paths?.siteRoot || '.') || root;
         for (const asset of [...(manifest.assets?.required || []), ...(manifest.assets?.optional || [])]) {
           const source = stripReference(asset?.source);
           if (!source || externalReference(source)) continue;
-          const assetPath = resolveInside(root, source);
+          const assetPath = resolveInside(siteRoot, source);
           if (!assetPath || !isFile(assetPath)) {
             const target = asset?.managedBy === 'template' || (manifest.assets?.required || []).includes(asset) ? errors : warnings;
             target.push(`Manifest asset is missing: ${source}`);
@@ -282,10 +283,11 @@ function verifyDelivery(deliveryRoot, options = {}) {
     const html = readText(resolved);
     const htmlDirectory = path.dirname(resolved);
     const configReference = normalizeRelative(path.relative(htmlDirectory, resolvedPaths.clientConfig));
-    const sharedSupabasePath = resolveInside(root, 'js/supabase.js');
+    const sharedSupabaseRelativePath = descriptor.paths?.sharedSupabase || 'js/supabase.js';
+    const sharedSupabasePath = resolveInside(root, sharedSupabaseRelativePath);
     const supabaseReference = sharedSupabasePath
       ? normalizeRelative(path.relative(htmlDirectory, sharedSupabasePath))
-      : 'js/supabase.js';
+      : normalizeRelative(sharedSupabaseRelativePath);
     const configIndex = html.indexOf(configReference);
     const supabaseIndex = html.indexOf(supabaseReference);
     if (configIndex < 0) errors.push(`${htmlPath} does not load ${configReference}.`);

@@ -39,6 +39,8 @@
       "js/template-validator.js",
       "js/template-runtime.js",
       "js/public-forms.js"
-    ]
+    ],
+    "sharedSupabase": "js/supabase.js",
+    "siteRoot": "."
   }
 }

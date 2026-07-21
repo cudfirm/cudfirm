@@ -23,6 +23,7 @@ write(root, 'client-delivery.json', JSON.stringify({
   template: { id: 'sample-template', manifestGlobal: 'SampleManifest' },
   supabase: { projectRef, isolated: true, forbiddenProjectRefs: ['wefncrkzugezvduzejzf'] },
   paths: {
+    siteRoot: '.',
     entry: 'index.html',
     dashboard: 'dashboard/index.html',
     clientConfig: 'config/client-config.js',
@@ -30,6 +31,7 @@ write(root, 'client-delivery.json', JSON.stringify({
     templateAdapter: 'templates/sample-template/template.adapter.js',
     freshInstaller: 'supabase/fresh-install/01_cudfirm_core_fresh_install.sql',
     verificationSql: 'supabase/fresh-install/03_verify_fresh_install.sql',
+    sharedSupabase: 'js/supabase.js',
     required: [
       'js/template-config.js',
       'js/supabase.js',
@@ -105,6 +107,44 @@ write(root, 'config/client-config.js', `window.CUDFIRM_CONFIG = {
 const secretFailure = verifyDelivery(root);
 assert.equal(secretFailure.ok, false);
 assert.ok(secretFailure.errors.some((error) => error.includes('forbidden server-side Supabase key')));
+
+
+const nestedRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'cudfirm-delivery-nested-'));
+write(nestedRoot, 'client-delivery.json', JSON.stringify({
+  schemaVersion: '1.0.0', deploymentType: 'client',
+  client: { id: 'nested-client', name: 'Nested Client' },
+  core: { version: '2.0.0', contractVersion: '1.1.0', runtimeVersion: '1.1.0' },
+  template: { id: 'sample-template', manifestGlobal: 'SampleManifest' },
+  supabase: { projectRef, isolated: true },
+  paths: {
+    siteRoot: 'site', entry: 'site/index.html', dashboard: 'site/dashboard/index.html',
+    clientConfig: 'site/config/client-config.js', sharedSupabase: 'site/js/supabase.js',
+    templateManifest: 'site/templates/sample-template/template.manifest.js',
+    templateAdapter: 'site/templates/sample-template/template.adapter.js',
+    freshInstaller: 'database/install.sql', verificationSql: 'database/verify.sql',
+    required: ['site/js/supabase.js']
+  }
+}, null, 2));
+write(nestedRoot, 'site/config/client-config.js', `window.CUDFIRM_CONFIG = {
+  deploymentType: 'client', dataMode: 'supabase', templateId: 'sample-template',
+  coreVersion: '2.0.0', contractVersion: '1.1.0',
+  supabaseUrl: 'https://${projectRef}.supabase.co', supabaseAnonKey: 'sb_publishable_test_key'
+};`);
+write(nestedRoot, 'site/index.html', '<section id="hero"></section><script src="config/client-config.js"></script><script src="js/supabase.js"></script>');
+write(nestedRoot, 'site/dashboard/index.html', '<script src="../config/client-config.js"></script><script src="../js/supabase.js"></script>');
+write(nestedRoot, 'site/js/supabase.js', '// fixture');
+write(nestedRoot, 'site/templates/sample-template/template.manifest.js', `window.SampleManifest = {
+  schemaVersion:'1.1.0', template:{id:'sample-template',name:'Sample',version:'1.0.0'},
+  compatibility:{minimumContractVersion:'1.1.0',maximumContractVersion:'1.x',requiredCoreVersion:'2.0.0'},
+  modules:{required:[],optional:[]}, assets:{required:[],optional:[],notes:[]},
+  sections:{hero:{enabled:true,required:true,source:'hero',mount:'#hero',renderer:'renderHero',requiredFields:['title']}}, forms:{}
+};`);
+write(nestedRoot, 'site/templates/sample-template/template.adapter.js', 'window.SampleAdapter={renderHero(){return true;}};');
+write(nestedRoot, 'database/install.sql', '-- install');
+write(nestedRoot, 'database/verify.sql', '-- verify');
+const nestedPassing = verifyDelivery(nestedRoot);
+assert.equal(nestedPassing.ok, true, nestedPassing.errors.join('\n'));
+fs.rmSync(nestedRoot, { recursive: true, force: true });
 
 fs.rmSync(root, { recursive: true, force: true });
 console.log('Client delivery verification passed.');

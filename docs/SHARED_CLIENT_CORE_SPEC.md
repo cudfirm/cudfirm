@@ -85,6 +85,7 @@ forms: {
     fields: {
       name: "[name='name']",
       contact: "[name='contact']",
+      subject: "[name='subject']", // optional; merged into the stored message
       message: "[name='message']"
     },
     messages: {
@@ -102,7 +103,7 @@ forms: {
 }
 ```
 
-The shared core owns validation and database submission. The template owns markup, selectors, wording, and styling.
+The shared core owns validation and database submission. When an optional subject selector is declared, the subject is safely merged into the stored message before submission. The template owns markup, selectors, wording, and styling.
 
 ## Compatibility position
 

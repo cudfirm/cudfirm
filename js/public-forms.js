@@ -103,13 +103,15 @@
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
+      const subject = fieldValue(form, fields.subject);
+      const message = fieldValue(form, fields.message);
       const input = {
         name: fieldValue(form, fields.name),
         contactInfo: fieldValue(form, fields.contact || fields.contactInfo),
-        message: fieldValue(form, fields.message),
+        message: subject ? `Subject: ${subject}\n\n${message}` : message,
       };
 
-      if (!input.name || !input.contactInfo || !input.message) {
+      if (!input.name || !input.contactInfo || !message) {
         setStatus(status, messages.invalid, "invalid");
         return;
       }
