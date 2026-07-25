@@ -2,7 +2,7 @@
 
 ## Product identity
 
-CUDFIRM is a reusable, template-agnostic CMS platform, not only one agency website.
+CUDFIRM is a reusable, template-agnostic CMS platform.
 
 ```text
 CUDFIRM CMS Core
@@ -12,9 +12,9 @@ CUDFIRM CMS Core
 → Independent Client Website
 ```
 
-Each client installation must have its own website, dashboard, authentication, Supabase project, users, Storage and data unless a different architecture is explicitly approved.
+Each client normally receives a separate website, dashboard, authentication system, Supabase project, users, Storage and data.
 
-A client website must never be managed from the CUDFIRM production dashboard merely because its Supabase project belongs to the CUDFIRM organisation.
+A client project may belong to the CUDFIRM Supabase organisation, but it must remain independent from `CUDFIRM_DATABASE` and every other client project.
 
 ## Current version
 
@@ -24,14 +24,14 @@ CMS contract: 1.1.0
 Template runtime: 1.1.0
 ```
 
-## Current verified baseline
+## Verified production baseline
 
-The following systems are implemented in the CUDFIRM core:
+The CUDFIRM core includes:
 
 - Public Supabase CMS rendering
 - Dashboard authentication and CRUD
 - Hero, About, Services, Portfolio, Testimonials, FAQ and Navigation
-- Contact content, Site Settings and SEO
+- Contact Content, Site Settings and SEO
 - Media Library
 - Messages and Subscribers
 - Search, filtering, sorting, pagination and bulk actions
@@ -50,31 +50,37 @@ The following systems are implemented in the CUDFIRM core:
 
 Completed:
 
-1. CMS field audit, including About and Contact content
+1. CMS field audit, including About and Contact support
 2. CMS Data Contract 1.1.0
 3. Template Manifest schema 1.1.0
 4. Shared Template Runtime 1.1.0
 5. CUDFIRM Default as Adapter 1
 6. CUDTEMP as Adapter 2
-7. One client-supplied template delivered as Web1
+7. Shared configuration-aware client core
+8. Canonical fresh installer through migration 016
+9. Automated client-delivery verification
+10. One client-supplied template delivered and migrated: Web1
 
-The framework verification scripts currently cover:
+Current verification scripts cover:
 
 - CMS contract
 - CUDFIRM Default Adapter 1
 - CUDTEMP Adapter 2
 - Template manifest
 - Template runtime
+- Shared client core
+- Canonical fresh installer structure
+- Client-delivery package verification
 
-## Web1 client delivery
+## Web1 reference delivery
 
-Web1 is the first completed client-delivery example.
-
-It is an independent platform using its own Supabase project:
+Web1 is the first completed independent client-delivery example.
 
 ```text
-Project name: Web1
+Supabase project: Web1
 Project reference: ivvrbalbcqsyejgliazl
+Production URL: https://cud-web1.netlify.app
+Temporary migration test URL: https://web1b.netlify.app
 ```
 
 Web1 has its own:
@@ -87,37 +93,57 @@ Web1 has its own:
 - Messages and Subscribers
 - Backup and handover package
 
-Web1 must remain separate from `CUDFIRM_DATABASE`.
+Web1 was migrated on a protected copy to framework compatibility 1.1.0. The migrated package passed 40 automated delivery checks with 0 errors. The two browser-selector warnings were then verified successfully in a real browser. The migrated frontend was deployed to the original production Netlify site.
 
-Web1 proves the client-delivery model, but it uses an earlier framework generation. Its working production files must not be replaced directly. Any alignment with the current runtime must first be performed on a protected copy and verified.
+Web1 remains separate from `CUDFIRM_DATABASE`.
 
-## Supabase migrations
+## Shared client-delivery standard
 
-The CUDFIRM production history currently contains:
+A standard client package now contains:
 
 ```text
-001_schema.sql
+<client>-client-delivery/
+├── <client>-website/
+├── supabase-fresh-install/
+├── docs/
+├── verification/
+└── client-delivery.json
+```
+
+The public website and dashboard load one client-specific configuration and connect only to that client's Supabase project.
+
+Template adapters may control markup and presentation. They must not duplicate authentication, dashboard CRUD, roles, RLS, backup, security or shared Supabase data logic.
+
+## Canonical fresh installer status
+
+The reusable installer through migration 016 has been assembled and structurally verified. It deliberately excludes:
+
+```text
 002_seed.sql
-003_admin_write_policies.sql
-004_phase3_platform.sql
-005_content_status_workflow.sql
-006_message_management.sql
-007_subscriber_management.sql
-008_backup_restore_permissions.sql
-009_user_roles_permissions.sql
-010_maintenance_mode.sql
-011_theme_customization.sql
-012_security_audit.sql
-013_theme_wide_default_fix.sql
-014_rls_api_security_hardening.sql
-015_about_contact_content.sql
-016_module_permissions_foundation.sql
 017_public_messaging_refresh.sql
 ```
 
-Migration history is append-only. Never rewrite or renumber a migration that has already been applied.
+Those files contain CUDFIRM-specific content and are not generic client installation files.
 
-Migration 017 contains CUDFIRM-specific public messaging and must not be included automatically in generic client installations.
+A true empty-project execution test has not yet been completed because:
+
+- the CUDFIRM Supabase organisation reached its two active Free-project limit; and
+- Docker is not installed for a local Supabase environment.
+
+This is a blocked test, not a failed test. The first new client installation must therefore be treated as the controlled empty-project execution test: run the installer once, run verification SQL, record results and stop immediately if any check fails.
+
+## Business readiness
+
+CUDFIRM is ready to sell and deliver ordinary business, agency, portfolio, brochure and service websites using the current shared contract.
+
+The following should be separately scoped and must not be promised as included by default:
+
+- Public customer/member accounts
+- Member-owned private data
+- Payments
+- Booking systems
+- Vertical inventory fields such as mileage, bedrooms, stock variants or event schedules
+- New custom CMS modules
 
 ## Member Accounts module
 
@@ -134,20 +160,20 @@ Not yet complete:
 - Full template integration
 - End-to-end module verification
 
-Member Accounts does not block ordinary business, agency, portfolio or brochure client websites. It blocks only templates that require customer accounts or member-owned data.
+Member Accounts does not block ordinary client websites.
 
-## Current delivery gap
+## Supabase migration rules
 
-The next priority is to standardise the successful Web1 delivery into a repeatable current process:
+CUDFIRM production migrations currently run from 001 through 017.
 
-1. Create the canonical fresh-install core through migration 016
-2. Keep client starter content separate from the reusable core
-3. Add automated client-template compatibility checks
-4. Test the installer against an empty Supabase project
-5. Migrate a protected Web1 copy to the current framework
-6. Finalise one authoritative onboarding, deployment and handover process
+Migration history is append-only. Never rewrite or renumber a migration that has already been applied.
 
-Do not add unrelated CMS features before this work unless fixing a critical bug or security issue.
+Before a production migration:
+
+- back up the project;
+- download a client JSON backup;
+- confirm the exact Supabase project;
+- use the next numbered corrective migration when needed.
 
 ## Security rules
 
@@ -155,17 +181,16 @@ RLS must remain enabled.
 
 Anonymous users may only:
 
-- Read published public content
-- Read intended public settings and SEO data
-- Submit permitted Contact fields
-- Submit a newsletter email
-- Load intended public media
+- read intended published/public data;
+- submit approved Contact fields;
+- submit a newsletter email;
+- load intended public media.
 
 Anonymous users must not read Messages, Subscribers, User Profiles, Activity Log or Security Events, and must not modify or delete CMS content.
 
-Permissions must be enforced in PostgreSQL RLS and Storage, not only through dashboard buttons.
+Permissions must be enforced in PostgreSQL RLS and Storage, not only through hidden dashboard buttons.
 
-The following functions intentionally remain `SECURITY DEFINER` and must not be changed without a complete redesign:
+Do not change these intentional `SECURITY DEFINER` functions without a complete redesign:
 
 - `record_auth_security_event(...)`
 - `current_app_role()`
@@ -185,21 +210,15 @@ css/styles.css
 
 Do not rewrite, rename, reorganise or broadly refactor them. Prefer isolated files and the smallest safe change.
 
-## Working method
+## Current priority
 
-Before changing code:
+Stop expanding the framework without a real client requirement.
 
-1. Inspect the latest complete ZIP
-2. Confirm the current architecture
-3. Identify the minimum files
-4. State what will and will not change
+The current priority is business delivery:
 
-After changing code:
-
-1. Run applicable syntax and verification checks
-2. Check references
-3. Confirm only intended files changed
-4. Return a focused patch
-5. Never claim an unperformed test passed
-
-For user-performed deployment or migration work, give one clear task at a time.
+1. Qualify the client and select a suitable template.
+2. Follow the client-delivery playbook.
+3. Create a separate Supabase project and Netlify site.
+4. Run the automated verifier before deployment.
+5. Complete handover and support records.
+6. Record lessons from each paid delivery without redesigning unrelated systems.

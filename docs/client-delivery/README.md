@@ -1,8 +1,8 @@
 # CUDFIRM Client Delivery Playbook
 
-This folder defines the repeatable process for delivering a client website with the CUDFIRM CMS platform.
+This folder is the authoritative process for delivering a client website with CUDFIRM.
 
-The process is template-agnostic. It applies to CUDFIRM-made templates and client-supplied HTML/CSS/JavaScript templates.
+It applies to CUDFIRM-made templates and client-supplied HTML/CSS/JavaScript templates.
 
 ## Permanent architecture rule
 
@@ -18,20 +18,16 @@ CUDFIRM reusable CMS core
 
 A client must never share CUDFIRM production data or another client's data.
 
-### One client means
+### One client normally means
 
 - one Supabase project;
 - one public website deployment;
 - one dashboard connected to that project;
 - one client-specific configuration;
-- one media bucket and data set;
+- one media store and data set;
 - one backup and handover record.
 
-Client projects may be managed under the CUDFIRM Supabase organization, but each project remains independent.
-
-## Required documents
-
-Use these files in order:
+## Use these documents in order
 
 1. [`01_CLIENT_ONBOARDING_CHECKLIST.md`](01_CLIENT_ONBOARDING_CHECKLIST.md)
 2. [`02_TEMPLATE_INTEGRATION_CHECKLIST.md`](02_TEMPLATE_INTEGRATION_CHECKLIST.md)
@@ -40,34 +36,49 @@ Use these files in order:
 5. [`05_NETLIFY_DEPLOYMENT_GUIDE.md`](05_NETLIFY_DEPLOYMENT_GUIDE.md)
 6. [`06_CLIENT_HANDOVER_CHECKLIST.md`](06_CLIENT_HANDOVER_CHECKLIST.md)
 7. [`07_POST_DELIVERY_SUPPORT.md`](07_POST_DELIVERY_SUPPORT.md)
+8. [`08_DELIVERY_CLOSEOUT_CHECKLIST.md`](08_DELIVERY_CLOSEOUT_CHECKLIST.md)
 
-## Delivery stages
+## Standard delivery stages
 
-| Stage | Completion evidence |
+| Stage | Required evidence |
 |---|---|
-| Client onboarding | Approved content, branding, features and ownership details |
-| Template audit | Completed mapping between CMS contract and template sections |
-| Supabase setup | Fresh-install verification passed with RLS enabled |
-| Dashboard setup | Client admin can sign in and edit only the client project |
-| Local verification | Public site, forms, images and dashboard tested locally |
-| Deployment | Production site and dashboard load from the client project |
-| Handover | Backup, credentials record, guide and acceptance completed |
-| Support | Support scope, update process and incident path documented |
+| Onboarding | Approved brand, content, ownership and scope |
+| Template audit | Completed section/field mapping |
+| Supabase setup | Installer and verification results |
+| Dashboard setup | Client admin signs in and edits only the client project |
+| Package verification | Automated verifier passes with 0 errors |
+| Temporary deployment | Browser-only selectors and layout verified |
+| Production deployment | Correct project is Published/Ready |
+| Handover | Backup, package, access, training and acceptance recorded |
+| Support | Scope, response path and change log recorded |
+
+## Automated package check
+
+From the client delivery folder, run:
+
+```powershell
+node ..\cudfirm\tools\verify-client-delivery.js .
+```
+
+Expected:
+
+```text
+CUDFIRM client delivery verification PASSED.
+Errors: 0
+```
+
+Warnings that require a browser must be verified on the temporary deployment. Unexpected errors block deployment.
 
 ## Non-negotiable security rules
 
-- RLS must remain enabled.
-- Never use a `service_role` or secret key in browser code.
-- Frontend code may use only the client project's Publishable key or legacy `anon` key.
-- Do not connect a client deployment to CUDFIRM production credentials.
-- Do not add a client to the CUDFIRM Supabase organization unless project access has been deliberately reviewed.
-- Client users should normally access only their website dashboard.
-- Never rewrite migration history after it has been run.
-- Keep recovery SQL files, but run them only when their documented condition applies.
+- RLS remains enabled.
+- Browser code uses only the client's Publishable or legacy `anon` key.
+- Never expose `service_role`, `sb_secret_*` or server-side credentials.
+- Never connect a client deployment to CUDFIRM production credentials.
+- Never rewrite migration history after it has run.
+- Client users normally access their website dashboard, not the CUDFIRM production dashboard.
 
 ## Protected CUDFIRM files
-
-When adapting the CUDFIRM default template, treat these files as high risk:
 
 ```text
 js/script.js
@@ -76,27 +87,23 @@ css/styles.css
 
 Prefer isolated adapter, runtime and override files. Modify protected files only after inspection, with a minimal verified change.
 
-## Naming standard
-
-Record three names before work begins:
-
-| Name | Example | Rule |
-|---|---|---|
-| Public brand name | `Web1` | Exact text shown to visitors |
-| Stable template ID | `web1` | Lowercase, no spaces, do not change after launch |
-| Delivery folder | `web1-client-delivery` | Clear client-specific package name |
-
-The public brand name, browser title, header, footer, dashboard title, SEO data, Site Settings and starter SQL must all agree.
-
 ## Definition of complete
 
 A client delivery is complete only when:
 
-- the public website reads the client's Supabase project;
-- the dashboard reads the same client project;
-- a client admin can edit content and see it publicly;
+- the public website and dashboard use the same client Supabase project;
+- a client administrator can edit content and see it publicly;
 - Contact and Newsletter submissions reach the client's tables;
 - RLS and Storage policies are verified;
 - media upload and backup download work;
+- the automated delivery verifier reports 0 errors;
+- production and anonymous dashboard routes are verified;
 - no CUDFIRM production credentials or data are present;
-- the final deploy folder and handover package are recorded.
+- the final package, backup, deployment and handover are recorded;
+- the client accepts the delivery.
+
+## Current installer note
+
+The canonical fresh installer has passed structural verification. A real empty-project execution is pending because no spare Free Supabase project or local Docker environment is available.
+
+The first suitable new client installation must complete and record that controlled test before launch.

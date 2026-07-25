@@ -14,7 +14,7 @@ CUDFIRM CMS Core
 
 Do not reduce CUDFIRM to copying one website template for every client.
 
-Each client website must normally use its own Supabase project, dashboard, authentication, users, Storage and data. A project may belong to the CUDFIRM Supabase organisation while remaining completely independent from `CUDFIRM_DATABASE`.
+Each client website must normally use its own Supabase project, dashboard, authentication, users, Storage and data. A project may belong to the CUDFIRM Supabase organisation while remaining independent from `CUDFIRM_DATABASE`.
 
 ## Current baseline
 
@@ -32,31 +32,33 @@ Completed:
 - Activity, analytics, health, backup and restore
 - Roles, permissions, maintenance, theme and security
 - RLS/API hardening
-- CMS Data Contract
-- Template Manifest
+- CMS Data Contract and Template Manifest
 - Shared Template Runtime
 - CUDFIRM Default Adapter 1
 - CUDTEMP Adapter 2
-- One independent client delivery: Web1
+- Configuration-aware shared client core
+- Canonical fresh installer through migration 016
+- Automated client-delivery verifier
+- Web1 protected migration and production deployment
+- Client onboarding, deployment, handover and support playbook
 - Member Accounts Phases 1 and 2
 
-Web1 is a separate client platform and must remain managed from its own dashboard and Supabase project.
+Web1 is a separate client platform and remains managed from its own dashboard and Supabase project.
 
 ## Current priority
 
-Standardise the successful Web1 delivery into a repeatable current client-delivery process.
+CUDFIRM is in the business-delivery phase.
 
-Development order:
+Do not add framework features merely to continue building. Work should now come from:
 
-1. Maintain accurate project documentation
-2. Define one configuration-aware shared client core
-3. Build the canonical fresh installer through migration 016
-4. Add automated client-delivery verification
-5. Migrate a protected copy of Web1 to the current framework
-6. Test the installer against an empty Supabase project
-7. Use the tested process for additional client templates
+1. A paid client requirement
+2. A critical bug
+3. A verified security issue
+4. A necessary delivery-process correction
 
-Do not add unrelated features unless fixing a critical bug or security issue.
+For each client, use the existing shared core, adapter standard, canonical installer, verifier and delivery playbook.
+
+The canonical installer has passed structural verification. A truly empty-project execution is still pending because no spare Free Supabase project or local Docker environment is available. The first suitable client installation must be treated as the controlled execution test and must stop if verification fails.
 
 ## Template rules
 
@@ -85,11 +87,24 @@ It must not duplicate:
 - Security
 - Shared Supabase data logic
 
+## Client isolation
+
+One client normally means:
+
+- one Supabase project;
+- one client configuration;
+- one dashboard and Auth user set;
+- one website deployment;
+- one data set and media store;
+- one backup and handover record.
+
+Never connect a client website to CUDFIRM production credentials or another client's project.
+
 ## Security rules
 
 RLS must remain enabled.
 
-Anonymous users may only read intended published/public data, submit permitted Contact and Newsletter fields, and load intended public media.
+Anonymous users may only read intended public data, submit approved Contact and Newsletter fields, and load intended public media.
 
 Anonymous users must not read private operational tables or modify CMS content.
 
@@ -157,7 +172,7 @@ Corrections require a new migration using the next number.
 Before a production migration:
 
 - Back up the project
-- Download a CUDFIRM JSON backup
+- Download a client JSON backup
 - Confirm the correct Supabase project
 
 Migration 017 is CUDFIRM-specific messaging and must not be included automatically in generic client installations.
@@ -167,12 +182,13 @@ Migration 017 is CUDFIRM-specific messaging and must not be included automatical
 For user-performed tasks:
 
 1. Give one clear task
-2. Stop
-3. Inspect the result
-4. Give the next task
+2. Explain exactly where to click or what to run
+3. Stop
+4. Inspect the result
+5. Give the next task
 
-When writing a prompt for another coding model, include context, objective, allowed files, forbidden files, systems to preserve, exact behaviour, tests and output requirements.
+Instructions must be beginner-friendly, brief and unambiguous. Do not compress several unfamiliar actions into one vague step.
 
 ## Current next task
 
-Create the canonical client fresh-install specification and file plan using migrations 001–016 and lessons from Web1. Do not change production or Web1 during the specification stage.
+Use the completed delivery standard to onboard and deliver the next real client website. Do not resume unrelated platform development first.

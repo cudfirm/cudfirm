@@ -12,26 +12,23 @@ CUDFIRM CMS Core
 → Independent Client Installation
 ```
 
-The reusable core includes the database model, authentication, roles, RLS, dashboard, media, SEO, messages, subscribers, backup, audit and security systems.
-
 Each client receives an independent installation and manages content from that client's own dashboard.
 
 ## Completed platform foundation
 
-- Public Supabase CMS rendering
-- Authentication and dashboard
-- Full content CRUD and workflow
-- Media, SEO, Messages and Subscribers
-- Analytics, SEO Health and Site Health
-- Backup and Restore
-- Roles and Permissions
-- Maintenance Mode
-- Theme customisation
-- Security and Audit
-- RLS and API hardening
-- Secured backup
+- [x] Public Supabase CMS rendering
+- [x] Authentication and dashboard
+- [x] Content CRUD and workflow
+- [x] Media, SEO, Messages and Subscribers
+- [x] Analytics, SEO Health and Site Health
+- [x] Backup and Restore
+- [x] Roles and Permissions
+- [x] Maintenance Mode
+- [x] Theme customisation
+- [x] Security and Audit
+- [x] RLS and API hardening
 
-## Completed Template Integration Framework work
+## Completed Template Integration Framework
 
 - [x] Audit CMS fields and add About/Contact support
 - [x] Define CMS Data Contract 1.1.0
@@ -40,68 +37,65 @@ Each client receives an independent installation and manages content from that c
 - [x] Convert CUDFIRM frontend into Adapter 1
 - [x] Connect CUDTEMP as Adapter 2
 - [x] Deliver one client-supplied template as Web1
-- [x] Create a Web1-specific fresh-install and handover package
-- [x] Verify the isolated Web1 website/dashboard model
+- [x] Build a configuration-aware shared client core
+- [x] Build the canonical fresh installer through migration 016
+- [x] Separate generic core from client starter content
+- [x] Add automated client-delivery verification
+- [x] Migrate a protected Web1 copy to framework 1.1.0
+- [x] Verify the migrated Web1 package with 40 checks and 0 errors
+- [x] Verify browser-only selectors on a temporary deployment
+- [x] Replace the Web1 production frontend with the verified migrated build
+- [x] Finalise onboarding, deployment, handover and support documentation
 
-## Current gap
+## Remaining controlled verification
 
-Web1 proves the business model, but it was created using an earlier framework generation. The next task is to convert the successful delivery into one current, repeatable standard without merging Web1 into the CUDFIRM dashboard.
+### Empty-project installer execution
 
-## Current development order
+Status: **blocked, not failed**.
 
-### Phase A — Documentation baseline
+The reusable installer has passed structural verification but has not yet been executed against a truly empty Supabase project because the Free organisation has reached its two-project limit and Docker is unavailable locally.
 
-- [x] Correct Project Context
-- [x] Correct Roadmap
-- [x] Correct Changelog
-- [x] Correct Release Checklist
-- [x] Preserve the framework/delivery audit in the project documentation
+This test will be completed during the first suitable new client setup or when a dedicated test environment becomes available.
 
-### Phase B — Canonical client core
+Required evidence:
 
-- [ ] Define one configuration-aware public client core
-- [ ] Centralise data fetching, normalisation, SEO and public form submission
-- [ ] Prevent future templates from copying Supabase loading logic
-- [ ] Preserve independent client Supabase projects and dashboards
+- [ ] Core installer runs once on an empty project
+- [ ] Client starter content runs once
+- [ ] Verification SQL returns acceptable results
+- [ ] At least one authorised Super Admin exists
+- [ ] RLS, Storage, public reads and public form inserts are verified
+- [ ] Dashboard login and backup are verified
 
-### Phase C — Canonical fresh installer
+A failure during that controlled test blocks that client launch and requires an additive correction. It does not permit rewriting migration history.
 
-- [ ] Build reusable core installer through migration 016
-- [ ] Keep CUDFIRM-specific migration 017 out of generic client setup
-- [ ] Separate reusable schema from client starter content
-- [ ] Add verification and first-admin scripts
-- [ ] Document one authoritative execution order
+## Business delivery phase
 
-### Phase D — Automated delivery verification
+CUDFIRM can now be sold and delivered for ordinary business, agency, portfolio, brochure and service websites.
 
-- [ ] Add client-template manifest compatibility checks
-- [ ] Add local-reference checks
-- [ ] Add syntax checks
-- [ ] Add configuration and secret-exposure checks
-- [ ] Add installation verification requirements
+For each new client:
 
-### Phase E — Web1 protected migration test
+- [ ] Complete onboarding
+- [ ] Select or audit the template
+- [ ] Create an independent Supabase project
+- [ ] Configure the shared client core
+- [ ] Run the automated package verifier
+- [ ] Deploy to a separate Netlify site
+- [ ] Complete production smoke testing
+- [ ] Complete handover and support records
 
-- [ ] Copy Web1 into a protected test workspace
-- [ ] Upgrade its manifest declarations to the current schema
-- [ ] Align it with the shared client core
-- [ ] Correct the `sync_message_workflow_fields` search path through a new migration
-- [ ] Preserve the working live Web1 installation
-- [ ] Run full regression tests
+## Deferred product work
 
-### Phase F — Empty-project delivery test
+These are not business-launch blockers and require separate scope:
 
-- [ ] Create or use an empty Supabase test project after explicit approval
-- [ ] Run the canonical installer from zero
-- [ ] Verify RLS, Storage, forms, authentication, roles and backup
-- [ ] Deploy a test client frontend
-- [ ] Complete the delivery and handover checklist
+- Member Accounts public pages
+- Dashboard member management
+- Member backup/restore integration
+- Payments or booking systems
+- Vertical inventory modules
+- Additional ready-made templates
+- Git-based automated deployment pipeline
 
-### Phase G — Additional client templates
-
-- [ ] Attach the next client-supplied template using the tested standard
-- [ ] Confirm no authentication, dashboard, role, RLS, backup or Supabase logic is duplicated
-- [ ] Repeat the delivery workflow and record lessons
+Do not resume deferred work merely to keep building. Prioritise paid client requirements and critical fixes.
 
 ## Member Accounts roadmap
 
@@ -118,8 +112,6 @@ Remaining:
 - [ ] Phase 6 — Template integration
 - [ ] Phase 7 — End-to-end verification
 
-Do not resume this module ahead of the client-delivery standard unless a real client template requires member accounts.
-
 ## Non-negotiable rules
 
 - RLS remains enabled
@@ -127,9 +119,9 @@ Do not resume this module ahead of the client-delivery standard unless a real cl
 - Migration history is append-only
 - Working features are extended, not replaced
 - `js/script.js` and `css/styles.css` remain protected
-- No unrelated feature expansion before delivery standardisation
-- No test may be reported as passed unless it was actually run
+- No test is reported as passed unless it was actually run
+- No unrelated feature expansion without a real client requirement
 
 ## Current next task
 
-Build the **canonical client fresh-install specification and file plan** from migrations 001–016 and the working Web1 package. Do not execute it against production and do not modify Web1 yet.
+Begin business delivery using the completed playbook. Treat the first new empty Supabase client installation as the controlled installer execution test and record the result.
