@@ -1,0 +1,142 @@
+/* CUDFIRM maintenance mode — isolated public overlay. */
+.cud-maintenance-active {
+  overflow: hidden !important;
+}
+
+.cud-maintenance-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  display: grid;
+  place-items: center;
+  min-height: 100dvh;
+  padding: clamp(1rem, 4vw, 3rem);
+  overflow-y: auto;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(214, 159, 39, 0.16), transparent 34%),
+    radial-gradient(circle at 85% 85%, rgba(31, 111, 78, 0.18), transparent 35%),
+    linear-gradient(145deg, #f8f4e9 0%, #f2ecdd 100%);
+  color: #16241d;
+  font-family: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.cud-maintenance-card {
+  width: min(100%, 720px);
+  padding: clamp(1.5rem, 5vw, 3.5rem);
+  text-align: center;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(22, 36, 29, 0.12);
+  border-radius: 28px;
+  box-shadow: 0 24px 80px rgba(12, 45, 34, 0.15);
+  backdrop-filter: blur(12px);
+}
+
+.cud-maintenance-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  color: #0b4b38;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.cud-maintenance-logo {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  border-radius: 14px;
+}
+
+.cud-maintenance-icon {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  background: #0b4b38;
+  color: #fff;
+  font-size: 2rem;
+  box-shadow: 0 12px 28px rgba(11, 75, 56, 0.22);
+}
+
+.cud-maintenance-title {
+  margin: 0 0 1rem;
+  color: #10271f;
+  font-family: "Syne", system-ui, sans-serif;
+  font-size: clamp(2rem, 7vw, 4rem);
+  line-height: 1.05;
+}
+
+.cud-maintenance-message {
+  max-width: 570px;
+  margin: 0 auto;
+  color: #52655d;
+  font-size: clamp(1rem, 2.4vw, 1.15rem);
+  line-height: 1.75;
+  white-space: pre-line;
+}
+
+.cud-maintenance-return {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1.5rem;
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  background: #f4e7bd;
+  color: #604918;
+  font-weight: 700;
+}
+
+.cud-maintenance-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+.cud-maintenance-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0.75rem 1.2rem;
+  border: 0;
+  border-radius: 12px;
+  background: #0b4b38;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cud-maintenance-btn:hover,
+.cud-maintenance-btn:focus-visible {
+  background: #12674e;
+  color: #fff;
+}
+
+.cud-maintenance-preview-note {
+  margin: 1rem 0 0;
+  color: #7a6331;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 480px) {
+  .cud-maintenance-card { border-radius: 20px; }
+  .cud-maintenance-actions { flex-direction: column; }
+  .cud-maintenance-btn { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cud-maintenance-screen *,
+  .cud-maintenance-screen *::before,
+  .cud-maintenance-screen *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

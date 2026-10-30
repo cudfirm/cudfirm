@@ -1,0 +1,54 @@
+/* CUDFIRM admin dashboard — light/dark theme support.
+   Loaded automatically by js/layout.js. The theme is stored as `cudfirm_theme` (shared with the public site).
+   Light mode is unchanged; everything below the toggle styles only applies when <html data-theme="dark">. */
+
+.dash-theme-btn {
+  width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--n-border); background: var(--n-white);
+  color: var(--n-forest); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1rem;
+}
+.dash-theme-btn:hover { border-color: var(--n-gold); color: var(--n-gold); }
+.dash-theme-btn:focus-visible { outline: 3px solid var(--n-gold); outline-offset: 2px; }
+
+[data-theme="dark"] {
+  --n-cream: #0a120c;
+  --n-white: #111d15;
+  --n-charcoal: #e6efe8;
+  --n-body: #cfe0d4;
+  --n-muted: #8fae9a;
+  --n-border: #26392d;
+  --n-forest: #8FD0AE;      /* used as heading/link text colour, so it becomes light on dark surfaces */
+  --n-gold-pale: #2b2410;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .5);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, .5);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, .6);
+  color-scheme: dark;
+}
+/* Surfaces that use the forest colour as a BACKGROUND keep a real dark green */
+[data-theme="dark"] .dash-sidebar { background: #06120b; }
+[data-theme="dark"] .auth-shell { background: radial-gradient(circle at top left, #1A6B4A 0%, #0B3D2E 45%, #04120c 100%); }
+[data-theme="dark"] .btn-brand,
+[data-theme="dark"] .form-check-input:checked,
+[data-theme="dark"] .filter-tab.active,
+[data-theme="dark"] .crud-page-btn.is-active,
+[data-theme="dark"] .crud-page-btn:hover:not(:disabled),
+[data-theme="dark"] .btn-outline-brand:hover,
+[data-theme="dark"] .backup-step,
+[data-theme="dark"] .auth-logo .mark { background-color: #1A6B4A; border-color: #1A6B4A; color: #fff; }
+[data-theme="dark"] .btn-brand:hover { background-color: #14543a; border-color: #14543a; color: #fff; }
+[data-theme="dark"] .analytics-bar-track span,
+[data-theme="dark"] .legend-dot.messages,
+[data-theme="dark"] .trend-column.messages { background: #4D9E7A; }
+[data-theme="dark"] .dash-sidebar .side-brand .mark { color: #0B3D2E; }
+[data-theme="dark"] .dash-nav a.active { color: #072A1F; }
+[data-theme="dark"] .btn-gold { color: #1b1303; }
+/* Hard-coded light colours elsewhere */
+[data-theme="dark"] .dash-table tbody tr:hover { background: #14231a; }
+[data-theme="dark"] .dash-alert.error { background: #3a1818; color: #f2b8b8; }
+[data-theme="dark"] .dash-alert.success { background: #12301f; color: #a7e0c1; }
+[data-theme="dark"] .modal-content { background-color: #111d15; color: #e6efe8; }
+[data-theme="dark"] .form-control, [data-theme="dark"] .form-select { background-color: #0d1811; border-color: #26392d; color: #e6efe8; }
+[data-theme="dark"] .form-control::placeholder { color: #6f8c7a; }
+[data-theme="dark"] .dash-theme-btn { color: #E8B84B; }
+
+/* Phones: 16px form text prevents iOS Safari from zooming the page when a field is focused */
+@media (max-width: 767px) { .form-control, .form-select { font-size: 16px; } }

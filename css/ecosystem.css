@@ -1,0 +1,287 @@
+/* =====================================================================
+   CUDFIRM ecosystem layer — loaded AFTER styles.css.
+   Additive: every rule is scoped to new classes or to #tab3/#tab4/#tab5/#tab13
+   so css/styles.css (protected) is untouched.
+   ===================================================================== */
+:root {
+  --eco-cream: #F5F0E6;
+  --eco-panel: #FAFAF8;
+  --eco-border: #D9D3C7;
+  --eco-forest: #0B3D2E;
+  --eco-jade: #1A6B4A;
+  --eco-gold: #C8922A;
+  --eco-muted: #6F7A70;
+  --eco-chrome: #EDE8DF;
+}
+[data-theme="dark"] {
+  --eco-cream: #14201B;
+  --eco-panel: #1B2823;
+  --eco-border: #34453E;
+  --eco-forest: #9FD8BC;
+  --eco-jade: #6FCB9F;
+  --eco-gold: #D4A84E;
+  --eco-muted: #A5B3AB;
+  --eco-chrome: #243630;
+}
+
+/* ---------- 1. Services / Our Process / FAQ: multi-column from 768px ---------- */
+@media (min-width: 768px) {
+  #tab3-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    gap: 1rem;
+    align-items: stretch;
+  }
+  #tab3-list > .list-item { margin-bottom: 0; height: 100%; }
+
+  /* Bootstrap's .d-flex uses !important, so the grid switch needs it too. */
+  #tab5 > .d-flex.flex-column,
+  #tab13 > .d-flex.flex-column {
+    display: grid !important;
+    gap: 1rem !important;
+  }
+  #tab5 > .d-flex.flex-column {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+    align-items: stretch;
+  }
+  #tab5 > .d-flex.flex-column > .card { height: 100%; }
+  /* FAQ: top-aligned so opening one answer never stretches its neighbours. */
+  #tab13 > .d-flex.flex-column {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+    align-items: start;
+  }
+}
+#tab3-list .list-item, #tab5 .card, #tab13 .card { min-width: 0; overflow-wrap: anywhere; }
+
+/* ---------- 2. Portfolio redesign (reference screenshots) ---------- */
+#tab4 .pf-root { display: grid; gap: 10px; margin: 0 0 1rem; font-family: 'DM Sans', system-ui, sans-serif; }
+#tab4 .pf-panel {
+  background: var(--eco-panel);
+  border: 1px solid var(--eco-border);
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(11, 61, 46, .08);
+  overflow: hidden;
+  min-width: 0;
+}
+#tab4 .pf-panel-head {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+  gap: .35rem 1rem;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--eco-border);
+}
+/* band under each heading (see .pf-band) reproduces the reference's double rule */
+#tab4 .pf-band { height: 9px; background: var(--eco-cream); border-bottom: 1px solid var(--eco-border); }
+#tab4 .pf-heading {
+  margin: 0; font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: clamp(.95rem, 4vw, 1.25rem); letter-spacing: .08em; text-transform: uppercase;
+  color: var(--eco-forest); line-height: 1.15;
+}
+#tab4 .pf-hint {
+  font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--eco-muted);
+}
+#tab4 .pf-panel-body { padding: 12px; }
+
+#tab4 .pf-filters { display: flex; flex-wrap: wrap; gap: 6px; }
+#tab4 .pf-pill {
+  appearance: none; cursor: pointer; font: 500 .78rem/1 'DM Sans', system-ui, sans-serif;
+  color: #3E4A42; background: transparent; border: 1.5px solid var(--eco-border);
+  border-radius: 999px; padding: .5rem .8rem; min-height: 34px;
+  transition: background .15s, color .15s, border-color .15s;
+}
+[data-theme="dark"] #tab4 .pf-pill { color: #D3DDD7; }
+#tab4 .pf-pill:hover { border-color: var(--eco-gold); }
+#tab4 .pf-pill[aria-pressed="true"] { background: var(--eco-forest); border-color: var(--eco-forest); color: #fff; }
+[data-theme="dark"] #tab4 .pf-pill[aria-pressed="true"] { color: #0B3D2E; }
+#tab4 .pf-pill:focus-visible, #tab4 .pf-card:focus-visible { outline: 3px solid var(--eco-gold); outline-offset: 2px; }
+
+#tab4 .pf-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 339px) { #tab4 .pf-grid { grid-template-columns: minmax(0, 1fr); } }
+@media (min-width: 768px) { #tab4 .pf-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; } }
+@media (min-width: 1400px) { #tab4 .pf-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+#tab4 .pf-grid[hidden], #tab4 .pf-card[hidden], #tab4 .pf-empty[hidden] { display: none !important; }
+
+#tab4 .pf-card {
+  display: flex; flex-direction: column; min-width: 0; cursor: pointer;
+  background: var(--eco-panel); color: inherit;
+  border: 1.5px solid var(--eco-border); border-radius: 16px; overflow: hidden;
+  transition: border-color .15s, box-shadow .15s, transform .15s;
+}
+#tab4 .pf-card:hover, #tab4 .pf-card:focus-visible {
+  border-color: var(--eco-gold); box-shadow: 0 8px 22px rgba(11, 61, 46, .12); transform: translateY(-1px);
+}
+#tab4 .pf-bar { display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: var(--eco-chrome); }
+#tab4 .pf-dot { width: 9px; height: 9px; border-radius: 50%; display: block; }
+#tab4 .pf-dot:nth-child(1) { background: #E0675A; }
+#tab4 .pf-dot:nth-child(2) { background: #E2B23B; }
+#tab4 .pf-dot:nth-child(3) { background: #6BBE6E; }
+
+#tab4 .pf-preview {
+  position: relative; aspect-ratio: 1 / .8; overflow: hidden;
+  background: #fff; border-bottom: 1px solid transparent;
+}
+[data-theme="dark"] #tab4 .pf-preview { background: #22322C; }
+#tab4 .pf-preview img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+/* honest fallback: neutral skeleton, never a fake finished website */
+#tab4 .pf-skeleton { position: absolute; inset: 0; padding: 22% 9% 0; display: grid; align-content: start; gap: 9px; }
+#tab4 .pf-skeleton i { display: block; height: 9px; border-radius: 6px; background: #E8E3D9; }
+#tab4 .pf-skeleton i:nth-child(1) { width: 70%; }
+#tab4 .pf-skeleton i:nth-child(2) { width: 45%; background: #DCE4DD; }
+#tab4 .pf-skeleton .pf-blocks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px; height: 38px; background: none; }
+#tab4 .pf-skeleton .pf-blocks b { display: block; border-radius: 9px; background: #F3EEE3; }
+#tab4 .pf-skeleton .pf-blocks b:first-child { background: #D6E0DA; }
+[data-theme="dark"] #tab4 .pf-skeleton i, [data-theme="dark"] #tab4 .pf-skeleton .pf-blocks b { background: #2E4039; }
+#tab4 .pf-badge {
+  position: absolute; top: 8px; right: 8px; font-size: .62rem; font-weight: 700; letter-spacing: .04em;
+  padding: .2rem .5rem; border-radius: 999px; background: rgba(250, 250, 248, .92); color: var(--eco-jade);
+}
+#tab4 .pf-badge.is-demo { color: var(--eco-gold); }
+
+#tab4 .pf-meta { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px 12px; flex: 1; }
+#tab4 .pf-title {
+  margin: 0; font-family: 'Syne', sans-serif; font-weight: 700; font-size: clamp(.85rem, 3.6vw, 1rem);
+  line-height: 1.2; color: var(--eco-forest); overflow-wrap: anywhere;
+}
+#tab4 .pf-foot { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 6px 10px; margin-top: auto; }
+#tab4 .pf-cat { font-size: .66rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--eco-jade); line-height: 1.35; }
+#tab4 .pf-go { font-size: .78rem; font-weight: 600; color: var(--eco-gold); white-space: nowrap; margin-left: auto; }
+#tab4 .pf-empty { padding: 1.2rem .5rem; text-align: center; color: var(--eco-muted); font-size: .9rem; }
+#tab4 .pf-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- 3. Request modal (service request / consultation) ---------- */
+.eco-overlay {
+  position: fixed; inset: 0; z-index: 2000; display: flex; align-items: flex-end; justify-content: center;
+  background: rgba(11, 22, 18, .55); padding: 0;
+}
+.eco-dialog {
+  background: var(--eco-panel); color: #1F2A24; width: 100%; max-width: 560px;
+  max-height: 92vh; max-height: 92dvh; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  border-radius: 24px 24px 0 0; padding: 20px 20px calc(24px + env(safe-area-inset-bottom, 0px));
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, .2); font-family: 'DM Sans', system-ui, sans-serif;
+}
+[data-theme="dark"] .eco-dialog { color: #E6EEE9; }
+@media (min-width: 640px) {
+  .eco-overlay { align-items: center; padding: 1rem; }
+  .eco-dialog { border-radius: 24px; }
+}
+.eco-dialog h2 { font: 700 1.15rem/1.2 'Syne', sans-serif; color: var(--eco-forest); margin: 0 0 .25rem; }
+.eco-dialog .eco-sub { font-size: .8rem; color: var(--eco-muted); margin: 0 0 1rem; }
+.eco-dialog label { display: block; font-size: .8rem; font-weight: 600; margin: .75rem 0 .25rem; }
+.eco-dialog input, .eco-dialog select, .eco-dialog textarea {
+  width: 100%; font: inherit; font-size: 16px; /* 16px prevents iOS zoom */
+  padding: .65rem .8rem; border: 1.5px solid var(--eco-border); border-radius: 12px;
+  background: transparent; color: inherit;
+}
+.eco-dialog textarea { min-height: 96px; resize: vertical; }
+.eco-dialog .eco-actions { display: flex; gap: .6rem; margin-top: 1.1rem; }
+.eco-btn {
+  flex: 1; min-height: 46px; border-radius: 999px; border: 1.5px solid var(--eco-forest);
+  font: 600 .9rem 'DM Sans', sans-serif; cursor: pointer; background: var(--eco-forest); color: #fff;
+}
+.eco-btn.is-ghost { background: transparent; color: var(--eco-forest); }
+.eco-btn[disabled] { opacity: .6; cursor: progress; }
+.eco-status { margin-top: .8rem; font-size: .85rem; min-height: 1.2em; }
+.eco-status[data-state="error"] { color: #B3392C; }
+.eco-status[data-state="success"] { color: var(--eco-jade); }
+.eco-hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+
+/* ---------- 4. Umbrella-brand panel on Home ---------- */
+.eco-umbrella {
+  background: var(--eco-panel); border: 1px solid var(--eco-border); border-radius: 24px;
+  padding: 20px; margin: 1rem 0; box-shadow: 0 2px 8px rgba(11, 61, 46, .06);
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+.eco-umbrella h3 { font: 700 1.05rem/1.2 'Syne', sans-serif; letter-spacing: .06em; text-transform: uppercase; color: var(--eco-forest); margin: 0 0 .4rem; }
+.eco-umbrella > p { font-size: .88rem; color: var(--eco-muted); margin: 0 0 1rem; line-height: 1.55; }
+.eco-arms { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); }
+.eco-arm { border: 1.5px solid var(--eco-border); border-radius: 18px; padding: 14px 16px; min-width: 0; }
+.eco-arm strong { display: block; font: 700 .95rem 'Syne', sans-serif; color: var(--eco-forest); }
+.eco-arm span.eco-state { display: inline-block; margin: .35rem 0; font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; color: var(--eco-jade); }
+.eco-arm span.eco-state.is-planned { color: var(--eco-gold); }
+.eco-arm p { margin: 0; font-size: .8rem; color: var(--eco-muted); line-height: 1.5; }
+.eco-portal-invite { display: flex; flex-wrap: wrap; gap: .6rem 1rem; align-items: center; justify-content: space-between; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--eco-border); font-size: .85rem; }
+.eco-portal-invite a { font-weight: 700; color: var(--eco-forest); text-decoration: none; border: 1.5px solid var(--eco-forest); border-radius: 999px; padding: .55rem 1rem; min-height: 40px; display: inline-flex; align-items: center; }
+
+/* Portfolio preview modal */
+.pf-overlay { position: fixed; inset: 0; z-index: 2100; display: flex; align-items: center; justify-content: center; padding: 12px; background: rgba(11,22,18,.6); }
+.pf-modal { position: relative; width: 100%; max-width: 480px; max-height: 90vh; max-height: 90dvh; overflow-y: auto; -webkit-overflow-scrolling: touch; background: var(--eco-panel); color: #1F2A24; border-radius: 20px; border: 1px solid var(--eco-border); box-shadow: 0 16px 40px rgba(0,0,0,.3); font-family: 'DM Sans', system-ui, sans-serif; }
+[data-theme="dark"] .pf-modal { color: #E6EEE9; }
+.pf-modal .pf-bar { display: flex; align-items: center; gap: 6px; padding: 10px 14px; background: var(--eco-chrome); }
+.pf-modal .pf-dot { width: 9px; height: 9px; border-radius: 50%; display: block; }
+.pf-modal .pf-dot:nth-child(1) { background: #E0675A; } .pf-modal .pf-dot:nth-child(2) { background: #E2B23B; } .pf-modal .pf-dot:nth-child(3) { background: #6BBE6E; }
+.pf-close { position: absolute; top: 4px; right: 6px; z-index: 2; width: 36px; height: 36px; border: 0; border-radius: 50%; background: transparent; font-size: 1.6rem; line-height: 1; cursor: pointer; color: var(--eco-forest); }
+.pf-modal-preview { position: relative; aspect-ratio: 16 / 10; background: #fff; overflow: hidden; }
+[data-theme="dark"] .pf-modal-preview { background: #22322C; }
+.pf-modal-preview img { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; }
+.pf-modal-preview .pf-skeleton { position: absolute; inset: 0; padding: 14% 9% 0; display: grid; align-content: start; gap: 9px; }
+.pf-modal-preview .pf-skeleton i { display: block; height: 9px; border-radius: 6px; background: #E8E3D9; }
+.pf-modal-preview .pf-skeleton i:nth-child(1) { width: 70%; } .pf-modal-preview .pf-skeleton i:nth-child(2) { width: 45%; }
+.pf-modal-preview .pf-blocks { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; height: 38px; } .pf-modal-preview .pf-blocks b { display: block; border-radius: 9px; background: #F3EEE3; }
+.pf-modal-body { padding: 14px 16px 16px; display: grid; gap: 8px; }
+.pf-modal-title { margin: 0; font: 700 1.1rem/1.2 'Syne', sans-serif; color: var(--eco-forest); }
+.pf-modal .pf-cat { font-size: .7rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--eco-jade); }
+.pf-modal-text { margin: 0; font-size: .85rem; line-height: 1.5; } .pf-muted { color: var(--eco-muted); }
+.pf-modal-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+
+.pf-btn { flex: 1; display: inline-flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 999px; border: 1.5px solid var(--eco-forest); background: var(--eco-forest); color: #fff; font: 600 .88rem 'DM Sans', sans-serif; text-decoration: none; cursor: pointer; }
+.pf-btn.is-ghost { background: transparent; color: var(--eco-forest); }
+#tab4.view { padding-left: .5rem !important; padding-right: .5rem !important; }
+
+/* ---------- Phone typing fix ----------
+   iPhone Safari zooms the whole page when you tap a field whose text is smaller than 16px,
+   and it stays zoomed, which pushes the site off-screen. Keeping field text at 16px on touch
+   devices stops that without disabling pinch-zoom. */
+@media (hover: none) and (pointer: coarse), (max-width: 991px) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  textarea,
+  select,
+  .form-control,
+  .form-select,
+  .newsletter-input,
+  .sidebar-tab-filter input {
+    font-size: 16px !important;
+  }
+}
+input, textarea, select { max-width: 100%; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+.pf-modal-actions .pf-btn-wide { flex: 1 1 100%; }
+
+/* ---------- Breadcrumb trail (top bar) ----------
+   Earlier pages are soft, faded text links; the page you are on is a gentle gold-tinted pill. */
+.breadcrumb-trail { display: flex; align-items: center; gap: .15rem; }
+.breadcrumb-trail .breadcrumb-link {
+  appearance: none; -webkit-appearance: none;
+  background: transparent; border: 0; box-shadow: none;
+  padding: .2rem .35rem; margin: 0; border-radius: 999px;
+  font: inherit; font-size: .72rem; letter-spacing: .04em;
+  color: var(--dm-breadcrumb-color); opacity: .6;
+  cursor: pointer; white-space: nowrap;
+  transition: opacity .15s, background-color .15s, color .15s;
+}
+.breadcrumb-trail .breadcrumb-link:hover,
+.breadcrumb-trail .breadcrumb-link:focus-visible { opacity: 1; background: rgba(255, 255, 255, .1); }
+.breadcrumb-trail .breadcrumb-link:focus-visible { outline: 2px solid rgba(200, 146, 42, .8); outline-offset: 1px; }
+.breadcrumb-trail .breadcrumb-sep { opacity: .35; margin: 0 .05rem; }
+.breadcrumb-trail .breadcrumb-current {
+  opacity: 1; margin: 0;
+  padding: .22rem .65rem; border-radius: 999px;
+  font-weight: 600; letter-spacing: .05em;
+  color: #FFF6DD;
+  background: rgba(200, 146, 42, .22);
+  box-shadow: inset 0 0 0 1px rgba(226, 178, 59, .45);
+}
+/* On narrow phones keep the CURRENT page visible: the oldest links are the ones that get clipped. */
+@media (max-width: 600px) {
+  .breadcrumb-trail { justify-content: flex-end; min-width: 0; }
+  .breadcrumb-trail > * { flex: 0 0 auto; }
+}
+
+.pf-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.pf-tag { font-size: .68rem; font-weight: 600; padding: .2rem .55rem; border-radius: 999px; background: rgba(26,107,74,.1); color: var(--eco-jade); }
+
+/* ---------- Dark theme: no light strip under the footer ----------
+   The outer app container kept its cream colour, which showed through below the footer
+   (above the bottom navigation). It now follows the active theme. */
+[data-theme="dark"] .app-container,
+[data-theme="dark"] .content-area,
+[data-theme="dark"] .content-main { background-color: var(--dm-bg, #060E08); }

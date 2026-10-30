@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Client Portal · CUDFIRM</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" />
+<link rel="stylesheet" href="../css/client-portal.css" />
+</head>
+<body>
+<header class="cp-top">
+  <a class="cp-brand" href="../index.html">CUDFIRM</a>
+  <span class="cp-top-title">Client portal</span>
+  <a class="cp-link cp-site-link" href="../index.html">← Website</a>
+  <button id="cpLogout" class="cp-link" type="button" hidden>Log out</button>
+</header>
+<main id="cpRoot" class="cp-main" aria-live="polite">
+  <p class="cp-muted">Loading…</p>
+</main>
+
+<!-- Optional deployment settings: copy portal-config.example.js to portal-config.js -->
+<script src="portal-config.js" onerror="void 0"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase.js"></script>
+<script src="../js/client-portal.js"></script>
+</body>
+</html>
