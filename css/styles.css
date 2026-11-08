@@ -3326,3 +3326,5 @@ select:focus-visible {
 .hp-card:hover .hp-media .hp-desktop, .hp-card:focus-within .hp-media .hp-desktop { opacity: 1; transform: scale(1); }
 @media (hover: none) { .hp-media .hp-desktop { display: none; } }
 @media (prefers-reduced-motion: reduce) { .hp-media .hp-desktop, .hp-mobile-wrap { transition: none; } }
+
+.hp-media.hp-media-sm { height: 130px; position: relative; }
