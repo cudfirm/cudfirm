@@ -1,5 +1,5 @@
 # One-click deploy of CUDFIRM's Supabase functions and secrets from GitHub (no computer tools needed).
-# Run it from the GitHub "Actions" tab -> "Deploy Supabase functions" -> "Run workflow"...
+# Run it from the GitHub "Actions" tab -> "Deploy Supabase functions" -> "Run workflow".
 name: Deploy Supabase functions
 on: workflow_dispatch
 jobs:
@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: supabase/setup-cli@v1
         with:
-          version: latest
+          version: 2.122.0
       - name: Save secrets in Supabase
         run: |
           supabase secrets set --yes --project-ref "$REF" \
