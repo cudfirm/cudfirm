@@ -516,7 +516,7 @@ function buildTab4() {
   const projects = (cmsPortfolio && cmsPortfolio.length)
     ? cmsPortfolio.map(p => ({
         name: p.name, industry: p.industry, type: p.project_type,
-        img: p.image_url, link: p.link || '#', problem: p.problem,
+        img: p.image_url, mobile: p.mobile_image_url || '', link: p.link || '#', problem: p.problem,
         solution: p.solution, tags: p.tags || [], live: !!p.is_live,
       }))
     : projectsFallback;
@@ -530,10 +530,13 @@ function buildTab4() {
     <div class="row g-3 stagger-children">
       ${projects.map(p => `
         <div class="col-12 col-md-6 col-lg-4">
-          <div class="card h-100" style="overflow:hidden;cursor:pointer;" onclick="${p.link.startsWith('http') || p.link.includes('/') && !p.link.includes('#') ? `window.open('${p.link}','_blank')` : p.link === '#' ? '' : `openTab(event,'${p.link}')`}" role="article" aria-label="${p.name} — ${p.industry} project">
-            <div style="position:relative;">
-              <img src="${p.img}" alt="Screenshot of ${p.name} website built by CUDFIRM" style="width:100%;height:180px;object-fit:cover;" loading="lazy" onerror="this.src='https://placehold.co/400x280/0B3D2E/C8922A?text=CUDFIRM'" />
-              <div style="position:absolute;top:8px;right:8px;"><span class="tag ${p.live ? 'green' : 'orange'}" style="font-size:0.62rem;padding:0.2rem 0.5rem;">${p.live ? '● Live' : '● Demo'}</span></div>
+          <div class="card h-100 hp-card" style="overflow:hidden;cursor:pointer;" onclick="${p.link.startsWith('http') || p.link.includes('/') && !p.link.includes('#') ? `window.open('${p.link}','_blank')` : p.link === '#' ? '' : `openTab(event,'${p.link}')`}" role="article" aria-label="${p.name} — ${p.industry} project">
+            <div class="${p.mobile ? 'hp-media' : ''}" style="position:relative;">
+              ${p.mobile
+                ? `<img class="hp-desktop" src="${p.img}" alt="Desktop view of ${p.name} website built by CUDFIRM" loading="lazy" onerror="this.src='https://placehold.co/400x280/0B3D2E/C8922A?text=CUDFIRM'" />
+              <div class="hp-mobile-wrap"><div class="hp-phone"><img src="${p.mobile}" alt="Mobile view of ${p.name} website built by CUDFIRM" loading="lazy" /></div></div>`
+                : `<img src="${p.img}" alt="Screenshot of ${p.name} website built by CUDFIRM" style="width:100%;height:180px;object-fit:cover;" loading="lazy" onerror="this.src='https://placehold.co/400x280/0B3D2E/C8922A?text=CUDFIRM'" />`}
+              <div style="position:absolute;top:8px;right:8px;z-index:2;"><span class="tag ${p.live ? 'green' : 'orange'}" style="font-size:0.62rem;padding:0.2rem 0.5rem;">${p.live ? '● Live' : '● Demo'}</span></div>
             </div>
             <div class="card-content">
               <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;margin-bottom:0.1rem;">${p.name}</div>

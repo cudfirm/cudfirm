@@ -3315,3 +3315,14 @@ select:focus-visible {
     max-width: 25%;
   }
 }
+
+/* Homepage portfolio tab: mobile -> desktop flip (only for projects that have both screenshots) */
+.hp-media { height: 180px; overflow: hidden; background: linear-gradient(135deg, #0B3D2E, #1A6B4A); }
+.hp-media .hp-desktop { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; opacity: 0; transform: scale(1.04); transition: opacity .5s ease, transform .6s cubic-bezier(.2,.7,.2,1); }
+.hp-mobile-wrap { position: absolute; inset: 0; display: grid; place-items: center; padding: .7rem 0; transition: opacity .5s ease, transform .6s cubic-bezier(.2,.7,.2,1); }
+.hp-phone { height: 100%; aspect-ratio: 9 / 19; border-radius: 16px; overflow: hidden; border: 4px solid #101a14; background: #101a14; box-shadow: 0 10px 22px rgba(0,0,0,.35); }
+.hp-phone img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.hp-card:hover .hp-mobile-wrap, .hp-card:focus-within .hp-mobile-wrap { opacity: 0; transform: scale(.94); }
+.hp-card:hover .hp-media .hp-desktop, .hp-card:focus-within .hp-media .hp-desktop { opacity: 1; transform: scale(1); }
+@media (hover: none) { .hp-media .hp-desktop { display: none; } }
+@media (prefers-reduced-motion: reduce) { .hp-media .hp-desktop, .hp-mobile-wrap { transition: none; } }
