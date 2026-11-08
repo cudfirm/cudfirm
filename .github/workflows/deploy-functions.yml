@@ -15,7 +15,7 @@ jobs:
           version: latest
       - name: Save secrets in Supabase
         run: |
-          supabase secrets set --project-ref "$REF" \
+          supabase secrets set --yes --project-ref "$REF" \
             RESEND_API_KEY="${{ secrets.RESEND_API_KEY }}" \
             ADMIN_NOTIFY_EMAIL="${{ secrets.ADMIN_NOTIFY_EMAIL }}" \
             MEMBER_EMAIL_WEBHOOK_SECRET="${{ secrets.EMAIL_SECRET }}" \
