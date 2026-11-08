@@ -1,5 +1,5 @@
 # One-click deploy of CUDFIRM's Supabase functions and secrets from GitHub (no computer tools needed).
-# Run it from the GitHub "Actions" tab -> "Deploy Supabase functions" -> "Run workflow".
+# Run it from the GitHub "Actions" tab -> "Deploy Supabase functions" -> "Run workflow"...
 name: Deploy Supabase functions
 on: workflow_dispatch
 jobs:
