@@ -51,7 +51,8 @@ body { background-color: #fdfbf7; color: #1f2937; overflow-x: hidden; }
 .bl-body blockquote { margin: 1.4em 0; padding: 4px 18px; border-left: 4px solid #d4af37; color: #4b5563; font-family: "Playfair Display", serif; font-style: italic; }
 .bl-body img { height: auto; margin: 1.2em 0; }
 .bl-body pre { background: #0f2218; color: #e8f0ea; padding: 14px; overflow-x: auto; margin: 0 0 1.1em; }
-.bl-note { border: 1px solid #d4af37; background: #fbf3d9; color: #4a3205; padding: 10px 14px; margin: 14px 0; font-size: .92rem; }
+.bl-note { margin: 18px 0; padding: 14px 16px 14px 18px; border: 1px solid rgba(200,146,42,.45); border-left: 4px solid #C8922A; border-radius: 10px; background: linear-gradient(135deg, #fff8e1, #fbf3d9); box-shadow: 0 6px 16px -8px rgba(74,50,5,.35); color: #4a3205; font-size: .92rem; line-height: 1.55; }
+.bl-note::before { content: "Disclosure"; display: block; margin-bottom: 5px; font: 800 .65rem/1 sans-serif; letter-spacing: .14em; text-transform: uppercase; color: #8a5f0b; }
 .skel { background: linear-gradient(90deg, #eee9dd 25%, #f7f3ea 37%, #eee9dd 63%); background-size: 400% 100%; animation: sh 1.4s ease infinite; }
 @keyframes sh { 0% { background-position: 100% 0; } 100% { background-position: 0 0; } }
 @media (prefers-reduced-motion: reduce) {
@@ -85,7 +86,8 @@ body { background-color: #fdfbf7; color: #1f2937; overflow-x: hidden; }
 [data-theme="dark"] .bl-body, [data-theme="dark"] .bl-body h2, [data-theme="dark"] .bl-body h3, [data-theme="dark"] .bl-body h4 { color: #d6e4da; }
 [data-theme="dark"] .bl-body a { color: #e8efe9; }
 [data-theme="dark"] .bl-body blockquote { color: #a9bdb0; }
-[data-theme="dark"] .bl-note { background: #2b2410; color: #f0dca0; }
+[data-theme="dark"] .bl-note { background: linear-gradient(135deg, #2b2410, #1f1a0c); color: #f0dca0; border-color: rgba(232,184,75,.4); border-left-color: #E8B84B; box-shadow: 0 6px 16px -8px rgba(0,0,0,.6); }
+[data-theme="dark"] .bl-note::before { color: #E8B84B; }
 [data-theme="dark"] .skel { background: linear-gradient(90deg, #14211a 25%, #1b2b21 37%, #14211a 63%); background-size: 400% 100%; }
 [data-theme="dark"] #main-header { box-shadow: 0 2px 10px rgba(0, 0, 0, .5); }
 

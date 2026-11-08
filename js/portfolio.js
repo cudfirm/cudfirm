@@ -63,11 +63,21 @@
   function media(p, eager, cls) {
     var wrap = h("div", { class: cls || "pf-media" });
     var src = imageOf(p);
+    var mob = imageOf({ image_url: p.mobile_image_url });
     var ph = function () { return h("div", { class: "pf-ph", "aria-hidden": "true", text: initialOf(p) }); };
     if (src) {
-      var img = h("img", { src: src, alt: "Screenshot of " + p.name + " website built by CUDFIRM", width: 400, height: 180, decoding: "async", loading: eager ? "eager" : "lazy" });
+      var img = h("img", { src: src, alt: "Desktop view of " + p.name + " website built by CUDFIRM", width: 400, height: 180, decoding: "async", loading: eager ? "eager" : "lazy" });
       img.addEventListener("error", function () { img.remove(); wrap.insertBefore(ph(), wrap.firstChild); });
-      wrap.appendChild(img);
+      if (mob && !cls) {
+        /* both screenshots: mobile first, desktop on hover/focus (see .pf-flip in portfolio.css) */
+        wrap.classList.add("pf-flip");
+        img.classList.add("pf-desktop");
+        var phoneImg = h("img", { src: mob, alt: "Mobile view of " + p.name + " website built by CUDFIRM", width: 390, height: 844, decoding: "async", loading: eager ? "eager" : "lazy" });
+        phoneImg.addEventListener("error", function () { wrap.classList.remove("pf-flip"); img.classList.remove("pf-desktop"); phone.remove(); });
+        var phone = h("div", { class: "pf-mobile-wrap" }, [h("div", { class: "pf-phone" }, [phoneImg])]);
+        wrap.appendChild(img);
+        wrap.appendChild(phone);
+      } else wrap.appendChild(img);
     } else wrap.appendChild(ph());
     return wrap;
   }

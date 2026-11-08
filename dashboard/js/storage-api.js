@@ -15,7 +15,11 @@
 
 const StorageApi = (() => {
   const BUCKET = "media";
-  const MAX_BYTES = 5 * 1024 * 1024; // 5MB
+  const MAX_BYTES = 5 * 1024 * 1024; // 5MB (checked on the file that is actually stored)
+  const MAX_INPUT_BYTES = 25 * 1024 * 1024; // raw photos are accepted up to 25MB because they are shrunk before upload
+  const MAX_DIMENSION = 1600;               // longest side, in pixels
+  const WEBP_QUALITY = 0.8;                 // 0.75 = smaller, 0.85 = sharper
+  const COMPRESSIBLE = ["image/jpeg", "image/png", "image/webp"]; // GIF/SVG/ICO are left untouched
   const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/svg+xml", "image/x-icon", "image/vnd.microsoft.icon"];
 
   function safeFileName(file) {
@@ -34,16 +38,65 @@ const StorageApi = (() => {
     if (!ALLOWED_TYPES.includes(file.type)) {
       return "Please choose an image file (JPG, PNG, WEBP, GIF, SVG, or ICO).";
     }
-    if (file.size > MAX_BYTES) {
-      return "That file is too large. Please choose an image under 5MB.";
+    if (file.size > MAX_INPUT_BYTES) {
+      return "That file is too large. Please choose an image under 25MB.";
     }
     return null;
   }
 
-  async function upload(file, category = "general") {
-    const validationError = validate(file);
+  function loadBitmap(file) {
+    if (window.createImageBitmap) {
+      return createImageBitmap(file, { imageOrientation: "from-image" }).catch(() => loadViaImg(file));
+    }
+    return loadViaImg(file);
+  }
+  function loadViaImg(file) {
+    return new Promise((resolve, reject) => {
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => { URL.revokeObjectURL(url); resolve(img); };
+      img.onerror = () => { URL.revokeObjectURL(url); reject(new Error("Could not read that image.")); };
+      img.src = url;
+    });
+  }
+
+  // Shrinks to MAX_DIMENSION and re-encodes as WebP. Returns the ORIGINAL file if
+  // the browser cannot do it or if the result would not be smaller.
+  async function compressToWebp(file) {
+    if (!COMPRESSIBLE.includes(file.type)) return file;
+    try {
+      const bmp = await loadBitmap(file);
+      const w0 = bmp.width, h0 = bmp.height;
+      const scale = Math.min(1, MAX_DIMENSION / Math.max(w0, h0));
+      const w = Math.max(1, Math.round(w0 * scale)), h = Math.max(1, Math.round(h0 * scale));
+      const canvas = document.createElement("canvas");
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext("2d");
+      ctx.imageSmoothingQuality = "high";
+      ctx.drawImage(bmp, 0, 0, w, h); // transparency (PNG) is preserved by WebP
+      if (bmp.close) bmp.close();
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/webp", WEBP_QUALITY));
+      if (!blob || blob.type !== "image/webp") return file;
+      // Already-small WebP that did not shrink: keep what the user gave us.
+      if (file.type === "image/webp" && blob.size >= file.size) return file;
+      if (blob.size >= file.size && scale === 1) return file;
+      const name = file.name.replace(/\.[^/.]+$/, "") + ".webp";
+      return new File([blob], name, { type: "image/webp", lastModified: Date.now() });
+    } catch (err) {
+      console.warn("[storage] compression skipped:", err && err.message);
+      return file;
+    }
+  }
+
+  async function upload(originalFile, category = "general") {
+    const validationError = validate(originalFile);
     if (validationError) {
       return { data: null, error: { message: validationError } };
+    }
+
+    const file = await compressToWebp(originalFile);
+    if (file.size > MAX_BYTES) {
+      return { data: null, error: { message: "That image is still over 5MB after compression. Please choose a smaller one." } };
     }
 
     const path = `${category}/${safeFileName(file)}`;
@@ -111,5 +164,5 @@ const StorageApi = (() => {
     }
   }
 
-  return { upload, list, updateMeta, remove, MAX_BYTES, ALLOWED_TYPES };
+  return { upload, list, updateMeta, remove, compressToWebp, MAX_BYTES, ALLOWED_TYPES };
 })();

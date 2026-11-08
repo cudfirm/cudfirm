@@ -22,9 +22,12 @@ jobs:
             MEMBER_EMAIL_WEBHOOK_URL="https://${{ secrets.SUPABASE_PROJECT_REF }}.supabase.co/functions/v1/send-email-resend" \
             ENQUIRY_WEBHOOK_SECRET="${{ secrets.WEBHOOK_SECRET }}" \
             MEMBER_SITE_URL="${{ secrets.SITE_URL }}" \
-            MEMBER_ALLOWED_ORIGINS="${{ secrets.SITE_URL }}"
+            MEMBER_ALLOWED_ORIGINS="${{ secrets.SITE_URL }}" \
+            BLOG_WEBHOOK_SECRET="${{ secrets.BLOG_WEBHOOK_SECRET }}" \
+            UNSUBSCRIBE_SECRET="${{ secrets.UNSUBSCRIBE_SECRET }}" \
+            RESEND_FROM="${{ secrets.RESEND_FROM }}"
       - name: Deploy functions
         run: |
-          for f in service-request enquiry-notify send-email-resend; do
+          for f in service-request enquiry-notify send-email-resend blog-notify newsletter-unsubscribe; do
             supabase functions deploy "$f" --project-ref "$REF" --no-verify-jwt
           done
