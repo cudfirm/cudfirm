@@ -1,0 +1,49 @@
+/* =====================================================================
+   CUDFIRM — shape layer for the standalone public pages
+   (blog, portfolio, terms, thank-you, client portal).
+   Colours and fonts are the ORIGINAL CUDFIRM ones (forest / jade / gold / cream,
+   Syne + DM Sans, night-forest in dark). This file only rounds surfaces, makes
+   buttons pill-shaped and gives the bars the homepage's panel shape.
+   ===================================================================== */
+:root {
+  --ep-panel: radial-gradient(circle at 88% 6%, rgba(200,146,42,.16) 0, transparent 38%), linear-gradient(135deg,#0B3D2E 0%,#1A6B4A 55%,#0B3D2E 100%);
+  --ep-btn: linear-gradient(135deg,#0B3D2E,#1A6B4A);
+}
+[data-theme="dark"] {
+  --ep-panel: radial-gradient(circle at 88% 6%, rgba(212,168,78,.12) 0, transparent 38%), linear-gradient(135deg,#142B18 0%,#1A3D22 55%,#0C1A0F 100%);
+  --ep-btn: linear-gradient(135deg,#1A3D22,#0C1A0F);
+}
+
+/* bottom bar (all standalone pages) */
+.ap-bottom-nav { background: var(--ep-panel) !important; border: 0 !important; border-radius: 28px; left: 12px !important; right: 12px !important; bottom: calc(10px + env(safe-area-inset-bottom,0px)) !important; height: 60px !important; padding: 0 6px !important; box-shadow: 0 12px 26px -10px rgba(11,61,46,.5) !important; }
+.ap-bottom-nav a { color: rgba(250,250,248,.82) !important; border-radius: 22px; margin: 6px 2px; }
+.ap-bottom-nav a[aria-current="page"] { background: #FAFAF8; color: #0B3D2E !important; }
+[data-theme="dark"] .ap-bottom-nav a[aria-current="page"] { background: rgba(212,168,78,.14); color: #D4A84E !important; }
+.ap-bottom-nav a[aria-current="page"]::before { display: none; }
+
+/* portfolio */
+.pf-band { border-radius: 0 0 34px 34px; }
+.pf-panel, .pf-card, [class*="pf-card"] { border-radius: 24px !important; }
+.pf-panel-head { border-radius: 24px 24px 0 0; }
+.pf-search, .pf-search input { border-radius: 999px !important; }
+.pf-root .view-more-btn, .pf-pager button, .pf-pager a { border-radius: 999px !important; }
+
+/* blog */
+#main-header > div:first-child { border-radius: 0 0 22px 22px; }
+main img, article img { border-radius: 18px; }
+footer { border-radius: 34px 34px 0 0; }
+button, .btn, a.btn, input[type="submit"] { border-radius: 999px; }
+
+/* terms & privacy */
+.top-bar { border-radius: 0 0 28px 28px; }
+.toc, .bs, .bp, .bn, .mv { border-radius: 20px; }
+
+/* thank-you */
+.ty-hero { border-radius: 0 0 34px 34px; }
+.ty-card { border-radius: 28px; }
+.ty-nav-btn { border-radius: 999px !important; }
+
+/* client portal */
+.cp-top { margin: max(10px,env(safe-area-inset-top,0px)) 12px 6px; padding: .8rem 1.3rem !important; border-radius: 999px; box-shadow: 0 12px 26px -10px rgba(11,61,46,.5); }
+.cp-main .cp-link, .cp-main button, .cp-main input, .cp-main select { border-radius: 999px; }
+.cp-main textarea { border-radius: 20px; }

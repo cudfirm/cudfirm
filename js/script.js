@@ -192,11 +192,11 @@ function buildTab1() {
     : servicesFallback;
 
   const hero = (window.CMS && window.CMS.hero) ? window.CMS.hero : {
-    eyebrow: 'Business Websites You Can Manage · Lagos, Nigeria',
-    title: 'Get a Website That Grows With Your Business',
-    subtitle: 'CUDFIRM builds fast, mobile-friendly websites that help customers find, trust and contact your business. You also get a simple dashboard to update your content — from ₦50,000, delivered in 3–7 days.',
-    cta_primary_text: 'Get a Free Quote Today', cta_primary_target: 'connect-content',
-    cta_secondary_text: 'See Our Work', cta_secondary_target: 'tab4',
+    eyebrow: 'Digital Solutions for Your Business',
+    title: 'Build Smarter. Grow Bigger.',
+    subtitle: 'Innovative websites, creative designs and reliable technology solutions to help your business thrive.',
+    cta_primary_text: 'Explore Services', cta_primary_target: 'tab3',
+    cta_secondary_text: 'Start a Project', cta_secondary_target: 'connect-content',
     trust_items: [
       { icon: 'bi-check-circle-fill', label: 'Mobile-Ready' },
       { icon: 'bi-check-circle-fill', label: '3–7 Day Delivery' },
@@ -204,6 +204,11 @@ function buildTab1() {
       { icon: 'bi-check-circle-fill', label: 'Easy Dashboard Included' },
     ],
   };
+
+  // About blurb for the home "info" card: CMS about first, then the site's own meta description.
+  const aboutBlurb = (window.CMS && window.CMS.about && (window.CMS.about.introduction || window.CMS.about.mission_text))
+    || 'CUDFIRM builds fast, mobile-friendly websites with an easy dashboard for updates, customer messages and growth. Choose our design or bring your own.';
+  const escHtml = (v) => String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
   const gridItems = (items) => items.map(p => {
     const safeImg = p.img.replace(/'/g, "\\'").replace(/"/g, '&quot;');
@@ -216,28 +221,123 @@ function buildTab1() {
   }).join('');
 
   return `
-  <section id="tab1" class="tab-content view">
-    <div class="home-hero">
-      <span class="hero-eyebrow">${hero.eyebrow}</span>
-      <h1 class="hero-title">${hero.title}</h1>
-      <p class="hero-sub">${hero.subtitle}</p>
-      ${hero.image_url ? `<div class="hero-cms-image-wrap"><img src="${hero.image_url}" alt="${(hero.eyebrow || 'CUDFIRM').replace(/"/g, '&quot;')}" class="hero-cms-image" loading="lazy" onclick="openLightbox(this.src, this.alt, null)"><span class="hero-cms-image-hint">Click to enlarge</span></div>` : ''}
-      <div class="hero-cta-row">
-        <button class="btn-hero-primary" onclick="openTab(event,'${hero.cta_primary_target}')">${hero.cta_primary_text}</button>
-        <button class="btn-hero-secondary" onclick="openTab(event,'${hero.cta_secondary_target}')">${hero.cta_secondary_text}</button>
-      </div>
-      <div class="hero-trust-strip" role="list" aria-label="Key facts about CUDFIRM">
-        ${hero.trust_items.map(t => `<span role="listitem"><i class="bi ${t.icon}" aria-hidden="true"></i> ${t.label}</span>`).join('')}
-      </div>
-    </div>
+  <section id="tab1" class="tab-content view em-home">
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+      <defs>
+        <symbol id="em-mark" viewBox="0 0 64 64"><path d="M43 19.5A18.5 18.5 0 1 0 43 44.5" fill="none" stroke="currentColor" stroke-width="8.5" stroke-linecap="round"/><path d="M52 32l5 5-5 5-5-5z" fill="#7BD3A2"/></symbol>
+      </defs>
+    </svg>
 
-    <div class="p-3">
-      <h6 class="sticky-top d-flex align-items-center gap-2 py-2">
+    <div class="em-stage">
+      <div class="home-hero em-hero">
+        <div class="em-hero-bar">
+          <a class="em-brand" href="#" onclick="openTab(event,'tab1');return false;" aria-label="CUDFIRM home">
+            <svg class="em-mark" aria-hidden="true"><use href="#em-mark"/></svg>
+            <span class="em-brand-name">CUDFIRM</span>
+          </a>
+          <button type="button" class="em-burger" data-em-menu aria-label="Open menu" aria-haspopup="true">
+            <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+
+        <h1 class="hero-title">${hero.title}</h1>
+        <span class="hero-eyebrow">${hero.eyebrow}</span>
+
+        <div class="em-hero-art" aria-hidden="true">
+          <svg viewBox="0 0 330 270" role="presentation" focusable="false">
+            <defs>
+              <linearGradient id="emPod" x1="0" x2="1"><stop offset="0" stop-color="#e9efeb"/><stop offset=".55" stop-color="#ffffff"/><stop offset="1" stop-color="#cfd9d3"/></linearGradient>
+              <linearGradient id="emScr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0f6a52"/><stop offset="1" stop-color="#073b2e"/></linearGradient>
+            </defs>
+            <ellipse cx="165" cy="252" rx="150" ry="14" fill="#04251c" opacity=".45"/>
+            <!-- podiums -->
+            <g>
+              <path d="M8 168v34c0 18 50 30 100 30s100-12 100-30v-34z" fill="url(#emPod)"/>
+              <ellipse cx="108" cy="168" rx="100" ry="26" fill="#f6f8f7"/>
+              <path d="M150 112v62c0 16 46 28 92 28s92-12 92-28v-62z" fill="url(#emPod)" transform="translate(-24 -6) scale(.9 1)"/>
+              <path d="M196 196v22c0 14 40 24 80 24s80-10 80-24v-22z" fill="url(#emPod)" transform="translate(-52 0) scale(.82 1)"/>
+              <ellipse cx="258" cy="197" rx="66" ry="17" fill="#f6f8f7"/>
+            </g>
+            <!-- left laptop -->
+            <g transform="translate(24 98) rotate(-4 50 30)">
+              <path d="M4 66 L100 66 L112 76 L-8 76z" fill="#cfd8d3"/>
+              <rect x="10" y="8" width="88" height="58" rx="5" fill="#16211d"/>
+              <rect x="14" y="12" width="80" height="50" rx="3" fill="url(#emScr)"/>
+              <use href="#em-mark" x="42" y="22" width="26" height="26" color="#eaf5ee"/>
+            </g>
+            <!-- centre monitor -->
+            <g transform="translate(128 28)">
+              <rect x="0" y="0" width="112" height="76" rx="6" fill="#16211d"/>
+              <rect x="5" y="5" width="102" height="64" rx="3" fill="url(#emScr)"/>
+              <use href="#em-mark" x="38" y="16" width="36" height="36" color="#eaf5ee"/>
+              <path d="M-6 82 L118 82 L126 90 L-14 90z" fill="#d7dfda"/>
+            </g>
+            <!-- phone -->
+            <g transform="translate(236 78) rotate(3)">
+              <rect x="0" y="0" width="46" height="88" rx="8" fill="#16211d"/>
+              <rect x="4" y="5" width="38" height="78" rx="5" fill="url(#emScr)"/>
+              <use href="#em-mark" x="12" y="26" width="22" height="22" color="#eaf5ee"/>
+            </g>
+          </svg>
+        </div>
+
+        <p class="hero-sub">${hero.subtitle}</p>
+        ${hero.image_url ? `<div class="hero-cms-image-wrap"><img src="${hero.image_url}" alt="${(hero.eyebrow || 'CUDFIRM').replace(/"/g, '&quot;')}" class="hero-cms-image" loading="lazy" onclick="openLightbox(this.src, this.alt, null)"><span class="hero-cms-image-hint">Click to enlarge</span></div>` : ''}
+        <div class="hero-cta-row">
+          <button class="btn-hero-primary" onclick="openTab(event,'${hero.cta_primary_target}')">${hero.cta_primary_text}</button>
+          <button class="btn-hero-secondary" onclick="openTab(event,'${hero.cta_secondary_target}')">${hero.cta_secondary_text}</button>
+        </div>
+        <div class="hero-trust-strip" role="list" aria-label="Key facts about CUDFIRM">
+          ${hero.trust_items.map(t => `<span role="listitem"><i class="bi ${t.icon}" aria-hidden="true"></i> ${t.label}</span>`).join('')}
+        </div>
+      </div>
+
+      <nav class="em-filters" aria-label="Browse CUDFIRM">
+        <button type="button" class="em-pill is-active" data-em-scroll="#emFeatured">All in CUDFIRM</button>
+        <button type="button" class="em-pill" onclick="openTab(event,'tab3')">Services</button>
+        <button type="button" class="em-pill" onclick="openTab(event,'tab4')">Portfolio</button>
+        <button type="button" class="em-home-btn" aria-label="Home" onclick="openTab(event,'tab1')">
+          <svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path d="M12 2.6 1.8 11.4a1 1 0 0 0 .65 1.76H4.5V21a1 1 0 0 0 1 1h4.2v-6h4.6v6h4.2a1 1 0 0 0 1-1v-7.84h2.05a1 1 0 0 0 .65-1.76z" fill="currentColor"/></svg>
+        </button>
+      </nav>
+
+      <h6 class="sticky-top d-flex align-items-center gap-2 py-2 em-hide">
         <span class="badge text-bg-primary">CUDFIRM</span>
         <span style="font-size:0.72rem;color:var(--n-muted);font-weight:400;">Professional websites built to win trust and grow your business.</span>
       </h6>
-      <hr class="my-2 w-25" />
 
+      <!-- Featured work + info cards: large-left / four-small-right, then overlapping info cards -->
+      <div class="home-showcase-grid em-showcase mb-3" id="emFeatured">
+        <!-- Portfolio Highlights (CMS-driven) -->
+        <div class="card card-section em-featured">
+          <div class="card-header">
+            <h3>Websites We Have Built</h3>
+            <button class="btn btn-sm btn-success see-all" onclick="openTab(event,'tab4')">View All</button>
+          </div>
+          <div class="card-content row icon-grid row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-7 row-cols-xl-9 quote0">
+            ${gridItems(portfolio)}
+          </div>
+        </div>
+
+        <!-- Company info card -->
+        <div class="em-about">
+          <p class="em-about-text">${escHtml(aboutBlurb)}</p>
+          <button type="button" class="em-cta" onclick="openTab(event,'connect-content')">Start a Project <span aria-hidden="true">&rarr;</span></button>
+        </div>
+
+        <!-- Services (CMS-driven) -->
+        <div class="card card-section em-services">
+          <div class="card-header">
+            <h3>Our Services</h3>
+            <button class="btn btn-sm btn-primary see-all" onclick="openTab(event,'tab3')">View All</button>
+          </div>
+          <div class="card-content row icon-grid row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-7 row-cols-xl-9 quote0">
+            ${gridItems(services)}
+          </div>
+        </div>
+      </div>
+
+      <div class="p-3 em-more">
       <!-- Why CUDFIRM (Trust Signals) -->
       <div class="card card-section mb-3">
         <div class="card-header">
@@ -264,34 +364,17 @@ function buildTab1() {
         </div>
       </div>
 
-      <!-- Recent Work + Services: stacked on phones, side by side from tablet upward -->
-      <div class="home-showcase-grid mb-3">
-        <!-- Portfolio Highlights -->
-        <div class="card card-section">
-          <div class="card-header">
-            <h3><i class="bi bi-laptop me-1" style="color:var(--n-gold)"></i>Websites We Have Built</h3>
-            <button class="btn btn-sm btn-success see-all" onclick="openTab(event,'tab4')">View All</button>
-          </div>
-          <div class="card-content row icon-grid row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-7 row-cols-xl-9 quote0">
-            ${gridItems(portfolio)}
-          </div>
-        </div>
-
-        <!-- Services -->
-        <div class="card card-section">
-          <div class="card-header">
-            <h3><i class="bi bi-briefcase me-1" style="color:var(--n-gold)"></i>What We Can Build For You</h3>
-            <button class="btn btn-sm btn-primary see-all" onclick="openTab(event,'tab3')">View All</button>
-          </div>
-          <div class="card-content row icon-grid row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-7 row-cols-xl-9 quote0">
-            ${gridItems(services)}
-          </div>
-        </div>
       </div>
     </div>
 
-    <hr class="my-2" />
-    <footer class="footin" role="contentinfo">
+    <footer class="footin em-footer" role="contentinfo">
+      <div class="em-footer-brand">
+        <svg class="em-mark" aria-hidden="true"><use href="#em-mark"/></svg>
+        <div>
+          <div class="em-footer-name">CUDFIRM</div>
+          <p class="footer-tagline">A Better Website. More Control. Less Stress.</p>
+        </div>
+      </div>
       <div class="icons-social">
         <article class="list-social" aria-label="CUDFIRM social links">
           <span class="icons-social__item"><a class="icons-social__link" href="https://codepen.io/cudfirm-group" target="_blank" rel="noopener" aria-label="CUDFIRM on CodePen"><i class="fab fa-codepen" aria-hidden="true"></i></a></span>
@@ -310,7 +393,6 @@ function buildTab1() {
           <a href="mailto:cudfirm@gmail.com" class="footer-legal-link">cudfirm@gmail.com</a>
         </nav>
         <p class="footer-copy">&copy; 2026 CUDFIRM &middot; Business Websites You Can Manage &middot; Lagos, Nigeria</p>
-        <p class="footer-tagline">A Better Website. More Control. Less Stress.</p>
       </div>
     </footer>
   </section>`;

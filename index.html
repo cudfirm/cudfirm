@@ -135,6 +135,8 @@
   <link rel="stylesheet" href="css/ecosystem.css" />
   <!-- Shared app shell: page transitions, install banner, safe-area spacing (loads last) -->
   <link rel="stylesheet" href="css/app-shell.css" />
+  <!-- Emerald visual layer (presentation only; loads last) -->
+  <link rel="stylesheet" href="css/emerald.css" />
 </head>
 
 <body>
@@ -462,9 +464,16 @@
   <script src="js/enquiry-flow.js" defer></script>
   <script src="js/portal-link.js" defer></script>
   <script src="js/v2-nav.js" defer></script>
+  <script src="js/emerald-home.js" defer></script>
 
   <!-- Installable app: service worker + install option -->
   <script src="js/pwa.js" defer></script>
+
+<!-- Vercel Speed Insights -->
+<script>
+  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
 
 </body>
 </html>
