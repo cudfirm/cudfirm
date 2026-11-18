@@ -1,3 +1,10 @@
+## App-style upgrade (PWA)
+- Installable app: `manifest.webmanifest`, brand icons in `img/`, `sw.js` (network-first, so updates are never stuck behind a cache; dashboard, client portal and Supabase calls are never intercepted), `offline.html`, `_headers`, `js/pwa.js` (install button, banner and iOS guide).
+- Shared shell: `css/app-shell.css`, `js/app-shell.js` (bottom navigation on portfolio/blog, Blog added to the homepage bottom bar, page transitions, safe-area spacing).
+- `portfolio.html` now uses the homepage Portfolio-tab cards, pills and preview dialog (via `js/portfolio-ref.js`); items sit side by side on phones.
+- `blog.html`: shutter loader removed; app shell added.
+- Dashboard untouched.
+
 # CUDFIRM Changelog
 
 ## 2.1.0 — CUDFIRM v2: Portfolio, Blog & Resources (October 2026)

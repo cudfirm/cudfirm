@@ -112,6 +112,14 @@
     body.appendChild(mk("div", "pf-cat", p.industry + (p.type ? " \u00B7 " + p.type : "")));
     if (p.problem) { var a = mk("p", "pf-modal-text"); a.appendChild(mk("strong", null, "Problem: ")); a.appendChild(document.createTextNode(p.problem)); body.appendChild(a); }
     if (p.solution) { var b = mk("p", "pf-modal-text"); b.appendChild(mk("strong", null, "Solution: ")); b.appendChild(document.createTextNode(p.solution)); body.appendChild(b); }
+    if (p.mobileSrc) {
+      var mv = mk("div", "pf-modal-mobile");
+      var mi = document.createElement("img");
+      mi.alt = "Mobile view of " + p.name; mi.loading = "lazy"; mi.decoding = "async"; mi.src = p.mobileSrc;
+      mi.addEventListener("error", function () { mv.remove(); });
+      mv.appendChild(mk("span", "pf-cat", "Mobile view")); mv.appendChild(mi);
+      body.appendChild(mv);
+    }
     var actions = mk("div", "pf-modal-actions");
     if (typeof window.openServiceRequest === "function") {
       var req = mk("button", "pf-btn pf-btn-wide", "Request a site like this"); req.type = "button";
@@ -315,6 +323,12 @@
   }
 
   window.CUDFIRMPortfolioGallery = { enhance: enhance, refresh: run };
+  /* Shared with the standalone portfolio.html (js/portfolio.js) so its cards and preview dialog are
+     built by exactly the same code as the homepage Portfolio tab. */
+  window.CUDFIRMPortfolioUI = { buildCard: buildCard, openModal: openModal, catKey: catKey, resolveLink: resolveLink, cleanTag: cleanTag, GENERIC_TAGS: GENERIC_TAGS, ALL: ALL };
+
+  // portfolio.html renders its own cards through the shared UI above; it has no original row to enhance.
+  if (document.body && document.body.getAttribute("data-app-page") === "portfolio") return;
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
   else start();
 })();

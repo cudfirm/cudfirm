@@ -17,20 +17,6 @@ body { background-color: #fdfbf7; color: #1f2937; overflow-x: hidden; }
 .img-zoom { transition: transform .7s ease-in-out; }
 .group:hover .img-zoom { transform: scale(1.05); }
 
-/* Shutter loader */
-#loader-overlay { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; pointer-events: none; }
-#loader-overlay.is-done { display: none; }
-.shutter { position: absolute; background-color: #0f2218; width: 100%; height: 50%; left: 0; transition: transform 1s cubic-bezier(.76, 0, .24, 1); z-index: 10; }
-#shutter-top { top: 0; transform-origin: top; }
-#shutter-bottom { bottom: 0; transform-origin: bottom; }
-#loader-overlay.is-open #shutter-top { transform: translateY(-100%); }
-#loader-overlay.is-open #shutter-bottom { transform: translateY(100%); }
-#loader-content { position: relative; z-index: 20; text-align: center; color: #fdfbf7; mix-blend-mode: difference; transition: opacity .5s; }
-#loader-overlay.is-open #loader-content { opacity: 0; }
-#loader-brand { transition: opacity .7s, transform .7s; transform: translate(-50%, -50%) scale(1.5); }
-#loader-brand.show { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-#loader-count.hide { opacity: 0; transition: opacity .4s; }
-
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 #mobile-menu.is-open { transform: translateX(0); visibility: visible; }
@@ -57,7 +43,7 @@ body { background-color: #fdfbf7; color: #1f2937; overflow-x: hidden; }
 @keyframes sh { 0% { background-position: 100% 0; } 100% { background-position: 0 0; } }
 @media (prefers-reduced-motion: reduce) {
   .animate-ticker, .skel, .animate-pulse { animation: none !important; }
-  .img-zoom, .shutter, #loader-brand { transition: none; }
+  .img-zoom { transition: none; }
   html { scroll-behavior: auto; }
 }
 
@@ -82,7 +68,6 @@ body { background-color: #fdfbf7; color: #1f2937; overflow-x: hidden; }
 [data-theme="dark"] input::placeholder { color: #7f9887; }
 [data-theme="dark"] ::-webkit-scrollbar-track { background: #0a120c; }
 [data-theme="dark"] ::-webkit-scrollbar-thumb { background: #2b4a39; border-color: #0a120c; }
-[data-theme="dark"] #loader-overlay .shutter { background-color: #0a120c; }
 [data-theme="dark"] .bl-body, [data-theme="dark"] .bl-body h2, [data-theme="dark"] .bl-body h3, [data-theme="dark"] .bl-body h4 { color: #d6e4da; }
 [data-theme="dark"] .bl-body a { color: #e8efe9; }
 [data-theme="dark"] .bl-body blockquote { color: #a9bdb0; }
@@ -95,3 +80,14 @@ body { background-color: #fdfbf7; color: #1f2937; overflow-x: hidden; }
 input, select, textarea { font-size: 16px; }
 .bl-field { -webkit-appearance: none; appearance: none; border-radius: 0; max-width: 100%; }
 .bl-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%236b7280' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+
+/* ---------- App-style layout (phones & tablets) ----------
+   The shared bottom bar (js/app-shell.js) is the main navigation, so keep the floating scroll-to-top button
+   clear of it, and keep the page from ever jumping while articles load. */
+#main { min-height: 70vh; }
+@media (max-width: 991.98px) {
+  #scroll-top-btn { bottom: calc(58px + 14px + env(safe-area-inset-bottom, 0px)) !important; right: 14px !important; margin-bottom: 0 !important; }
+}
+@media (max-width: 480px) {
+  #scroll-top-btn { bottom: calc(54px + 14px + env(safe-area-inset-bottom, 0px)) !important; }
+}

@@ -5,7 +5,8 @@
  * left exactly as it is. This isolated script only:
  *   1. Adds a "View all" button at the bottom right of the Portfolio tab (#tab4),
  *      directly above "Start Your Project", that opens portfolio.html.
- *   2. Adds a "Blog & Resources" link to the sidebar and the mobile tab strip.
+ *   2. Adds a "Blog & Resources" link to the sidebar and the mobile tab strip, and a "Blog" item to
+ *      the bottom navigation bar (same bar, same order as the standalone pages' bottom bar).
  * If script.js changes or fails to load, this file does nothing.
  */
 (function () {
@@ -53,13 +54,27 @@
     }
   }
 
-  function run() { addViewAll(); addBlogLinks(); }
+  function addFooterBlog() {
+    var nav = document.getElementById("footerNav");
+    if (!nav || nav.querySelector("[data-v2-blog]") || !nav.children.length) return;
+    var a = document.createElement("a");
+    a.className = "nav-item";
+    a.href = "blog.html";
+    a.setAttribute("data-v2-blog", "");
+    a.setAttribute("aria-label", "Blog and resources");
+    a.innerHTML = '<i class="bi bi-journal-text" aria-hidden="true"></i><span class="nav-label">Blog</span>';
+    // Sit just before "About" (the 4th item) so the order matches the standalone pages: Home, Services, Portfolio, Blog, About, Contact.
+    var before = nav.children[3] || null;
+    nav.insertBefore(a, before);
+  }
+
+  function run() { addViewAll(); addBlogLinks(); addFooterBlog(); }
   run();
   // Sections, sidebar and strip are rendered after the CMS loads; retry briefly until they exist.
   var tries = 0;
   var timer = setInterval(function () {
     run();
-    var ready = document.querySelector("#tab4 [data-v2-viewall]") && document.querySelector("#sidebarTabsContainer [data-v2-blog]") && document.querySelector("#mobileTabStrip [data-v2-blog]");
+    var ready = document.querySelector("#tab4 [data-v2-viewall]") && document.querySelector("#sidebarTabsContainer [data-v2-blog]") && document.querySelector("#mobileTabStrip [data-v2-blog]") && document.querySelector("#footerNav [data-v2-blog]");
     if (ready || ++tries > 40) clearInterval(timer);
   }, 250);
 })();

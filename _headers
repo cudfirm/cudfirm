@@ -1,0 +1,7 @@
+# Honoured by Netlify and Cloudflare static assets. Keeps the service worker and manifest fresh so site updates never get stuck behind a cache.
+/sw.js
+  Cache-Control: no-cache
+  Service-Worker-Allowed: /
+/manifest.webmanifest
+  Content-Type: application/manifest+json
+  Cache-Control: no-cache

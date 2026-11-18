@@ -30,7 +30,7 @@
 -->
 
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>CUDFIRM — Business Websites You Can Manage</title>
   <meta name="description" content="CUDFIRM builds fast, mobile-friendly websites with an easy dashboard for updates, customer messages and growth. Choose our design or bring your own." />
 
@@ -109,7 +109,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" />
 
   <!-- Site Stylesheets -->
-  <link rel="stylesheet" type="text/css" href="css/styles.css?v=20261108" />
+  <link rel="stylesheet" type="text/css" href="css/styles.css" />
   <link rel="stylesheet" type="text/css" href="css/theme-overrides.css" />
 
   <!--
@@ -121,8 +121,20 @@
   <link rel="stylesheet" type="text/css" href="css/modals.css" />
 
   <meta name="theme-color" content="#0B3D2E" />
+
+  <!-- Installable app (PWA) -->
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="CUDFIRM" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="application-name" content="CUDFIRM" />
+
   <link rel="stylesheet" href="css/maintenance.css">
   <link rel="stylesheet" href="css/ecosystem.css" />
+  <!-- Shared app shell: page transitions, install banner, safe-area spacing (loads last) -->
+  <link rel="stylesheet" href="css/app-shell.css" />
 </head>
 
 <body>
@@ -414,7 +426,7 @@
   <script src="js/maintenance-mode.js" defer></script>
 
   <!-- Site scripts (defer = execute after parse, before DOMContentLoaded) -->
-  <script src="js/script.js?v=20261108" defer></script>
+  <script src="js/script.js" defer></script>
 
   <!-- CUDFIRM Extension Module Framework -->
   <script src="js/module-registry.js" defer></script>
@@ -450,6 +462,9 @@
   <script src="js/enquiry-flow.js" defer></script>
   <script src="js/portal-link.js" defer></script>
   <script src="js/v2-nav.js" defer></script>
+
+  <!-- Installable app: service worker + install option -->
+  <script src="js/pwa.js" defer></script>
 
 </body>
 </html>

@@ -1,0 +1,118 @@
+/* =====================================================================
+   CUDFIRM app shell — shared by the public pages (never the dashboard).
+   Loaded AFTER each page's own stylesheets. Additive: every rule is either scoped to a
+   new .ap-* class or is a progressive enhancement (view transitions, safe-area insets).
+   Uses the existing brand tokens: forest #0B3D2E, jade #1A6B4A, gold #C8922A, cream #F5F0E6.
+   ===================================================================== */
+
+/* ---------- 1. Seamless page-to-page transitions ----------
+   Browsers with cross-document view transitions (Chrome / Edge / Safari 18.2+) crossfade between pages and
+   keep the bottom bar fixed in place. Others get a short fade-in on the new page instead. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .16s; animation-timing-function: ease-out; }
+.ap-bottom-nav, .footer-nav { view-transition-name: app-bottom-nav; }
+::view-transition-group(app-bottom-nav) { animation-duration: 0s; }
+
+@supports not (view-transition-name: none) {
+  body[data-app-page] > main, body[data-app-page] > #main { animation: apFadeIn .22s ease-out both; }
+}
+@keyframes apFadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { body[data-app-page] > main, body[data-app-page] > #main { animation: none; } }
+
+/* ---------- 2. App-style touch behaviour ---------- */
+html { -webkit-tap-highlight-color: transparent; }
+a, button, [role="button"], input, select, summary { touch-action: manipulation; }
+.ap-bottom-nav, .footer-nav, .ap-install, .ap-sheet { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+html.is-standalone body { overscroll-behavior-y: none; }          /* installed app: no browser-style pull bounce */
+body.ap-lock { overflow: hidden; }
+
+/* Homepage footer bar: keep it clear of the iPhone home indicator and add Blog as a link */
+.footer-nav { padding-bottom: env(safe-area-inset-bottom, 0px); height: calc(58px + env(safe-area-inset-bottom, 0px)); }
+@media (max-width: 480px) { .footer-nav { height: calc(54px + env(safe-area-inset-bottom, 0px)); } }
+a.nav-item { text-decoration: none; }
+
+/* ---------- 3. Bottom navigation for standalone pages (phones & tablets) ---------- */
+.ap-bottom-nav {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 90;
+  display: flex; align-items: stretch;
+  height: calc(58px + env(safe-area-inset-bottom, 0px)); padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: #FAFAF8; border-top: 1px solid #E8E4DC; box-shadow: 0 -2px 12px rgba(11, 61, 46, .08);
+}
+.ap-bottom-nav a {
+  flex: 1; min-width: 0; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  padding: .3rem .15rem; color: #7A8A72; text-decoration: none; font: 500 .62rem/1.1 "DM Sans", system-ui, sans-serif; letter-spacing: .04em;
+  transition: color .2s, background .2s;
+}
+.ap-bottom-nav a .bi { font-size: 1.2rem; line-height: 1; }
+.ap-bottom-nav a span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.ap-bottom-nav a:hover, .ap-bottom-nav a:active { color: #1A6B4A; background: rgba(11, 61, 46, .04); }
+.ap-bottom-nav a[aria-current="page"] { color: #0B3D2E; font-weight: 600; }
+.ap-bottom-nav a[aria-current="page"]::before { content: ""; position: absolute; top: 0; left: 20%; right: 20%; height: 2.5px; background: #C8922A; border-radius: 0 0 4px 4px; }
+.ap-bottom-nav a:focus-visible { outline: 3px solid #C8922A; outline-offset: -3px; }
+[data-theme="dark"] .ap-bottom-nav { background: #0C1A0F; border-top-color: rgba(46, 102, 64, .4); box-shadow: 0 -2px 12px rgba(6, 14, 8, .4); }
+[data-theme="dark"] .ap-bottom-nav a { color: #7FA882; }
+[data-theme="dark"] .ap-bottom-nav a:hover { color: #D4EAD8; background: rgba(46, 102, 64, .18); }
+[data-theme="dark"] .ap-bottom-nav a[aria-current="page"] { color: #D4A84E; }
+[data-theme="dark"] .ap-bottom-nav a[aria-current="page"]::before { background: #D4A84E; }
+@media (max-width: 480px) { .ap-bottom-nav { height: calc(54px + env(safe-area-inset-bottom, 0px)); } .ap-bottom-nav a { font-size: .58rem; } .ap-bottom-nav a .bi { font-size: 1.1rem; } }
+@media (min-width: 992px) { .ap-bottom-nav { display: none; } }
+
+/* leave room so the last content is never hidden behind the bar */
+@media (max-width: 991.98px) {
+  body.has-ap-nav { padding-bottom: calc(58px + env(safe-area-inset-bottom, 0px)); }
+}
+@media (max-width: 480px) {
+  body.has-ap-nav { padding-bottom: calc(54px + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* ---------- 4. Install banner ---------- */
+.ap-install {
+  position: fixed; z-index: 95; left: 12px; right: 12px; bottom: calc(var(--ap-banner-lift, 12px) + env(safe-area-inset-bottom, 0px));
+  max-width: 440px; margin: 0 auto; display: flex; align-items: center; gap: .7rem; padding: .65rem .7rem .65rem .65rem;
+  background: #FAFAF8; color: #1F2A24; border: 1px solid #D9D3C7; border-radius: 18px; box-shadow: 0 12px 32px -10px rgba(11, 61, 46, .45);
+  font-family: "DM Sans", system-ui, sans-serif; opacity: 0; transform: translateY(14px); transition: opacity .25s, transform .25s;
+}
+.ap-install.is-in { opacity: 1; transform: none; }
+.ap-install-ic { width: 44px; height: 44px; border-radius: 12px; flex: 0 0 44px; }
+.ap-install-tx { flex: 1; min-width: 0; display: grid; gap: 1px; line-height: 1.25; }
+.ap-install-tx strong { font: 700 .92rem "Syne", "DM Sans", sans-serif; color: #0B3D2E; }
+.ap-install-tx span { font-size: .76rem; color: #5E6B60; }
+.ap-install-go { flex: 0 0 auto; min-height: 40px; padding: 0 1.1rem; border: 0; border-radius: 999px; background: #0B3D2E; color: #fff; font: 600 .85rem "DM Sans", system-ui, sans-serif; cursor: pointer; }
+.ap-install-go:hover { background: #1A6B4A; }
+.ap-install-x { flex: 0 0 auto; width: 36px; height: 36px; border: 0; border-radius: 50%; background: transparent; color: #5E6B60; cursor: pointer; display: grid; place-items: center; }
+.ap-install-x:hover { background: rgba(11, 61, 46, .08); }
+.ap-install button:focus-visible, .ap-sheet button:focus-visible { outline: 3px solid #C8922A; outline-offset: 2px; }
+[data-theme="dark"] .ap-install { background: #0C1A0F; color: #D4EAD8; border-color: rgba(46, 102, 64, .5); }
+[data-theme="dark"] .ap-install-tx strong { color: #D4EAD8; }
+[data-theme="dark"] .ap-install-tx span, [data-theme="dark"] .ap-install-x { color: #A5B3AB; }
+[data-theme="dark"] .ap-install-go { background: #2E6640; }
+@media (min-width: 992px) { .ap-install { left: auto; right: 20px; margin: 0; width: 380px; } }
+@media (prefers-reduced-motion: reduce) { .ap-install { transition: none; transform: none; } }
+
+/* ---------- 5. "Add to Home Screen" guide (iPhone / iPad / Safari on Mac) ---------- */
+.ap-sheet { position: fixed; inset: 0; z-index: 2200; display: flex; align-items: flex-end; justify-content: center; font-family: "DM Sans", system-ui, sans-serif; }
+.ap-sheet-bg { position: absolute; inset: 0; background: rgba(11, 22, 18, .55); }
+.ap-sheet-box {
+  position: relative; width: 100%; max-width: 440px; background: #FAFAF8; color: #1F2A24; border-radius: 24px 24px 0 0;
+  padding: 22px 22px calc(22px + env(safe-area-inset-bottom, 0px)); box-shadow: 0 -8px 30px rgba(0, 0, 0, .25); text-align: center; animation: apSheetUp .28s ease-out both;
+}
+@keyframes apSheetUp { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+.ap-sheet-x { position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; border: 0; border-radius: 50%; background: transparent; color: #5E6B60; font-size: 1rem; cursor: pointer; }
+.ap-sheet-ic { width: 56px; height: 56px; border-radius: 15px; margin: 0 auto 10px; }
+.ap-sheet-box h2 { margin: 0 0 12px; font: 800 1.2rem "Syne", "DM Sans", sans-serif; color: #0B3D2E; }
+.ap-sheet-box ol { list-style: none; counter-reset: s; margin: 0 0 18px; padding: 0; text-align: left; display: grid; gap: 10px; }
+.ap-sheet-box li { counter-increment: s; display: flex; gap: .7rem; align-items: flex-start; font-size: .92rem; line-height: 1.45; }
+.ap-sheet-box li::before { content: counter(s); flex: 0 0 26px; height: 26px; border-radius: 50%; background: #0B3D2E; color: #E8B84B; display: grid; place-items: center; font: 700 .8rem "DM Sans", sans-serif; }
+.ap-sheet-ok { width: 100%; }
+[data-theme="dark"] .ap-sheet-box { background: #0C1A0F; color: #D4EAD8; }
+[data-theme="dark"] .ap-sheet-box h2 { color: #D4EAD8; }
+[data-theme="dark"] .ap-sheet-x { color: #A5B3AB; }
+@media (min-width: 640px) { .ap-sheet { align-items: center; } .ap-sheet-box { border-radius: 24px; } }
+@media (prefers-reduced-motion: reduce) { .ap-sheet-box { animation: none; } }
+
+/* ---------- 6. Hide install UI where the site already runs as an app ---------- */
+html.is-standalone [data-install-app], html.is-standalone .ap-install { display: none !important; }
+
+.ap-install-x, .ap-sheet-x { font-size: 1.5rem; line-height: 1; }

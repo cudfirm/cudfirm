@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en-NG">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>You are offline | CUDFIRM</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#0B3D2E" />
+  <link rel="icon" type="image/png" href="img/favicon-32.png" />
+  <style>
+    :root { color-scheme: light dark; }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; min-height: 100dvh; display: grid; place-items: center; padding: 24px; font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif; background: #F5F0E6; color: #3A4035; }
+    main { max-width: 420px; text-align: center; }
+    .mark { width: 72px; height: 72px; margin: 0 auto 18px; border-radius: 20px; background: #0B3D2E; display: grid; place-items: center; box-shadow: 0 10px 24px -10px rgba(11,61,46,.5); }
+    .mark img { width: 72px; height: 72px; border-radius: 20px; }
+    h1 { margin: 0 0 8px; font: 800 1.5rem/1.2 "Syne", system-ui, sans-serif; color: #0B3D2E; }
+    p { margin: 0 0 20px; line-height: 1.55; }
+    button, a.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 24px; border-radius: 999px; border: 0; background: #0B3D2E; color: #fff; font: 600 .95rem "DM Sans", system-ui, sans-serif; text-decoration: none; cursor: pointer; }
+    button:focus-visible, a.btn:focus-visible { outline: 3px solid #C8922A; outline-offset: 2px; }
+    @media (prefers-color-scheme: dark) { body { background: #060E08; color: #D4EAD8; } h1 { color: #D4EAD8; } button, a.btn { background: #2E6640; } }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="mark"><img src="img/icon-192.png" width="72" height="72" alt="" /></div>
+    <h1>You&rsquo;re offline</h1>
+    <p>This page isn&rsquo;t saved on your device yet. Check your connection and try again &mdash; pages you have already visited will open without internet.</p>
+    <button type="button" onclick="location.reload()">Try again</button>
+  </main>
+</body>
+</html>

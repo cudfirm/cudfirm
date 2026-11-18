@@ -94,35 +94,11 @@
     return doc.body.innerHTML;
   }
 
-  /* ---------- page chrome (loader, menus, search overlay, scroll-top) ---------- */
+  /* ---------- page chrome (menus, search overlay, scroll-top) ---------- */
   function initChrome() {
     var dateEl = $("current-date");
     if (dateEl) dateEl.textContent = new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "short" });
     var y = $("v2Year"); if (y) y.textContent = new Date().getFullYear();
-
-    // Loader: first visit of a session only, never with reduced motion.
-    var overlay = $("loader-overlay");
-    if (overlay) {
-      var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      var seen = false;
-      try { seen = sessionStorage.getItem("cudblog_loader") === "1"; } catch (e) { /* storage blocked */ }
-      if (reduce || seen) overlay.classList.add("is-done");
-      else {
-        try { sessionStorage.setItem("cudblog_loader", "1"); } catch (e) { /* ignore */ }
-        var count = $("loader-count"), n = 0;
-        var tick = setInterval(function () {
-          n = Math.min(100, n + 4);
-          if (count) count.textContent = String(n);
-          if (n >= 100) {
-            clearInterval(tick);
-            if (count) count.classList.add("hide");
-            $("loader-brand").classList.add("show");
-            setTimeout(function () { overlay.classList.add("is-open"); }, 650);
-            setTimeout(function () { overlay.classList.add("is-done"); }, 1900);
-          }
-        }, 36);
-      }
-    }
 
     // Light / dark theme (same storage key as the homepage and portfolio)
     var root = document.documentElement, tIcon = $("theme-icon"), tBtn = $("theme-toggle");

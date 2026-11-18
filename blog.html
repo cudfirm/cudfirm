@@ -42,6 +42,13 @@
   <meta property="og:image" content="https://cudfirm.netlify.app/img/cudfirm.webp" />
   <meta name="twitter:card" content="summary" />
   <link rel="icon" type="image/webp" href="img/cudfirm.webp" />
+  <meta name="theme-color" content="#0B3D2E" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="CUDFIRM" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <script>try{var t=localStorage.getItem("cudfirm_theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
@@ -49,19 +56,11 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
   <link rel="stylesheet" href="css/blog-tw.css" />
   <link rel="stylesheet" href="css/blog.css" />
+  <!-- Shared app shell: bottom navigation, page transitions, install banner (loads last) -->
+  <link rel="stylesheet" href="css/app-shell.css" />
 </head>
-<body class="antialiased font-sans bg-brand-bg text-brand-text">
+<body class="antialiased font-sans bg-brand-bg text-brand-text" data-app-page="blog">
   <a href="#main" class="skip-link">Skip to content</a>
-
-  <!-- SHUTTER LOADER (first visit of a session only) -->
-  <div id="loader-overlay" aria-hidden="true">
-    <div id="shutter-top" class="shutter"></div>
-    <div id="shutter-bottom" class="shutter"></div>
-    <div id="loader-content" class="flex flex-col items-center">
-      <span id="loader-count" class="font-mono text-6xl md:text-9xl font-bold">0</span>
-      <span id="loader-brand" class="font-serif text-4xl md:text-6xl tracking-widest mt-4 opacity-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">CUDBLOG</span>
-    </div>
-  </div>
 
   <!-- Search overlay -->
   <div id="search-overlay" role="dialog" aria-modal="true" aria-label="Search the journal" class="fixed inset-0 bg-brand-dark/95 z-[60] hidden flex-col items-center justify-start md:justify-center px-4 pt-24 pb-8 md:p-6 opacity-0 transition-opacity duration-300 overflow-y-auto">
@@ -120,6 +119,7 @@
       </nav>
       <div class="flex items-center gap-4 md:gap-5 text-brand-dark">
         <a href="index.html" aria-label="Back to the CUDFIRM home page" title="Home" class="hover:text-brand-accent transition-colors"><i class="bi bi-house-door text-xl"></i></a>
+        <button type="button" data-install-app hidden aria-label="Install CUDFIRM app" title="Install app" class="hover:text-brand-accent transition-colors"><i class="bi bi-download text-xl" aria-hidden="true"></i></button>
         <button id="theme-toggle" type="button" aria-label="Switch to dark mode" title="Light / dark mode" class="hover:text-brand-accent transition-colors"><i id="theme-icon" class="bi bi-moon-fill text-xl" aria-hidden="true"></i></button>
         <button id="search-trigger" type="button" aria-label="Open search" class="hover:text-brand-accent transition-colors"><i class="bi bi-search text-xl"></i></button>
         <a href="index.html#connect-content" class="hidden md:inline-block px-5 py-2 border border-brand-dark text-xs font-bold uppercase tracking-widest hover:bg-brand-dark hover:text-white transition-colors">Start a project</a>
@@ -346,5 +346,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase.js"></script>
   <script src="js/blog.js" defer></script>
+  <script src="js/app-shell.js"></script>
+  <script src="js/pwa.js" defer></script>
 </body>
 </html>
