@@ -81,13 +81,14 @@ body { background: var(--em-bg); font-family: var(--em-sans); }
 }
 .content-header .breadcrumb-trail { display: none; }               /* trail stays in the DOM for scripts; the pill carries navigation */
 
-.em-pill-links {
+.em-pill-links { display: flex; align-items: center; flex: 1 1 auto; min-width: 0; }
+.em-pill-scroll {
   display: flex; align-items: center; gap: .15rem; flex: 1 1 auto; min-width: 0;
   overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
-  -webkit-mask-image: linear-gradient(90deg, #000 90%, transparent);
-          mask-image: linear-gradient(90deg, #000 90%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, #000 88%, transparent);
 }
-.em-pill-links::-webkit-scrollbar { display: none; }
+.em-pill-scroll::-webkit-scrollbar { display: none; }
 .em-pill-links a, .em-pill-links button {
   flex: 0 0 auto; background: none; border: 0; color: #f4f7f1; text-decoration: none; cursor: pointer;
   font: 500 .92rem/1 var(--em-sans); padding: .7rem .72rem; border-radius: 999px; white-space: nowrap;
@@ -416,7 +417,7 @@ body { background: var(--em-bg); font-family: var(--em-sans); }
 @media (min-width: 1024px) {
   .content-header.custom-header-gradient, .content-header { margin: 14px 20px 8px; padding-left: 30px; }
   .em-pill-links a, .em-pill-links button { font-size: 1rem; padding: .75rem 1rem; }
-  .em-pill-links { -webkit-mask-image: none; mask-image: none; }
+  .em-pill-scroll { -webkit-mask-image: none; mask-image: none; }
   .home-hero .hero-title { font-size: clamp(2.6rem, 4.4vw, 4rem); }
   .home-hero .hero-eyebrow { font-size: 1.45rem; }
   .em-hero-art { margin-right: 0; }
@@ -466,3 +467,61 @@ body { background: var(--em-bg); font-family: var(--em-sans); }
 [data-theme="dark"] .content-header .search-container { border-color: rgba(212,168,78,.3); }
 .item-content h6, .list-item h6, .tab-content .card h6 { color: var(--em-ink); }
 [data-theme="dark"] .tab-content .card-content, [data-theme="dark"] .tab-content .list-item { color: #D4EAD8; }
+
+/* Inner tabs keep the original flat card look (no panel framing). */
+.tab-content .alert { border-radius: 18px; border: 1.5px solid var(--em-line); background: var(--em-card-a); color: var(--em-ink); }
+.tab-content:not(#tab1) > .card-section { background: linear-gradient(160deg, var(--em-card-a), var(--em-card-b)); }
+
+/* Never let a tab bleed wider than the phone screen */
+.content-main { overflow-x: hidden; }
+.tab-content { max-width: 100%; min-width: 0; }
+
+/* Phones: card lists become a two-column grid (cards side by side, like the "Why Choose CUDFIRM" block) */
+@media (max-width: 767.98px) {
+  #tab2 > .row, #tab9 > .row, #tab17 > .row,
+  #tab5 > .d-flex.flex-column, #tab13 > .d-flex.flex-column {
+    display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: start;
+    margin: 0 !important; padding: 0 0 14px !important; width: 100%; max-width: 100%;
+  }
+  #tab2 > .row, #tab9 > .row, #tab17 > .row { --bs-gutter-x: 0; --bs-gutter-y: 0; }
+  #tab2 > .row > *, #tab9 > .row > *, #tab17 > .row > *,
+  #tab5 > .d-flex > *, #tab13 > .d-flex > * { width: auto !important; max-width: none !important; min-width: 0; margin: 0 !important; padding-left: 0; padding-right: 0; }
+  #tab2 > .row > *, #tab9 > .row > *, #tab17 > .row > * { padding: 0; }
+  #tab2 > .row > * > .card, #tab9 > .row > * > .card, #tab17 > .row > * > .card { height: 100%; }
+  /* centred, stacked card content (icon on top, then title and text) as in the Why Choose cards */
+  #tab2 .card, #tab5 .card, #tab9 .card, #tab17 .card {
+    flex-direction: column !important; align-items: center !important; text-align: center; gap: .5rem !important; padding: 1rem .75rem !important;
+  }
+  #tab5 .card .d-flex, #tab2 .card .d-flex { flex-direction: column !important; align-items: center !important; }
+  #tab20 .card-section { margin-bottom: 1rem; }
+}
+/* readable text inside the light/dark cards of every inner tab */
+#tab2 .card *, #tab3 .card *, #tab5 .card *, #tab9 .card *, #tab13 .card *, #tab17 .card * { text-shadow: none; }
+#tab2 .card p, #tab5 .card p, #tab9 .card p, #tab13 .card p, #tab17 .card p, #tab9 .card [class*="text-muted"], #tab9 .card div, #tab9 .card span:not(.badge):not([class*="avatar"]) { color: var(--em-ink-soft) !important; }
+#tab2 .card h5, #tab2 .card h6, #tab5 .card h5, #tab5 .card h6, #tab9 .card h5, #tab9 .card h6, #tab9 .card strong, #tab13 .card h5, #tab13 .card h6, #tab17 .card h5, #tab17 .card h6 { color: var(--em-ink) !important; }
+#tab9 .card [class*="avatar"], #tab9 .card [class*="initial"] { color: #fff !important; }
+[data-theme="dark"] #tab9 .card [class*="avatar"], [data-theme="dark"] #tab9 .card [class*="initial"] { color: #D4EAD8 !important; }
+
+/* =====================================================================
+   SERVICES tab only: each service is laid out exactly like an About Us card
+   (full-width card, header band with the title, body text below).
+   ===================================================================== */
+#tab3 > .p-3 { display: block !important; padding: 12px !important; }
+#tab3 .list-item {
+  display: block; padding: 0; margin: 0 0 1rem; overflow: hidden; text-align: left;
+  background: linear-gradient(160deg, var(--em-card-a), var(--em-card-b)); color: var(--em-ink);
+  border: 1.5px solid var(--em-line); border-radius: 26px; box-shadow: var(--em-shadow-sm);
+}
+#tab3 .list-item:hover { transform: none; }
+#tab3 .list-item .item-icon {            /* = About card-header */
+  display: block; width: auto; height: auto; min-width: 0; margin: 0; padding: .9rem 1.1rem; border: 0; border-radius: 0; background: none; box-shadow: none;
+  border-bottom: 1.5px solid var(--em-line); text-align: left;
+  font: 800 .95rem/1.2 var(--em-display); letter-spacing: .02em; text-transform: uppercase; color: var(--n-forest);
+}
+[data-theme="dark"] #tab3 .list-item .item-icon { color: #D4EAD8; }
+#tab3 .list-item .item-content { display: flex !important; flex-direction: row !important; align-items: flex-end !important; justify-content: space-between; gap: .75rem; padding: 1rem 1.1rem .5rem; width: auto; }
+#tab3 .list-item .item-content h6 {      /* = About card-content paragraph */
+  font: 400 .85rem/1.75 var(--em-sans) !important; color: var(--n-muted) !important; margin: 0 0 .5rem !important; text-align: left;
+}
+#tab3 .list-item .item-content span[style*="Syne"] { font-size: .9rem !important; }
+#tab3 .list-item > p { padding: 0 1.1rem 1.05rem; margin: 0; text-align: left; font-size: .72rem; color: var(--n-muted); }

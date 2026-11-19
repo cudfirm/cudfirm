@@ -33,6 +33,9 @@
     var nav = document.createElement("nav");
     nav.className = "em-pill-links";
     nav.setAttribute("aria-label", "Main navigation");
+    var scroller = document.createElement("div");   // the fade mask lives on this inner scroller, so the pill's own background stays solid
+    scroller.className = "em-pill-scroll";
+    nav.appendChild(scroller);
     PILL_LINKS.forEach(function (item) {
       var el;
       if (item.tab) {
@@ -49,7 +52,7 @@
         }
       }
       el.textContent = item.label;
-      nav.appendChild(el);
+      scroller.appendChild(el);
     });
     header.insertBefore(nav, header.firstChild);
     markCurrent();

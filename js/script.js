@@ -1440,10 +1440,9 @@ function openTab(event, tabId) {
   if (isSidebarTab) {
     const sidebarButton = document.querySelector(`.tab-button[onclick*="'${tabId}'"]`);
     if (sidebarButton) sidebarButton.classList.add('active');
-    if (tabId === 'tab1') {
-      const homeFooterButton = document.querySelector('.nav-item[onclick*="tab1"]');
-      if (homeFooterButton) homeFooterButton.classList.add('active');
-    }
+    // Highlight the matching bottom-bar item for every sidebar tab (Home, Services, Portfolio, About...), not only Home.
+    const sidebarFooterButton = document.querySelector(`.nav-item[onclick*="'${tabId}'"]`);
+    if (sidebarFooterButton) sidebarFooterButton.classList.add('active');
   } else {
     const footerButton = document.querySelector(`.nav-item[onclick*="'${tabId}'"]`);
     if (footerButton) footerButton.classList.add('active');
@@ -2019,6 +2018,9 @@ function initKeyboardShortcuts() {
 // NEEEEEEEEEEEEEEEW
 
 function initSwipeNavigation() {
+  // Swipe-to-change-tab has been intentionally disabled: horizontal swipes now only scroll content (e.g. card rows).
+  return;
+  // eslint-disable-next-line no-unreachable
   const contentMain = document.querySelector('.content-main');
   if (!contentMain) return;
   let startX = 0, startY = 0, swipeLocked = false;
